@@ -43,6 +43,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -126,6 +127,10 @@ public class CreateTorrentFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (activity == null) {
+            activity = (MainActivity) requireActivity();
+        }
+
         var provider = new ViewModelProvider(this);
         viewModel = provider.get(CreateTorrentViewModel.class);
 
@@ -145,6 +150,8 @@ public class CreateTorrentFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
 
         initLayoutView();
     }

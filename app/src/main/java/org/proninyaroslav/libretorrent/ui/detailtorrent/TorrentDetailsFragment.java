@@ -53,8 +53,8 @@ import org.proninyaroslav.libretorrent.ui.DeleteTorrentDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.MainActivity;
-import org.proninyaroslav.libretorrent.ui.home.NavBarFragment;
-import org.proninyaroslav.libretorrent.ui.home.NavBarFragmentDirections;
+import org.proninyaroslav.libretorrent.ui.NavBarFragment;
+import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 
 import java.io.IOException;
 

@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/navBarFragment"
-        android:name="org.proninyaroslav.libretorrent.ui.home.NavBarFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.NavBarFragment"
         android:label="NavBarFragment">
         <action
             android:id="@+id/action_open_file_dialog"

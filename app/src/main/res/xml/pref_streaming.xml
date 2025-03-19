@@ -2,26 +2,27 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.SwitchBarPreference
         android:key="@string/pref_key_streaming_enable"
-        android:title="@string/pref_streaming_enable_title"
-        android:summary="@string/pref_streaming_enable_summary"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:persistent="false"
+        android:summary="@string/pref_enable_streaming"
+        app:singleLineTitle="false" />
 
     <EditTextPreference
-        android:key="@string/pref_key_streaming_hostname"
-        android:title="@string/pref_streaming_hostname"
+        android:dependency="@string/pref_key_streaming_enable"
         android:inputType="text|textNoSuggestions"
-        android:dependency="@string/pref_key_streaming_enable"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:key="@string/pref_key_streaming_hostname"
+        android:persistent="false"
+        android:title="@string/pref_streaming_hostname"
+        app:singleLineTitle="false" />
 
     <EditTextPreference
-        android:key="@string/pref_key_streaming_port"
-        android:title="@string/pref_streaming_port"
-        android:inputType="numberDecimal"
         android:dependency="@string/pref_key_streaming_enable"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:inputType="numberDecimal"
+        android:key="@string/pref_key_streaming_port"
+        android:persistent="false"
+        android:title="@string/pref_streaming_port"
+        app:singleLineTitle="false" />
+
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.SummaryPreference android:summary="@string/pref_streaming_enable_summary" />
 </PreferenceScreen>

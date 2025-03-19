@@ -32,8 +32,8 @@
 
                 <ImageView
                     android:id="@+id/status_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:contentDescription="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
 
                 <TextView
                     android:id="@+id/files_size"
-                    style="?attr/textAppearanceTitleSmall"
+                    style="?attr/textAppearanceLabelMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -55,7 +55,7 @@
 
                 <TextView
                     android:id="@+id/free_space"
-                    style="?attr/textAppearanceBodySmall"
+                    style="?attr/textAppearanceLabelSmall"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -80,7 +80,8 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/status_string"
                 android:clipToPadding="false"
-                android:paddingVertical="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="@dimen/bottom_bar_padding"
                 android:scrollbars="vertical"
                 android:visibility="@{viewModel.info.fileCount == 0 ? View.GONE : View.VISIBLE}"
                 tools:itemCount="3"

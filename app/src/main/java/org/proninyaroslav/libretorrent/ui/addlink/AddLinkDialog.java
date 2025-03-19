@@ -51,7 +51,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogAddLinkBinding;
 import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
 import org.proninyaroslav.libretorrent.MainActivity;
-import org.proninyaroslav.libretorrent.ui.home.NavBarFragmentDirections;
+import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 
 public class AddLinkDialog extends DialogFragment {
     private static final String TAG = AddLinkDialog.class.getSimpleName();

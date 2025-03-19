@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,15 +7,11 @@
 
     <action
         android:id="@+id/action_open_blank"
-        app:destination="@id/blankFragment"
-        app:popUpTo="@id/blankFragment"
-        app:popUpToInclusive="true" />
+        app:destination="@id/blankFragment" />
 
     <action
-        android:id="@+id/action_open_torrent_details"
-        app:destination="@id/torrentDetailsFragment"
-        app:popUpTo="@id/blankFragment"
-        app:popUpToInclusive="true" />
+        android:id="@+id/action_torrent_details"
+        app:destination="@id/torrentDetailsFragment" />
 
     <fragment
         android:id="@+id/blankFragment"
@@ -155,7 +152,7 @@
         android:id="@+id/speedLimitDialog"
         android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.SpeedLimitDialog"
         android:label="SpeedLimitDialog"
-        tools:layout="@layout/dialog_speed_limit" >
+        tools:layout="@layout/dialog_speed_limit">
         <argument
             android:name="fragment_request_key"
             app:argType="string" />

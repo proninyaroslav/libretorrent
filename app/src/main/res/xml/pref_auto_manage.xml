@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.SwitchBarPreference
+        android:key="@string/pref_key_auto_manage"
+        android:persistent="false"
+        android:summary="@string/pref_enable_auto_manage_title"
+        app:singleLineTitle="false" />
+
+    <EditTextPreference
+        android:dependency="@string/pref_key_auto_manage"
+        android:inputType="numberDecimal|numberSigned"
+        android:key="@string/pref_key_max_active_downloads"
+        android:persistent="false"
+        android:title="@string/pref_max_active_downloads_title"
+        app:singleLineTitle="false" />
+
+    <EditTextPreference
+        android:dependency="@string/pref_key_auto_manage"
+        android:inputType="numberDecimal|numberSigned"
+        android:key="@string/pref_key_max_active_uploads"
+        android:persistent="false"
+        android:title="@string/pref_max_active_uploads_title"
+        app:singleLineTitle="false" />
+
+    <EditTextPreference
+        android:dependency="@string/pref_key_auto_manage"
+        android:inputType="numberDecimal|numberSigned"
+        android:key="@string/pref_key_max_active_torrents"
+        android:persistent="false"
+        android:title="@string/pref_max_active_torrents_title"
+        app:singleLineTitle="false" />
+
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.SummaryPreference android:summary="@string/pref_auto_manage_summary" />
+</PreferenceScreen>

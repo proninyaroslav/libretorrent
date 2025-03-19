@@ -17,24 +17,31 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.home;
+package org.proninyaroslav.libretorrent.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.transition.TransitionManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.motion.MotionUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigationrail.NavigationRailView;
+import com.google.android.material.transition.MaterialFade;
+import com.google.common.collect.Lists;
 
 import org.proninyaroslav.libretorrent.R;
 
@@ -45,12 +52,19 @@ public class NavBarFragment extends Fragment {
     private NavigationView navigationView;
 
     public void setNavRailHeaderView(@NonNull View view) {
-        if (!isAdded()) {
+        if (!isAdded() || navRail == null) {
             return;
         }
-        if (navRail != null) {
-            navRail.addHeaderView(view);
+        animateHeaderTransition();
+        navRail.addHeaderView(view);
+    }
+
+    public void removeNavRailHeaderView() {
+        if (!isAdded() || navRail == null) {
+            return;
         }
+        animateHeaderTransition();
+        navRail.removeHeaderView();
     }
 
     @NonNull
@@ -79,14 +93,47 @@ public class NavBarFragment extends Fragment {
         }
 
         drawerLayout = view.findViewById(R.id.drawer_layout);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         navigationView = view.findViewById(R.id.navigation_view);
         navRail = view.findViewById(R.id.navigation_rail);
         BottomNavigationView bottomNav = view.findViewById(R.id.bottom_navigation);
         if (navRail != null) {
             NavigationUI.setupWithNavController(navRail, navController);
+            navRail.setOnItemSelectedListener(this::onNavigationItemSelected);
         }
         if (bottomNav != null) {
             NavigationUI.setupWithNavController(bottomNav, navController);
+            bottomNav.setOnItemSelectedListener(this::onNavigationItemSelected);
         }
+    }
+
+    private boolean matchDestination(NavDestination dest, @IdRes int destId) {
+        if (dest == null) {
+            return false;
+        } else {
+            return NavigationUI.matchDestination$navigation_ui_release(dest, destId);
+        }
+    }
+
+    private void animateHeaderTransition() {
+        var duration = MotionUtils.resolveThemeDuration(
+                requireContext(),
+                R.attr.motionDurationShort3,
+                400
+        );
+        var fade = new MaterialFade();
+        fade.setDuration(duration);
+        TransitionManager.beginDelayedTransition(navRail, fade);
+    }
+
+    private boolean onNavigationItemSelected(MenuItem item) {
+        var prevDest = navController.getCurrentDestination();
+        var isNavigated = NavigationUI.onNavDestinationSelected(item, navController);
+        if (isNavigated && !matchDestination(prevDest, item.getItemId())) {
+            removeNavRailHeaderView();
+            navigationView.removeAllViews();
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+        return isNavigated;
     }
 }

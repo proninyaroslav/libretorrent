@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,53 +17,48 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.settings.sections;
+package org.proninyaroslav.libretorrent.ui.settings.pages;
 
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SwitchPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SessionSettings;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.ui.settings.CustomPreferenceFragment;
 
-public class LimitationsSettingsFragment extends PreferenceFragmentCompat
-        implements Preference.OnPreferenceChangeListener
-{
+public class LimitationsSettingsFragment extends CustomPreferenceFragment
+        implements Preference.OnPreferenceChangeListener {
     private static final String TAG = LimitationsSettingsFragment.class.getSimpleName();
+
+    private static final String KEY_AUTO_MANAGE_SETTINGS_REQUEST = TAG + "_auto_manage_settings";
 
     private SettingsRepository pref;
 
-    public static LimitationsSettingsFragment newInstance()
-    {
-        LimitationsSettingsFragment fragment = new LimitationsSettingsFragment();
-        fragment.setArguments(new Bundle());
-
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
+        pref = RepositoryHelper.getSettingsRepository(requireContext().getApplicationContext());
 
-        InputFilter[] speedFilter = new InputFilter[] { InputFilterRange.UNSIGNED_INT };
-        InputFilter[] queueingFilter = new InputFilter[] {
+        InputFilter[] speedFilter = new InputFilter[]{InputFilterRange.UNSIGNED_INT};
+        InputFilter[] queueingFilter = new InputFilter[]{
                 new InputFilterRange.Builder()
                         .setMin(-1)
                         .setMax(Integer.MAX_VALUE)
                         .build()
         };
-        InputFilter[] maxFilter = new InputFilter[] {
+        InputFilter[] maxFilter = new InputFilter[]{
                 new InputFilterRange.Builder()
                         .setMax(Integer.MAX_VALUE)
                         .build()
@@ -103,43 +98,16 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         }
 
         String keyAutoManage = getString(R.string.pref_key_auto_manage);
-        SwitchPreferenceCompat autoManage = findPreference(keyAutoManage);
+        var autoManage = findPreference(keyAutoManage);
         if (autoManage != null) {
-            autoManage.setChecked(pref.autoManage());
-            bindOnPreferenceChangeListener(autoManage);
-        }
-
-        String keyMaxActiveUploads = getString(R.string.pref_key_max_active_uploads);
-        EditTextPreference maxActiveUploads  = findPreference(keyMaxActiveUploads);
-        if (maxActiveUploads != null) {
-            maxActiveUploads.setDialogMessage(R.string.pref_max_active_uploads_downloads_dialog_msg);
-            String value = Integer.toString(pref.maxActiveUploads());
-            maxActiveUploads.setOnBindEditTextListener((editText) -> editText.setFilters(queueingFilter));
-            maxActiveUploads.setSummary(value);
-            maxActiveUploads.setText(value);
-            bindOnPreferenceChangeListener(maxActiveUploads);
-        }
-
-        String keyMaxActiveDownloads = getString(R.string.pref_key_max_active_downloads);
-        EditTextPreference maxActiveDownloads  = findPreference(keyMaxActiveDownloads);
-        if (maxActiveDownloads != null) {
-            maxActiveDownloads.setDialogMessage(R.string.pref_max_active_uploads_downloads_dialog_msg);
-            String value = Integer.toString(pref.maxActiveDownloads());
-            maxActiveDownloads.setOnBindEditTextListener((editText) -> editText.setFilters(queueingFilter));
-            maxActiveDownloads.setSummary(value);
-            maxActiveDownloads.setText(value);
-            bindOnPreferenceChangeListener(maxActiveDownloads);
-        }
-
-        String keyMaxActiveTorrents = getString(R.string.pref_key_max_active_torrents);
-        EditTextPreference maxActiveTorrents  = findPreference(keyMaxActiveTorrents);
-        if (maxActiveTorrents != null) {
-            maxActiveTorrents.setDialogMessage(R.string.pref_max_active_uploads_downloads_dialog_msg);
-            String value = Integer.toString(pref.maxActiveTorrents());
-            maxActiveTorrents.setOnBindEditTextListener((editText) -> editText.setFilters(queueingFilter));
-            maxActiveTorrents.setSummary(value);
-            maxActiveTorrents.setText(value);
-            bindOnPreferenceChangeListener(maxActiveTorrents);
+            autoManage.setSummary(pref.autoManage() ? R.string.switch_on : R.string.switch_off);
+            autoManage.setOnPreferenceClickListener((p) -> {
+                var action = LimitationsSettingsFragmentDirections.actionAutoManageSettings(
+                        KEY_AUTO_MANAGE_SETTINGS_REQUEST
+                );
+                NavHostFragment.findNavController(this).navigate(action);
+                return true;
+            });
         }
 
         String keyMaxConnectionsPerTorrent = getString(R.string.pref_key_max_connections_per_torrent);
@@ -163,22 +131,42 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
             maxUploadsPerTorrent.setText(value);
             bindOnPreferenceChangeListener(maxUploadsPerTorrent);
         }
+
+        setAutoManageSettingsListener();
+    }
+
+    private void setAutoManageSettingsListener() {
+        getParentFragmentManager().setFragmentResultListener(
+                KEY_AUTO_MANAGE_SETTINGS_REQUEST,
+                this,
+                (requestKey, result) -> {
+                    boolean enabled = result.getBoolean(AutoManageSettingsFragment.KEY_RESULT);
+                    var autoManage = findPreference(getString(R.string.pref_key_auto_manage));
+                    if (autoManage != null) {
+                        autoManage.setSummary(enabled ? R.string.switch_on : R.string.switch_off);
+                    }
+                }
+        );
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
-    {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.appBar.setTitle(R.string.pref_header_limitations);
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.pref_limitations, rootKey);
     }
 
-    private void bindOnPreferenceChangeListener(Preference preference)
-    {
+    private void bindOnPreferenceChangeListener(Preference preference) {
         preference.setOnPreferenceChangeListener(this);
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue)
-    {
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference.getKey().equals(getString(R.string.pref_key_max_connections))) {
             int value = parseMaxConnectionValue(newValue);
             pref.maxConnections(value);
@@ -192,8 +180,8 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_upload_speed))) {
             int value = 0;
             int summary = 0;
-            if (!TextUtils.isEmpty((String)newValue)) {
-                summary = Integer.parseInt((String)newValue);
+            if (!TextUtils.isEmpty((String) newValue)) {
+                summary = Integer.parseInt((String) newValue);
                 value = summary * 1024;
             }
             pref.maxUploadSpeedLimit(value);
@@ -202,50 +190,25 @@ public class LimitationsSettingsFragment extends PreferenceFragmentCompat
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_download_speed))) {
             int value = 0;
             int summary = 0;
-            if (!TextUtils.isEmpty((String)newValue)) {
-                summary = Integer.parseInt((String)newValue);
+            if (!TextUtils.isEmpty((String) newValue)) {
+                summary = Integer.parseInt((String) newValue);
                 value = summary * 1024;
             }
             pref.maxDownloadSpeedLimit(value);
             preference.setSummary(Integer.toString(summary));
 
-        } else if (preference.getKey().equals(getString(R.string.pref_key_max_active_downloads))) {
-            int value = 1;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
-            pref.maxActiveDownloads(value);
-            preference.setSummary(Integer.toString(value));
-
-        } else if (preference.getKey().equals(getString(R.string.pref_key_max_active_uploads))) {
-            int value = 1;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
-            pref.maxActiveUploads(value);
-            preference.setSummary(Integer.toString(value));
-
-        } else if (preference.getKey().equals(getString(R.string.pref_key_max_active_torrents))) {
-            int value = 1;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
-            pref.maxActiveTorrents(value);
-            preference.setSummary(Integer.toString(value));
-
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_uploads_per_torrent))) {
             int value = 1;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
+            if (!TextUtils.isEmpty((String) newValue))
+                value = Integer.parseInt((String) newValue);
             pref.maxUploadsPerTorrent(value);
             preference.setSummary(Integer.toString(value));
-
-        } else if (preference.getKey().equals(getString(R.string.pref_key_auto_manage))) {
-            pref.autoManage((boolean)newValue);
         }
 
         return true;
     }
 
-    private int parseMaxConnectionValue(Object newValue)
-    {
+    private int parseMaxConnectionValue(Object newValue) {
         int value = SessionSettings.MIN_CONNECTIONS_LIMIT;
         if (!TextUtils.isEmpty((String) newValue))
             value = Integer.parseInt((String) newValue);

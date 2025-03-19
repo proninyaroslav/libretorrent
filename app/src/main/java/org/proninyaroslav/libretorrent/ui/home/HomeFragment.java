@@ -44,6 +44,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
@@ -64,6 +65,7 @@ import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.proninyaroslav.libretorrent.MainActivity;
+import org.proninyaroslav.libretorrent.ui.NavBarFragment;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
@@ -78,6 +80,7 @@ import org.proninyaroslav.libretorrent.databinding.FragmentHomeBinding;
 import org.proninyaroslav.libretorrent.databinding.HomeDrawerContentBinding;
 import org.proninyaroslav.libretorrent.databinding.MainNavRailHeaderBinding;
 import org.proninyaroslav.libretorrent.ui.DeleteTorrentDialog;
+import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentArgs;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
@@ -636,6 +639,11 @@ public class HomeFragment extends AbstractListDetailFragment
                     var navController = getDetailPaneNavHostFragment().getNavController();
                     var slidingPaneLayout = getSlidingPaneLayout();
 
+                    // Clear back stack
+                    if (getDetailPaneNavHostFragment().getChildFragmentManager().getBackStackEntryCount() > 0) {
+                        navController.popBackStack();
+                    }
+
                     var action = TorrentDetailsFragmentDirections.actionOpenBlank();
                     var options = new NavOptions.Builder();
                     setDetailsNavAnimation(options);
@@ -670,6 +678,7 @@ public class HomeFragment extends AbstractListDetailFragment
     private void initDrawer() {
         var navBarFragment = activity.findNavBarFragment(this);
         if (navBarFragment != null) {
+            navBarFragment.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             navBarFragment.getNavigationView().addView(drawerBinding.getRoot());
         }
 
@@ -1089,7 +1098,12 @@ public class HomeFragment extends AbstractListDetailFragment
         var navController = getDetailPaneNavHostFragment().getNavController();
         var slidingPaneLayout = getSlidingPaneLayout();
 
-        var action = TorrentDetailsFragmentDirections.actionOpenTorrentDetails(item.torrentId);
+        // Clear back stack
+        if (getDetailPaneNavHostFragment().getChildFragmentManager().getBackStackEntryCount() > 0) {
+            navController.popBackStack();
+        }
+
+        var action = TorrentDetailsFragmentDirections.actionTorrentDetails(item.torrentId);
         var options = new NavOptions.Builder();
         setDetailsNavAnimation(options);
         navController.navigate(action, options.build());

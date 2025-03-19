@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,6 +101,13 @@ public class AddTorrentFragment extends Fragment {
         if (activity == null) {
             activity = (AppCompatActivity) requireActivity();
         }
+
+        activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                NavHostFragment.findNavController(AddTorrentFragment.this).navigateUp();
+            }
+        });
 
         var args = AddTorrentFragmentArgs.fromBundle(getArguments());
         inputUri = args.getUri();

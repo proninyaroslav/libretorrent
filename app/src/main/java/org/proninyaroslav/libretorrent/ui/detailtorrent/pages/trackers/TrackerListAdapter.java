@@ -36,6 +36,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.color.MaterialColors;
+
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.databinding.ItemTrackersListBinding;
@@ -160,17 +162,12 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
                 binding.message.setText(item.message);
             }
 
-            try (var a = context.obtainStyledAttributes(new TypedValue().data, new int[]{
-                    R.attr.colorError,
-                    R.attr.colorOk
-            })) {
-                if (item.status == TrackerInfo.Status.WORKING) {
-                    binding.status.setTextColor(a.getColor(1, 0));
-                } else if (item.status == TrackerInfo.Status.NOT_WORKING) {
-                    binding.status.setTextColor(a.getColor(0, 0));
-                } else {
-                    binding.status.setTextColor(statusTextColor);
-                }
+            if (item.status == TrackerInfo.Status.WORKING) {
+                binding.status.setTextColor(MaterialColors.getColor(binding.status, R.attr.colorOk));
+            } else if (item.status == TrackerInfo.Status.NOT_WORKING) {
+                binding.status.setTextColor(MaterialColors.getColor(binding.status, R.attr.colorError));
+            } else {
+                binding.status.setTextColor(statusTextColor);
             }
         }
 

@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.WindowInsetsCompat;
@@ -178,6 +179,13 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
         if (activity == null) {
             activity = (MainActivity) requireActivity();
         }
+
+        activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                NavHostFragment.findNavController(FileManagerFragment.this).navigateUp();
+            }
+        });
 
         var args = FileManagerFragmentArgs.fromBundle(getArguments());
         requestKey = args.getFragmentRequestKey();

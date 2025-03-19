@@ -43,11 +43,11 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogLinkifyTextBinding;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
+import org.proninyaroslav.libretorrent.ui.NavBarFragment;
+import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
 import org.proninyaroslav.libretorrent.ui.PermissionManager;
 import org.proninyaroslav.libretorrent.ui.home.HomeViewModel;
-import org.proninyaroslav.libretorrent.ui.home.NavBarFragment;
-import org.proninyaroslav.libretorrent.ui.home.NavBarFragmentDirections;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -149,9 +149,7 @@ public class MainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (!navController.navigateUp()) {
-                    finish();
-                }
+                finish();
             }
         });
 
@@ -200,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
         binding.message.append(Utils.getLineSeparator());
         binding.message.append(getString(R.string.project_page));
         new MaterialAlertDialogBuilder(this)
-                .setIcon(R.drawable.ic_info_24px)
+                .setIcon(R.drawable.ic_warning_24px)
                 .setTitle(R.string.manage_all_files_warning_dialog_title)
                 .setView(binding.getRoot())
                 .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())

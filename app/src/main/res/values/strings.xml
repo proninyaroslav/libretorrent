@@ -59,6 +59,8 @@
     <string name="error_empty_link">Enter the link</string>
     <string name="error_invalid_link">Invalid link</string>
     <string name="error_open_torrent_file">Cannot open the .torrent file</string>
+    <string name="error_open_ip_filter_file">Cannot open the IP filter file</string>
+    <string name="error_select_folder">Cannot open the selected folder</string>
     <string name="open_file">Open file</string>
     <string name="settings">Settings</string>
     <string name="ip_filter_add_error">Could not add IP filter (%1$d failed). Maybe the file is damaged or in the wrong format?</string>
@@ -424,6 +426,7 @@
     <string name="pref_max_connections_per_torrent_summary">(Min. 2 connections.)</string>
     <string name="pref_max_uploads_per_torrent_title">Max. number of upload slots per torrent</string>
     <string name="pref_auto_manage_title">Auto-manage</string>
+    <string name="pref_enable_auto_manage_title">Enable auto-manage</string>
     <string name="pref_auto_manage_summary">The torrent may be auto-resumed or paused at any point. (May slow down the pausing/resuming.)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 without limit</string>
     <!-- Appearance settings -->
@@ -521,6 +524,7 @@
     <string name="pref_ip_filtering_file_title">Path to filter file (.dat, .p2p)</string>
     <string name="pref_show_nat_errors">Show NAT errors</string>
     <string name="pref_anonymous_mode_title">Anonymous mode</string>
+    <string name="pref_use_anonymous_mode">Use anonymous mode</string>
     <string name="pref_anonymous_mode_summary">No user-agent string for non-private torrents. Only proxied trackers. Listening sockets closed. Incoming connections through SOCKS5- or I2P proxy (if a peer proxy exists on the tracker proxy PC). NAT-PMP, UPnP, DHT and local discovery off.</string>
     <string name="pref_seeding_outgoing_connections_title">Outgoing connections for seeding</string>
     <string name="pref_seeding_outgoing_connections_summary">Lets seeding torrents make outgoing connections. (Can be costly.)</string>
@@ -552,6 +556,7 @@
     <string name="exact_alarm_permission_warning">For the scheduler to work, you must obtain permission in a special system dialog. Proceed?</string>
     <!-- Feed settings -->
     <string name="pref_feed_auto_refresh_title">Auto-refresh channels</string>
+    <string name="pref_enable_feed_auto_refresh">Enable auto-refresh</string>
     <string name="pref_feed_auto_refresh_summary">Periodically refresh channels in the background.</string>
     <string name="pref_feed_refresh_interval_title">Refresh interval</string>
     <!-- pref_feed_refresh_intervals_entries -->
@@ -583,6 +588,7 @@
     <string name="pref_feed_remove_duplicates_summary">Skips downloading already present file titles.</string>
     <!-- Streaming settings -->
     <string name="pref_streaming_enable_title">Streaming</string>
+    <string name="pref_enable_streaming">Enable streaming</string>
     <string name="pref_streaming_enable_summary">Allows downloading individual files from a torrent using a web-browser or media player using HTTP/S URLs.</string>
     <string name="pref_streaming_hostname">Hostname</string>
     <string name="pref_streaming_port">Port</string>

@@ -21,7 +21,7 @@
     <style name="App.Components.ListItem.Label" parent="TextAppearance.Material3.BodyLarge" />
 
     <style name="App.Components.ListItem.SupportingText" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
     <style name="App.Components.FloatingActionButton.Menu.Text" parent="TextAppearance.Material3.TitleMedium">
@@ -46,6 +46,22 @@
 
     <style name="Widget.App.AppBarLayout" parent="Widget.Material3.AppBarLayout">
         <item name="elevation">0dp</item>
+    </style>
+
+    <style name="Preference.App.SwitchPreferenceCompat" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="widgetLayout">@layout/pref_widget_switch</item>
+    </style>
+
+    <style name="Preference.App.DialogPreference.EditTextPreference" parent="Preference.DialogPreference.EditTextPreference.Material">
+        <item name="android:dialogLayout">@layout/pref_widget_dialog_edittext</item>
+    </style>
+
+    <style name="App.Components.SwitchBar" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="android:padding">24dp</item>
+    </style>
+
+    <style name="TextAppearance.App.Components.SwitchBar" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
     </style>
 
     <style name="TextAppearance.App.SectionTitle" parent="TextAppearance.Material3.TitleSmall" />
@@ -353,17 +369,6 @@
 
     <style name="normalText">
         <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="SwitchBarM2">
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="colorSwitchThumbNormal">@color/text_primary</item>
-        <item name="colorControlActivated">@color/text_primary</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1
-        </item>
     </style>
 
     <style name="BaseThemeM2.Toolbar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">

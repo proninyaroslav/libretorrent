@@ -151,4 +151,11 @@
     <style name="ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu.OnSurfaceContainer" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="boxBackgroundColor">?attr/colorSurfaceContainerLow</item>
     </style>
+
+    <style name="App.PreferenceThemeOverlay" parent="PreferenceThemeOverlay">
+        <item name="android:layout">@layout/fragment_preference</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.App.SwitchPreferenceCompat</item>
+        <item name="switchPreferenceStyle">@style/Preference.App.SwitchPreferenceCompat</item>
+        <item name="editTextPreferenceStyle">@style/Preference.App.DialogPreference.EditTextPreference</item>
+    </style>
 </resources>

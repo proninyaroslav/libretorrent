@@ -66,6 +66,7 @@
         <item name="actionModeBackground">?attr/colorSurfaceContainer</item>
         <item name="materialSearchBarStyle">@style/Widget.App.SearchBar</item>
         <item name="appBarLayoutStyle">@style/Widget.App.AppBarLayout</item>
+        <item name="preferenceTheme">@style/App.PreferenceThemeOverlay</item>
 
         <!--        -->
 

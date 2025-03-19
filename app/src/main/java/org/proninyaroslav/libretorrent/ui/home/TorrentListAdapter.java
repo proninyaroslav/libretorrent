@@ -40,6 +40,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.color.MaterialColors;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
@@ -249,14 +250,10 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
 
         private void applyOpenItemStyle(Context context, boolean isOpened) {
             if (isOpened) {
-                try (var a = context.obtainStyledAttributes(
-                        new TypedValue().data,
-                        new int[]{R.attr.colorPrimaryContainer, R.attr.colorSurface}
-                )) {
-                    binding.card.setCardBackgroundColor(a.getColor(0, 0));
-                    binding.pauseButton.setBackgroundTintList(ColorStateList.valueOf(a.getColor(1, 0)));
-                    binding.progress.setTrackColor(a.getColor(1, 0));
-                }
+                binding.card.setCardBackgroundColor(MaterialColors.getColor(binding.getRoot(), R.attr.colorPrimaryContainer));
+                var colorSurface = MaterialColors.getColor(binding.getRoot(), R.attr.colorSurface);
+                binding.pauseButton.setBackgroundTintList(ColorStateList.valueOf(colorSurface));
+                binding.progress.setTrackColor(colorSurface);
             } else {
                 binding.card.setCardBackgroundColor(cardBackground);
                 binding.pauseButton.setBackgroundTintList(pauseButtonBackground);
@@ -280,7 +277,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         void onItemPauseClicked(@NonNull TorrentListItem item);
     }
 
-    public static final DiffUtil.ItemCallback<TorrentListItem> diffCallback = new DiffUtil.ItemCallback<TorrentListItem>() {
+    public static final DiffUtil.ItemCallback<TorrentListItem> diffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areContentsTheSame(@NonNull TorrentListItem oldItem,
                                           @NonNull TorrentListItem newItem) {

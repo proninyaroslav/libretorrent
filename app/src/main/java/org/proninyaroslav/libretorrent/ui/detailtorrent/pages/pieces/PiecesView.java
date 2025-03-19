@@ -28,6 +28,8 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.material.color.MaterialColors;
+
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
@@ -67,13 +69,8 @@ public class PiecesView extends View {
         borderSize = Utils.dpToPx(getContext(), BORDER_SIZE_DP);
         pieces = UNINITIALIZED_VIEW_PIECES;
 
-        try (var a = context.obtainStyledAttributes(new TypedValue().data, new int[]{
-                R.attr.colorPrimaryInverse,
-                R.attr.colorSurfaceVariant,
-        })) {
-            complete.setColor(a.getColor(0, 0));
-            empty.setColor(a.getColor(1, 0));
-        }
+        complete.setColor(MaterialColors.getColor(this, R.attr.colorPrimaryInverse));
+        empty.setColor(MaterialColors.getColor(this, R.attr.colorSurfaceVariant));
     }
 
     public void setPieces(boolean[] pieces) {

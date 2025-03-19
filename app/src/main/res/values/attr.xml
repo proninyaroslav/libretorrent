@@ -33,6 +33,24 @@
         <attr name="maxWidth" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="SliderPreference">
+        <attr name="sliderMin" format="float" />
+        <attr name="sliderMax" format="float" />
+        <attr name="sliderStep" format="float" />
+        <attr name="sliderAdjustable" format="boolean" />
+        <attr name="sliderUpdatesContinuously" format="boolean" />
+        <attr name="sliderLabelBehavior">
+            <!-- Mode that draws the label floating above the bounds of this view. -->
+            <enum name="floating" value="0"/>
+            <!-- Mode that draws the label within the bounds of the view. -->
+            <enum name="withinBounds" value="1"/>
+            <!-- Mode that prevents the label from being drawn. -->
+            <enum name="gone" value="2"/>
+            <!-- Mode that always draws the label. -->
+            <enum name="visible" value="3"/>
+        </attr>
+    </declare-styleable>
+
     <!--    -->
 
     <declare-styleable name="dynamic_style_attrs">

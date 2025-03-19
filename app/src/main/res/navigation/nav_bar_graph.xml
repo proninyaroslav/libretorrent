@@ -55,7 +55,7 @@
             android:id="@+id/clipboardDialog"
             android:name="org.proninyaroslav.libretorrent.ui.ClipboardDialog"
             android:label="ClipboardDialog"
-            tools:layout="@layout/item_clipboard_list" >
+            tools:layout="@layout/item_clipboard_list">
             <argument
                 android:name="fragment_request_key"
                 app:argType="string" />
@@ -78,5 +78,13 @@
                 app:argType="string" />
         </dialog>
         <include app:graph="@navigation/tag_graph" />
+    </navigation>
+    <navigation
+        android:id="@+id/settings_nav"
+        app:startDestination="@id/settingsFragment">
+        <fragment
+            android:id="@+id/settingsFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.settings.SettingsFragment"
+            android:label="SettingsFragment" />
     </navigation>
 </navigation>

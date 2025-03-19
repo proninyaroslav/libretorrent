@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,8 +17,9 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.settings.sections;
+package org.proninyaroslav.libretorrent.ui.settings.pages;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -28,75 +29,71 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterRange;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.ui.settings.CustomPreferenceFragment;
 
-public class ProxySettingsFragment extends PreferenceFragmentCompat
-        implements
-        Preference.OnPreferenceChangeListener
-{
-    private static final String TAG = ProxySettingsFragment.class.getSimpleName();
-
+public class ProxySettingsFragment extends CustomPreferenceFragment
+        implements Preference.OnPreferenceChangeListener {
+    private AppCompatActivity activity;
     private SettingsRepository pref;
-    private CoordinatorLayout coordinatorLayout;
-    private FloatingActionButton saveChangesButton;
     private boolean proxyChanged = false;
 
-    public static ProxySettingsFragment newInstance()
-    {
-        ProxySettingsFragment fragment = new ProxySettingsFragment();
-
-        fragment.setArguments(new Bundle());
-
-        return fragment;
-    }
-
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
-        super.onViewCreated(view, savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        coordinatorLayout = view.findViewById(R.id.coordinator_layout);
-        saveChangesButton = view.findViewById(R.id.save_changes_button);
-
-        saveChangesButton.show();
-        saveChangesButton.setOnClickListener((v) -> {
-            /* Value change is tracked in TorrentService */
-            pref.applyProxy(true);
-            proxyChanged = false;
-        });
-    }
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-
-        if (proxyChanged) {
-            Toast.makeText(getActivity().getApplicationContext(),
-                    R.string.proxy_settings_apply_after_reboot,
-                    Toast.LENGTH_SHORT)
-                    .show();
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity) context;
         }
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (activity == null) {
+            activity = (AppCompatActivity) requireActivity();
+        }
+
+        binding.appBar.setTitle(R.string.pref_proxy_settings_title);
+        binding.fab.setIconResource(R.drawable.ic_save_24px);
+        binding.fab.setContentDescription(getString(R.string.save));
+        binding.fab.setText(R.string.save);
+        binding.fab.setOnClickListener((v) -> {
+            /* Value change is tracked in TorrentService */
+            pref.applyProxy(true);
+            proxyChanged = false;
+        });
+        binding.fab.show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (proxyChanged) {
+            Toast.makeText(
+                    activity,
+                    R.string.proxy_settings_apply_after_reboot,
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
+        pref = RepositoryHelper.getSettingsRepository(activity.getApplicationContext());
 
         boolean enableAdvancedSettings;
 
@@ -122,7 +119,7 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             EditTextPreference port = findPreference(keyPort);
             if (port != null) {
                 port.setEnabled(enableAdvancedSettings);
-                InputFilter[] portFilter = new InputFilter[] { InputFilterRange.PORT_FILTER };
+                InputFilter[] portFilter = new InputFilter[]{InputFilterRange.PORT_FILTER};
                 int portNumber = pref.proxyPort();
                 String portValue = Integer.toString(portNumber);
                 port.setOnBindEditTextListener((editText) -> editText.setFilters(portFilter));
@@ -163,24 +160,21 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
             String passwordValue = pref.proxyPassword();
             password.setText(passwordValue);
             password.setOnBindEditTextListener(editText -> editText.setTransformationMethod(
-                PasswordTransformationMethod.getInstance()));
+                    PasswordTransformationMethod.getInstance()));
             bindOnPreferenceChangeListener(password);
         }
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
-    {
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.pref_proxy, rootKey);
     }
 
-    private void bindOnPreferenceChangeListener(Preference preference)
-    {
+    private void bindOnPreferenceChangeListener(Preference preference) {
         preference.setOnPreferenceChangeListener(this);
     }
 
-    private void enableOrDisablePreferences(boolean enable)
-    {
+    private void enableOrDisablePreferences(boolean enable) {
         String keyAddress = getString(R.string.pref_key_proxy_address);
         EditTextPreference address = findPreference(keyAddress);
         if (address != null)
@@ -203,41 +197,40 @@ public class ProxySettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue)
-    {
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference.getKey().equals(getString(R.string.pref_key_proxy_type))) {
-            int type = Integer.parseInt((String)newValue);
+            int type = Integer.parseInt((String) newValue);
             pref.proxyType(type);
 
             boolean enableAdvancedSettings = type != Integer.parseInt(getString(R.string.pref_proxy_type_none_value));
             enableOrDisablePreferences(enableAdvancedSettings);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_port))) {
-            if (!TextUtils.isEmpty((String)newValue)) {
+            if (!TextUtils.isEmpty((String) newValue)) {
                 int value = Integer.parseInt((String) newValue);
                 pref.proxyPort(value);
                 preference.setSummary(Integer.toString(value));
             }
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_address))) {
-            pref.proxyAddress((String)newValue);
-            preference.setSummary((String)newValue);
+            pref.proxyAddress((String) newValue);
+            preference.setSummary((String) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_login))) {
-            pref.proxyLogin((String)newValue);
-            preference.setSummary((String)newValue);
+            pref.proxyLogin((String) newValue);
+            preference.setSummary((String) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_password))) {
-           pref.proxyPassword((String)newValue);
-            ((EditTextPreference)preference).setOnBindEditTextListener((editText) -> preference.setSummary(editText
+            pref.proxyPassword((String) newValue);
+            ((EditTextPreference) preference).setOnBindEditTextListener((editText) -> preference.setSummary(editText
                     .getTransformationMethod()
-                    .getTransformation((String)newValue, editText).toString()));
+                    .getTransformation((String) newValue, editText).toString()));
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_peers_too))) {
-            pref.proxyPeersToo((boolean)newValue);
+            pref.proxyPeersToo((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_requires_auth))) {
-            pref.proxyRequiresAuth((boolean)newValue);
+            pref.proxyRequiresAuth((boolean) newValue);
         }
 
         proxyChanged = true;

@@ -3,45 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_scheduling_start"
-        android:title="@string/pref_enable_scheduling_start_title"
+        android:persistent="false"
         android:summary="@string/pref_enable_scheduling_start_summary"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:title="@string/pref_enable_scheduling_start_title"
+        app:singleLineTitle="false" />
 
-    <org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreference
-        android:key="@string/pref_key_scheduling_start_time"
-        android:positiveButtonText="@string/ok"
-        android:negativeButtonText="@string/cancel"
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePickerPreference
         android:dependency="@string/pref_key_enable_scheduling_start"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:key="@string/pref_key_scheduling_start_time"
+        android:negativeButtonText="@string/cancel"
+        android:persistent="false"
+        android:positiveButtonText="@string/ok"
+        app:singleLineTitle="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_scheduling_shutdown"
-        android:title="@string/pref_enable_scheduling_shutdown_title"
+        android:persistent="false"
         android:summary="@string/pref_enable_scheduling_shutdown_summary"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:title="@string/pref_enable_scheduling_shutdown_title"
+        app:singleLineTitle="false" />
 
-    <org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePreference
-        android:key="@string/pref_key_scheduling_shutdown_time"
-        android:positiveButtonText="@string/ok"
-        android:negativeButtonText="@string/cancel"
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.TimePickerPreference
         android:dependency="@string/pref_key_enable_scheduling_shutdown"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:key="@string/pref_key_scheduling_shutdown_time"
+        android:negativeButtonText="@string/cancel"
+        android:persistent="false"
+        android:positiveButtonText="@string/ok"
+        app:singleLineTitle="false" />
 
     <CheckBoxPreference
-        android:textColorHint="@color/accent"
         android:key="@string/pref_key_scheduling_switch_wifi"
-        android:title="@string/pref_scheduling_switch_wifi_title"
+        android:persistent="false"
         android:summary="@string/pref_scheduling_switch_wifi_summary"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:textColorHint="@color/accent"
+        android:title="@string/pref_scheduling_switch_wifi_title"
+        app:singleLineTitle="false" />
 
     <CheckBoxPreference
         android:key="@string/pref_key_scheduling_run_only_once"
+        android:persistent="false"
         android:title="@string/pref_scheduling_run_only_once_title"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        app:singleLineTitle="false" />
 </PreferenceScreen>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,27 +17,22 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.settings.sections;
+package org.proninyaroslav.libretorrent.ui.settings.pages;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
@@ -45,47 +40,54 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.ui.NavBarFragment;
+import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
+import org.proninyaroslav.libretorrent.ui.settings.CustomPreferenceFragment;
 
-public class StorageSettingsFragment extends PreferenceFragmentCompat
-    implements Preference.OnPreferenceChangeListener
-{
+public class StorageSettingsFragment extends CustomPreferenceFragment
+        implements Preference.OnPreferenceChangeListener {
     private static final String TAG = StorageSettingsFragment.class.getSimpleName();
 
+    private static final String KEY_CHOOSE_FOLDER_DIALOG_REQUEST = TAG + "_choose_folder_dialog";
     private static final String TAG_DIR_CHOOSER_BIND_PREF = "dir_chooser_bind_pref";
 
+    private MainActivity activity;
     private SettingsRepository pref;
     private FileSystemFacade fs;
     /* Preference that is associated with the current dir selection dialog */
     private String dirChooserBindPref;
-    private CoordinatorLayout coordinatorLayout;
 
-    public static StorageSettingsFragment newInstance()
-    {
-        StorageSettingsFragment fragment = new StorageSettingsFragment();
-        fragment.setArguments(new Bundle());
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        return fragment;
+        if (context instanceof MainActivity) {
+            activity = (MainActivity) context;
+        }
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        coordinatorLayout = view.findViewById(R.id.coordinator_layout);
+        binding.appBar.setTitle(R.string.pref_header_storage);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null)
-            dirChooserBindPref = savedInstanceState.getString(TAG_DIR_CHOOSER_BIND_PREF);
+        if (activity == null) {
+            activity = (MainActivity) requireActivity();
+        }
 
-        Context context = getActivity().getApplicationContext();
+        if (savedInstanceState != null) {
+            dirChooserBindPref = savedInstanceState.getString(TAG_DIR_CHOOSER_BIND_PREF);
+        }
+
+        var context = activity.getApplicationContext();
         fs = SystemFacadeHelper.getFileSystemFacade(context);
         pref = RepositoryHelper.getSettingsRepository(context);
 
@@ -203,77 +205,86 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             posixDiskIo.setChecked(pref.posixDiskIo());
             bindOnPreferenceChangeListener(posixDiskIo);
         }
+
+        var navBarFragment = activity.findNavBarFragment(this);
+        if (navBarFragment != null) {
+            setChooseFolderDialogListener(navBarFragment);
+        }
+    }
+
+    private void setChooseFolderDialogListener(@NonNull NavBarFragment navBarFragment) {
+        navBarFragment.getParentFragmentManager().setFragmentResultListener(
+                KEY_CHOOSE_FOLDER_DIALOG_REQUEST,
+                this,
+                (requestKey, result) -> {
+                    FileManagerFragment.Result resultValue = result.getParcelable(FileManagerFragment.KEY_RESULT);
+                    if (resultValue == null || resultValue.config().showMode != FileManagerConfig.Mode.DIR_CHOOSER) {
+                        return;
+                    }
+                    var uri = resultValue.uri();
+                    if (uri == null) {
+                        Snackbar.make(
+                                activity,
+                                binding.coordinatorLayout,
+                                getString(R.string.error_select_folder),
+                                Snackbar.LENGTH_SHORT
+                        ).show();
+                    } else {
+                        Preference p = findPreference(dirChooserBindPref);
+                        if (p == null) {
+                            return;
+                        }
+                        if (dirChooserBindPref.equals(getString(R.string.pref_key_dir_to_watch))) {
+                            pref.dirToWatch(uri.toString());
+                        } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
+                            pref.moveAfterDownloadIn(uri.toString());
+                        } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrent_files_in))) {
+                            pref.saveTorrentFilesIn(uri.toString());
+                        } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrents_in))) {
+                            pref.saveTorrentsIn(uri.toString());
+                        }
+                        try {
+                            p.setSummary(fs.getDirPath(uri));
+                        } catch (UnknownUriException e) {
+                            Log.e(TAG, Log.getStackTraceString(e));
+                        }
+                    }
+                }
+        );
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState)
-    {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putString(TAG_DIR_CHOOSER_BIND_PREF, dirChooserBindPref);
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
-    {
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.pref_storage, rootKey);
     }
 
-    private void bindOnPreferenceChangeListener(Preference preference)
-    {
+    private void bindOnPreferenceChangeListener(Preference preference) {
         preference.setOnPreferenceChangeListener(this);
     }
 
-    private void dirChooseDialog(Uri path)
-    {
+    private void dirChooseDialog(Uri path) {
         String dirPath = null;
-        if (path != null && Utils.isFileSystemPath(path))
+        if (path != null && Utils.isFileSystemPath(path)) {
             dirPath = path.getPath();
-
-        Intent i = new Intent(getActivity(), FileManagerFragment.class);
-        FileManagerConfig config = new FileManagerConfig(dirPath,
+        }
+        var config = new FileManagerConfig(
+                dirPath,
                 null,
-                FileManagerConfig.Mode.DIR_CHOOSER);
-        i.putExtra(FileManagerFragment.TAG_CONFIG, config);
-
-        downloadDirChoose.launch(i);
+                FileManagerConfig.Mode.DIR_CHOOSER
+        );
+        var action = NavBarFragmentDirections.actionOpenDirectoryDialog(
+                config,
+                KEY_CHOOSE_FOLDER_DIALOG_REQUEST
+        );
+        activity.getRootNavController().navigate(action);
     }
-    final ActivityResultLauncher<Intent> downloadDirChoose = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                Intent data = result.getData();
-                if (result.getResultCode() != Activity.RESULT_OK) {
-                   return;
-                }
-                if (data.getData() == null || dirChooserBindPref == null)
-                    return;
-
-                Uri path = data.getData();
-
-                Preference p = findPreference(dirChooserBindPref);
-                if (p == null)
-                    return;
-
-                if (dirChooserBindPref.equals(getString(R.string.pref_key_dir_to_watch))) {
-                    pref.dirToWatch(path.toString());
-
-                } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
-                    pref.moveAfterDownloadIn(path.toString());
-
-                } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrent_files_in))) {
-                    pref.saveTorrentFilesIn(path.toString());
-
-                } else if (dirChooserBindPref.equals(getString(R.string.pref_key_save_torrents_in))) {
-                    pref.saveTorrentsIn(path.toString());
-                }
-
-                try {
-                    p.setSummary(fs.getDirPath(path));
-                } catch (UnknownUriException e) {
-                    Log.e(TAG, Log.getStackTraceString(e));
-                }
-            }
-    );
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -287,8 +298,11 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
             pref.watchDirDeleteFile((boolean) newValue);
         } else if (preference.getKey().equals(getString(R.string.pref_key_posix_disk_io))) {
             pref.posixDiskIo((boolean) newValue);
-            Snackbar.make(coordinatorLayout, R.string.apply_settings_after_reboot, Snackbar.LENGTH_LONG)
-                    .show();
+            Snackbar.make(
+                    binding.coordinatorLayout,
+                    R.string.apply_settings_after_reboot,
+                    Snackbar.LENGTH_LONG
+            ).show();
         }
 
         return true;

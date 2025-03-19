@@ -34,6 +34,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.color.MaterialColors;
+
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
@@ -162,15 +164,10 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
                 binding.label.setCompoundDrawablesRelativeWithIntrinsicBounds(
                         R.drawable.ic_file_24px, 0, 0, 0);
                 if (item.isEnabled()) {
-                    try (TypedArray a = context.obtainStyledAttributes(
-                            new TypedValue().data,
-                            new int[]{R.attr.colorPrimaryVariant}
-                    )) {
-                        TextViewCompat.setCompoundDrawableTintList(
-                                binding.label,
-                                ColorStateList.valueOf(a.getColor(0, -1))
-                        );
-                    }
+                    TextViewCompat.setCompoundDrawableTintList(
+                            binding.label,
+                            ColorStateList.valueOf(MaterialColors.getColor(binding.label, R.attr.colorPrimaryVariant))
+                    );
                 } else {
                     TextViewCompat.setCompoundDrawableTintList(binding.label, labelIconTint);
                 }

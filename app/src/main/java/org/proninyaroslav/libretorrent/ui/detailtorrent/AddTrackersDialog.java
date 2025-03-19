@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
@@ -182,16 +183,13 @@ public class AddTrackersDialog extends DialogFragment {
         var curLineStartIndex = 0;
         for (var s : strings) {
             if (!Utils.isValidTrackerUrl(s) && binding.multilineTextInputDialog.getText() != null) {
-                try (var a = activity.obtainStyledAttributes(
-                        new TypedValue().data, new int[]{R.attr.colorError})
-                ) {
-                    /* Select invalid url */
-                    binding.multilineTextInputDialog.getText()
-                            .setSpan(new ForegroundColorSpan(a.getColor(0, 0)),
-                                    curLineStartIndex,
-                                    curLineStartIndex + s.length(),
-                                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
+                /* Select invalid url */
+                binding.multilineTextInputDialog.getText()
+                        .setSpan(new ForegroundColorSpan(
+                                        MaterialColors.getColor(binding.multilineTextInputDialog, R.attr.colorError)),
+                                curLineStartIndex,
+                                curLineStartIndex + s.length(),
+                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 valid = false;
             }
             /* Considering newline char */

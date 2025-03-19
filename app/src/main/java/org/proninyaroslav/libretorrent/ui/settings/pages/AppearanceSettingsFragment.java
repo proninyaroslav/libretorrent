@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.settings.sections;
+package org.proninyaroslav.libretorrent.ui.settings.pages;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,10 +33,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -45,36 +44,39 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.MainActivity;
+import org.proninyaroslav.libretorrent.ui.settings.CustomPreferenceFragment;
+import org.proninyaroslav.libretorrent.ui.settings.customprefs.ColorPickerPreference;
 
-public class AppearanceSettingsFragment extends PreferenceFragmentCompat
-        implements
-        Preference.OnPreferenceChangeListener
-{
+public class AppearanceSettingsFragment extends CustomPreferenceFragment
+        implements Preference.OnPreferenceChangeListener {
+    private AppCompatActivity activity;
     private SettingsRepository pref;
-    private CoordinatorLayout coordinatorLayout;
 
-    public static AppearanceSettingsFragment newInstance()
-    {
-        AppearanceSettingsFragment fragment = new AppearanceSettingsFragment();
-        fragment.setArguments(new Bundle());
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        return fragment;
+        if (context instanceof AppCompatActivity) {
+            activity = (AppCompatActivity) context;
+        }
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        coordinatorLayout = view.findViewById(R.id.coordinator_layout);
+        binding.appBar.setTitle(R.string.pref_header_appearance);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
+        if (activity == null) {
+            activity = (AppCompatActivity) requireActivity();
+        }
+
+        pref = RepositoryHelper.getSettingsRepository(activity.getApplicationContext());
 
         String keyTheme = getString(R.string.pref_key_theme);
         ListPreference theme = findPreference(keyTheme);
@@ -124,8 +126,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
      *       you can change them only in the settings of Android 8.0
      */
 
-    private void initLegacyNotifySettings(SettingsRepository pref)
-    {
+    private void initLegacyNotifySettings(SettingsRepository pref) {
         String keyPlaySound = getString(R.string.pref_key_play_sound_notify);
         SwitchPreferenceCompat playSound = findPreference(keyPlaySound);
         if (playSound != null) {
@@ -137,8 +138,8 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         Preference notifySound = findPreference(keyNotifySound);
         String ringtone = pref.notifySound();
         if (notifySound != null) {
-            notifySound.setSummary(RingtoneManager.getRingtone(getActivity().getApplicationContext(), Uri.parse(ringtone))
-                    .getTitle(getActivity().getApplicationContext()));
+            notifySound.setSummary(RingtoneManager.getRingtone(activity.getApplicationContext(), Uri.parse(ringtone))
+                    .getTitle(activity.getApplicationContext()));
             /* See https://code.google.com/p/android/issues/detail?id=183255 */
             notifySound.setOnPreferenceClickListener((preference) -> {
                 Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
@@ -149,7 +150,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 
                 String curRingtone = pref.notifySound();
                 if (curRingtone != null) {
-                    if (curRingtone.length() == 0) {
+                    if (curRingtone.isEmpty()) {
                         /* Select "Silent" */
                         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
                     } else {
@@ -174,11 +175,11 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         }
 
         String keyLedIndicatorColor = getString(R.string.pref_key_led_indicator_color_notify);
-//        ColorPreferenceCompat ledIndicatorColor = findPreference(keyLedIndicatorColor);
-//        if (ledIndicatorColor != null) {
-//            ledIndicatorColor.saveValue(pref.ledIndicatorColorNotify());
-//            bindOnPreferenceChangeListener(ledIndicatorColor);
-//        }
+        ColorPickerPreference ledIndicatorColor = findPreference(keyLedIndicatorColor);
+        if (ledIndicatorColor != null) {
+            ledIndicatorColor.saveValue(pref.ledIndicatorColorNotify());
+            bindOnPreferenceChangeListener(ledIndicatorColor);
+        }
 
         String keyVibration = getString(R.string.pref_key_vibration_notify);
         SwitchPreferenceCompat vibration = findPreference(keyVibration);
@@ -189,8 +190,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
-    {
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.pref_appearance, rootKey);
     }
 
@@ -204,7 +204,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
                         String keyNotifySound = getString(R.string.pref_key_notify_sound);
                         Preference notifySound = findPreference(keyNotifySound);
                         if (notifySound != null) {
-                            Context context = getActivity().getApplicationContext();
+                            Context context = activity.getApplicationContext();
                             notifySound.setSummary(
                                     RingtoneManager.getRingtone(context, ringtone).getTitle(context)
                             );
@@ -215,55 +215,52 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
             }
     );
 
-    private void bindOnPreferenceChangeListener(Preference preference)
-    {
+    private void bindOnPreferenceChangeListener(Preference preference) {
         preference.setOnPreferenceChangeListener(this);
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue)
-    {
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
-            int type = Integer.parseInt((String)newValue);
+            int type = Integer.parseInt((String) newValue);
             pref.theme(type);
 
-            Snackbar.make(coordinatorLayout,
-                    R.string.theme_settings_apply_after_reboot,
-                    Snackbar.LENGTH_LONG)
+            Snackbar.make(binding.coordinatorLayout,
+                            R.string.theme_settings_apply_after_reboot,
+                            Snackbar.LENGTH_LONG)
                     .setAction(R.string.apply, (v) -> restartMainActivity())
                     .show();
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_torrent_finish_notify))) {
-            pref.torrentFinishNotify((boolean)newValue);
+            pref.torrentFinishNotify((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_play_sound_notify))) {
-            pref.playSoundNotify((boolean)newValue);
+            pref.playSoundNotify((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_led_indicator_notify))) {
-            pref.ledIndicatorNotify((boolean)newValue);
+            pref.ledIndicatorNotify((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_vibration_notify))) {
-            pref.vibrationNotify((boolean)newValue);
+            pref.vibrationNotify((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_led_indicator_color_notify))) {
-            pref.ledIndicatorColorNotify((int)newValue);
+            pref.ledIndicatorColorNotify((int) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_status_filter))) {
-            pref.foregroundNotifyStatusFilter((String)newValue);
+            pref.foregroundNotifyStatusFilter((String) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_sorting))) {
-            pref.foregroundNotifySorting((String)newValue);
+            pref.foregroundNotifySorting((String) newValue);
 
-        }  else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_combined_pause_button))) {
-            pref.foregroundNotifyCombinedPauseButton((boolean)newValue);
+        } else if (preference.getKey().equals(getString(R.string.pref_key_foreground_notify_combined_pause_button))) {
+            pref.foregroundNotifyCombinedPauseButton((boolean) newValue);
         }
 
         return true;
     }
 
-    private void restartMainActivity()
-    {
-        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+    private void restartMainActivity() {
+        Intent intent = new Intent(activity.getApplicationContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

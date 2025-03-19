@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header_fragment"
+    android:name="org.proninyaroslav.libretorrent.ui.settings.SettingsHeaderFragment"
+    android:layout_width="@dimen/list_pane_width"
+    android:layout_height="match_parent" />

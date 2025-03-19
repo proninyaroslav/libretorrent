@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="8dp"
-            android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
+            android:paddingBottom="@dimen/list_fab_padding"
             android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -17,45 +17,58 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.ui.settings.sections;
+package org.proninyaroslav.libretorrent.ui.settings.pages;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.service.Scheduler;
+import org.proninyaroslav.libretorrent.ui.settings.CustomPreferenceFragment;
+import org.proninyaroslav.libretorrent.ui.settings.customprefs.SwitchBarPreference;
 
-public class FeedSettingsFragment extends PreferenceFragmentCompat
-        implements Preference.OnPreferenceChangeListener
-{
-    private static final String TAG = FeedSettingsFragment.class.getSimpleName();
+public class FeedAutoRefreshSettingsFragment extends CustomPreferenceFragment
+        implements Preference.OnPreferenceChangeListener {
+    public static final String KEY_RESULT = "result";
 
+    private AppCompatActivity activity;
     private SettingsRepository pref;
+    private String requestKey;
 
-    public static FeedSettingsFragment newInstance()
-    {
-        FeedSettingsFragment fragment = new FeedSettingsFragment();
-        fragment.setArguments(new Bundle());
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        return fragment;
+        if (context instanceof AppCompatActivity a) {
+            activity = a;
+        }
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
+        if (activity == null) {
+            activity = (AppCompatActivity) requireActivity();
+        }
+
+        var args = FeedAutoRefreshSettingsFragmentArgs.fromBundle(getArguments());
+        requestKey = args.getFragmentRequestKey();
+
+        pref = RepositoryHelper.getSettingsRepository(activity.getApplicationContext());
 
         String keyAutoRefresh = getString(R.string.pref_key_feed_auto_refresh);
-        SwitchPreferenceCompat autoRefresh = findPreference(keyAutoRefresh);
+        SwitchBarPreference autoRefresh = findPreference(keyAutoRefresh);
         if (autoRefresh != null) {
             autoRefresh.setChecked(pref.autoRefreshFeeds());
             bindOnPreferenceChangeListener(autoRefresh);
@@ -84,80 +97,48 @@ public class FeedSettingsFragment extends PreferenceFragmentCompat
             roaming.setChecked(pref.autoRefreshFeedsEnableRoaming());
             bindOnPreferenceChangeListener(roaming);
         }
-
-        String keyKeepTime = getString(R.string.pref_key_feed_keep_items_time);
-        ListPreference keepTime = findPreference(keyKeepTime);
-        if (keepTime != null) {
-            String time = Long.toString(pref.feedItemKeepTime());
-            int timeIndex = keepTime.findIndexOfValue(time);
-            if (timeIndex >= 0)
-                keepTime.setValueIndex(timeIndex);
-            bindOnPreferenceChangeListener(keepTime);
-        }
-
-        String keyStartTorrents = getString(R.string.pref_key_feed_start_torrents);
-        SwitchPreferenceCompat startTorrents = findPreference(keyStartTorrents);
-        if (startTorrents != null) {
-            startTorrents.setChecked(pref.feedStartTorrents());
-            bindOnPreferenceChangeListener(startTorrents);
-        }
-
-        String keyRemoveDuplicates = getString(R.string.pref_key_feed_remove_duplicates);
-        SwitchPreferenceCompat removeDuplicates = findPreference(keyRemoveDuplicates);
-        if (removeDuplicates != null) {
-            removeDuplicates.setChecked(pref.feedRemoveDuplicates());
-            bindOnPreferenceChangeListener(removeDuplicates);
-        }
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
-    {
-        setPreferencesFromResource(R.xml.pref_feed, rootKey);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.appBar.setTitle(R.string.pref_feed_auto_refresh_title);
     }
 
-    private void bindOnPreferenceChangeListener(Preference preference)
-    {
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.pref_feed_auto_refresh, rootKey);
+    }
+
+    private void bindOnPreferenceChangeListener(Preference preference) {
         preference.setOnPreferenceChangeListener(this);
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue)
-    {
-        Context context = getActivity().getApplicationContext();
-
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        var context = activity.getApplicationContext();
         if (preference.getKey().equals(getString(R.string.pref_key_feed_auto_refresh))) {
-            pref.autoRefreshFeeds((boolean)newValue);
-
-            if ((boolean)newValue) {
+            pref.autoRefreshFeeds((boolean) newValue);
+            if ((boolean) newValue) {
                 long interval = pref.refreshFeedsInterval();
                 Scheduler.runPeriodicalRefreshFeeds(context, interval);
             } else {
                 Scheduler.cancelPeriodicalRefreshFeeds(context);
             }
 
+            var bundle = new Bundle();
+            bundle.putBoolean(KEY_RESULT, (boolean) newValue);
+            getParentFragmentManager().setFragmentResult(requestKey, bundle);
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_refresh_interval))) {
-            long interval = Long.parseLong((String)newValue);
+            long interval = Long.parseLong((String) newValue);
             pref.refreshFeedsInterval(interval);
             Scheduler.runPeriodicalRefreshFeeds(context, interval);
-
-        } else if (preference.getKey().equals(getString(R.string.pref_key_feed_keep_items_time))) {
-            long keepTime = Long.parseLong((String)newValue);
-            pref.feedItemKeepTime(keepTime);
-
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_auto_refresh_unmetered_connections_only))) {
-            pref.autoRefreshFeedsUnmeteredConnectionsOnly((boolean)newValue);
-
+            pref.autoRefreshFeedsUnmeteredConnectionsOnly((boolean) newValue);
         } else if (preference.getKey().equals(getString(R.string.pref_key_feed_auto_refresh_enable_roaming))) {
-            pref.autoRefreshFeedsEnableRoaming((boolean)newValue);
-
-        } else if (preference.getKey().equals(getString(R.string.pref_key_feed_start_torrents))) {
-            pref.feedStartTorrents((boolean)newValue);
-
-        } else if (preference.getKey().equals(getString(R.string.pref_key_feed_remove_duplicates))) {
-            pref.feedRemoveDuplicates((boolean)newValue);
+            pref.autoRefreshFeedsEnableRoaming((boolean) newValue);
         }
-
         return true;
     }
 }

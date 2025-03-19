@@ -46,8 +46,8 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsViewModel;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.MainActivity;
-import org.proninyaroslav.libretorrent.ui.home.NavBarFragment;
-import org.proninyaroslav.libretorrent.ui.home.NavBarFragmentDirections;
+import org.proninyaroslav.libretorrent.ui.NavBarFragment;
+import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.tag.SelectTagDialog;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagChip;
 

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Settings headers-->
+    <string name="pref_key_appearance_settings" translatable="false">pref_key_appearance_settings</string>
+    <string name="pref_key_behavior_settings" translatable="false">pref_key_behavior_settings</string>
+    <string name="pref_key_network_settings" translatable="false">pref_key_network_settings</string>
+    <string name="pref_key_network_proxy_settings" translatable="false">pref_key_network_proxy_settings</string>
+    <string name="pref_key_storage_settings" translatable="false">pref_key_storage_settings</string>
+    <string name="pref_key_limitations_settings" translatable="false">pref_key_limitations_settings</string>
+    <string name="pref_key_scheduling_settings" translatable="false">pref_key_scheduling_settings</string>
+    <string name="pref_key_feed_settings" translatable="false">pref_key_feed_settings</string>
+    <string name="pref_key_streaming_settings" translatable="false">pref_key_streaming_settings</string>
+
     <!-- Main activity local preferences -->
     <string name="pref_key_drawer_status_selected_items" translatable="false">pref_key_drawer_status_selected_items</string>
     <string name="pref_key_drawer_sorting_selected_item" translatable="false">pref_key_drawer_sorting_selected_item</string>
@@ -73,7 +84,6 @@
     <string name="pref_key_enc_out_connections_mode" translatable="false">pref_key_enc_out_connections_mode</string>
     <string name="pref_key_enable_ip_filtering" translatable="false">pref_key_enable_ip_filtering</string>
     <string name="pref_key_ip_filtering_file" translatable="false">pref_key_ip_filtering_file</string>
-    <string name="pref_key_proxy_settings" translatable="false">pref_key_proxy_settings</string>
     <string name="pref_key_show_nat_errors" translatable="false">pref_key_show_nat_errors</string>
     <string name="pref_key_anonymous_mode" translatable="false">pref_key_anonymous_mode</string>
     <string name="pref_key_seeding_outgoing_connections" translatable="false">pref_key_seeding_outgoing_connections</string>
