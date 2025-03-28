@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="cancel">منسوخ کریں</string>
+    <string name="yes">جی</string>
+    <string name="error">خطاء</string>
+    <string name="warning">انتباہ</string>
+    <string name="shutdown">بند کرنا</string>
+    <string name="deleting">حذف کرنا جاری ہے۔۔۔</string>
+    <string name="replace">تبادلہ</string>
+    <string name="add">اضافہ</string>
+    <string name="select_all">سب منتخب کریں</string>
+    <string name="search">تلاشی</string>
+    <string name="save">محفوظ</string>
+    <string name="not_available">غیر دستیاب</string>
+    <string name="elapsed_time_format_d_h_mm">%1$dدن. %2$dگھنٹہ. %3$d منٹ</string>
+    <string name="elapsed_time_format_mm_ss">%1$dمنٹ. %2$d لمحہ</string>
+    <string name="elapsed_time_format_ss">%1$d لمحہ</string>
+    <string name="def">مقررہ</string>
+    <string name="foreground_notification">پیش منظر اطلاع</string>
+    <string name="link">رابطہ</string>
+    <string name="filter">چھانٹی</string>
+    <string name="refresh">تجدید</string>
+    <string name="edit">ترمیم</string>
+    <string name="menu">فہرست</string>
+    <string name="ok">ٹھیک</string>
+    <string name="no">نہیں</string>
+    <string name="delete">حذف</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$dگھنٹہ. %2$dمنٹ. %3$d لمحہ</string>
+</resources>
