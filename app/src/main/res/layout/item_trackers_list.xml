@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="12dp"
-        android:minHeight="@dimen/list_item_one_line_height"
+        android:gravity="center_vertical"
+        android:minHeight="40dp"
         android:orientation="vertical">
 
         <!-- Workaround for the bug with item width stretching -->
@@ -26,8 +27,7 @@
             android:id="@+id/url"
             style="@style/App.Components.ListItem.Label"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="2"
