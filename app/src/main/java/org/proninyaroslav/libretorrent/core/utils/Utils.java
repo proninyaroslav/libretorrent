@@ -917,15 +917,15 @@ public class Utils {
     }
 
     public static void applyWindowInsets(View view) {
-        applyWindowInsets(null, view, WindowInsetsSide.ALL, -1);
+        applyWindowInsets(null, view, WindowInsetsSide.ALL, (baseMask) -> baseMask);
     }
 
     public static void applyWindowInsets(@Nullable View parent, View child) {
-        applyWindowInsets(parent, child, WindowInsetsSide.ALL, -1);
+        applyWindowInsets(parent, child, WindowInsetsSide.ALL, (baseMask) -> baseMask);
     }
 
     public static void applyWindowInsets(View view, @WindowInsetsSide.Flag int sideMask) {
-        applyWindowInsets(null, view, sideMask, -1);
+        applyWindowInsets(null, view, sideMask, (baseMask) -> baseMask);
     }
 
     public static void applyWindowInsets(
@@ -933,13 +933,22 @@ public class Utils {
             @WindowInsetsSide.Flag int sideMask,
             @WindowInsetsCompat.Type.InsetsType int typeMask
     ) {
-        applyWindowInsets(null, view, sideMask, typeMask);
+        applyWindowInsets(null, view, sideMask,
+                (baseMask) -> typeMask == -1 ? baseMask : typeMask | baseMask);
+    }
+
+    public static void applyWindowInsets(
+            View view,
+            @WindowInsetsSide.Flag int sideMask,
+            WindowInsetsMaskCallback onApplyInsetsMask
+    ) {
+        applyWindowInsets(null, view, sideMask, onApplyInsetsMask);
     }
 
     public static void applyWindowInsets(@Nullable View parent,
                                          View child,
                                          @WindowInsetsSide.Flag int sideMask,
-                                         @WindowInsetsCompat.Type.InsetsType int typeMask
+                                         WindowInsetsMaskCallback onApplyInsetsMask
     ) {
         var baseTypeMask = WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout();
 
@@ -950,9 +959,7 @@ public class Utils {
         var initialRight = params == null ? 0 : params.rightMargin;
 
         ViewCompat.setOnApplyWindowInsetsListener(parent == null ? child : parent, (v, windowInsets) -> {
-            var insets = windowInsets.getInsets(
-                    typeMask == -1 ? baseTypeMask : typeMask | baseTypeMask
-            );
+            var insets = windowInsets.getInsets(onApplyInsetsMask.onApply(baseTypeMask));
             var p = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
             if ((sideMask & WindowInsetsSide.TOP) != 0) {
                 p.topMargin = initialTop + insets.top;

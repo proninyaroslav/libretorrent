@@ -64,7 +64,6 @@
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@{viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER || viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE ? 80 : 0}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -73,8 +72,8 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:focusable="true"
-                android:paddingVertical="8dp"
                 android:paddingTop="8dp"
+                android:paddingBottom="@{viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER || viewModel.config.showMode == FileManagerConfig.Mode.SAVE_FILE ? @dimen/bottom_bar_padding + 16 : 16}"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -120,7 +119,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/file_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="textLongMessage" />
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
