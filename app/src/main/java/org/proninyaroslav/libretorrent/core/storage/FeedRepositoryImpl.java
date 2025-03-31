@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -30,6 +30,7 @@ import com.google.gson.reflect.TypeToken;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedUnreadCount;
 import org.proninyaroslav.libretorrent.core.system.FileDescriptorWrapper;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
@@ -44,119 +45,105 @@ import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
-public class FeedRepositoryImpl implements FeedRepository
-{
-    private static final String TAG = FeedRepositoryImpl.class.getSimpleName();
+public class FeedRepositoryImpl implements FeedRepository {
+    private static final String SERIALIZE_FILE_FORMAT = "json";
+    private static final String SERIALIZE_MIME_TYPE = "application/json";
+    private static final String FILTER_SEPARATOR = "\\|";
 
-    public static final String SERIALIZE_FILE_FORMAT = "json";
-    public static final String SERIALIZE_MIME_TYPE = "application/json";
-    public static final String FILTER_SEPARATOR = "\\|";
+    private final Context appContext;
+    private final AppDatabase db;
 
-    private Context appContext;
-    private AppDatabase db;
-
-    public FeedRepositoryImpl(@NonNull Context appContext, @NonNull AppDatabase db)
-    {
+    public FeedRepositoryImpl(@NonNull Context appContext, @NonNull AppDatabase db) {
         this.appContext = appContext;
         this.db = db;
     }
 
     @Override
-    public String getSerializeFileFormat()
-    {
+    public String getSerializeFileFormat() {
         return SERIALIZE_FILE_FORMAT;
     }
 
     @Override
-    public String getSerializeMimeType()
-    {
+    public String getSerializeMimeType() {
         return SERIALIZE_MIME_TYPE;
     }
 
     @Override
-    public String getFilterSeparator()
-    {
+    public String getFilterSeparator() {
         return FILTER_SEPARATOR;
     }
 
     @Override
-    public long addFeed(@NonNull FeedChannel channel)
-    {
+    public long addFeed(@NonNull FeedChannel channel) {
         return db.feedDao().addFeed(channel);
     }
 
     @Override
-    public long[] addFeeds(@NonNull List<FeedChannel> feeds)
-    {
+    public long[] addFeeds(@NonNull List<FeedChannel> feeds) {
         return db.feedDao().addFeeds(feeds);
     }
 
     @Override
-    public int updateFeed(@NonNull FeedChannel channel)
-    {
+    public int updateFeed(@NonNull FeedChannel channel) {
         return db.feedDao().updateFeed(channel);
     }
 
     @Override
-    public void deleteFeed(@NonNull FeedChannel channel)
-    {
+    public void deleteFeed(@NonNull FeedChannel channel) {
         db.feedDao().deleteFeed(channel);
     }
 
     @Override
-    public void deleteFeeds(@NonNull List<FeedChannel> feeds)
-    {
+    public void deleteFeeds(@NonNull List<FeedChannel> feeds) {
         db.feedDao().deleteFeeds(feeds);
     }
 
     @Override
-    public FeedChannel getFeedById(long id)
-    {
+    public FeedChannel getFeedById(long id) {
         return db.feedDao().getFeedById(id);
     }
 
     @Override
-    public Single<FeedChannel> getFeedByIdSingle(long id)
-    {
+    public Single<FeedChannel> getFeedByIdSingle(long id) {
         return db.feedDao().getFeedByIdSingle(id);
     }
 
     @Override
-    public Flowable<List<FeedChannel>> observeAllFeeds()
-    {
+    public Flowable<List<FeedChannel>> observeAllFeeds() {
         return db.feedDao().observeAllFeeds();
     }
 
     @Override
-    public List<FeedChannel> getAllFeeds()
-    {
+    public Flowable<List<Long>> observeUnreadFeedIdList() {
+        return db.feedDao().observeUnreadFeedIdList();
+    }
+
+    @Override
+    public Flowable<List<FeedUnreadCount>> observeUnreadItemsCount() {
+        return db.feedDao().observeUnreadItemsCount();
+    }
+
+    @Override
+    public List<FeedChannel> getAllFeeds() {
         return db.feedDao().getAllFeeds();
     }
 
     @Override
-    public Single<List<FeedChannel>> getAllFeedsSingle()
-    {
-        return db.feedDao().getAllFeedsSingle();
-    }
-
-    @Override
-    public void serializeAllFeeds(@NonNull Uri file) throws IOException, UnknownUriException
-    {
+    public void serializeAllFeeds(@NonNull Uri file) throws IOException, UnknownUriException {
         SystemFacadeHelper.getFileSystemFacade(appContext)
                 .write(new Gson().toJson(getAllFeeds()), StandardCharsets.UTF_8, file);
     }
 
     @Override
-    public List<FeedChannel> deserializeFeeds(@NonNull Uri file) throws IOException, UnknownUriException
-    {
+    public List<FeedChannel> deserializeFeeds(@NonNull Uri file) throws IOException, UnknownUriException {
         List<FeedChannel> feeds;
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(appContext);
         try (FileDescriptorWrapper w = fs.getFD(file);
              FileInputStream fin = new FileInputStream(w.open("r"));
-             InputStreamReader reader = new InputStreamReader(fin, StandardCharsets.UTF_8))
-        {
+             InputStreamReader reader = new InputStreamReader(fin, StandardCharsets.UTF_8)) {
             feeds = new Gson()
-                    .fromJson(reader, new TypeToken<ArrayList<FeedChannel>>(){}
+                    .fromJson(reader, new TypeToken<ArrayList<FeedChannel>>() {
+                    }
                             .getType());
         }
 
@@ -164,62 +151,47 @@ public class FeedRepositoryImpl implements FeedRepository
     }
 
     @Override
-    public void addItems(@NonNull List<FeedItem> items)
-    {
+    public void addItems(@NonNull List<FeedItem> items) {
         db.feedDao().addItems(items);
     }
 
     @Override
-    public void deleteItemsOlderThan(long keepDateBorderTime)
-    {
+    public void deleteItemsOlderThan(long keepDateBorderTime) {
         db.feedDao().deleteItemsOlderThan(keepDateBorderTime);
     }
 
     @Override
-    public void markAsRead(@NonNull String itemId)
-    {
+    public void markAsRead(@NonNull String itemId) {
         db.feedDao().markAsRead(itemId);
     }
 
     @Override
-    public void markAsUnread(@NonNull String itemId)
-    {
+    public void markAsUnread(@NonNull String itemId) {
         db.feedDao().markAsUnread(itemId);
     }
 
     @Override
-    public void markAsReadByFeedId(List<Long> feedId)
-    {
+    public void markAsReadByFeedId(List<Long> feedId) {
         db.feedDao().markAsReadByFeedId(feedId);
     }
 
     @Override
-    public Flowable<List<FeedItem>> observeItemsByFeedId(long feedId)
-    {
+    public Flowable<List<FeedItem>> observeItemsByFeedId(long feedId) {
         return db.feedDao().observeItemsByFeedId(feedId);
     }
 
     @Override
-    public Single<List<FeedItem>> getItemsByFeedIdSingle(long feedId)
-    {
-        return db.feedDao().getItemsByFeedIdSingle(feedId);
-    }
-
-    @Override
-    public List<String> getItemsIdByFeedId(long feedId)
-    {
+    public List<String> getItemsIdByFeedId(long feedId) {
         return db.feedDao().getItemsIdByFeedId(feedId);
     }
 
     @Override
-    public List<String> findItemsExistingTitles(@NonNull List<String> titles)
-    {
+    public List<String> findItemsExistingTitles(@NonNull List<String> titles) {
         return db.feedDao().findItemsExistingTitles(titles);
     }
 
     @Override
-    public List<FeedItem> getItemsById(@NonNull String... itemsId)
-    {
+    public List<FeedItem> getItemsById(@NonNull String... itemsId) {
         return db.feedDao().getItemsById(itemsId);
     }
 }

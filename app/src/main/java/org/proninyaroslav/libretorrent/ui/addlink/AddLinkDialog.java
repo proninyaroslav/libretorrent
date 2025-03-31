@@ -67,8 +67,8 @@ public class AddLinkDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity) {
-            activity = (MainActivity) context;
+        if (context instanceof MainActivity a) {
+            activity = a;
         }
     }
 

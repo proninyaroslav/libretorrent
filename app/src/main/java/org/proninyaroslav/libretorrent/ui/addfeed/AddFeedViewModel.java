@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -43,21 +43,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class AddFeedViewModel extends AndroidViewModel
-{
+public class AddFeedViewModel extends AndroidViewModel {
     public AddFeedMutableParams mutableParams = new AddFeedMutableParams();
     public ObservableBoolean showClipboardButton = new ObservableBoolean();
     private Mode mode;
-    private FeedRepository repo;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final FeedRepository repo;
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
-    public enum Mode
-    {
+    public enum Mode {
         ADD, EDIT
     }
 
-    public AddFeedViewModel(@NonNull Application application)
-    {
+    public AddFeedViewModel(@NonNull Application application) {
         super(application);
 
         repo = RepositoryHelper.getFeedRepository(application);
@@ -65,27 +62,23 @@ public class AddFeedViewModel extends AndroidViewModel
     }
 
     @Override
-    protected void onCleared()
-    {
+    protected void onCleared() {
         super.onCleared();
 
         disposables.clear();
     }
 
-    public Mode getMode()
-    {
+    public Mode getMode() {
         return mode;
     }
 
-    public void initAddMode(@NonNull Uri uri)
-    {
+    public void initAddMode(@NonNull Uri uri) {
         mode = Mode.ADD;
         /* TODO: files support */
         mutableParams.setUrl(uri.toString());
     }
 
-    public void initAddModeFromClipboard()
-    {
+    public void initAddModeFromClipboard() {
         List<CharSequence> clipboard = Utils.getClipboardText(getApplication());
         if (clipboard.isEmpty())
             return;
@@ -96,41 +89,39 @@ public class AddFeedViewModel extends AndroidViewModel
             initAddMode(Uri.parse(firstItem));
     }
 
-    public void initEditMode(long feedId)
-    {
+    public void initEditMode(long feedId) {
         mode = Mode.EDIT;
         mutableParams.setFeedId(feedId);
         fetchParams();
     }
 
-    public boolean addChannel()
-    {
+    public boolean addChannel() {
         long id = applyParams(true);
         refreshChannel(id);
 
         return id != -1;
     }
 
-    public boolean updateChannel()
-    {
+    public boolean updateChannel() {
         long id = applyParams(false);
         refreshChannel(id);
 
         return id != -1;
     }
 
-    public boolean deleteChannel()
-    {
+    public boolean deleteChannel() {
         long feedId = mutableParams.getFeedId();
-        if (feedId == -1)
+        if (feedId == -1) {
             return false;
+        }
 
         /* Sync wait deleting */
         try {
             Thread t = new Thread(() -> {
                 FeedChannel channel = repo.getFeedById(feedId);
-                if (channel != null)
+                if (channel != null) {
                     repo.deleteFeed(channel);
+                }
             });
             t.start();
             t.join();
@@ -142,11 +133,11 @@ public class AddFeedViewModel extends AndroidViewModel
         return true;
     }
 
-    private void fetchParams()
-    {
+    private void fetchParams() {
         long feedId = mutableParams.getFeedId();
-        if (feedId == -1)
+        if (feedId == -1) {
             return;
+        }
 
         disposables.add(repo.getFeedByIdSingle(feedId)
                 .subscribeOn(Schedulers.io())
@@ -161,14 +152,15 @@ public class AddFeedViewModel extends AndroidViewModel
                 }));
     }
 
-    private long applyParams(boolean newChannel)
-    {
+    private long applyParams(boolean newChannel) {
         long feedId = mutableParams.getFeedId();
-        if (!newChannel && feedId == -1)
+        if (!newChannel && feedId == -1) {
             return -1;
+        }
         String url = mutableParams.getUrl();
-        if (TextUtils.isEmpty(url))
+        if (TextUtils.isEmpty(url)) {
             return -1;
+        }
 
         FeedChannel channel = new FeedChannel(url,
                 mutableParams.getName(),
@@ -200,15 +192,15 @@ public class AddFeedViewModel extends AndroidViewModel
         return retId[0];
     }
 
-    private void refreshChannel(long feedId)
-    {
-        if (feedId == -1)
+    private void refreshChannel(long feedId) {
+        if (feedId == -1) {
             return;
+        }
 
         Data data = new Data.Builder()
                 .putString(FeedFetcherWorker.TAG_ACTION, FeedFetcherWorker.ACTION_FETCH_CHANNEL)
                 .putLong(FeedFetcherWorker.TAG_CHANNEL_ID, feedId)
-                .putBoolean(FeedFetcherWorker.TAG_NO_AUTO_DOWNLOAD, mutableParams.isNotDownloadImmediately())
+                .putBoolean(FeedFetcherWorker.TAG_FORCE_AUTO_DOWNLOAD, mutableParams.isDownloadImmediately())
                 .build();
 
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(FeedFetcherWorker.class)

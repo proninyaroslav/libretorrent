@@ -60,7 +60,7 @@
             </com.google.android.material.textfield.TextInputLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <org.proninyaroslav.libretorrent.ui.customviews.MaterialSwipeRefreshLayout
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                 app:spanCount="@integer/file_manager_list_grid_span"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_file_manager" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </org.proninyaroslav.libretorrent.ui.customviews.MaterialSwipeRefreshLayout>
 
         <RelativeLayout
             android:id="@+id/bottom_bar"

@@ -86,8 +86,8 @@ public class AddTorrentInfoFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity) {
-            activity = (AppCompatActivity) context;
+        if (context instanceof AppCompatActivity a) {
+            activity = a;
         }
     }
 

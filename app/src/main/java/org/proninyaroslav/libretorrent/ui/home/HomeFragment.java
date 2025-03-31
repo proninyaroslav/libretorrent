@@ -37,13 +37,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -79,8 +79,8 @@ import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentHomeBinding;
 import org.proninyaroslav.libretorrent.databinding.HomeDrawerContentBinding;
 import org.proninyaroslav.libretorrent.databinding.MainNavRailHeaderBinding;
-import org.proninyaroslav.libretorrent.ui.DeleteTorrentDialog;
 import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
+import org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentArgs;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
@@ -110,8 +110,7 @@ import io.reactivex.schedulers.Schedulers;
  * The list of torrents.
  */
 
-public class HomeFragment extends AbstractListDetailFragment
-        implements TorrentListAdapter.ClickListener {
+public class HomeFragment extends AbstractListDetailFragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
     private static final String TAG_TORRENT_LIST_STATE = "torrent_list_state";
@@ -137,12 +136,8 @@ public class HomeFragment extends AbstractListDetailFragment
 
     @NonNull
     @Override
-    public View onCreateListPaneView(
-            @NonNull LayoutInflater layoutInflater,
-            @Nullable ViewGroup viewGroup,
-            @Nullable Bundle bundle
-    ) {
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, viewGroup, false);
+    public View onCreateListPaneView(@NonNull LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
+        binding = FragmentHomeBinding.inflate(layoutInflater, viewGroup, false);
         drawerBinding = HomeDrawerContentBinding.inflate(layoutInflater);
         var navBarFragment = activity.findNavBarFragment(this);
 
@@ -244,7 +239,7 @@ public class HomeFragment extends AbstractListDetailFragment
         var provider = new ViewModelProvider(activity);
         viewModel = provider.get(HomeViewModel.class);
 
-        adapter = new TorrentListAdapter(this);
+        adapter = new TorrentListAdapter(torrentClickListener);
         /*
          * A RecyclerView by default creates another copy of the ViewHolder in order to
          * fade the views into each other. This causes the problem because the old ViewHolder gets
@@ -314,10 +309,19 @@ public class HomeFragment extends AbstractListDetailFragment
         getAddTorrentFab().setOnClickListener(this::showFabMenu);
 
         var i = activity.getIntent();
-        if (i != null && MainActivity.ACTION_ADD_TORRENT_SHORTCUT.equals(i.getAction())) {
-            /* Prevents re-reading action after device configuration changes */
-            i.setAction(null);
-            showAddTorrentMenu();
+        if (i != null) {
+            if (MainActivity.ACTION_ADD_TORRENT_SHORTCUT.equals(i.getAction())) {
+                // Prevents re-reading action after device configuration changes
+                i.setAction(null);
+                showAddTorrentMenu();
+            } else if (MainActivity.ACTION_OPEN_TORRENT_DETAILS.equals(i.getAction())) {
+                // Prevents re-reading action after device configuration changes
+                i.setAction(null);
+                var torrentId = i.getStringExtra(MainActivity.KEY_TORRENT_ID);
+                if (torrentId != null) {
+                    openTorrentDetails(torrentId);
+                }
+            }
         }
 
         initDrawer();
@@ -333,6 +337,17 @@ public class HomeFragment extends AbstractListDetailFragment
 
         binding.contextualAppBar.setOnMenuItemClickListener(this::onContextualMenuItemClickListener);
         binding.contextualAppBar.setNavigationOnClickListener((v) -> finishContextualMode());
+
+        activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                var navController = NavHostFragment.findNavController(HomeFragment.this);
+                if (!navController.navigateUp()) {
+                    setEnabled(false);
+                    activity.getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
+        });
     }
 
     @NonNull
@@ -365,7 +380,7 @@ public class HomeFragment extends AbstractListDetailFragment
     }
 
     private void initSearch() {
-        searchAdapter = new TorrentListAdapter(this);
+        searchAdapter = new TorrentListAdapter(torrentClickListener);
         /*
          * A RecyclerView by default creates another copy of the ViewHolder in order to
          * fade the views into each other. This causes the problem because the old ViewHolder gets
@@ -418,8 +433,8 @@ public class HomeFragment extends AbstractListDetailFragment
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof MainActivity) {
-            activity = (MainActivity) context;
+        if (context instanceof MainActivity a) {
+            activity = a;
         }
     }
 
@@ -644,7 +659,7 @@ public class HomeFragment extends AbstractListDetailFragment
                         navController.popBackStack();
                     }
 
-                    var action = TorrentDetailsFragmentDirections.actionOpenBlank();
+                    var action = BlankFragmentDirections.actionOpenBlank();
                     var options = new NavOptions.Builder();
                     setDetailsNavAnimation(options);
                     navController.navigate(action, options.build());
@@ -1093,8 +1108,19 @@ public class HomeFragment extends AbstractListDetailFragment
                         Integer.toString(listenPort)));
     }
 
-    @Override
-    public void onItemClicked(@NonNull TorrentListItem item) {
+    private final TorrentListAdapter.ClickListener torrentClickListener = new TorrentListAdapter.ClickListener() {
+        @Override
+        public void onItemClicked(@NonNull TorrentListItem item) {
+            openTorrentDetails(item.torrentId);
+        }
+
+        @Override
+        public void onItemPauseClicked(@NonNull TorrentListItem item) {
+            viewModel.pauseResumeTorrent(item.torrentId);
+        }
+    };
+
+    private void openTorrentDetails(String torrentId) {
         var navController = getDetailPaneNavHostFragment().getNavController();
         var slidingPaneLayout = getSlidingPaneLayout();
 
@@ -1103,18 +1129,13 @@ public class HomeFragment extends AbstractListDetailFragment
             navController.popBackStack();
         }
 
-        var action = TorrentDetailsFragmentDirections.actionTorrentDetails(item.torrentId);
+        var action = TorrentDetailsFragmentDirections.actionTorrentDetails(torrentId);
         var options = new NavOptions.Builder();
         setDetailsNavAnimation(options);
         navController.navigate(action, options.build());
         slidingPaneLayout.open();
 
         binding.searchView.handleBackInvoked();
-    }
-
-    @Override
-    public void onItemPauseClicked(@NonNull TorrentListItem item) {
-        viewModel.pauseResumeTorrent(item.torrentId);
     }
 
     @SuppressLint("RestrictedApi")

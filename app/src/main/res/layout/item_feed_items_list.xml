@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    style="@style/App.Components.ListItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="72dp"
-        android:background="?attr/defaultRectRipple">
+        android:layout_marginHorizontal="16dp"
+        android:minHeight="@dimen/list_item_three_lines_height">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical"
-            android:layout_marginEnd="56dp"
-            android:layout_marginStart="16dp">
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginVertical="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/menu"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
+                style="@style/App.Components.ListItem.Label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginBottom="8dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                android:gravity="center_vertical"
+                tools:text="Tag" />
 
             <TextView
                 android:id="@+id/pub_date"
+                style="@style/App.Components.ListItem.SupportingText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextCaptionM2" />
+                tools:text="01.01.25 00:00" />
         </LinearLayout>
 
-        <ImageButton
+        <Button
             android:id="@+id/menu"
+            style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:padding="8dp"
-            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:contentDescription="@string/menu"
-            android:background="?attr/transparentRoundRipple"
-            app:srcCompat="@drawable/ic_more_vert_grey600_24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_alignParentEnd="true" />
+            app:icon="@drawable/ic_more_vert_24px" />
     </RelativeLayout>
-</layout>
+</com.google.android.material.card.MaterialCardView>

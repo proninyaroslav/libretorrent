@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,28 +17,21 @@
 package org.proninyaroslav.libretorrent.ui.customviews;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.color.MaterialColors;
+
 import org.proninyaroslav.libretorrent.R;
 
-public class ThemedSwipeRefreshLayout extends SwipeRefreshLayout
-{
-    public ThemedSwipeRefreshLayout(@NonNull Context context, @Nullable AttributeSet attrs)
-    {
+public class MaterialSwipeRefreshLayout extends SwipeRefreshLayout {
+    public MaterialSwipeRefreshLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
-                R.attr.foreground,
-                R.attr.colorSecondary
-        });
-        setColorSchemeColors(a.getColor(1, 0));
-        setProgressBackgroundColorSchemeColor(a.getColor(0, 0));
-        a.recycle();
+        setColorSchemeColors(MaterialColors.getColor(this, R.attr.colorOnSurfaceVariant));
+        setProgressBackgroundColorSchemeColor(MaterialColors.getColor(this, R.attr.colorSurfaceBright));
     }
 }

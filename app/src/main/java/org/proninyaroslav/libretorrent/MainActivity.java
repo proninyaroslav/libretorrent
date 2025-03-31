@@ -19,11 +19,8 @@
 
 package org.proninyaroslav.libretorrent;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 
 import androidx.activity.OnBackPressedCallback;
@@ -31,7 +28,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -134,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         showManageAllFilesWarningDialog();
 
-        FragmentManager fm = getSupportFragmentManager();
+        var fm = getSupportFragmentManager();
         var navHostFragment = (NavHostFragment) fm.findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
@@ -152,23 +148,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        handleImplicitIntent();
-    }
-
-    private void handleImplicitIntent() {
-        var i = getIntent();
-        Uri uri = null;
-        /* Implicit intent with path to torrent file, http or magnet link */
-        if (i.getData() != null) {
-            uri = i.getData();
-        } else if (!TextUtils.isEmpty(i.getStringExtra(Intent.EXTRA_TEXT))) {
-            uri = Uri.parse(i.getStringExtra(Intent.EXTRA_TEXT));
-        }
-        if (uri != null) {
-            var action = NavBarFragmentDirections.actionAddTorrent(uri);
-            navController.navigate(action);
-        }
     }
 
     @Override

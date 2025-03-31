@@ -49,7 +49,7 @@ import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentTorrentDetailsBinding;
-import org.proninyaroslav.libretorrent.ui.DeleteTorrentDialog;
+import org.proninyaroslav.libretorrent.ui.home.DeleteTorrentDialog;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.MainActivity;
@@ -83,8 +83,8 @@ public class TorrentDetailsFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof MainActivity) {
-            activity = (MainActivity) context;
+        if (context instanceof MainActivity a) {
+            activity = a;
         }
     }
 

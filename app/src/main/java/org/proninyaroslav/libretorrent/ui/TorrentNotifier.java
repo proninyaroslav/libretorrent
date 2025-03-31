@@ -227,7 +227,6 @@ public class TorrentNotifier {
 
         applyLegacyNotifySettings(builder);
 
-        // TODO
         Intent openIntent = new Intent(appContext, MainActivity.class);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         openIntent.setAction(MainActivity.ACTION_OPEN_TORRENT_DETAILS);

@@ -1,50 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/details_pane_start_margin">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="false"
+        app:statusBarForeground="?attr/colorSurface">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:minHeight="?attr/actionBarSize"
-                android:background="?attr/toolbarColor"
-                app:layout_scrollFlags="enterAlways"
-                android:transitionName="actionBar"
-                app:popupTheme="?attr/popupTheme"
-                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-                android:focusable="true" />
-        </com.google.android.material.appbar.AppBarLayout>
+                android:elevation="0dp"
+                app:layout_collapseMode="pin"
+                app:menu="@menu/feed_items"
+                app:navigationIcon="@drawable/abc_ic_ab_back_material"
+                app:title="@string/feed_articles" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout
-            android:id="@+id/swipe_container"
+    <org.proninyaroslav.libretorrent.ui.customviews.MaterialSwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <org.proninyaroslav.libretorrent.ui.customviews.EmptyRecyclerView
+            android:id="@+id/feed_items_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_below="@id/app_bar"
+            android:paddingTop="8dp"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </org.proninyaroslav.libretorrent.ui.customviews.MaterialSwipeRefreshLayout>
 
-            <org.proninyaroslav.libretorrent.ui.customviews.EmptyRecyclerView
-                android:id="@+id/feed_items_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/app_bar"
-                android:scrollbars="vertical"
-                android:focusable="true" />
-        </org.proninyaroslav.libretorrent.ui.customviews.ThemedSwipeRefreshLayout>
-
-        <TextView
-            android:id="@+id/empty_view_feed_items"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/feed_item_list_empty"
-            style="@style/EmptyViewM2" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+    <org.proninyaroslav.libretorrent.ui.customviews.EmptyListPlaceholder
+        android:id="@+id/empty_view_feed_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:icon="@drawable/ic_lists_24px"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:text="@string/feed_item_list_empty"
+        tools:visibility="gone" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

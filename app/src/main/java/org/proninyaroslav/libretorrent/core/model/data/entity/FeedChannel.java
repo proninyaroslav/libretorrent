@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,14 +29,14 @@ import androidx.room.PrimaryKey;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /*
  * The class encapsulates the feed channel data.
  */
 
 @Entity
-public class FeedChannel implements Parcelable
-{
+public class FeedChannel implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     public long id;
     @NonNull
@@ -52,8 +52,7 @@ public class FeedChannel implements Parcelable
     public FeedChannel(@NonNull String url, String name,
                        long lastUpdate, boolean autoDownload,
                        String filter, boolean isRegexFilter,
-                       String fetchError)
-    {
+                       String fetchError) {
         this.url = url;
         this.name = name;
         this.lastUpdate = lastUpdate;
@@ -64,16 +63,14 @@ public class FeedChannel implements Parcelable
     }
 
     @Ignore
-    public FeedChannel(@NonNull String url)
-    {
+    public FeedChannel(@NonNull String url) {
         this.url = url;
     }
 
     @Ignore
-    public FeedChannel(Parcel source)
-    {
+    public FeedChannel(Parcel source) {
         id = source.readLong();
-        url = source.readString();
+        url = Objects.requireNonNull(source.readString());
         name = source.readString();
         lastUpdate = source.readLong();
         autoDownload = source.readByte() != 0;
@@ -83,56 +80,48 @@ public class FeedChannel implements Parcelable
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(url);
         dest.writeString(name);
         dest.writeLong(lastUpdate);
-        dest.writeByte((byte)(autoDownload ? 1 : 0));
+        dest.writeByte((byte) (autoDownload ? 1 : 0));
         dest.writeString(filter);
-        dest.writeByte((byte)(isRegexFilter ? 1 : 0));
+        dest.writeByte((byte) (isRegexFilter ? 1 : 0));
         dest.writeString(fetchError);
     }
 
     public static final Creator<FeedChannel> CREATOR =
-            new Creator<FeedChannel>()
-            {
+            new Creator<FeedChannel>() {
                 @Override
-                public FeedChannel createFromParcel(Parcel source)
-                {
+                public FeedChannel createFromParcel(Parcel source) {
                     return new FeedChannel(source);
                 }
 
                 @Override
-                public FeedChannel[] newArray(int size)
-                {
+                public FeedChannel[] newArray(int size) {
                     return new FeedChannel[size];
                 }
             };
 
     @Override
-    public int hashCode()
-    {
-        return (int)(id ^ (id >>> 32));
+    public int hashCode() {
+        return Long.hashCode(id);
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        return o instanceof FeedChannel && (o == this || id == ((FeedChannel)o).id);
+    public boolean equals(Object o) {
+        return o instanceof FeedChannel && (o == this || id == ((FeedChannel) o).id);
     }
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "FeedChannel{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +

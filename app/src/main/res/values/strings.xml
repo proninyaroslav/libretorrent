@@ -328,6 +328,7 @@
     <string name="feeds_backup_selection_dialog_title">Select backup file</string>
     <string name="error_import_invalid_format">Invalid format</string>
     <string name="feed_do_not_download_immediately">Do not download immediately</string>
+    <string name="feed_download_immediately">Download immediately</string>
     <string name="feed_item_url_not_found">URL not found</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Create torrent</string>
@@ -607,6 +608,7 @@
     <string name="color_picker">Color picker</string>
     <string name="load_message">Load, please wait…</string>
     <string name="reset_filter">Reset filter</string>
+    <string name="feed_articles">Articles</string>
     <!-- Size • files count -->
     <plurals name="torrent_info_size_template_plural">
         <item quantity="zero">%1$s \u2022 %2$d files</item>

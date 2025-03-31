@@ -34,6 +34,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
@@ -118,13 +119,10 @@ import javax.net.ssl.X509TrustManager;
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
 
-    private static final String TAG_MANAGE_ALL_FILES_WARNING_DIALOG = "manage_all_files_warning_dialog";
-
     public static final String INFINITY_SYMBOL = "\u221e";
     public static final String MAGNET_PREFIX = "magnet";
     public static final String HTTP_PREFIX = "http";
     public static final String HTTPS_PREFIX = "https";
-    public static final String UDP_PREFIX = "udp";
     public static final String INFOHASH_PREFIX = "magnet:?xt=urn:btih:";
     public static final String FILE_PREFIX = "file";
     public static final String CONTENT_PREFIX = "content";
@@ -134,6 +132,8 @@ public class Utils {
     public static final String MIME_TORRENT = "application/x-bittorrent";
     public static final String MIME_TEXT_PLAIN = "text/plain";
     public static final String NEWLINE_PATTERN = "\\r\\n|\\r|\\n";
+    private static final String FEED_MIME_TYPE_PATTERN = "^(application|text)/((atom|rss)\\+)?xml";
+    private static final String FEED_FILE_PATH_PATTERN = ".*\\.(xml|rss|atom)";
 
     /*
      * Colorize the progress bar in the accent color (for pre-Lollipop).
@@ -978,5 +978,23 @@ public class Utils {
         divider.setLastItemDecorated(false);
 
         return divider;
+    }
+
+    public static Typeface getBoldTypeface(Typeface typeface) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return Typeface.create(typeface, 500, false);
+        } else {
+            return Typeface.create(typeface, Typeface.BOLD);
+        }
+    }
+
+    public static boolean matchFeedMimeType(@NonNull String mimeType) {
+        var pattern = Pattern.compile(FEED_MIME_TYPE_PATTERN, Pattern.CASE_INSENSITIVE);
+        return pattern.matcher(mimeType).matches();
+    }
+
+    public static boolean matchFeedFilePath(@NonNull String path) {
+        var pattern = Pattern.compile(FEED_FILE_PATH_PATTERN, Pattern.CASE_INSENSITIVE);
+        return pattern.matcher(path).matches();
     }
 }

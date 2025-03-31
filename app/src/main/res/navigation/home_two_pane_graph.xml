@@ -131,7 +131,7 @@
     <include app:graph="@navigation/error_report_graph" />
     <dialog
         android:id="@+id/deleteDetailsTorrentDialog"
-        android:name="org.proninyaroslav.libretorrent.ui.DeleteTorrentDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.home.DeleteTorrentDialog"
         android:label="DeleteTorrentDialog"
         tools:layout="@layout/dialog_delete_torrent">
         <argument

@@ -63,8 +63,8 @@ public class StorageSettingsFragment extends CustomPreferenceFragment
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof MainActivity) {
-            activity = (MainActivity) context;
+        if (context instanceof MainActivity a) {
+            activity = a;
         }
     }
 

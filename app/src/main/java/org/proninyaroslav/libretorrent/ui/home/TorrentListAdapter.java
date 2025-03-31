@@ -19,12 +19,10 @@
 
 package org.proninyaroslav.libretorrent.ui.home;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -159,7 +157,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         }
 
         void bind(TorrentListItem item, boolean isOpened, ClickListener listener) {
-            Context context = itemView.getContext();
+            var context = itemView.getContext();
             selectionKey = item;
 
             binding.card.setChecked(isSelected);
@@ -245,10 +243,10 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
                 binding.errorContainer.setVisibility(View.GONE);
             }
 
-            applyOpenItemStyle(context, isOpened);
+            applyOpenItemStyle(isOpened);
         }
 
-        private void applyOpenItemStyle(Context context, boolean isOpened) {
+        private void applyOpenItemStyle(boolean isOpened) {
             if (isOpened) {
                 binding.card.setCardBackgroundColor(MaterialColors.getColor(binding.getRoot(), R.attr.colorPrimaryContainer));
                 var colorSurface = MaterialColors.getColor(binding.getRoot(), R.attr.colorSurface);

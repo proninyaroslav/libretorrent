@@ -86,13 +86,13 @@ public class ColorPickerPreference extends Preference {
     }
 
     public FragmentActivity getActivity() {
-        Context context = getContext();
-        if (context instanceof FragmentActivity) {
-            return (FragmentActivity) context;
-        } else if (context instanceof ContextWrapper) {
-            Context baseContext = ((ContextWrapper) context).getBaseContext();
-            if (baseContext instanceof FragmentActivity) {
-                return (FragmentActivity) baseContext;
+        var context = getContext();
+        if (context instanceof FragmentActivity activity) {
+            return activity;
+        } else if (context instanceof ContextWrapper contextWrapper) {
+            var baseContext = contextWrapper.getBaseContext();
+            if (baseContext instanceof FragmentActivity activity) {
+                return activity;
             }
         }
         throw new IllegalStateException("Error getting activity from context");

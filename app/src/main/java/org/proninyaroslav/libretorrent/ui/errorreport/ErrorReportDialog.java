@@ -67,8 +67,8 @@ public class ErrorReportDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof ErrorReportActivity) {
-            errorReportActivity = (ErrorReportActivity) context;
+        if (context instanceof ErrorReportActivity a) {
+            errorReportActivity = a;
         }
     }
 

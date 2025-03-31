@@ -116,8 +116,8 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof MainActivity) {
-            activity = (MainActivity) context;
+        if (context instanceof MainActivity a) {
+            activity = a;
         }
     }
 

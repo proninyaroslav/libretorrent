@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -25,47 +25,40 @@ import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 
-public class FeedChannelItem extends FeedChannel implements Comparable<FeedChannelItem>
-{
-    public FeedChannelItem(@NonNull FeedChannel channel)
-    {
+import java.util.Objects;
+
+public class FeedChannelItem extends FeedChannel implements Comparable<FeedChannelItem> {
+    public int unreadCount;
+
+    public FeedChannelItem(@NonNull FeedChannel channel, int unreadCount) {
         super(channel.url, channel.name,
-              channel.lastUpdate, channel.autoDownload,
-              channel.filter, channel.isRegexFilter, channel.fetchError);
+                channel.lastUpdate, channel.autoDownload,
+                channel.filter, channel.isRegexFilter, channel.fetchError);
 
         id = channel.id;
+        this.unreadCount = unreadCount;
+    }
+
+    public FeedChannelItem(long feedId) {
+        super("");
+
+        id = feedId;
     }
 
     @Override
-    public int hashCode()
-    {
-        return (int)(id ^ (id >>> 32));
-    }
-
-    @Override
-    public int compareTo(@NonNull FeedChannelItem o)
-    {
+    public int compareTo(@NonNull FeedChannelItem o) {
         String cmp1 = (TextUtils.isEmpty(name) ? url : name);
         String cmp2 = (TextUtils.isEmpty(o.name) ? o.url : o.name);
 
         return cmp1.compareTo(cmp2);
     }
 
-    @Override
-    public boolean equals(Object o)
-    {
-        return super.equals(o);
-    }
-
-    public boolean equalsContent(Object o)
-    {
-        if (!(o instanceof FeedChannelItem))
+    public boolean equalsContent(Object o) {
+        if (!(o instanceof FeedChannelItem item))
             return false;
 
         if (o == this)
             return true;
-
-        FeedChannelItem item = (FeedChannelItem)o;
 
         return id == item.id &&
                 url.equals(item.url) &&
@@ -74,7 +67,7 @@ public class FeedChannelItem extends FeedChannel implements Comparable<FeedChann
                 autoDownload == item.autoDownload &&
                 (filter == null || filter.equals(item.filter)) &&
                 isRegexFilter == item.isRegexFilter &&
-                (fetchError == null || fetchError.equals(item.fetchError));
-
-   }
+                (fetchError == null || fetchError.equals(item.fetchError)) &&
+                unreadCount == item.unreadCount;
+    }
 }

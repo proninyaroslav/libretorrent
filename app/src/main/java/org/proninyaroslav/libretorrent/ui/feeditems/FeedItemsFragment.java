@@ -21,97 +21,71 @@ package org.proninyaroslav.libretorrent.ui.feeditems;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuProvider;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentFeedItemsBinding;
-import org.proninyaroslav.libretorrent.ui.FragmentCallback;
-import org.proninyaroslav.libretorrent.ui.customviews.RecyclerViewDividerDecoration;
+import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class FeedItemsFragment extends Fragment
-        implements FeedItemsAdapter.ClickListener {
+public class FeedItemsFragment extends Fragment {
     private static final String TAG = FeedItemsFragment.class.getSimpleName();
 
     private static final String TAG_ITEMS_LIST_STATE = "items_list_state";
 
-    private AppCompatActivity activity;
+    private MainActivity activity;
     private FragmentFeedItemsBinding binding;
     private FeedItemsViewModel viewModel;
     private FeedItemsAdapter adapter;
     private LinearLayoutManager layoutManager;
     /* Save state scrolling */
     private Parcelable itemsListState;
-    private long feedId;
-    private CompositeDisposable disposables = new CompositeDisposable();
-
-    public static FeedItemsFragment newInstance(long feedId) {
-        FeedItemsFragment fragment = new FeedItemsFragment();
-        fragment.setFeedId(feedId);
-        fragment.setArguments(new Bundle());
-
-        return fragment;
-    }
-
-    public long getFeedId() {
-        return feedId;
-    }
-
-    public void setFeedId(long feedId) {
-        this.feedId = feedId;
-    }
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity) {
-            activity = (AppCompatActivity) context;
-            activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-                @Override
-                public void handleOnBackPressed() {
-                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
-                }
-            });
+        if (context instanceof MainActivity a) {
+            activity = a;
         }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed_items, container, false);
+        binding = FragmentFeedItemsBinding.inflate(inflater, container, false);
+
+        if (Utils.isLargeScreenDevice(activity)) {
+            Utils.applyWindowInsets(binding.swipeContainer, WindowInsetsSide.BOTTOM | WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT);
+        } else {
+            Utils.applyWindowInsets(binding.swipeContainer, WindowInsetsSide.LEFT | WindowInsetsSide.RIGHT);
+        }
+        if (Utils.isTwoPane(activity)) {
+            binding.appBar.setNavigationIcon(null);
+        }
 
         return binding.getRoot();
     }
@@ -121,63 +95,34 @@ public class FeedItemsFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         if (activity == null) {
-            activity = (AppCompatActivity) getActivity();
+            activity = (MainActivity) requireActivity();
         }
 
-        viewModel = new ViewModelProvider(activity).get(FeedItemsViewModel.class);
-
-        /* Remove previous data if fragment changed */
-        if (Utils.isTwoPane(activity))
-            viewModel.clearData();
-        viewModel.setFeedId(feedId);
-
-        if (Utils.isTwoPane(activity)) {
-            binding.toolbar.inflateMenu(R.menu.feed_items);
-            binding.toolbar.setNavigationIcon(ContextCompat.getDrawable(activity.getApplicationContext(),
-                    R.drawable.ic_arrow_back_white_24dp));
-            binding.toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
-
-        } else {
-            binding.toolbar.setTitle(R.string.details);
-            activity.setSupportActionBar(binding.toolbar);
-            if (activity.getSupportActionBar() != null)
-                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        binding.toolbar.setNavigationOnClickListener((v) ->
-                finish(new Intent(), FragmentCallback.ResultCode.BACK));
+        var args = FeedItemsFragmentArgs.fromBundle(getArguments());
+        viewModel = new ViewModelProvider(this).get(FeedItemsViewModel.class);
+        viewModel.setFeedId(args.getFeedId());
 
         layoutManager = new LinearLayoutManager(activity);
         binding.feedItemsList.setLayoutManager(layoutManager);
-        TypedArray a = activity.obtainStyledAttributes(new TypedValue().data, new int[]{R.attr.divider});
-        binding.feedItemsList.addItemDecoration(new RecyclerViewDividerDecoration(a.getDrawable(0)));
-        a.recycle();
+        binding.feedItemsList.addItemDecoration(Utils.buildListDivider(activity));
         binding.feedItemsList.setEmptyView(binding.emptyViewFeedItems);
 
-        adapter = new FeedItemsAdapter(this);
+        adapter = new FeedItemsAdapter(itemClickListener);
         binding.feedItemsList.setAdapter(adapter);
 
         binding.swipeContainer.setOnRefreshListener(() -> viewModel.refreshChannel());
 
-        activity.addMenuProvider(new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.feed_items, menu);
+        binding.appBar.setNavigationOnClickListener((v) ->
+                activity.getOnBackPressedDispatcher().onBackPressed());
+        binding.appBar.setOnMenuItemClickListener((item) -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.refresh_feed_channel_menu) {
+                viewModel.refreshChannel();
+            } else if (itemId == R.id.mark_as_read_menu) {
+                viewModel.markAllAsRead();
             }
-
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-                int itemId = menuItem.getItemId();
-                if (itemId == android.R.id.home) {
-                    finish(new Intent(), FragmentCallback.ResultCode.BACK);
-                } else if (itemId == R.id.refresh_feed_channel_menu) {
-                    viewModel.refreshChannel();
-                } else if (itemId == R.id.mark_as_read_menu) {
-                    viewModel.markAllAsRead();
-                }
-
-                return true;
-            }
-        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+            return true;
+        });
     }
 
     @Override
@@ -199,14 +144,17 @@ public class FeedItemsFragment extends Fragment
     public void onResume() {
         super.onResume();
 
-        if (itemsListState != null)
+        if (itemsListState != null && layoutManager != null) {
             layoutManager.onRestoreInstanceState(itemsListState);
+        }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        itemsListState = layoutManager.onSaveInstanceState();
-        outState.putParcelable(TAG_ITEMS_LIST_STATE, itemsListState);
+        if (layoutManager != null) {
+            itemsListState = layoutManager.onSaveInstanceState();
+            outState.putParcelable(TAG_ITEMS_LIST_STATE, itemsListState);
+        }
 
         super.onSaveInstanceState(outState);
     }
@@ -215,12 +163,12 @@ public class FeedItemsFragment extends Fragment
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             itemsListState = savedInstanceState.getParcelable(TAG_ITEMS_LIST_STATE);
+        }
     }
 
     private void subscribeAdapter() {
-        getAllFeedItemsSingle();
         disposables.add(observeFeedItems());
     }
 
@@ -238,41 +186,29 @@ public class FeedItemsFragment extends Fragment
                                 Log.getStackTraceString(t)));
     }
 
-    private void getAllFeedItemsSingle() {
-        disposables.add(viewModel.getItemsByFeedIdSingle()
-                .subscribeOn(Schedulers.io())
-                .flatMap((itemList) ->
-                        Observable.fromIterable(itemList)
-                                .map(FeedItemsListItem::new)
-                                .toList()
-                )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(adapter::submitList,
-                        (Throwable t) -> Log.e(TAG, "Getting item list error: " +
-                                Log.getStackTraceString(t))));
-    }
-
     private void subscribeRefreshStatus() {
         disposables.add(viewModel.observeRefreshStatus()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(binding.swipeContainer::setRefreshing));
     }
 
-    @Override
-    public void onItemClicked(@NonNull FeedItemsListItem item) {
-        openDownloadUrl(item);
-    }
-
-    @Override
-    public void onItemMenuClicked(int menuId, @NonNull FeedItemsListItem item) {
-        if (menuId == R.id.open_article_menu) {
-            openArticle(item);
-        } else if (menuId == R.id.mark_as_read_menu) {
-            viewModel.markAsRead(item.id);
-        } else if (menuId == R.id.mark_as_unread_menu) {
-            viewModel.markAsUnread(item.id);
+    private final FeedItemsAdapter.ClickListener itemClickListener = new FeedItemsAdapter.ClickListener() {
+        @Override
+        public void onItemClicked(@NonNull FeedItemsListItem item) {
+            openDownloadUrl(item);
         }
-    }
+
+        @Override
+        public void onItemMenuClicked(int menuId, @NonNull FeedItemsListItem item) {
+            if (menuId == R.id.open_article_menu) {
+                openArticle(item);
+            } else if (menuId == R.id.mark_as_read_menu) {
+                viewModel.markAsRead(item.id);
+            } else if (menuId == R.id.mark_as_unread_menu) {
+                viewModel.markAsUnread(item.id);
+            }
+        }
+    };
 
     private void openArticle(FeedItemsListItem item) {
         if (TextUtils.isEmpty(item.articleUrl)) {
@@ -285,7 +221,7 @@ public class FeedItemsFragment extends Fragment
 
         viewModel.markAsRead(item.id);
 
-        Intent i = new Intent(Intent.ACTION_VIEW);
+        var i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(item.articleUrl));
         startActivity(i);
     }
@@ -301,13 +237,8 @@ public class FeedItemsFragment extends Fragment
 
         viewModel.markAsRead(item.id);
 
-        // TODO
-//        Intent i = new Intent(activity, AddTorrentActivity.class);
-//        i.putExtra(AddTorrentActivity.ARG_URI, Uri.parse(item.downloadUrl));
-//        startActivity(i);
-    }
-
-    private void finish(Intent intent, FragmentCallback.ResultCode code) {
-        ((FragmentCallback) activity).onFragmentFinished(this, intent, code);
+        var navController = activity.getRootNavController();
+        var action = NavBarFragmentDirections.actionAddTorrent(Uri.parse(item.downloadUrl));
+        navController.navigate(action);
     }
 }
