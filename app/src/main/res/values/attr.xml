@@ -50,30 +50,4 @@
             <enum name="visible" value="3"/>
         </attr>
     </declare-styleable>
-
-    <!--    -->
-
-    <declare-styleable name="dynamic_style_attrs">
-        <attr name="background" format="reference" />
-        <attr name="foreground" format="reference" />
-        <attr name="toolbarColor" format="reference" />
-        <attr name="backgroundBlank" format="reference" />
-        <attr name="backgroundDialog" format="reference" />
-        <attr name="statusBarColor" format="reference" />
-        <attr name="popupTheme" format="reference" />
-        <attr name="divider" format="reference" />
-        <attr name="defaultRectRipple" format="reference" />
-        <attr name="defaultRoundRipple" format="reference" />
-        <attr name="selectableColor" format="reference" />
-        <attr name="selectableDrawer" format="reference" />
-        <attr name="transparentRoundRipple" format="reference" />
-        <attr name="dialogRectRipple" format="reference" />
-        <attr name="pieceCellColor" format="reference" />
-        <attr name="tabLayoutTheme" format="reference" />
-        <attr name="speedDialOverlayColor" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="Theme">
-        <attr name="morphButtonStyle" format="reference" />
-    </declare-styleable>
 </resources>

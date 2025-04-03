@@ -35,7 +35,6 @@
         android:key="@string/pref_key_scheduling_switch_wifi"
         android:persistent="false"
         android:summary="@string/pref_scheduling_switch_wifi_summary"
-        android:textColorHint="@color/accent"
         android:title="@string/pref_scheduling_switch_wifi_title"
         app:singleLineTitle="false" />
 

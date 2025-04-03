@@ -254,7 +254,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/TitleTextM2"
+                            style="@style/TextAppearance.App.SectionTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"

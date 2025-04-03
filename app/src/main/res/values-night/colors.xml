@@ -152,47 +152,4 @@
     <color name="colorOnOk_highContrast">#00391C</color>
     <color name="colorOkContainer_highContrast">#12512E</color>
     <color name="colorOnOkContainer_highContrast">#B1F1C1</color>
-
-
-    <color name="primary">#673AB7</color>
-    <color name="primary_dark">#522DA8</color>
-    <color name="primary_light">#B39DDB</color>
-    <color name="accent">#FF4081</color>
-    <color name="accent_dark">#B22C5A</color>
-    <color name="accent_light">#FF669A</color>
-    <color name="toolbar">@color/primary</color>
-    <color name="toolbar_dark">#272727</color>
-    <color name="background">#FFFFFF</color>
-    <color name="background_dark">#121212</color>
-    <color name="background_blank">#EDEDED</color>
-    <color name="background_blank_dark">#1D1D1D</color>
-    <color name="background_dialog">#FFFFFF</color>
-    <color name="background_dialog_dark">#373737</color>
-    <color name="background_dialog_black">#121212</color>
-    <color name="foreground">#FFFFFF</color>
-    <color name="foreground_dark">#2D2D2D</color>
-    <color name="foreground_black">#121212</color>
-    <color name="gray_dark">#727272</color>
-    <color name="gray">#E0E0E0</color>
-    <color name="divider">#E0E0E0</color>
-    <color name="divider_dark">#202020</color>
-    <color name="text_primary">#DE000000</color>
-    <color name="text_secondary">#9E9E9E</color>
-    <color name="text_primary_inverse">#FFFFFF</color>
-    <color name="action_mode">#757575</color>
-    <color name="action_mode_dark">#272727</color>
-    <color name="selectable">#EDE7F6</color>
-    <color name="selectable_dark">#23183B</color>
-    <color name="selectable_drawer">#EDE7F6</color>
-    <color name="selectable_drawer_dark">#3D374C</color>
-    <color name="error">#B00020</color>
-    <color name="error_light">#CF6679</color>
-    <color name="ok">#20B000</color>
-    <color name="ok_light">#9CD791</color>
-    <color name="piece_cell">#BDBDBD</color>
-    <color name="piece_cell_dark">#373737</color>
-    <color name="speed_dial_overlay">#80FFFFFF</color>
-    <color name="speed_dial_overlay_dark">#80121212</color>
-    <color name="speed_dial_overlay_black">#80000000</color>
-    <color name="switchBar_off">#80868B</color>
 </resources>

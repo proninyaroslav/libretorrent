@@ -630,7 +630,7 @@ public class Utils {
 
     public static void showActionModeStatusBar(@NonNull Activity activity, boolean show) {
         var actionModeColor = getAttributeColor(activity, R.attr.actionModeBackground);
-        var statusBarColor = getAttributeColor(activity, R.attr.statusBarColor);
+        var statusBarColor = getAttributeColor(activity, R.attr.colorSurface);
         var transparent = ColorUtils.setAlphaComponent(actionModeColor, 0);
 
         var colorFrom = show ? statusBarColor : actionModeColor;

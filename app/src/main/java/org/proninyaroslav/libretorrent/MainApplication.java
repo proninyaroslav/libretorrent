@@ -26,6 +26,7 @@ import android.util.Log;
 import androidx.multidex.MultiDexApplication;
 
 import com.google.android.material.color.DynamicColors;
+import com.google.android.material.color.DynamicColorsOptions;
 
 import org.acra.ACRA;
 import org.acra.config.CoreConfigurationBuilder;
@@ -66,7 +67,11 @@ public class MainApplication extends MultiDexApplication {
         TorrentNotifier.getInstance(this).makeNotifyChans();
 
         if (BuildConfig.DYNAMIC_THEME) {
-            DynamicColors.applyToActivitiesIfAvailable(this);
+            DynamicColors.applyToActivitiesIfAvailable(this,
+                    new DynamicColorsOptions.Builder()
+                            .setThemeOverlay(R.style.AppTheme)
+                            .build()
+            );
         }
     }
 

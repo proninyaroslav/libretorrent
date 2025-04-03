@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -51,7 +51,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         }
 
         static int ledIndicatorColorNotify(@NonNull Context context) {
-            return ContextCompat.getColor(context, R.color.primary);
+            return ContextCompat.getColor(context, R.color.branding_color);
         }
 
         static String foregroundNotifyStatusFilter(@NonNull Context context) {
@@ -177,9 +177,9 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         static final boolean askNotificationPermission = true;
     }
 
-    private Context appContext;
-    private SharedPreferences pref;
-    private FileSystemFacade fs;
+    private final Context appContext;
+    private final SharedPreferences pref;
+    private final FileSystemFacade fs;
 
     public SettingsRepositoryImpl(@NonNull Context appContext) {
         this.appContext = appContext;
