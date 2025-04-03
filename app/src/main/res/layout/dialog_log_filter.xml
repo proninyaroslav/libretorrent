@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
             type="org.proninyaroslav.libretorrent.ui.log.LogViewModel" />
@@ -11,52 +12,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:minWidth="@dimen/min_width_dialog"
-        android:padding="@dimen/dialog_padding"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/dialog_padding">
 
         <CheckBox
             android:id="@+id/session_log"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:text="@string/journal_filter_session_log"
-            android:checked="@={viewModel.mutableParams.logSessionFilter}" />
+            android:checked="@={viewModel.mutableParams.logSessionFilter}"
+            android:text="@string/journal_filter_session_log" />
 
         <CheckBox
             android:id="@+id/dht_log"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:text="@string/journal_filter_dht_log"
-            android:checked="@={viewModel.mutableParams.logDhtFilter}" />
+            android:checked="@={viewModel.mutableParams.logDhtFilter}"
+            android:text="@string/journal_filter_dht_log" />
 
         <CheckBox
             android:id="@+id/peer_log"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:text="@string/journal_filter_peer_log"
-            android:checked="@={viewModel.mutableParams.logPeerFilter}"/>
+            android:checked="@={viewModel.mutableParams.logPeerFilter}"
+            android:text="@string/journal_filter_peer_log" />
 
         <CheckBox
             android:id="@+id/portmap_log"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:text="@string/journal_filter_portmap_log"
-            android:checked="@={viewModel.mutableParams.logPortmapFilter}"/>
+            android:checked="@={viewModel.mutableParams.logPortmapFilter}"
+            android:text="@string/journal_filter_portmap_log" />
 
         <CheckBox
             android:id="@+id/torrent_log"
+            style="?attr/textAppearanceBodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:text="@string/journal_filter_torrent_log"
-            android:checked="@={viewModel.mutableParams.logTorrentFilter}"/>
+            android:checked="@={viewModel.mutableParams.logTorrentFilter}"
+            android:text="@string/journal_filter_torrent_log" />
     </LinearLayout>
 </layout>

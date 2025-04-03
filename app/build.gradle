@@ -129,6 +129,7 @@ def ROOM_VERSION = '2.6.1'
 def LIFECYCLE_VERSION = '2.8.7'
 def NAV_VERSION = "2.8.9"
 def MOSHI_VERSION = "1.15.2"
+def PAGING_VERSION = "3.3.6";
 
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
@@ -147,7 +148,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-core:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.paging:paging-runtime:3.3.6'
+    implementation "androidx.paging:paging-runtime:$PAGING_VERSION"
+    implementation "androidx.paging:paging-rxjava2:$PAGING_VERSION"
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"

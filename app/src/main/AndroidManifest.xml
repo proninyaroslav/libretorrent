@@ -128,10 +128,6 @@
             android:process=":acra"
             android:theme="@style/AppTheme.Translucent" />
 
-        <activity android:name=".ui.log.LogActivity" />
-
-        <activity android:name=".ui.log.LogSettingsActivity" />
-
         <service
             android:name=".service.TorrentService"
             android:foregroundServiceType="dataSync" />

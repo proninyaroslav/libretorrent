@@ -39,22 +39,22 @@ public class SwitchBar extends MaterialSwitch {
     public SwitchBar(@NonNull Context context) {
         super(new ContextThemeWrapper(context, R.style.App_Components_SwitchBar), null, R.style.App_Components_SwitchBar);
 
-        init(context, null, 0);
+        init();
     }
 
     public SwitchBar(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(new ContextThemeWrapper(context, R.style.App_Components_SwitchBar), attrs, R.style.App_Components_SwitchBar);
 
-        init(context, attrs, 0);
+        init();
     }
 
     public SwitchBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(new ContextThemeWrapper(context, R.style.App_Components_SwitchBar), attrs, defStyleAttr);
 
-        init(context, attrs, defStyleAttr);
+        init();
     }
 
-    private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    private void init() {
         setTextAppearance(R.style.TextAppearance_App_Components_SwitchBar);
 
         var background = new MaterialShapeDrawable();

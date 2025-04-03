@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
@@ -37,7 +36,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -85,7 +83,6 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentAr
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
-import org.proninyaroslav.libretorrent.ui.log.LogActivity;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerDateAddedFilter;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSort;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSortDirection;
@@ -162,6 +159,17 @@ public class HomeFragment extends AbstractListDetailFragment {
         setDeleteDialogListener();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        var navBarFragment = activity.findNavBarFragment(this);
+        if (navBarFragment != null) {
+            navBarFragment.removeDrawerNavigationView();
+            navBarFragment.removeNavRailHeaderView();
+        }
     }
 
     private void setOpenTorrentFileDialogListener(@NonNull NavBarFragment navBarFragment) {
@@ -337,17 +345,6 @@ public class HomeFragment extends AbstractListDetailFragment {
 
         binding.contextualAppBar.setOnMenuItemClickListener(this::onContextualMenuItemClickListener);
         binding.contextualAppBar.setNavigationOnClickListener((v) -> finishContextualMode());
-
-        activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                var navController = NavHostFragment.findNavController(HomeFragment.this);
-                if (!navController.navigateUp()) {
-                    setEnabled(false);
-                    activity.getOnBackPressedDispatcher().onBackPressed();
-                }
-            }
-        });
     }
 
     @NonNull
@@ -368,7 +365,8 @@ public class HomeFragment extends AbstractListDetailFragment {
         } else if (itemId == R.id.resume_all_menu) {
             viewModel.resumeAll();
         } else if (itemId == R.id.log_menu) {
-            startActivity(new Intent(activity, LogActivity.class));
+            var action = HomeFragmentDirections.actionOpenLog();
+            NavHostFragment.findNavController(this).navigate(action);
         }
 
         return true;

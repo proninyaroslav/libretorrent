@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -36,12 +36,11 @@ import java.util.concurrent.locks.ReentrantLock;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class Logger
-{
+public class Logger {
     protected static final long POLL_TIME_INTERVAL = 250; /* ms */
 
     protected FixedRingBuffer<LogEntry> inputBuf;
-    protected  FixedRingBuffer<LogEntry> outputBuf;
+    protected FixedRingBuffer<LogEntry> outputBuf;
     /* `numPendingLogs` <= `maxStoredLogs` */
     protected int numPendingLogs;
     protected HashMap<String, LogFilter> filters = new HashMap<>();
@@ -54,18 +53,18 @@ public class Logger
     protected boolean recording;
     protected int recordStartIndex = -1;
 
-    public Logger(int maxStoredLogs)
-    {
-        if (maxStoredLogs <= 0)
+    public Logger(int maxStoredLogs) {
+        if (maxStoredLogs <= 0) {
             throw new IllegalArgumentException("Maximum stored logs must be greater than 0");
+        }
 
         this.maxStoredLogs = maxStoredLogs;
     }
 
-    private FixedRingBuffer<LogEntry> lazyGetInputBuf()
-    {
-        if (inputBuf == null)
+    private FixedRingBuffer<LogEntry> lazyGetInputBuf() {
+        if (inputBuf == null) {
             inputBuf = new FixedRingBuffer<>(calcInitBufCapacity(maxStoredLogs), maxStoredLogs);
+        }
 
         if (pendingThread == null) {
             pendingThread = new Thread(this::periodicSwapBuffers);
@@ -83,67 +82,63 @@ public class Logger
         return inputBuf;
     }
 
-    private FixedRingBuffer<LogEntry> lazyGetOutputBuf()
-    {
-        if (outputBuf == null)
+    private FixedRingBuffer<LogEntry> lazyGetOutputBuf() {
+        if (outputBuf == null) {
             outputBuf = new FixedRingBuffer<>(calcInitBufCapacity(maxStoredLogs), maxStoredLogs);
+        }
 
         return outputBuf;
     }
 
-    private int calcInitBufCapacity(int capacity)
-    {
+    private int calcInitBufCapacity(int capacity) {
         return (int) Math.floor(capacity / 2.0);
     }
 
-    protected void send(@NonNull LogEntry entry)
-    {
+    protected void send(@NonNull LogEntry entry) {
         logLock.lock();
 
         try {
             lazyGetInputBuf().add(entry);
-            if (numPendingLogs < maxStoredLogs)
+            if (numPendingLogs < maxStoredLogs) {
                 numPendingLogs++;
+            }
 
         } finally {
             logLock.unlock();
         }
     }
 
-    private void periodicSwapBuffers()
-    {
+    private void periodicSwapBuffers() {
         while (!Thread.interrupted()) {
             if (!paused) {
                 if (logLock.tryLock()) {
                     try {
-                        if (Thread.interrupted())
+                        if (Thread.interrupted()) {
                             break;
-
+                        }
                         swapBuffers();
-
                     } finally {
                         logLock.unlock();
                     }
                 }
             }
-
             try {
                 Thread.sleep(POLL_TIME_INTERVAL);
-
             } catch (InterruptedException e) {
                 break;
             }
         }
     }
 
-    private void swapBuffers()
-    {
-        if (numPendingLogs == 0)
+    private void swapBuffers() {
+        if (numPendingLogs == 0) {
             return;
+        }
 
         FixedRingBuffer<LogEntry> inputBuf = lazyGetInputBuf();
-        if (inputBuf.isEmpty())
+        if (inputBuf.isEmpty()) {
             return;
+        }
         FixedRingBuffer<LogEntry> outputBuf = lazyGetOutputBuf();
 
         ArrayList<LogEntry> newEntries = new ArrayList<>(numPendingLogs);
@@ -155,18 +150,19 @@ public class Logger
                 newEntries.add(entry);
 
                 /* Move old position back */
-                if (recording && recordStartIndex > 0)
+                if (recording && recordStartIndex > 0) {
                     recordStartIndex--;
+                }
             }
         }
         numPendingLogs = 0;
 
-        if (!newEntries.isEmpty())
+        if (!newEntries.isEmpty()) {
             submitDataSetChanged(new DataSetChange(DataSetChange.Reason.NEW_ENTRIES, newEntries));
+        }
     }
 
-    private void submitDataSetChanged(DataSetChange change)
-    {
+    private void submitDataSetChanged(DataSetChange change) {
         sender.submit(() -> dataSetChangedPublish.onNext(change));
     }
 
@@ -174,8 +170,7 @@ public class Logger
      * Set the maximum number of stored log entries in memory
      */
 
-    public void setMaxStoredLogs(int max)
-    {
+    public void setMaxStoredLogs(int max) {
         logLock.lock();
 
         try {
@@ -187,8 +182,7 @@ public class Logger
         }
     }
 
-    public int getMaxStoredLogs()
-    {
+    public int getMaxStoredLogs() {
         logLock.lock();
 
         try {
@@ -199,65 +193,67 @@ public class Logger
         }
     }
 
-    public void addFilter(@NonNull NewFilter... filters)
-    {
+    public void addFilter(@NonNull NewFilter... filters) {
         logLock.lock();
 
         try {
             int addedFilters = 0;
             for (NewFilter filter : filters) {
-                if (filter == null)
+                if (filter == null) {
                     continue;
+                }
 
                 this.filters.put(filter.name, filter.filter);
                 addedFilters++;
             }
-            if (addedFilters > 0)
+            if (addedFilters > 0) {
                 forceFilterBuf();
+            }
 
         } finally {
             logLock.unlock();
         }
     }
 
-    public void removeFilter(@NonNull String... filterNames)
-    {
+    public void removeFilter(@NonNull String... filterNames) {
         logLock.lock();
 
         try {
             int removedFilters = 0;
             for (String name : filterNames) {
-                if (name == null)
+                if (name == null) {
                     continue;
+                }
 
-                if (filters.remove(name) != null)
+                if (filters.remove(name) != null) {
                     removedFilters++;
+                }
             }
-            if (removedFilters > 0)
+            if (removedFilters > 0) {
                 forceFilterBuf();
+            }
 
         } finally {
             logLock.unlock();
         }
     }
 
-    private void forceFilterBuf()
-    {
+    private void forceFilterBuf() {
         FixedRingBuffer<LogEntry> inputBuf = lazyGetInputBuf();
         FixedRingBuffer<LogEntry> outputBuf = lazyGetOutputBuf();
 
         outputBuf.clear();
         for (LogEntry entry : inputBuf) {
             entry = applyFilters(entry);
-            if (entry != null)
+            if (entry != null) {
                 outputBuf.add(entry);
+            }
         }
 
         submitDataSetChanged(new DataSetChange(DataSetChange.Reason.FILTER));
     }
 
-    public Observable<DataSetChange> observeDataSetChanged()
-    {
+    public Observable<DataSetChange> observeDataSetChanged() {
         return dataSetChangedPublish;
     }
 
@@ -268,15 +264,16 @@ public class Logger
      * Entries can be null.
      */
 
-    public List<LogEntry> getEntries(int startPos, int maxSize)
-    {
+    public List<LogEntry> getEntries(int startPos, int maxSize) {
         logLock.lock();
 
         try {
-            if (startPos < 0 || startPos >= maxStoredLogs)
+            if (startPos < 0 || startPos >= maxStoredLogs) {
                 throw new IllegalArgumentException("Invalid start position = " + startPos);
-            if (maxSize < 0)
+            }
+            if (maxSize < 0) {
                 throw new IllegalArgumentException("Size must be greater than 0");
+            }
 
             FixedRingBuffer<LogEntry> outputBuf = lazyGetOutputBuf();
             swapBuffers();
@@ -284,8 +281,9 @@ public class Logger
             ArrayList<LogEntry> res = new ArrayList<>(maxSize);
             int endPos = startPos + maxSize;
             for (int i = startPos; i < endPos; i++) {
-                if (i >= outputBuf.size())
+                if (i >= outputBuf.size()) {
                     continue;
+                }
 
                 res.add(outputBuf.get(i));
             }
@@ -298,8 +296,7 @@ public class Logger
     }
 
     @Nullable
-    public LogEntry getEntry(int pos)
-    {
+    public LogEntry getEntry(int pos) {
         logLock.lock();
 
         try {
@@ -316,18 +313,15 @@ public class Logger
         }
     }
 
-    private LogEntry applyFilters(LogEntry entry)
-    {
-        for (LogFilter f : filters.values()) {
-            if (!f.apply(entry))
-                return null;
-        }
+    private LogEntry applyFilters(LogEntry entry) {
+        var isApplied = filters.values().stream()
+                .map((filter) -> filter.apply(entry))
+                .reduce(Boolean.FALSE, Boolean::logicalOr);
 
-        return entry;
+        return isApplied ? entry : null;
     }
 
-    public void startRecording()
-    {
+    public void startRecording() {
         logLock.lock();
 
         try {
@@ -342,8 +336,7 @@ public class Logger
         }
     }
 
-    public boolean isRecording()
-    {
+    public boolean isRecording() {
         logLock.lock();
 
         try {
@@ -359,18 +352,15 @@ public class Logger
      * Returns the number of written log entries
      */
 
-    public int stopRecording()
-    {
+    public int stopRecording() {
         return stopRecording(null, false);
     }
 
-    public int stopRecording(@Nullable OutputStream os)
-    {
+    public int stopRecording(@Nullable OutputStream os) {
         return stopRecording(os, false);
     }
 
-    public int stopRecording(@Nullable OutputStream os, boolean timeStamp)
-    {
+    public int stopRecording(@Nullable OutputStream os, boolean timeStamp) {
         logLock.lock();
 
         try {
@@ -379,8 +369,9 @@ public class Logger
             if (os != null) {
                 swapBuffers();
 
-                if (recordStartIndex < 0)
+                if (recordStartIndex < 0) {
                     return count;
+                }
 
                 FixedRingBuffer<LogEntry> outputBuf = lazyGetOutputBuf();
 
@@ -402,13 +393,11 @@ public class Logger
      * Returns the number of written log entries
      */
 
-    public int write(@NonNull OutputStream os)
-    {
+    public int write(@NonNull OutputStream os) {
         return write(os, false);
     }
 
-    public int write(@NonNull OutputStream os, boolean timeStamp)
-    {
+    public int write(@NonNull OutputStream os, boolean timeStamp) {
         logLock.lock();
 
         try {
@@ -423,10 +412,10 @@ public class Logger
     }
 
     private int write(FixedRingBuffer<LogEntry> buf, OutputStream os,
-                      int startPos, int endPos, boolean timeStamp)
-    {
-        if (startPos < 0)
+                      int startPos, int endPos, boolean timeStamp) {
+        if (startPos < 0) {
             throw new IllegalArgumentException("startPos < 0");
+        }
 
         int count = 0;
 
@@ -435,15 +424,15 @@ public class Logger
         for (int i = startPos; i <= endPos; i++) {
             LogEntry entry = buf.get(i);
             printStream.println(timeStamp ? entry.toStringWithTimeStamp() : entry.toString());
-            if (!printStream.checkError())
+            if (!printStream.checkError()) {
                 count++;
+            }
         }
 
         return count;
     }
 
-    public int getNumEntries()
-    {
+    public int getNumEntries() {
         logLock.lock();
 
         try {
@@ -457,23 +446,19 @@ public class Logger
         }
     }
 
-    public void pause()
-    {
+    public void pause() {
         paused = true;
     }
 
-    public void resume()
-    {
+    public void resume() {
         paused = false;
     }
 
-    public boolean isPaused()
-    {
+    public boolean isPaused() {
         return paused;
     }
 
-    public void clean()
-    {
+    public void clean() {
         logLock.lock();
 
         try {
@@ -484,55 +469,40 @@ public class Logger
         }
     }
 
-    private void doClean()
-    {
-        if (pendingThread != null)
+    private void doClean() {
+        if (pendingThread != null) {
             pendingThread.interrupt();
+        }
         pendingThread = null;
         inputBuf = null;
         outputBuf = null;
         numPendingLogs = 0;
-        if (recording)
+        if (recording) {
             recordStartIndex = 0;
+        }
 
         submitDataSetChanged(new DataSetChange(DataSetChange.Reason.NEW_ENTRIES));
     }
 
-    public static class NewFilter
-    {
+    public static class NewFilter {
         String name;
         LogFilter filter;
 
-        public NewFilter(@NonNull String name, @NonNull LogFilter filter)
-        {
+        public NewFilter(@NonNull String name, @NonNull LogFilter filter) {
             this.name = name;
             this.filter = filter;
         }
     }
 
-    public static class DataSetChange
-    {
-        public enum Reason
-        {
+    public record DataSetChange(@NonNull Reason reason, @Nullable List<LogEntry> entries) {
+        public enum Reason {
             NEW_ENTRIES,
             CLEAN,
             FILTER,
         }
 
-        @Nullable
-        public final List<LogEntry> entries;
-        @NonNull
-        public final Reason reason;
-
-        DataSetChange(@NonNull Reason reason)
-        {
+        public DataSetChange(@NonNull Reason reason) {
             this(reason, null);
-        }
-
-        DataSetChange(@NonNull Reason reason, @Nullable List<LogEntry> entries)
-        {
-            this.entries = entries;
-            this.reason = reason;
         }
     }
 }

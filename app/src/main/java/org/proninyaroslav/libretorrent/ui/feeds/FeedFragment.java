@@ -32,7 +32,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
@@ -267,17 +266,6 @@ public class FeedFragment extends AbstractListDetailFragment {
         binding.addChannel.setOnClickListener((v) -> showAddFeedDialog(null));
 
         binding.appBar.setOnMenuItemClickListener(this::onMenuItemClickListener);
-
-        activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if (getSlidingPaneLayout().isOpen() && getSlidingPaneLayout().isSlideable()) {
-                    getSlidingPaneLayout().closePane();
-                } else {
-                    NavHostFragment.findNavController(FeedFragment.this).navigateUp();
-                }
-            }
-        });
 
         var args = FeedFragmentArgs.fromBundle(getArguments());
         if (args.getUri() != null) {

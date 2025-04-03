@@ -328,17 +328,13 @@ public class TorrentDetailsFragment extends Fragment {
         }
 
         if (downloadingMetadata && ti.stateCode != TorrentStateCode.DOWNLOADING_METADATA) {
-            binding.appBar.invalidateMenu();
+            invalidateMenu();
         }
         downloadingMetadata = torrent.downloadingMetadata;
 
         if (ti.stateCode == TorrentStateCode.PAUSED || alreadyPaused) {
             /* Redraw pause/resume menu */
-            if (Utils.isTwoPane(activity)) {
-                prepareMenu(binding.appBar.getMenu());
-            } else {
-                binding.appBar.invalidateMenu();
-            }
+            invalidateMenu();
         }
     }
 
@@ -360,7 +356,9 @@ public class TorrentDetailsFragment extends Fragment {
                 .show();
     }
 
-    private void prepareMenu(Menu menu) {
+    private void invalidateMenu() {
+        var menu = binding.appBar.getMenu();
+
         MenuItem pauseResume = menu.findItem(R.id.pause_resume_torrent_menu);
         Torrent torrent = viewModel.info.getTorrent();
         TorrentInfo ti = viewModel.info.getTorrentInfo();
@@ -374,6 +372,8 @@ public class TorrentDetailsFragment extends Fragment {
 
         MenuItem saveTorrentFile = menu.findItem(R.id.save_torrent_file_menu);
         saveTorrentFile.setVisible(torrent == null || !torrent.downloadingMetadata);
+
+        binding.appBar.invalidateMenu();
     }
 
     private void deleteTorrentDialog() {

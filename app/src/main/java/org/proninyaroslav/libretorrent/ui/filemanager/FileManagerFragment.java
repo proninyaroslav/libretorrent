@@ -38,7 +38,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.WindowInsetsCompat;
@@ -180,13 +179,6 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
             activity = (MainActivity) requireActivity();
         }
 
-        activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                NavHostFragment.findNavController(FileManagerFragment.this).navigateUp();
-            }
-        });
-
         var args = FileManagerFragmentArgs.fromBundle(getArguments());
         requestKey = args.getFragmentRequestKey();
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(activity.getApplicationContext());
@@ -220,7 +212,7 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
 
         binding.appBar.setOnMenuItemClickListener(this::onMenuItemClickListener);
         binding.appBar.setNavigationOnClickListener((v) ->
-                NavHostFragment.findNavController(this).navigateUp());
+                activity.getOnBackPressedDispatcher().onBackPressed());
 
         var okButton = (MaterialButton) binding.okButton;
         if (viewModel.config.showMode == FileManagerConfig.Mode.DIR_CHOOSER) {
@@ -515,7 +507,7 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
             return;
         }
         getParentFragmentManager().setFragmentResult(requestKey, bundle);
-        NavHostFragment.findNavController(this).navigateUp();
+        activity.getOnBackPressedDispatcher().onBackPressed();
     }
 
     private void createFile(boolean replace) {
@@ -550,7 +542,7 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
             return;
         }
         getParentFragmentManager().setFragmentResult(requestKey, bundle);
-        NavHostFragment.findNavController(this).navigateUp();
+        activity.getOnBackPressedDispatcher().onBackPressed();
     }
 
     private void returnFileUri(String fileName) {
@@ -565,7 +557,7 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
             return;
         }
         getParentFragmentManager().setFragmentResult(requestKey, bundle);
-        NavHostFragment.findNavController(this).navigateUp();
+        activity.getOnBackPressedDispatcher().onBackPressed();
     }
 
     private boolean checkFileNameField() {

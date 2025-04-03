@@ -252,8 +252,8 @@ public class TorrentEngine {
 
         disposables.add(session.getLogger().observeDataSetChanged()
                 .subscribe((change) -> {
-                    if (change.reason == Logger.DataSetChange.Reason.NEW_ENTRIES && change.entries != null)
-                        printSessionLog(change.entries);
+                    if (change.reason() == Logger.DataSetChange.Reason.NEW_ENTRIES && change.entries() != null)
+                        printSessionLog(change.entries());
                 }));
 
         session.start();

@@ -30,7 +30,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -101,13 +100,6 @@ public class AddTorrentFragment extends Fragment {
         if (activity == null) {
             activity = (AppCompatActivity) requireActivity();
         }
-
-        activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                NavHostFragment.findNavController(AddTorrentFragment.this).navigateUp();
-            }
-        });
 
         var args = AddTorrentFragmentArgs.fromBundle(getArguments());
         inputUri = args.getUri();
@@ -213,7 +205,7 @@ public class AddTorrentFragment extends Fragment {
 
     private void initLayout() {
         binding.appBar.setNavigationOnClickListener((v) ->
-                NavHostFragment.findNavController(this).navigateUp());
+                activity.getOnBackPressedDispatcher().onBackPressed());
 
         AddTorrentPagerAdapter adapter = new AddTorrentPagerAdapter(this);
         binding.viewPager.setAdapter(adapter);
@@ -287,12 +279,12 @@ public class AddTorrentFragment extends Fragment {
 
         try {
             if (viewModel.addTorrent()) {
-                NavHostFragment.findNavController(this).navigateUp();
+                activity.getOnBackPressedDispatcher().onBackPressed();
             }
         } catch (Exception e) {
             if (e instanceof TorrentAlreadyExistsException) {
                 Toast.makeText(activity, R.string.torrent_exist, Toast.LENGTH_SHORT).show();
-                NavHostFragment.findNavController(this).navigateUp();
+                activity.getOnBackPressedDispatcher().onBackPressed();
             } else {
                 handleAddException(e);
             }

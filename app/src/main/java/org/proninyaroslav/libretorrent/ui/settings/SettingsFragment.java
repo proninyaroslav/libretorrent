@@ -101,7 +101,6 @@ public class SettingsFragment extends AbstractListDetailFragment {
     private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
         @Override
         public void handleOnBackPressed() {
-            var navController = NavHostFragment.findNavController(SettingsFragment.this);
             var detailsNavController = getDetailPaneNavHostFragment().getNavController();
             var prevEntry = detailsNavController.getPreviousBackStackEntry();
             var startDestId = detailsNavController.getGraph().getStartDestinationId();
@@ -110,7 +109,8 @@ public class SettingsFragment extends AbstractListDetailFragment {
                 if (getSlidingPaneLayout().isOpen() && getSlidingPaneLayout().isSlideable()) {
                     getSlidingPaneLayout().closePane();
                 } else {
-                    navController.navigateUp();
+                    setEnabled(false);
+                    activity.getOnBackPressedDispatcher().onBackPressed();
                 }
             } else {
                 detailsNavController.navigateUp();

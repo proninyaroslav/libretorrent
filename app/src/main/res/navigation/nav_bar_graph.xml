@@ -50,6 +50,13 @@
                     app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
                     app:nullable="true" />
             </action>
+            <action
+                android:id="@+id/action_open_log"
+                app:destination="@id/logFragment"
+                app:enterAnim="?attr/navEnterAnim"
+                app:exitAnim="?attr/navExitAnim"
+                app:popEnterAnim="?attr/navPopEnterAnim"
+                app:popExitAnim="?attr/navPopExitAnim" />
         </fragment>
         <dialog
             android:id="@+id/addLinkDialog"
@@ -87,6 +94,31 @@
                 app:argType="string" />
         </dialog>
         <include app:graph="@navigation/tag_graph" />
+        <fragment
+            android:id="@+id/logSettingsFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.log.LogSettingsFragment"
+            android:label="LogSettingsFragment" />
+        <fragment
+            android:id="@+id/logFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.log.LogFragment"
+            android:label="LogFragment"
+            tools:layout="@layout/fragment_log">
+            <action
+                android:id="@+id/action_open_log_settings"
+                app:destination="@id/logSettingsFragment"
+                app:enterAnim="?attr/navEnterAnim"
+                app:exitAnim="?attr/navExitAnim"
+                app:popEnterAnim="?attr/navPopEnterAnim"
+                app:popExitAnim="?attr/navPopExitAnim" />
+            <action
+                android:id="@+id/action_log_filter_dialog"
+                app:destination="@id/logFilterDialog" />
+        </fragment>
+        <dialog
+            android:id="@+id/logFilterDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.log.LogFilterDialog"
+            android:label="LogFilterDialog"
+            tools:layout="@layout/dialog_log_filter" />
     </navigation>
     <navigation
         android:id="@+id/settings_nav"
@@ -137,9 +169,9 @@
                 app:destination="@id/deleteFeedDialog" />
             <argument
                 android:name="uri"
+                android:defaultValue="@null"
                 app:argType="android.net.Uri"
-                app:nullable="true"
-                android:defaultValue="@null" />
+                app:nullable="true" />
         </fragment>
         <dialog
             android:id="@+id/addFeedDialog"
@@ -175,7 +207,7 @@
         <dialog
             android:id="@+id/deleteFeedDialog"
             android:name="org.proninyaroslav.libretorrent.ui.feeds.DeleteFeedDialog"
-            android:label="DeleteFeedDialog" >
+            android:label="DeleteFeedDialog">
             <argument
                 android:name="fragment_request_key"
                 app:argType="string" />

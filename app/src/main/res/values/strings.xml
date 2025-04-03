@@ -609,6 +609,9 @@
     <string name="load_message">Load, please wait…</string>
     <string name="reset_filter">Reset filter</string>
     <string name="feed_articles">Articles</string>
+    <string name="enable_journal">Enable journal</string>
+    <string name="scroll_up">Scroll up</string>
+    <string name="scroll_down">Scroll down</string>
     <!-- Size • files count -->
     <plurals name="torrent_info_size_template_plural">
         <item quantity="zero">%1$s \u2022 %2$d files</item>

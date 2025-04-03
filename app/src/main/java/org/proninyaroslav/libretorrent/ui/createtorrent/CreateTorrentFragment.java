@@ -227,7 +227,7 @@ public class CreateTorrentFragment extends Fragment {
         });
 
         binding.appBar.setNavigationOnClickListener((v) ->
-                NavHostFragment.findNavController(this).navigateUp());
+                activity.getOnBackPressedDispatcher().onBackPressed());
 
         viewModel.getState().observe(getViewLifecycleOwner(), (state) -> {
             if (state.status == CreateTorrentViewModel.BuildState.Status.BUILDING) {
@@ -331,14 +331,14 @@ public class CreateTorrentFragment extends Fragment {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                () -> NavHostFragment.findNavController(this).navigateUp(),
+                                () -> activity.getOnBackPressedDispatcher().onBackPressed(),
                                 this::handleBuildError)
                 );
             } catch (UnknownUriException e) {
                 handleBuildError(e);
             }
         } else {
-            NavHostFragment.findNavController(this).navigateUp();
+            activity.getOnBackPressedDispatcher().onBackPressed();
         }
     }
 

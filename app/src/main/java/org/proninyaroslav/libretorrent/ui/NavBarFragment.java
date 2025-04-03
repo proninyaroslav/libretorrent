@@ -26,10 +26,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +37,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.transition.TransitionManager;
@@ -84,6 +83,14 @@ public class NavBarFragment extends Fragment {
         }
         animateHeaderTransition();
         navRail.removeHeaderView();
+    }
+
+    public void removeDrawerNavigationView() {
+        if (!isAdded() || drawerLayout == null || navigationView == null) {
+            return;
+        }
+        navigationView.removeAllViews();
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     @NonNull
@@ -137,12 +144,22 @@ public class NavBarFragment extends Fragment {
         bottomNav = view.findViewById(R.id.bottom_navigation);
         if (navRail != null) {
             NavigationUI.setupWithNavController(navRail, navController);
-            navRail.setOnItemSelectedListener(this::onNavigationItemSelected);
         }
         if (bottomNav != null) {
             NavigationUI.setupWithNavController(bottomNav, navController);
-            bottomNav.setOnItemSelectedListener(this::onNavigationItemSelected);
         }
+
+        activity.getOnBackPressedDispatcher().addCallback(activity, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (navController == null || activity == null) {
+                    return;
+                }
+                if (!navController.navigateUp() && !activity.getRootNavController().navigateUp()) {
+                    activity.finish();
+                }
+            }
+        });
 
         handleImplicitIntent();
     }
@@ -177,14 +194,6 @@ public class NavBarFragment extends Fragment {
         }
     }
 
-    private boolean matchDestination(NavDestination dest, @IdRes int destId) {
-        if (dest == null) {
-            return false;
-        } else {
-            return NavigationUI.matchDestination$navigation_ui_release(dest, destId);
-        }
-    }
-
     private void animateHeaderTransition() {
         var duration = MotionUtils.resolveThemeDuration(
                 requireContext(),
@@ -194,17 +203,6 @@ public class NavBarFragment extends Fragment {
         var fade = new MaterialFade();
         fade.setDuration(duration);
         TransitionManager.beginDelayedTransition(navRail, fade);
-    }
-
-    private boolean onNavigationItemSelected(MenuItem item) {
-        var prevDest = navController.getCurrentDestination();
-        var isNavigated = NavigationUI.onNavDestinationSelected(item, navController);
-        if (isNavigated && !matchDestination(prevDest, item.getItemId())) {
-            removeNavRailHeaderView();
-            navigationView.removeAllViews();
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        }
-        return isNavigated;
     }
 
     @Override

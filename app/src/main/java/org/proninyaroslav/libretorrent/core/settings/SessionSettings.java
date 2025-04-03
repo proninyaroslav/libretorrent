@@ -63,11 +63,11 @@ public class SessionSettings
     public static final boolean DEFAULT_SEEDING_OUTGOING_CONNECTIONS = true;
     public static final boolean DEFAULT_LOGGING = BuildConfig.SESSION_LOGGING;
     public static final int DEFAULT_MAX_LOG_SIZE = 10000;
-    public static final boolean DEFAULT_LOG_SESSION_FILTER = false;
-    public static final boolean DEFAULT_LOG_DHT_FILTER = true;
-    public static final boolean DEFAULT_LOG_PEER_FILTER = true;
-    public static final boolean DEFAULT_LOG_PORTMAP_FILTER = true;
-    public static final boolean DEFAULT_LOG_TORRENT_FILTER = true;
+    public static final boolean DEFAULT_LOG_SESSION_FILTER = true;
+    public static final boolean DEFAULT_LOG_DHT_FILTER = false;
+    public static final boolean DEFAULT_LOG_PEER_FILTER = false;
+    public static final boolean DEFAULT_LOG_PORTMAP_FILTER = false;
+    public static final boolean DEFAULT_LOG_TORRENT_FILTER = false;
     public static final boolean DEFAULT_USE_RANDOM_PORT = true;
     public static final boolean DEFAULT_VALIDATE_HTTPS_TRACKERS = true;
     public static final boolean DEFAULT_POSIX_DISK_IO = false;
