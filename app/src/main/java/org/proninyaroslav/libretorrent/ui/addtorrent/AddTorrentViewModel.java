@@ -166,6 +166,7 @@ public class AddTorrentViewModel extends AndroidViewModel {
 
     @Override
     protected void onCleared() {
+        finish();
         disposable.clear();
         info.removeOnPropertyChangedCallback(infoCallback);
         mutableParams.getDirPath().removeOnPropertyChangedCallback(dirPathCallback);

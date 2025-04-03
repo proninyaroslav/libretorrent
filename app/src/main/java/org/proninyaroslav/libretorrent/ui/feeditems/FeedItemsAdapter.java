@@ -89,7 +89,7 @@ public class FeedItemsAdapter extends ListAdapter<FeedItemsListItem, FeedItemsAd
         return getCurrentList().indexOf(key);
     }
 
-    private static final DiffUtil.ItemCallback<FeedItemsListItem> diffCallback = new DiffUtil.ItemCallback<FeedItemsListItem>() {
+    private static final DiffUtil.ItemCallback<FeedItemsListItem> diffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areContentsTheSame(@NonNull FeedItemsListItem oldItem,
                                           @NonNull FeedItemsListItem newItem) {

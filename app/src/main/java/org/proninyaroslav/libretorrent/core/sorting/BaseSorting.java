@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,15 +21,14 @@ package org.proninyaroslav.libretorrent.core.sorting;
 
 import androidx.annotation.NonNull;
 
-public class BaseSorting
-{
-    public enum Direction
-    {
+import java.util.Objects;
+
+public class BaseSorting {
+    public enum Direction {
         ASC, DESC;
 
-        public static Direction fromValue(String value)
-        {
-            for (Direction direction : Direction.class.getEnumConstants()) {
+        public static Direction fromValue(String value) {
+            for (Direction direction : Objects.requireNonNull(Direction.class.getEnumConstants())) {
                 if (direction.toString().equalsIgnoreCase(value)) {
                     return direction;
                 }
@@ -39,36 +38,31 @@ public class BaseSorting
         }
     }
 
-    public interface SortingColumnsInterface<F>
-    {
+    public interface SortingColumnsInterface<F> {
         int compare(F item1, F item2, Direction direction);
 
         String name();
     }
 
-    private Direction direction;
-    private String columnName;
+    private final Direction direction;
+    private final String columnName;
 
-    public BaseSorting(String columnName, Direction direction)
-    {
+    public BaseSorting(String columnName, Direction direction) {
         this.direction = direction;
         this.columnName = columnName;
     }
 
-    public Direction getDirection()
-    {
+    public Direction getDirection() {
         return direction;
     }
 
-    public String getColumnName()
-    {
+    public String getColumnName() {
         return columnName;
     }
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "BaseSorting{" +
                 "direction=" + direction +
                 ", columnName='" + columnName + '\'' +

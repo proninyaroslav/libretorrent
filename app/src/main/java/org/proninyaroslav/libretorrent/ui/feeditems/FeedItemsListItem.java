@@ -55,13 +55,11 @@ public class FeedItemsListItem extends FeedItem implements Comparable<FeedItemsL
 
     public boolean equalsContent(Object o)
     {
-        if (!(o instanceof FeedItemsListItem))
+        if (!(o instanceof FeedItemsListItem item))
             return false;
 
         if (o == this)
             return true;
-
-        FeedItemsListItem item = (FeedItemsListItem) o;
 
         return id.equals(item.id) &&
                 title.equals(item.title) &&

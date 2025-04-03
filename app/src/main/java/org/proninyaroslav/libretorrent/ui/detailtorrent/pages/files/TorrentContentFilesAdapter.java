@@ -89,7 +89,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
         return getCurrentList().indexOf(key);
     }
 
-    private static final DiffUtil.ItemCallback<TorrentContentFileItem> diffCallback = new DiffUtil.ItemCallback<TorrentContentFileItem>() {
+    private static final DiffUtil.ItemCallback<TorrentContentFileItem> diffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areContentsTheSame(@NonNull TorrentContentFileItem oldItem,
                                           @NonNull TorrentContentFileItem newItem) {

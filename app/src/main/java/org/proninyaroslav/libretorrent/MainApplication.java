@@ -75,6 +75,7 @@ public class MainApplication extends MultiDexApplication {
         }
     }
 
+    /** @noinspection JavaReflectionMemberAccess*/
     @SuppressLint("DiscouragedPrivateApi")
     private void increaseCursorWindowSize() {
         try {

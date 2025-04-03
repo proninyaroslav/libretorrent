@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -33,6 +33,7 @@ import androidx.room.PrimaryKey;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /*
  * Representation of the feed article.
@@ -82,11 +83,11 @@ public class FeedItem implements Parcelable
     @Ignore
     public FeedItem(Parcel source)
     {
-        id = source.readString();
+        id = Objects.requireNonNull(source.readString());
         feedId = source.readLong();
         downloadUrl = source.readString();
         articleUrl = source.readString();
-        title = source.readString();
+        title = Objects.requireNonNull(source.readString());
         pubDate = source.readLong();
         fetchDate = source.readLong();
         read = source.readByte() != 0;
@@ -112,17 +113,14 @@ public class FeedItem implements Parcelable
     }
 
     public static final Creator<FeedItem> CREATOR =
-            new Creator<FeedItem>()
-            {
+            new Creator<>() {
                 @Override
-                public FeedItem createFromParcel(Parcel source)
-                {
+                public FeedItem createFromParcel(Parcel source) {
                     return new FeedItem(source);
                 }
 
                 @Override
-                public FeedItem[] newArray(int size)
-                {
+                public FeedItem[] newArray(int size) {
                     return new FeedItem[size];
                 }
             };

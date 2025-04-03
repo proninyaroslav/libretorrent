@@ -26,7 +26,7 @@ final class PathResolver {
      */
     public static String resolve(String base, String ref) {
         String merged = merge(base, ref);
-        if (merged == null || merged.isEmpty()) {
+        if (merged.isEmpty()) {
             return "";
         }
         String[] parts = merged.split("/", -1);
@@ -78,18 +78,15 @@ final class PathResolver {
 
         for (String part : parts) {
             switch (part) {
-                case "":
-                case ".":
+                case "", "." -> {
                     // Ignore
-                    break;
-                case "..":
-                    if (result.size() > 0) {
+                }
+                case ".." -> {
+                    if (!result.isEmpty()) {
                         result.remove(result.size() - 1);
                     }
-                    break;
-                default:
-                    result.add(part);
-                    break;
+                }
+                default -> result.add(part);
             }
         }
 
@@ -107,8 +104,7 @@ final class PathResolver {
         return "/" + join("/", result);
     }
 
-    private static String join(CharSequence delimiter, List<String> tokens)
-    {
+    private static String join(CharSequence delimiter, List<String> tokens) {
         int length = tokens.size();
         if (length == 0)
             return "";

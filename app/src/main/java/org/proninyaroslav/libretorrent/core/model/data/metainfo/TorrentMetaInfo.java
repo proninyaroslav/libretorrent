@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2017, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -32,13 +32,13 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import java.io.FileInputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
  * Provides full information about the torrent, taken from bencode.
  */
 
-public class TorrentMetaInfo implements Parcelable
-{
+public class TorrentMetaInfo implements Parcelable {
     @NonNull
     public String torrentName = "";
     @NonNull
@@ -54,14 +54,12 @@ public class TorrentMetaInfo implements Parcelable
     public int numPieces = 0;
     public ArrayList<BencodeFileItem> fileList = new ArrayList<>();
 
-    public TorrentMetaInfo(@NonNull String torrentName, @NonNull String sha1hash)
-    {
+    public TorrentMetaInfo(@NonNull String torrentName, @NonNull String sha1hash) {
         this.torrentName = torrentName;
         this.sha1Hash = sha1hash;
     }
 
-    public TorrentMetaInfo(@NonNull byte[] data) throws DecodeException
-    {
+    public TorrentMetaInfo(@NonNull byte[] data) throws DecodeException {
         try {
             getMetaInfo(TorrentInfo.bdecode(data));
 
@@ -70,8 +68,7 @@ public class TorrentMetaInfo implements Parcelable
         }
     }
 
-    public TorrentMetaInfo(TorrentInfo info) throws DecodeException
-    {
+    public TorrentMetaInfo(TorrentInfo info) throws DecodeException {
         try {
             getMetaInfo(info);
 
@@ -80,8 +77,7 @@ public class TorrentMetaInfo implements Parcelable
         }
     }
 
-    public TorrentMetaInfo(FileInputStream is) throws DecodeException
-    {
+    public TorrentMetaInfo(FileInputStream is) throws DecodeException {
         FileChannel chan = null;
         try {
             chan = is.getChannel();
@@ -95,8 +91,7 @@ public class TorrentMetaInfo implements Parcelable
         }
     }
 
-    private void getMetaInfo(TorrentInfo info)
-    {
+    private void getMetaInfo(TorrentInfo info) {
         torrentName = info.name();
         sha1Hash = info.infoHash().toHex();
         comment = info.comment();
@@ -110,12 +105,11 @@ public class TorrentMetaInfo implements Parcelable
         numPieces = info.numPieces();
     }
 
-    public TorrentMetaInfo (Parcel source)
-    {
-        torrentName = source.readString();
-        sha1Hash = source.readString();
-        comment = source.readString();
-        createdBy = source.readString();
+    public TorrentMetaInfo(Parcel source) {
+        torrentName = Objects.requireNonNull(source.readString());
+        sha1Hash = Objects.requireNonNull(source.readString());
+        comment = Objects.requireNonNull(source.readString());
+        createdBy = Objects.requireNonNull(source.readString());
         torrentSize = source.readLong();
         creationDate = source.readLong();
         fileCount = source.readInt();
@@ -126,14 +120,12 @@ public class TorrentMetaInfo implements Parcelable
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(torrentName);
         dest.writeString(sha1Hash);
         dest.writeString(comment);
@@ -147,37 +139,30 @@ public class TorrentMetaInfo implements Parcelable
     }
 
     public static final Parcelable.Creator<TorrentMetaInfo> CREATOR =
-            new Parcelable.Creator<TorrentMetaInfo>()
-            {
+            new Parcelable.Creator<>() {
                 @Override
-                public TorrentMetaInfo createFromParcel(Parcel source)
-                {
+                public TorrentMetaInfo createFromParcel(Parcel source) {
                     return new TorrentMetaInfo(source);
                 }
 
                 @Override
-                public TorrentMetaInfo[] newArray(int size)
-                {
+                public TorrentMetaInfo[] newArray(int size) {
                     return new TorrentMetaInfo[size];
                 }
             };
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return sha1Hash.hashCode();
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (!(o instanceof TorrentMetaInfo))
+    public boolean equals(Object o) {
+        if (!(o instanceof TorrentMetaInfo info))
             return false;
 
         if (o == this)
             return true;
-
-        TorrentMetaInfo info = (TorrentMetaInfo) o;
 
         return torrentName.equals(info.torrentName) &&
                 sha1Hash.equals(info.sha1Hash) &&
@@ -192,8 +177,7 @@ public class TorrentMetaInfo implements Parcelable
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "TorrentMetaInfo{" +
                 "torrentName='" + torrentName + '\'' +
                 ", sha1Hash='" + sha1Hash + '\'' +

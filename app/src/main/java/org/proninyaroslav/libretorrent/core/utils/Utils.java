@@ -22,6 +22,7 @@ package org.proninyaroslav.libretorrent.core.utils;
 import android.Manifest;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -32,10 +33,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -49,7 +47,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -94,7 +91,6 @@ import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerStatusFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.IDN;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
@@ -119,7 +115,7 @@ import javax.net.ssl.X509TrustManager;
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
 
-    public static final String INFINITY_SYMBOL = "\u221e";
+    public static final String INFINITY_SYMBOL = "∞";
     public static final String MAGNET_PREFIX = "magnet";
     public static final String HTTP_PREFIX = "http";
     public static final String HTTPS_PREFIX = "https";
@@ -136,18 +132,6 @@ public class Utils {
     private static final String FEED_FILE_PATH_PATTERN = ".*\\.(xml|rss|atom)";
 
     /*
-     * Colorize the progress bar in the accent color (for pre-Lollipop).
-     */
-
-    public static void colorizeProgressBar(@NonNull Context context,
-                                           @NonNull ProgressBar progress) {
-        progress.getProgressDrawable().setColorFilter(new PorterDuffColorFilter(
-                getAttributeColor(context, R.attr.colorSecondary),
-                PorterDuff.Mode.SRC_IN)
-        );
-    }
-
-    /*
      * Returns the list of BencodeFileItem objects, extracted from FileStorage.
      * The order of addition in the list corresponds to the order of indexes in libtorrent4j.FileStorage
      */
@@ -160,11 +144,6 @@ public class Utils {
         }
 
         return files;
-    }
-
-    public static void setBackground(@NonNull View v,
-                                     @NonNull Drawable d) {
-        v.setBackground(d);
     }
 
     public static boolean checkConnectivity(@NonNull Context context) {
@@ -224,19 +203,6 @@ public class Utils {
             NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
             return netInfo != null && netInfo.isRoaming();
         }
-    }
-
-    /*
-     * Returns the link as "(http[s]|ftp)://[www.]name.domain/...".
-     */
-
-    public static String normalizeURL(@NonNull String url) {
-        url = IDN.toUnicode(url);
-
-        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX))
-            return HTTP_PREFIX + url;
-        else
-            return url;
     }
 
     /*
@@ -345,6 +311,7 @@ public class Utils {
                 context.getResources().getDisplayMetrics());
     }
 
+    @SuppressLint("DiscouragedApi")
     public static int getDefaultBatteryLowLevel() {
         return Resources.getSystem().getInteger(
                 Resources.getSystem().getIdentifier("config_lowBatteryWarningLevel", "integer", "android"));

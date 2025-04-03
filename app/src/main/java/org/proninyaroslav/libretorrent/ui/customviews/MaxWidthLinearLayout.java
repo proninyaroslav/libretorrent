@@ -19,11 +19,11 @@
 
 package org.proninyaroslav.libretorrent.ui.customviews;
 
-import org.proninyaroslav.libretorrent.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+
+import org.proninyaroslav.libretorrent.R;
 
 public class MaxWidthLinearLayout extends LinearLayout {
     private final int maxWidth;

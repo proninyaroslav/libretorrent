@@ -47,7 +47,7 @@ public class HttpConnection implements Runnable
     private static final int DEFAULT_TIMEOUT = (int)(20 * SECOND_IN_MILLIS);
 
     private URL url;
-    private SSLContext sslContext;
+    private final SSLContext sslContext;
     private Listener listener;
 
     public interface Listener

@@ -51,7 +51,6 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.DialogAddFeedChannelBinding;
 import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
 import org.proninyaroslav.libretorrent.ui.feeds.DeleteFeedDialog;
-import org.proninyaroslav.libretorrent.ui.feeds.FeedFragmentDirections;
 
 import io.reactivex.disposables.CompositeDisposable;
 

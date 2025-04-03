@@ -86,7 +86,7 @@ public class FileManagerConfig implements Parcelable {
     }
 
     public static final Creator<FileManagerConfig> CREATOR =
-            new Creator<FileManagerConfig>() {
+            new Creator<>() {
                 @Override
                 public FileManagerConfig createFromParcel(Parcel source) {
                     return new FileManagerConfig(source);

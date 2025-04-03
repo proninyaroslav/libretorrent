@@ -32,7 +32,11 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.viewmodel.CreationExtras;
+import androidx.lifecycle.viewmodel.ViewModelInitializer;
 
+import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
@@ -50,6 +54,12 @@ import io.reactivex.subjects.BehaviorSubject;
 public class FileManagerViewModel extends AndroidViewModel {
     private static final String TAG = FileManagerViewModel.class.getSimpleName();
 
+    public static final CreationExtras.Key<FileManagerConfig> KEY_CONFIG = new CreationExtras.Key<>() {
+    };
+
+    public static final CreationExtras.Key<String> KEY_START_DIR = new CreationExtras.Key<>() {
+    };
+
     private final FileSystemFacade fs;
     public String startDir;
     /* Current directory */
@@ -57,6 +67,21 @@ public class FileManagerViewModel extends AndroidViewModel {
     public FileManagerConfig config;
     public BehaviorSubject<List<FileManagerNode>> childNodes = BehaviorSubject.create();
     private List<StorageItem> storageList;
+
+    static final ViewModelInitializer<FileManagerViewModel> initializer = new ViewModelInitializer<>(
+            FileManagerViewModel.class,
+            creationExtras -> {
+                var app = (MainApplication) creationExtras.get(
+                        ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY
+                );
+                var config = creationExtras.get(KEY_CONFIG);
+                var startDir = creationExtras.get(KEY_START_DIR);
+                if (app == null || config == null || startDir == null) {
+                    throw new IllegalStateException();
+                }
+                return new FileManagerViewModel(app, config, startDir);
+            }
+    );
 
     public FileManagerViewModel(
             @NonNull Application application,
@@ -358,7 +383,6 @@ public class FileManagerViewModel extends AndroidViewModel {
             case FILE_CHOOSER -> file.canRead();
             case DIR_CHOOSER -> file.canRead() && file.canWrite();
             case SAVE_FILE -> file.canWrite();
-            default -> throw new IllegalArgumentException("Unknown mode: " + config.showMode);
         };
     }
 

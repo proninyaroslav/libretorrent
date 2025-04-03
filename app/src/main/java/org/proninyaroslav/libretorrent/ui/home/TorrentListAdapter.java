@@ -20,7 +20,6 @@
 package org.proninyaroslav.libretorrent.ui.home;
 
 import android.content.res.ColorStateList;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
@@ -138,7 +137,6 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements ViewHolderWithDetails {
         private final ItemTorrentListBinding binding;
-        private AnimatedVectorDrawable currAnim;
         ColorStateList pauseButtonBackground;
         ColorStateList cardBackground;
         int progressTrackColor;
@@ -150,7 +148,6 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             super(binding.getRoot());
 
             this.binding = binding;
-            var context = itemView.getContext();
             pauseButtonBackground = binding.pauseButton.getBackgroundTintList();
             cardBackground = binding.card.getCardBackgroundColor();
             progressTrackColor = binding.progress.getTrackColor();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.system;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -31,28 +30,23 @@ import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
 import androidx.core.net.ConnectivityManagerCompat;
 
-public class SystemFacadeImpl implements SystemFacade
-{
-    private Context appContext;
+public class SystemFacadeImpl implements SystemFacade {
+    private final Context appContext;
 
-    public SystemFacadeImpl(@NonNull Context appContext)
-    {
+    public SystemFacadeImpl(@NonNull Context appContext) {
         this.appContext = appContext;
     }
 
     @Override
-    public NetworkInfo getActiveNetworkInfo()
-    {
-        ConnectivityManager cm = (ConnectivityManager)appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public NetworkInfo getActiveNetworkInfo() {
+        ConnectivityManager cm = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo();
     }
 
-    @TargetApi(23)
     @Override
-    public NetworkCapabilities getNetworkCapabilities()
-    {
-        ConnectivityManager cm = (ConnectivityManager)appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public NetworkCapabilities getNetworkCapabilities() {
+        ConnectivityManager cm = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         Network network = cm.getActiveNetwork();
         if (network == null)
             return null;
@@ -61,16 +55,14 @@ public class SystemFacadeImpl implements SystemFacade
     }
 
     @Override
-    public boolean isActiveNetworkMetered()
-    {
-        ConnectivityManager cm = (ConnectivityManager)appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public boolean isActiveNetworkMetered() {
+        ConnectivityManager cm = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return ConnectivityManagerCompat.isActiveNetworkMetered(cm);
     }
 
     @Override
-    public String getAppVersionName()
-    {
+    public String getAppVersionName() {
         try {
             PackageInfo info = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
 

@@ -21,6 +21,8 @@ package org.proninyaroslav.libretorrent.core.sorting;
 
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 
+import java.util.Objects;
+
 public class TorrentSorting extends BaseSorting
 {
     public enum SortingColumns implements SortingColumnsInterface<TorrentInfo>
@@ -102,7 +104,7 @@ public class TorrentSorting extends BaseSorting
 
         public static SortingColumns fromValue(String value)
         {
-            for (SortingColumns column : SortingColumns.class.getEnumConstants())
+            for (SortingColumns column : Objects.requireNonNull(SortingColumns.class.getEnumConstants()))
                 if (column.toString().equalsIgnoreCase(value))
                     return column;
 

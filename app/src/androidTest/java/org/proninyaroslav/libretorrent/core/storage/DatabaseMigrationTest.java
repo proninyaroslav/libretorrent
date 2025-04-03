@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -45,25 +45,26 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class DatabaseMigrationTest
-{
+public class DatabaseMigrationTest {
     private static final String TEST_DATABASE_NAME = "libretorrent_test.db";
 
-    private Context context = ApplicationProvider.getApplicationContext();
+    private final Context context = ApplicationProvider.getApplicationContext();
     @Rule
-    public MigrationTestHelper helper= new MigrationTestHelper(
+    public MigrationTestHelper helper = new MigrationTestHelper(
             InstrumentationRegistry.getInstrumentation(),
-            AppDatabase.class.getCanonicalName(),
+            AppDatabase.class,
+            Collections.emptyList(),
             new FrameworkSQLiteOpenHelperFactory());
 
-    private static String torrentUrl = "https://webtorrent.io/torrents/wired-cd.torrent";
-    private static String torrentName = "The WIRED CD - Rip. Sample. Mash. Share";
-    private static String torrentHash = "a88fda5954e89178c372716a6a78b8180ed4dad3";
+    private static final String torrentUrl = "https://webtorrent.io/torrents/wired-cd.torrent";
+    private static final String torrentName = "The WIRED CD - Rip. Sample. Mash. Share";
+    private static final String torrentHash = "a88fda5954e89178c372716a6a78b8180ed4dad3";
     private static final String magnet = "magnet:?xt=urn:btih:QWJC7PXG3TS6F5KJDYLLZXM6NZBHXJNK";
     private static final String magnetHash = "85922fbee6dce5e2f5491e16bcdd9e6e427ba5aa";
 
@@ -74,48 +75,44 @@ public class DatabaseMigrationTest
     private FileSystemFacade fs;
 
     @Before
-    public void init()
-    {
+    public void init() {
         fs = SystemFacadeHelper.getFileSystemFacade(context);
     }
 
     @Test
-    public void testMigration4to5_Torrent() throws IOException
-    {
+    public void testMigration4to5_Torrent() throws IOException {
         File dataDir1 = new File(context.getExternalFilesDir(null), torrentHash);
         if (!dataDir1.exists())
             assertTrue(dataDir1.mkdir());
         File torrentFile1 = new File(dataDir1, DatabaseMigration.RoomDatabaseMigration.OldDataModel.TORRENT_FILE_NAME);
-        org.apache.commons.io.FileUtils.writeByteArrayToFile(torrentFile1, downloadTorrent(torrentUrl));
+        org.apache.commons.io.FileUtils.writeByteArrayToFile(torrentFile1, downloadTorrent());
 
         File fastResumeFile1 = new File(dataDir1, DatabaseMigration.RoomDatabaseMigration.OldDataModel.TORRENT_RESUME_FILE_NAME);
         byte[] fastResumeData1 = org.apache.commons.io.FileUtils.readFileToByteArray(torrentFile1);
         org.apache.commons.io.FileUtils.writeByteArrayToFile(fastResumeFile1, fastResumeData1);
 
-        SQLiteDatabase sqliteDb = new OldDatabaseHelper().getWritableDatabase();
+        try (SQLiteDatabase sqliteDb = new OldDatabaseHelper().getWritableDatabase()) {
+            ContentValues values1 = new ContentValues();
+            values1.put("torrent_id", torrentHash);
+            values1.put("name", torrentName);
+            values1.put("path_to_download", fs.getDefaultDownloadPath());
+            values1.put("file_priorities", 0);
+            values1.put("is_paused", true); /* It's not imported from old db */
+            values1.put("downloading_metadata", false);
+            values1.put("path_to_torrent", torrentFile1.getAbsolutePath());
+            values1.put("datetime", System.currentTimeMillis());
+            addTorrent(sqliteDb, values1);
 
-        ContentValues values1 = new ContentValues();
-        values1.put("torrent_id", torrentHash);
-        values1.put("name", torrentName);
-        values1.put("path_to_download", fs.getDefaultDownloadPath());
-        values1.put("file_priorities", 0);
-        values1.put("is_paused", true); /* It's not imported from old db */
-        values1.put("downloading_metadata", false);
-        values1.put("path_to_torrent", torrentFile1.getAbsolutePath());
-        values1.put("datetime", System.currentTimeMillis());
-        addTorrent(sqliteDb, values1);
-
-        ContentValues values2 = new ContentValues();
-        values2.put("torrent_id", magnetHash);
-        values2.put("name", magnetHash);
-        values2.put("path_to_download", fs.getDefaultDownloadPath());
-        values2.put("file_priorities", 0);
-        values2.put("downloading_metadata", true);
-        values2.put("path_to_torrent", magnet);
-        values2.put("datetime", System.currentTimeMillis());
-        addTorrent(sqliteDb, values2);
-
-        sqliteDb.close();
+            ContentValues values2 = new ContentValues();
+            values2.put("torrent_id", magnetHash);
+            values2.put("name", magnetHash);
+            values2.put("path_to_download", fs.getDefaultDownloadPath());
+            values2.put("file_priorities", 0);
+            values2.put("downloading_metadata", true);
+            values2.put("path_to_torrent", magnet);
+            values2.put("datetime", System.currentTimeMillis());
+            addTorrent(sqliteDb, values2);
+        }
 
         helper.runMigrationsAndValidate(TEST_DATABASE_NAME, 6, true,
                 DatabaseMigration.MIGRATION_1_2,
@@ -158,22 +155,21 @@ public class DatabaseMigrationTest
     }
 
     @Test
-    public void testMigration4to5_Feed() throws IOException
-    {
-        SQLiteDatabase sqliteDb = new OldDatabaseHelper().getWritableDatabase();
+    public void testMigration4to5_Feed() {
+        long currTime;
+        try (SQLiteDatabase sqliteDb = new OldDatabaseHelper().getWritableDatabase()) {
 
-        long currTime = System.currentTimeMillis();
+            currTime = System.currentTimeMillis();
 
-        ContentValues feedValues = new ContentValues();
-        feedValues.put("url", feedUrl);
-        feedValues.put("name", feedName);
-        feedValues.put("last_update", currTime);
-        feedValues.put("auto_download", true);
-        feedValues.put("filter", feedFilter);
-        feedValues.put("is_regex_filter", false);
-        addFeedChannel(sqliteDb, feedValues);
-
-        sqliteDb.close();
+            ContentValues feedValues = new ContentValues();
+            feedValues.put("url", feedUrl);
+            feedValues.put("name", feedName);
+            feedValues.put("last_update", currTime);
+            feedValues.put("auto_download", true);
+            feedValues.put("filter", feedFilter);
+            feedValues.put("is_regex_filter", false);
+            addFeedChannel(sqliteDb, feedValues);
+        }
 
         helper.runMigrationsAndValidate(TEST_DATABASE_NAME, 6, true,
                 DatabaseMigration.MIGRATION_1_2,
@@ -198,15 +194,13 @@ public class DatabaseMigrationTest
         assertFalse(channel.isRegexFilter);
     }
 
-    private void addTorrent(SQLiteDatabase sqliteDb, ContentValues values)
-    {
-        assertNotEquals(sqliteDb.replace("torrents", null, values), -1);
+    private void addTorrent(SQLiteDatabase sqliteDb, ContentValues values) {
+        assertNotEquals(-1, sqliteDb.replace("torrents", null, values));
     }
 
-    private AppDatabase getMigratedRoomDatabase()
-    {
+    private AppDatabase getMigratedRoomDatabase() {
         AppDatabase db = Room.databaseBuilder(context,
-                AppDatabase.class, TEST_DATABASE_NAME)
+                        AppDatabase.class, TEST_DATABASE_NAME)
                 .addMigrations(DatabaseMigration.getMigrations(context))
                 .build();
         /* Close the database and release any stream resources when the test finishes */
@@ -215,11 +209,10 @@ public class DatabaseMigrationTest
         return db;
     }
 
-    private byte[] downloadTorrent(String url)
-    {
+    private byte[] downloadTorrent() {
         byte[] response = null;
         try {
-            response = Utils.fetchHttpUrl(context, url);
+            response = Utils.fetchHttpUrl(context, DatabaseMigrationTest.torrentUrl);
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
@@ -228,27 +221,24 @@ public class DatabaseMigrationTest
         return response;
     }
 
-    private void addFeedChannel(SQLiteDatabase sqliteDb, ContentValues values)
-    {
-        assertNotEquals(sqliteDb.replace("feeds", null, values), -1);
+    private void addFeedChannel(SQLiteDatabase sqliteDb, ContentValues values) {
+        assertNotEquals(-1, sqliteDb.replace("feeds", null, values));
     }
 
-    private class OldDatabaseHelper extends SQLiteOpenHelper
-    {
-        public OldDatabaseHelper()
-        {
+    private class OldDatabaseHelper extends SQLiteOpenHelper {
+        public OldDatabaseHelper() {
             super(context, TEST_DATABASE_NAME, null, 4);
         }
 
         @Override
-        public void onCreate(SQLiteDatabase db)
-        {
+        public void onCreate(SQLiteDatabase db) {
             db.execSQL("create table torrents(_id integer primary key autoincrement, torrent_id text not null unique, name text not null, path_to_torrent text not null, path_to_download text not null, file_priorities text not null, is_sequential integer, is_finished integer, is_paused integer, downloading_metadata integer, datetime integer, error text);");
-            db.execSQL("create table feeds(_id integer primary key autoincrement, url text not null unique, name text, last_update integer, auto_download integer, filter text, is_regex_filter integer, fetch_error text);");
+            db.execSQL("create table feeds(_id integer primary key autoincrement, url text not null unique, name text, last_update integer, auto_download integer, `filter` text, is_regex_filter integer, fetch_error text);");
             db.execSQL("create table feed_items(_id integer primary key autoincrement, feed_url text, title text not null unique, download_url text, article_url text, pub_date integer, fetch_date integer, read integer );");
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        }
     }
 }

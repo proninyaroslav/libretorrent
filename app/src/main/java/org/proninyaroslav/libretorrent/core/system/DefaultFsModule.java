@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.system;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.StatFs;
@@ -27,47 +28,42 @@ import androidx.annotation.NonNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
-class DefaultFsModule implements FsModule
-{
-    private Context appContext;
+class DefaultFsModule implements FsModule {
+    private final Context appContext;
 
-    public DefaultFsModule(@NonNull Context appContext)
-    {
+    public DefaultFsModule(@NonNull Context appContext) {
         this.appContext = appContext;
     }
 
     @Override
-    public String getName(@NonNull Uri filePath)
-    {
-        return new File(filePath.getPath()).getName();
+    public String getName(@NonNull Uri filePath) {
+        return new File(Objects.requireNonNull(filePath.getPath())).getName();
     }
 
     @Override
-    public String getDirPath(@NonNull Uri dir)
-    {
+    public String getDirPath(@NonNull Uri dir) {
         return dir.getPath();
     }
 
     @Override
-    public String getFilePath(@NonNull Uri filePath)
-    {
+    public String getFilePath(@NonNull Uri filePath) {
         return filePath.getPath();
     }
 
     @Override
-    public Uri getFileUri(@NonNull Uri dir, @NonNull String fileName, boolean create) throws IOException
-    {
+    public Uri getFileUri(@NonNull Uri dir, @NonNull String fileName, boolean create) throws IOException {
         File f = new File(dir.getPath(), fileName);
-        if (create)
+        if (create) {
             f.createNewFile();
+        }
 
         return (f.exists() ? Uri.fromFile(f) : null);
     }
 
     @Override
-    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir)
-    {
+    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir) {
         if (!relativePath.startsWith(File.separator))
             relativePath = File.separator + relativePath;
         File f = new File(dir.getPath() + relativePath);
@@ -76,24 +72,22 @@ class DefaultFsModule implements FsModule
     }
 
     @Override
-    public boolean delete(@NonNull Uri filePath)
-    {
-        return new File(filePath.getPath()).delete();
+    public boolean delete(@NonNull Uri filePath) {
+        return new File(Objects.requireNonNull(filePath.getPath())).delete();
     }
 
     @Override
-    public FileDescriptorWrapper openFD(@NonNull Uri path)
-    {
+    public FileDescriptorWrapper openFD(@NonNull Uri path) {
         return new FileDescriptorWrapperImpl(appContext, path);
     }
 
+    @SuppressLint("UsableSpace")
     @Override
-    public long getDirAvailableBytes(@NonNull Uri dir)
-    {
+    public long getDirAvailableBytes(@NonNull Uri dir) {
         long availableBytes;
 
         try {
-            File file = new File(dir.getPath());
+            File file = new File(Objects.requireNonNull(dir.getPath()));
             availableBytes = file.getUsableSpace();
 
         } catch (Exception e) {
@@ -106,27 +100,23 @@ class DefaultFsModule implements FsModule
     }
 
     @Override
-    public boolean fileExists(@NonNull Uri filePath)
-    {
-        return new File(filePath.getPath()).exists();
+    public boolean fileExists(@NonNull Uri filePath) {
+        return new File(Objects.requireNonNull(filePath.getPath())).exists();
     }
 
     @Override
-    public long lastModified(@NonNull Uri filePath)
-    {
-        return new File(filePath.getPath()).lastModified();
+    public long lastModified(@NonNull Uri filePath) {
+        return new File(Objects.requireNonNull(filePath.getPath())).lastModified();
     }
 
     @Override
-    public String makeFileSystemPath(@NonNull Uri uri, String relativePath)
-    {
+    public String makeFileSystemPath(@NonNull Uri uri, String relativePath) {
         return uri.getPath();
     }
 
     @Override
-    public Uri getParentDirUri(@NonNull Uri filePath)
-    {
-        File parent = new File(filePath.getPath()).getParentFile();
+    public Uri getParentDirUri(@NonNull Uri filePath) {
+        File parent = new File(Objects.requireNonNull(filePath.getPath())).getParentFile();
 
         return (parent != null && parent.exists() ? Uri.fromFile(parent) : null);
     }

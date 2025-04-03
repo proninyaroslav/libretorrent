@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -30,13 +30,11 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class BencodeFileTreeTest
-{
-    private ArrayList<BencodeFileItem> files = new ArrayList<>();
+public class BencodeFileTreeTest {
+    private final ArrayList<BencodeFileItem> files = new ArrayList<>();
 
     @Before
-    public void init()
-    {
+    public void init() {
         files.add(new BencodeFileItem("foo/dir1/file1.txt", 0, 0));
         files.add(new BencodeFileItem("foo/dir1/file2.txt", 1, 1));
         files.add(new BencodeFileItem("foo/dir2/file1.txt", 2, 2));
@@ -45,8 +43,7 @@ public class BencodeFileTreeTest
     }
 
     @Test
-    public void makeTreeTest()
-    {
+    public void makeTreeTest() {
         Pair<BencodeFileTree, BencodeFileTree[]> res = BencodeFileTreeUtils.buildFileTree(files);
         BencodeFileTree tree = res.first;
         BencodeFileTree[] child = res.second;
@@ -93,7 +90,7 @@ public class BencodeFileTreeTest
         assertEquals(files.get(4).getIndex(), child[4].getIndex());
         assertEquals(files.get(4).getSize(), child[4].size());
         assertEquals("foo/file.txt/", child[4].getPath());
-        
+
 
         BencodeFileTree parent0 = child[0].getParent();
         assertNotNull(parent0);
@@ -124,8 +121,8 @@ public class BencodeFileTreeTest
         BencodeFileTree parent3 = child[3].getParent();
         assertNotNull(parent3);
         assertEquals(parent2, parent3);
-        
-        
+
+
         BencodeFileTree foo = parent0.getParent();
         assertNotNull(foo);
         assertFalse(foo.isFile());
@@ -154,8 +151,7 @@ public class BencodeFileTreeTest
     }
 
     @Test
-    public void selectTest()
-    {
+    public void selectTest() {
         Pair<BencodeFileTree, BencodeFileTree[]> res = BencodeFileTreeUtils.buildFileTree(files);
         BencodeFileTree tree = res.first;
         BencodeFileTree[] child = res.second;
@@ -179,8 +175,7 @@ public class BencodeFileTreeTest
     }
 
     @Test
-    public void selectedFileSizeTest()
-    {
+    public void selectedFileSizeTest() {
         Pair<BencodeFileTree, BencodeFileTree[]> res = BencodeFileTreeUtils.buildFileTree(files);
         BencodeFileTree tree = res.first;
         BencodeFileTree[] child = res.second;
@@ -196,8 +191,7 @@ public class BencodeFileTreeTest
     }
 
     @Test
-    public void selectTest_NoForceUpdateParent()
-    {
+    public void selectTest_NoForceUpdateParent() {
         Pair<BencodeFileTree, BencodeFileTree[]> res = BencodeFileTreeUtils.buildFileTree(files);
         BencodeFileTree tree = res.first;
         BencodeFileTree[] child = res.second;

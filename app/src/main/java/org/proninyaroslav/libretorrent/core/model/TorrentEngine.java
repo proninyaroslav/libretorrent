@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
@@ -96,21 +97,21 @@ import io.reactivex.schedulers.Schedulers;
 public class TorrentEngine {
     private static final String TAG = TorrentEngine.class.getSimpleName();
 
-    private Context appContext;
-    private TorrentSession session;
+    private final Context appContext;
+    private final TorrentSession session;
     private TorrentStreamServer torrentStreamServer;
-    private TorrentRepository repo;
-    private TagRepository tagRepo;
-    private SettingsRepository pref;
-    private TorrentNotifier notifier;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final TorrentRepository repo;
+    private final TagRepository tagRepo;
+    private final SettingsRepository pref;
+    private final TorrentNotifier notifier;
+    private final CompositeDisposable disposables = new CompositeDisposable();
     private TorrentFileObserver fileObserver;
-    private PowerReceiver powerReceiver = new PowerReceiver();
-    private ConnectionReceiver connectionReceiver = new ConnectionReceiver();
-    private FileSystemFacade fs;
-    private DownloadsCompletedListener downloadsCompleted;
-    private ExecutorService exec = Executors.newSingleThreadExecutor();
-    private SessionErrorFilter errorFilter = new SessionErrorFilter();
+    private final PowerReceiver powerReceiver = new PowerReceiver();
+    private final ConnectionReceiver connectionReceiver = new ConnectionReceiver();
+    private final FileSystemFacade fs;
+    private final DownloadsCompletedListener downloadsCompleted;
+    private final ExecutorService exec = Executors.newSingleThreadExecutor();
+    private final SessionErrorFilter errorFilter = new SessionErrorFilter();
 
     private static volatile TorrentEngine INSTANCE;
 
@@ -326,19 +327,6 @@ public class TorrentEngine {
                 .subscribe());
     }
 
-    public void addTorrent(@NonNull AddTorrentParams params,
-                           boolean removeFile) {
-        disposables.add(Completable.fromRunnable(() -> {
-                    try {
-                        addTorrentSync(params, removeFile);
-
-                    } catch (Exception e) {
-                        handleAddTorrentError(params.name, e);
-                    }
-                }).subscribeOn(Schedulers.io())
-                .subscribe());
-    }
-
     public void addTorrents(@NonNull List<AddTorrentParams> paramsList,
                             boolean removeFile) {
         if (!isRunning())
@@ -549,7 +537,7 @@ public class TorrentEngine {
             return;
 
         Set<String> trackers = task.getTrackersUrl();
-        trackers.removeAll(urls);
+        urls.forEach(trackers::remove);
 
         task.replaceTrackers(trackers);
     }
@@ -998,11 +986,11 @@ public class TorrentEngine {
             /* Ignore non-registered receiver */
         }
         if (customBatteryControl) {
-            appContext.registerReceiver(powerReceiver, PowerReceiver.getCustomFilter());
+            ContextCompat.registerReceiver(appContext, powerReceiver, PowerReceiver.getCustomFilter(), ContextCompat.RECEIVER_NOT_EXPORTED);
             /* Custom receiver doesn't send sticky intent, reschedule manually */
             rescheduleTorrents();
         } else if (batteryControl || onlyCharging) {
-            appContext.registerReceiver(powerReceiver, PowerReceiver.getFilter());
+            ContextCompat.registerReceiver(appContext, powerReceiver, PowerReceiver.getFilter(), ContextCompat.RECEIVER_NOT_EXPORTED);
         }
     }
 
@@ -1016,8 +1004,9 @@ public class TorrentEngine {
         } catch (IllegalArgumentException e) {
             /* Ignore non-registered receiver */
         }
-        if (unmeteredOnly || roaming)
-            appContext.registerReceiver(connectionReceiver, ConnectionReceiver.getFilter());
+        if (unmeteredOnly || roaming) {
+            ContextCompat.registerReceiver(appContext, connectionReceiver, ConnectionReceiver.getFilter(), ContextCompat.RECEIVER_NOT_EXPORTED);
+        }
     }
 
     private boolean checkPauseTorrents() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -163,7 +163,7 @@ public class FileTree<F extends FileTree<?>> implements FileNode<FileTree<?>>, S
 
     public long size()
     {
-        if (size == 0 && children.size() != 0)
+        if (size == 0 && !children.isEmpty())
             for (F child : children.values())
                 size += child.size();
 
@@ -192,13 +192,11 @@ public class FileTree<F extends FileTree<?>> implements FileNode<FileTree<?>>, S
     @Override
     public boolean equals(@Nullable Object o)
     {
-        if (!(o instanceof FileTree))
+        if (!(o instanceof FileTree<?> fileTree))
             return false;
 
         if (o == this)
             return true;
-
-        FileTree<?> fileTree = (FileTree<?>)o;
 
         return index == fileTree.index &&
                 (name == null || name.equals(fileTree.name)) &&

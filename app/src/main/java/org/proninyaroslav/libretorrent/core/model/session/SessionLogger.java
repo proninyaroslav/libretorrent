@@ -29,7 +29,7 @@ import org.proninyaroslav.libretorrent.core.logger.LogEntry;
 import org.proninyaroslav.libretorrent.core.logger.LogFilter;
 import org.proninyaroslav.libretorrent.core.logger.Logger;
 
-class SessionLogger extends Logger {
+public class SessionLogger extends Logger {
     private static int nextLogEntryId = 0;
 
     public enum SessionLogEntryType {

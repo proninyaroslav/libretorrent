@@ -35,19 +35,19 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentTorrentDetailsInfoBinding;
+import org.proninyaroslav.libretorrent.ui.NavBarFragment;
+import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.EditTorrentNameDialog;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsViewModel;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
-import org.proninyaroslav.libretorrent.MainActivity;
-import org.proninyaroslav.libretorrent.ui.NavBarFragment;
-import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.tag.SelectTagDialog;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagChip;
 

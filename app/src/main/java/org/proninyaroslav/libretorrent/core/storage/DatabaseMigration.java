@@ -67,7 +67,7 @@ class DatabaseMigration
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database)
         {
-            database.execSQL("CREATE TABLE feeds(_id integer primary key autoincrement, url text not null unique, name text, last_update integer, auto_download integer, filter text, is_regex_filter integer, fetch_error text);");
+            database.execSQL("CREATE TABLE feeds(_id integer primary key autoincrement, url text not null unique, name text, last_update integer, auto_download integer, `filter` text, is_regex_filter integer, fetch_error text);");
             database.execSQL("CREATE TABLE feed_items(_id integer primary key autoincrement, feed_url text, title text not null unique, download_url text, article_url text, pub_date integer, fetch_date integer, read integer );");
         }
     };
@@ -126,7 +126,7 @@ class DatabaseMigration
             static final String TORRENT_SESSION_FILE = "session";
         }
 
-        private Context appContext;
+        private final Context appContext;
 
         public RoomDatabaseMigration(@NonNull Context appContext)
         {
@@ -156,7 +156,7 @@ class DatabaseMigration
                 database.execSQL("DROP TABLE torrents_old;");
 
                 database.execSQL("ALTER TABLE feeds RENAME TO feeds_old;");
-                database.execSQL("INSERT INTO `FeedChannel` (`url`, `name`, `lastUpdate`, `autoDownload`, `filter`, `isRegexFilter`, `fetchError`) SELECT url, name, last_update, auto_download, filter, is_regex_filter, fetch_error FROM feeds_old;");
+                database.execSQL("INSERT INTO `FeedChannel` (`url`, `name`, `lastUpdate`, `autoDownload`, `filter`, `isRegexFilter`, `fetchError`) SELECT url, name, last_update, auto_download, `filter`, is_regex_filter, fetch_error FROM feeds_old;");
                 database.execSQL("DROP TABLE feeds_old;");
 
                 /* Don't import feed items */

@@ -45,6 +45,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.viewmodel.MutableCreationExtras;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -55,13 +56,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentFileManagerBinding;
-import org.proninyaroslav.libretorrent.MainActivity;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -87,9 +88,6 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
     private static final String TAG_SPINNER_POS = "spinner_pos";
     private static final String KEY_GO_TO_FOLDER_DIALOG_REQUEST = TAG + "_go_to_folder_dialog";
     private static final String KEY_INPUT_NAME_DIALOG_REQUEST = TAG + "_input_name_folder";
-
-    // TODO
-    public static final String TAG_CONFIG = "config";
 
     public static final String KEY_RESULT = "result";
 
@@ -185,12 +183,18 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
         pref = PreferenceManager.getDefaultSharedPreferences(activity);
 
         String startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir), fs.getDefaultDownloadPath());
-        FileManagerViewModelFactory factory = new FileManagerViewModelFactory(
-                activity.getApplication(),
-                args.getConfig(),
-                startDir
+        var extras = new MutableCreationExtras();
+        extras.set(
+                ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY,
+                activity.getApplication()
         );
-        viewModel = new ViewModelProvider(this, factory).get(FileManagerViewModel.class);
+        extras.set(FileManagerViewModel.KEY_CONFIG, args.getConfig());
+        extras.set(FileManagerViewModel.KEY_START_DIR, startDir);
+        viewModel = new ViewModelProvider(
+                getViewModelStore(),
+                ViewModelProvider.Factory.from(FileManagerViewModel.initializer),
+                extras
+        ).get(FileManagerViewModel.class);
         binding.setViewModel(viewModel);
 
         String title = viewModel.config.title;

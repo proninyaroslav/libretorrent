@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.core.system;
 
-import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
@@ -33,18 +32,15 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-class SafFsModule implements FsModule
-{
-    private Context appContext;
+class SafFsModule implements FsModule {
+    private final Context appContext;
 
-    public SafFsModule(@NonNull Context appContext)
-    {
+    public SafFsModule(@NonNull Context appContext) {
         this.appContext = appContext;
     }
 
     @Override
-    public String getName(@NonNull Uri filePath)
-    {
+    public String getName(@NonNull Uri filePath) {
         SafFileSystem fs = SafFileSystem.getInstance(appContext);
         SafFileSystem.Stat stat = fs.stat(filePath);
 
@@ -52,51 +48,44 @@ class SafFsModule implements FsModule
     }
 
     @Override
-    public String getDirPath(@NonNull Uri dir)
-    {
+    public String getDirPath(@NonNull Uri dir) {
         SafFileSystem.Stat stat = SafFileSystem.getInstance(appContext).statSafRoot(dir);
 
         return (stat == null || stat.name == null ? dir.getPath() : stat.name);
     }
 
     @Override
-    public String getFilePath(@NonNull Uri filePath)
-    {
+    public String getFilePath(@NonNull Uri filePath) {
         SafFileSystem.Stat stat = SafFileSystem.getInstance(appContext).stat(filePath);
 
         return (stat == null || stat.name == null ? filePath.getPath() : stat.name);
     }
 
     @Override
-    public Uri getFileUri(@NonNull Uri dir, @NonNull String fileName, boolean create)
-    {
+    public Uri getFileUri(@NonNull Uri dir, @NonNull String fileName, boolean create) {
         return SafFileSystem.getInstance(appContext).getFileUri(dir, fileName, create);
     }
 
     @Override
-    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir)
-    {
+    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir) {
         return SafFileSystem.getInstance(appContext)
                 .getFileUri(new SafFileSystem.FakePath(dir, relativePath), false);
     }
 
     @Override
-    public boolean delete(@NonNull Uri filePath) throws FileNotFoundException
-    {
+    public boolean delete(@NonNull Uri filePath) throws FileNotFoundException {
         SafFileSystem fs = SafFileSystem.getInstance(appContext);
 
         return fs.delete(filePath);
     }
 
     @Override
-    public FileDescriptorWrapper openFD(@NonNull Uri path)
-    {
+    public FileDescriptorWrapper openFD(@NonNull Uri path) {
         return new FileDescriptorWrapperImpl(appContext, path);
     }
 
     @Override
-    public long getDirAvailableBytes(@NonNull Uri dir) throws IOException
-    {
+    public long getDirAvailableBytes(@NonNull Uri dir) throws IOException {
         long availableBytes = -1;
         ContentResolver contentResolver = appContext.getContentResolver();
         SafFileSystem fs = SafFileSystem.getInstance(appContext);
@@ -120,9 +109,7 @@ class SafFsModule implements FsModule
      * TODO: maybe there is analog for KitKat?
      */
 
-    @TargetApi(21)
-    private long getAvailableBytes(@NonNull FileDescriptor fd) throws IOException
-    {
+    private long getAvailableBytes(@NonNull FileDescriptor fd) throws IOException {
         try {
             StructStatVfs stat = Os.fstatvfs(fd);
 
@@ -133,14 +120,12 @@ class SafFsModule implements FsModule
     }
 
     @Override
-    public boolean fileExists(@NonNull Uri filePath)
-    {
+    public boolean fileExists(@NonNull Uri filePath) {
         return SafFileSystem.getInstance(appContext).exists(filePath);
     }
 
     @Override
-    public long lastModified(@NonNull Uri filePath)
-    {
+    public long lastModified(@NonNull Uri filePath) {
         SafFileSystem.Stat stat = SafFileSystem.getInstance(appContext)
                 .stat(filePath);
 
@@ -148,15 +133,13 @@ class SafFsModule implements FsModule
     }
 
     @Override
-    public String makeFileSystemPath(@NonNull Uri uri, String relativePath)
-    {
+    public String makeFileSystemPath(@NonNull Uri uri, String relativePath) {
         return new SafFileSystem.FakePath(uri, (relativePath == null ? "" : relativePath))
                 .toString();
     }
 
     @Override
-    public Uri getParentDirUri(@NonNull Uri filePath)
-    {
+    public Uri getParentDirUri(@NonNull Uri filePath) {
         return SafFileSystem.getInstance(appContext).getParentDirUri(filePath);
     }
 }

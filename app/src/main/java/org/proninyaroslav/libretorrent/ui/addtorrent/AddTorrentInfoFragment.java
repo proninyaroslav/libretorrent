@@ -54,7 +54,6 @@ import org.proninyaroslav.libretorrent.ui.tag.SelectTagDialog;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagChip;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -245,7 +244,7 @@ public class AddTorrentInfoFragment extends Fragment {
         var ids = viewModel.getCurrentTorrentTags()
                 .stream()
                 .map((tag) -> tag.id)
-                .collect(Collectors.toList());
+                .toList();
         var action = AddTorrentFragmentDirections.actionSelectTagDialog(
                 ArrayUtils.toPrimitive(ids.toArray(new Long[0])),
                 KEY_SELECT_TAG_DIALOG_REQUEST

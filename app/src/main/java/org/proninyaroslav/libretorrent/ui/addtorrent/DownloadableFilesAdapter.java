@@ -19,7 +19,6 @@
 
 package org.proninyaroslav.libretorrent.ui.addtorrent;
 
-import android.content.Context;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +61,7 @@ public class DownloadableFilesAdapter extends ListAdapter<DownloadableFileItem, 
         holder.bind(getItem(position), clickListener);
     }
 
-    public static final DiffUtil.ItemCallback<DownloadableFileItem> diffCallback = new DiffUtil.ItemCallback<DownloadableFileItem>() {
+    public static final DiffUtil.ItemCallback<DownloadableFileItem> diffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areContentsTheSame(@NonNull DownloadableFileItem oldItem,
                                           @NonNull DownloadableFileItem newItem) {

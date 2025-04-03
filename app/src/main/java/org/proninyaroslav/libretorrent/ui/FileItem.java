@@ -68,17 +68,14 @@ public class FileItem implements Parcelable, Comparable<FileItem>
     }
 
     public static final Creator<FileItem> CREATOR =
-            new Creator<FileItem>()
-            {
+            new Creator<>() {
                 @Override
-                public FileItem createFromParcel(Parcel source)
-                {
+                public FileItem createFromParcel(Parcel source) {
                     return new FileItem(source);
                 }
 
                 @Override
-                public FileItem[] newArray(int size)
-                {
+                public FileItem[] newArray(int size) {
                     return new FileItem[size];
                 }
             };
@@ -86,13 +83,11 @@ public class FileItem implements Parcelable, Comparable<FileItem>
     @Override
     public boolean equals(@Nullable Object o)
     {
-        if (!(o instanceof FileItem))
+        if (!(o instanceof FileItem item))
             return false;
 
         if (o == this)
             return true;
-
-        FileItem item = (FileItem) o;
 
         return index == item.index &&
                 (name == null || name.equals(item.name)) &&

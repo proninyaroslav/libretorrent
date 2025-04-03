@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent.pages.trackers;
 
 import android.content.res.ColorStateList;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;

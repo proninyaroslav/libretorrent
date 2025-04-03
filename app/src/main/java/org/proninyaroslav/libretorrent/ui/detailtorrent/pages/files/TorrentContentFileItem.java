@@ -60,7 +60,7 @@ public class TorrentContentFileItem extends FileItem {
     }
 
     public static final Parcelable.Creator<TorrentContentFileItem> CREATOR =
-            new Parcelable.Creator<TorrentContentFileItem>() {
+            new Parcelable.Creator<>() {
                 @Override
                 public TorrentContentFileItem createFromParcel(Parcel source) {
                     return new TorrentContentFileItem(source);

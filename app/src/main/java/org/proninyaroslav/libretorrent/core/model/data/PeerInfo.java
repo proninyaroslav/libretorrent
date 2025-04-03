@@ -152,7 +152,7 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
     }
 
     public static final Parcelable.Creator<PeerInfo> CREATOR =
-            new Parcelable.Creator<PeerInfo>() {
+            new Parcelable.Creator<>() {
                 @Override
                 public PeerInfo createFromParcel(Parcel source) {
                     return new PeerInfo(source);

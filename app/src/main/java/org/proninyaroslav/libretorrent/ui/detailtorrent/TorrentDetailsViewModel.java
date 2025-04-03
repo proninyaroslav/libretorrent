@@ -282,7 +282,7 @@ public class TorrentDetailsViewModel extends ViewModel {
             if (Utils.isFileSystemPath(path))
                 path = FileProvider.getUriForFile(context,
                         context.getPackageName() + ".provider",
-                        new File(path.getPath()));
+                        new File(Objects.requireNonNull(path.getPath())));
 
             return path;
         });

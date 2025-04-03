@@ -38,14 +38,12 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public class TorrentRepositoryImpl implements TorrentRepository {
-    private static final String TAG = TorrentRepositoryImpl.class.getSimpleName();
-
     private static final class FileDataModel {
         private static final String TORRENT_SESSION_FILE = "session";
     }
 
-    private Context appContext;
-    private AppDatabase db;
+    private final Context appContext;
+    private final AppDatabase db;
 
     public TorrentRepositoryImpl(@NonNull Context appContext, @NonNull AppDatabase db) {
         this.appContext = appContext;
@@ -146,38 +144,5 @@ public class TorrentRepositoryImpl implements TorrentRepository {
     @Override
     public void deleteTag(@NonNull String torrentId, @NonNull TagInfo tag) {
         db.torrentDao().deleteTag(new TorrentTagInfo(tag.id, torrentId));
-    }
-
-    /*
-     * Search directory with data of added torrent (in standard data directory).
-     * Returns path to the directory found if successful or null if the directory is not found.
-     */
-
-    private String getTorrentDataDir(Context context, String id) {
-        if (SystemFacadeHelper.getFileSystemFacade(context).isStorageReadable()) {
-            File dataDir = new File(context.getExternalFilesDir(null), id);
-            if (dataDir.exists()) {
-                return dataDir.getAbsolutePath();
-            } else {
-                return makeTorrentDataDir(context, id);
-            }
-        }
-
-        return null;
-    }
-
-    /*
-     * Create a directory to store data of added torrent (in standard data directory)
-     * Returns path to the new directory if successful or null due to an error.
-     */
-
-    private String makeTorrentDataDir(Context context, String name) {
-        if (!SystemFacadeHelper.getFileSystemFacade(context).isStorageWritable())
-            return null;
-
-        String dataDir = context.getExternalFilesDir(null).getAbsolutePath();
-        File newDir = new File(dataDir, name);
-
-        return (newDir.mkdir()) ? newDir.getAbsolutePath() : null;
     }
 }

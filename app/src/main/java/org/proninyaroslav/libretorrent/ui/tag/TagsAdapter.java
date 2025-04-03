@@ -89,8 +89,8 @@ public class TagsAdapter extends ListAdapter<TagItem, TagsAdapter.ViewHolder> {
         }
 
         void bind(@NonNull TagItem item, OnClickListener listener) {
-            binding.name.setText(item.info.name);
-            binding.color.setColor(item.info.color);
+            binding.name.setText(item.info().name);
+            binding.color.setColor(item.info().color);
             binding.getRoot().setOnClickListener((v) -> {
                 if (listener != null) {
                     listener.onTagClicked(item);

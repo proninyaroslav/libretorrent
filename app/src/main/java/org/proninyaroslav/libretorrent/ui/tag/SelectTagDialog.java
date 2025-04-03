@@ -136,7 +136,7 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
     @Override
     public void onTagClicked(@NonNull TagItem item) {
         var bundle = new Bundle();
-        bundle.putParcelable(KEY_RESULT_TAG, item.info);
+        bundle.putParcelable(KEY_RESULT_TAG, item.info());
         getParentFragmentManager().setFragmentResult(requestKey, bundle);
 
         dismiss();

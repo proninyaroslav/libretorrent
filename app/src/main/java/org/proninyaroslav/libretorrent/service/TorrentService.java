@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.service;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -33,6 +34,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
@@ -46,7 +48,6 @@ import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
-import org.proninyaroslav.libretorrent.MainActivity;
 
 import java.util.Collections;
 import java.util.List;
@@ -222,6 +223,7 @@ public class TorrentService extends Service {
         }
     }
 
+    @SuppressLint("WakelockTimeout")
     private void setKeepCpuAwake(boolean enable) {
         if (enable) {
             if (wakeLock == null) {
@@ -229,8 +231,9 @@ public class TorrentService extends Service {
                 wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
             }
 
-            if (!wakeLock.isHeld())
+            if (!wakeLock.isHeld()) {
                 wakeLock.acquire();
+            }
 
         } else {
             if (wakeLock == null)

@@ -63,7 +63,6 @@ import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.proninyaroslav.libretorrent.MainActivity;
-import org.proninyaroslav.libretorrent.ui.NavBarFragment;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
@@ -77,6 +76,7 @@ import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentHomeBinding;
 import org.proninyaroslav.libretorrent.databinding.HomeDrawerContentBinding;
 import org.proninyaroslav.libretorrent.databinding.MainNavRailHeaderBinding;
+import org.proninyaroslav.libretorrent.ui.NavBarFragment;
 import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsFragmentArgs;

@@ -97,7 +97,7 @@ public class FeedChannel implements Parcelable {
     }
 
     public static final Creator<FeedChannel> CREATOR =
-            new Creator<FeedChannel>() {
+            new Creator<>() {
                 @Override
                 public FeedChannel createFromParcel(Parcel source) {
                     return new FeedChannel(source);

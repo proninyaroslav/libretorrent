@@ -10,7 +10,7 @@ import androidx.preference.DialogPreference;
 
 import org.proninyaroslav.libretorrent.R;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * A Preference to select a specific Time with a time picker dialog.
@@ -95,6 +95,8 @@ public class TimePickerPreference extends DialogPreference {
     }
 
     private String formatTime() {
-        return DateFormat.getTimeFormat(getContext()).format(new Date(0, 0, 0, time / 60, time % 60));
+        var calendar = Calendar.getInstance();
+        calendar.set(0, 0, 0, time / 60, time % 60);
+        return DateFormat.getTimeFormat(getContext()).format(calendar.getTime());
     }
 }

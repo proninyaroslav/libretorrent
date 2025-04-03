@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,13 +28,13 @@ public class LogEntry
 {
     private static final String defaultTimeStampFormatter = "yyyy-MM-dd HH:mm:ss.SSS";
 
-    private int id;
+    private final int id;
     @NonNull
-    private String tag;
+    private final String tag;
     @NonNull
-    private String msg;
-    private long timeStamp;
-    private SimpleDateFormat timeStampFormatter;
+    private final String msg;
+    private final long timeStamp;
+    private final SimpleDateFormat timeStampFormatter;
 
     public LogEntry(int id, @NonNull String tag,@NonNull String msg, long timeStamp)
     {
@@ -95,14 +95,14 @@ public class LogEntry
         int result = id;
         result = 31 * result + tag.hashCode();
         result = 31 * result + msg.hashCode();
-        result = 31 * result + (int) (timeStamp ^ (timeStamp >>> 32));
+        result = 31 * result + Long.hashCode(timeStamp);
 
         return result;
     }
 
     public String toStringWithTimeStamp()
     {
-        return getTimeStampAsString() + " " + toString();
+        return getTimeStampAsString() + " " + this;
     }
 
     @NonNull

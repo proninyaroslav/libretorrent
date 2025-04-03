@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,17 +23,12 @@ package org.proninyaroslav.libretorrent.core.exception;
  * Torrent file or magnet fetch exception.
  */
 
-public class FetchLinkException extends Exception
-{
-    public FetchLinkException() { }
-
-    public FetchLinkException(String message)
-    {
+public class FetchLinkException extends Exception {
+    public FetchLinkException(String message) {
         super(message);
     }
 
-    public FetchLinkException(Exception e)
-    {
+    public FetchLinkException(Exception e) {
         super(e);
     }
 }

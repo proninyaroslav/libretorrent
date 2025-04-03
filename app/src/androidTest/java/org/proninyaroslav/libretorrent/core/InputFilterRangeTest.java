@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -27,10 +27,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class InputFilterRangeTest
-{
-    static class FilterCase
-    {
+public class InputFilterRangeTest {
+    static class FilterCase {
         String description;
         Pair<Integer, Integer> range;
         CharSequence source;
@@ -38,8 +36,7 @@ public class InputFilterRangeTest
         CharSequence output;
 
         FilterCase(String description, Pair<Integer, Integer> range,
-                   CharSequence source, SpannableString dest, CharSequence output)
-        {
+                   CharSequence source, SpannableString dest, CharSequence output) {
             this.description = description;
             this.range = range;
             this.source = source;
@@ -48,7 +45,7 @@ public class InputFilterRangeTest
         }
     }
 
-    private FilterCase[] filterCaseList = new FilterCase[] {
+    private final FilterCase[] filterCaseList = new FilterCase[]{
             new FilterCase(
                     "simple range",
                     Pair.create(-10, 10),
@@ -118,8 +115,7 @@ public class InputFilterRangeTest
     };
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidRange_maxGreatMin()
-    {
+    public void testInvalidRange_maxGreatMin() {
         new InputFilterRange.Builder()
                 .setMin(10)
                 .setMax(0)
@@ -127,8 +123,7 @@ public class InputFilterRangeTest
     }
 
     @Test
-    public void testBuildRange()
-    {
+    public void testBuildRange() {
         InputFilterRange f = new InputFilterRange.Builder()
                 .build();
         assertNull(f.getMin());
@@ -138,48 +133,46 @@ public class InputFilterRangeTest
                 .setMin(0)
                 .setMax(10)
                 .build();
-        assertEquals(new Integer(0), f.getMin());
-        assertEquals(new Integer(10), f.getMax());
+        assertEquals(Integer.valueOf(0), f.getMin());
+        assertEquals(Integer.valueOf(10), f.getMax());
 
         f = new InputFilterRange.Builder()
                 .setMin(Integer.MIN_VALUE)
                 .setMax(Integer.MAX_VALUE)
                 .build();
-        assertEquals(new Integer(Integer.MIN_VALUE), f.getMin());
-        assertEquals(new Integer(Integer.MAX_VALUE), f.getMax());
+        assertEquals(Integer.valueOf(Integer.MIN_VALUE), f.getMin());
+        assertEquals(Integer.valueOf(Integer.MAX_VALUE), f.getMax());
 
         f = new InputFilterRange.Builder()
                 .setMax(-1)
                 .build();
-        assertEquals(new Integer(-1), f.getMax());
+        assertEquals(Integer.valueOf(-1), f.getMax());
 
         f = new InputFilterRange.Builder()
                 .setMin(10)
                 .build();
-        assertEquals(new Integer(10), f.getMin());
+        assertEquals(Integer.valueOf(10), f.getMin());
 
         f = new InputFilterRange.Builder()
                 .setMax(Integer.MAX_VALUE)
                 .build();
         assertNull(f.getMin());
-        assertEquals(new Integer(Integer.MAX_VALUE), f.getMax());
+        assertEquals(Integer.valueOf(Integer.MAX_VALUE), f.getMax());
 
         f = new InputFilterRange.Builder()
                 .setMin(Integer.MIN_VALUE)
                 .build();
-        assertEquals(new Integer(Integer.MIN_VALUE), f.getMin());
+        assertEquals(Integer.valueOf(Integer.MIN_VALUE), f.getMin());
         assertNull(f.getMax());
     }
 
     @Test
-    public void testFilter()
-    {
+    public void testFilter() {
         for (FilterCase filterCase : filterCaseList)
             runFilterCase(filterCase);
     }
 
-    private void runFilterCase(FilterCase filterCase)
-    {
+    private void runFilterCase(FilterCase filterCase) {
         InputFilterRange.Builder builder = new InputFilterRange.Builder();
         if (filterCase.range.first != null)
             builder.setMin(filterCase.range.first);

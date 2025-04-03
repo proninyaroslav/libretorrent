@@ -314,7 +314,7 @@ public class Logger {
     }
 
     private LogEntry applyFilters(LogEntry entry) {
-        var isApplied = filters.values().stream()
+        var isApplied = filters.isEmpty() || filters.values().stream()
                 .map((filter) -> filter.apply(entry))
                 .reduce(Boolean.FALSE, Boolean::logicalOr);
 

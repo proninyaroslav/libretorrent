@@ -21,18 +21,11 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.Editable;
 import android.text.InputFilter;
-import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
-import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,17 +36,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.InputFilterRange;
-import org.proninyaroslav.libretorrent.core.exception.NormalizeUrlException;
-import org.proninyaroslav.libretorrent.core.model.AddTorrentParams;
-import org.proninyaroslav.libretorrent.core.urlnormalizer.NormalizeUrl;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.databinding.DialogMultilineTextInputBinding;
 import org.proninyaroslav.libretorrent.databinding.DialogSpeedLimitBinding;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.Observable;
 
 public class SpeedLimitDialog extends DialogFragment {
     public record Speed(int download, int upload) implements Parcelable {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -52,8 +52,7 @@ import java.util.Arrays;
  * The worker for downloading torrents from RSS/Atom items.
  */
 
-public class FeedDownloaderWorker extends Worker
-{
+public class FeedDownloaderWorker extends Worker {
     private static final String TAG = FeedDownloaderWorker.class.getSimpleName();
 
     public static final String ACTION_DOWNLOAD_TORRENT_LIST = "org.proninyaroslav.libretorrent.service.FeedDownloaderWorker.ACTION_DOWNLOAD_TORRENT_LIST";
@@ -66,15 +65,13 @@ public class FeedDownloaderWorker extends Worker
     private FeedRepository repo;
     private SettingsRepository pref;
 
-    public FeedDownloaderWorker(@NonNull Context context, @NonNull WorkerParameters params)
-    {
+    public FeedDownloaderWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
     }
 
     @NonNull
     @Override
-    public Result doWork()
-    {
+    public Result doWork() {
         engine = TorrentEngine.getInstance(getApplicationContext());
         repo = RepositoryHelper.getFeedRepository(getApplicationContext());
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
@@ -91,8 +88,7 @@ public class FeedDownloaderWorker extends Worker
         return Result.failure();
     }
 
-    private ArrayList<AddTorrentParams> fetchTorrents(String... ids)
-    {
+    private ArrayList<AddTorrentParams> fetchTorrents(String... ids) {
         ArrayList<AddTorrentParams> paramsList = new ArrayList<>();
         if (ids == null)
             return paramsList;
@@ -106,8 +102,7 @@ public class FeedDownloaderWorker extends Worker
         return paramsList;
     }
 
-    private AddTorrentParams fetchTorrent(FeedItem item)
-    {
+    private AddTorrentParams fetchTorrent(FeedItem item) {
         if (item == null)
             return null;
 
@@ -125,7 +120,7 @@ public class FeedDownloaderWorker extends Worker
                 info = engine.parseMagnet(item.downloadUrl);
 
             } catch (IllegalArgumentException e) {
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, "Unable to parse magnet link", e);
                 return null;
             }
             sha1hash = info.getSha1hash();
@@ -189,8 +184,7 @@ public class FeedDownloaderWorker extends Worker
         );
     }
 
-    private Result addTorrents(ArrayList<AddTorrentParams> paramsList)
-    {
+    private Result addTorrents(ArrayList<AddTorrentParams> paramsList) {
         if (paramsList == null || paramsList.isEmpty())
             return Result.failure();
 

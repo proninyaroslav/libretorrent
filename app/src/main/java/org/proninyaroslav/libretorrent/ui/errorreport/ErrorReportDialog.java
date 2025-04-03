@@ -43,11 +43,6 @@ public class ErrorReportDialog extends DialogFragment {
     @Nullable
     private ErrorReportActivity errorReportActivity;
 
-    // TODO
-    public static ErrorReportDialog newInstance(String title, String message, String detailError) {
-        return new ErrorReportDialog();
-    }
-
     public static ErrorReportDialog newInstance(
             @NonNull String message,
             @Nullable Throwable exception

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -31,23 +31,21 @@ import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerViewModel;
 
 import java.io.File;
+import java.util.Objects;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class FileManagerViewModelTest extends AbstractTest
-{
+public class FileManagerViewModelTest extends AbstractTest {
     private FileManagerViewModel viewModel;
-    private FileManagerConfig config;
 
     @Before
-    public void init()
-    {
+    public void init() {
         super.init();
 
-        config = new FileManagerConfig(fs.getUserDirPath(),
+        FileManagerConfig config = new FileManagerConfig(fs.getUserDirPath(),
                 null, FileManagerConfig.Mode.DIR_CHOOSER);
         viewModel = new FileManagerViewModel(
                 ApplicationProvider.getApplicationContext(),
@@ -57,14 +55,13 @@ public class FileManagerViewModelTest extends AbstractTest
     }
 
     @Test
-    public void testOpenDirectory()
-    {
+    public void testOpenDirectory() {
         try {
             viewModel.jumpToDirectory(fs.getUserDirPath());
             viewModel.openDirectory("Android");
             Uri path = viewModel.getCurDirectoryUri();
             assertNotNull(path);
-            assertTrue(path.getPath().endsWith("Android"));
+            assertTrue(Objects.requireNonNull(path.getPath()).endsWith("Android"));
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
@@ -72,13 +69,12 @@ public class FileManagerViewModelTest extends AbstractTest
     }
 
     @Test
-    public void testJumpToDirectory()
-    {
+    public void testJumpToDirectory() {
         try {
             viewModel.jumpToDirectory(fs.getUserDirPath() + "/Android");
             Uri path = viewModel.getCurDirectoryUri();
             assertNotNull(path);
-            assertTrue(path.getPath().endsWith("Android"));
+            assertTrue(Objects.requireNonNull(path.getPath()).endsWith("Android"));
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
@@ -86,14 +82,13 @@ public class FileManagerViewModelTest extends AbstractTest
     }
 
     @Test
-    public void testUpToParentDirectory()
-    {
+    public void testUpToParentDirectory() {
         try {
             viewModel.jumpToDirectory(fs.getUserDirPath() + "/Android");
             viewModel.upToParentDirectory();
             Uri path = viewModel.getCurDirectoryUri();
             assertNotNull(path);
-            assertFalse(path.getPath().endsWith("Android"));
+            assertFalse(Objects.requireNonNull(path.getPath()).endsWith("Android"));
 
         } catch (Exception e) {
             fail(Log.getStackTraceString(e));
@@ -101,15 +96,14 @@ public class FileManagerViewModelTest extends AbstractTest
     }
 
     @Test
-    public void testCreateFile()
-    {
+    public void testCreateFile() {
         File f = null;
         try {
             viewModel.jumpToDirectory(fs.getUserDirPath());
             viewModel.createFile("test.txt");
             Uri filePath = viewModel.getFileUri("test.txt");
             assertNotNull(filePath);
-            f = new File(filePath.getPath());
+            f = new File(Objects.requireNonNull(filePath.getPath()));
             assertTrue(f.exists());
 
         } catch (Exception e) {
@@ -121,8 +115,7 @@ public class FileManagerViewModelTest extends AbstractTest
     }
 
     @Test
-    public void testPermissionDenied()
-    {
+    public void testPermissionDenied() {
         try {
             viewModel.jumpToDirectory(fs.getUserDirPath());
             viewModel.upToParentDirectory();

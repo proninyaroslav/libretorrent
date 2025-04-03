@@ -40,7 +40,7 @@ public class FixedRingBuffer<E> implements Iterable<E>
     private E[] elements;
     private int head = -1;
     private int tail;
-    private int capacity;
+    private final int capacity;
 
     public FixedRingBuffer(int capacity)
     {

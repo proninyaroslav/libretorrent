@@ -23,7 +23,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -55,16 +54,16 @@ public class PiecesView extends View {
     public PiecesView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        create(context);
+        create();
     }
 
     public PiecesView(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        create(context);
+        create();
     }
 
-    void create(Context context) {
+    void create() {
         Arrays.fill(UNINITIALIZED_VIEW_PIECES, false);
         borderSize = Utils.dpToPx(getContext(), BORDER_SIZE_DP);
         pieces = UNINITIALIZED_VIEW_PIECES;

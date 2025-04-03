@@ -235,7 +235,7 @@ public class CreateTorrentViewModel extends AndroidViewModel {
     }
 
     private void makePercentProgress(TorrentBuilder.Progress progress) {
-        buildProgress.postValue((int) (progress.piece * 100.0) / progress.numPieces);
+        buildProgress.postValue((int) (progress.piece() * 100.0) / progress.numPieces());
     }
 
     private void resetPercentProgress() {

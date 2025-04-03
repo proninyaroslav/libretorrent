@@ -1,16 +1,16 @@
 package com.ernieyu.feedparser.impl;
 
+import com.ernieyu.feedparser.Element;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.AttributesImpl;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.helpers.AttributesImpl;
-
-import com.ernieyu.feedparser.Element;
 
 /**
  * Base class for XML elements.

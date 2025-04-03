@@ -84,7 +84,7 @@ public class PeerListAdapter extends ListAdapter<PeerItem, PeerListAdapter.ViewH
         return getCurrentList().indexOf(key);
     }
 
-    private static final DiffUtil.ItemCallback<PeerItem> diffCallback = new DiffUtil.ItemCallback<PeerItem>() {
+    private static final DiffUtil.ItemCallback<PeerItem> diffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areContentsTheSame(@NonNull PeerItem oldItem,
                                           @NonNull PeerItem newItem) {

@@ -25,8 +25,6 @@ import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 
-import java.util.Objects;
-
 public class FeedChannelItem extends FeedChannel implements Comparable<FeedChannelItem> {
     public int unreadCount;
 

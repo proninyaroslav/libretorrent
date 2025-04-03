@@ -1,12 +1,17 @@
 package com.ernieyu.feedparser.impl;
 
+import com.ernieyu.feedparser.Element;
+import com.ernieyu.feedparser.Enclosure;
+import com.ernieyu.feedparser.EzRssTorrentItem;
+import com.ernieyu.feedparser.FeedType;
+import com.ernieyu.feedparser.FeedUtils;
+import com.ernieyu.feedparser.mediarss.MediaRss;
+
+import org.xml.sax.Attributes;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.ernieyu.feedparser.*;
-import com.ernieyu.feedparser.mediarss.MediaRss;
-import org.xml.sax.Attributes;
 
 /**
  * Item implementation for Atom feeds.
