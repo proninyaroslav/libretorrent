@@ -24,6 +24,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -39,6 +40,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
@@ -52,6 +54,8 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.ViewCompat;
@@ -60,6 +64,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.color.DynamicColors;
+import com.google.android.material.color.DynamicColorsOptions;
 import com.google.android.material.divider.MaterialDividerItemDecoration;
 import com.google.android.material.motion.MotionUtils;
 
@@ -67,6 +73,8 @@ import org.acra.ACRA;
 import org.acra.ReportField;
 import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.FileStorage;
+import org.proninyaroslav.libretorrent.BuildConfig;
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.HttpConnection;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
@@ -74,6 +82,7 @@ import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
+import org.proninyaroslav.libretorrent.core.model.preferences.PrefTheme;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
@@ -349,52 +358,6 @@ public class Utils {
         return Utils.getBatteryLevel(context) <= threshold;
     }
 
-    public static int getThemePreference(@NonNull Context context) {
-        return RepositoryHelper.getSettingsRepository(context).theme();
-    }
-
-    public static int getAppTheme(@NonNull Context context) {
-        return R.style.AppTheme;
-//        int theme = getThemePreference(context);
-//
-//        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-//            return R.style.AppThemeM2;
-//        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-//            return R.style.AppThemeM2_Dark;
-//        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-//            return R.style.AppThemeM2_Black;
-//
-//        return R.style.AppThemeM2;
-    }
-
-    public static int getTranslucentAppTheme(@NonNull Context appContext) {
-        return R.style.AppTheme_Translucent;
-//        int theme = getThemePreference(appContext);
-//
-//        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
-//            return R.style.AppThemeM2_Translucent;
-//        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
-//            return R.style.AppThemeM2_Translucent_Dark;
-//        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
-//            return R.style.AppThemeM2_Translucent_Black;
-//
-//        return R.style.AppThemeM2_Translucent;
-    }
-
-    public static int getSettingsTheme(@NonNull Context context) {
-        return R.style.AppTheme;
-//        int theme = getThemePreference(context);
-//
-//        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-//            return R.style.AppThemeM2_Settings;
-//        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-//            return R.style.AppThemeM2_Settings_Dark;
-//        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-//            return R.style.AppThemeM2_Settings_Black;
-//
-//        return R.style.AppThemeM2_Settings;
-    }
-
     public static boolean shouldRequestStoragePermission(@NonNull Activity activity) {
         return ActivityCompat.shouldShowRequestPermissionRationale(
                 activity,
@@ -576,7 +539,7 @@ public class Utils {
 
         TrustManager[] wrappedTrustManagers = new TrustManager[]{
                 new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    public X509Certificate[] getAcceptedIssuers() {
                         return origTrustManager.getAcceptedIssuers();
                     }
 
@@ -970,5 +933,74 @@ public class Utils {
     public static boolean matchFeedFilePath(@NonNull String path) {
         var pattern = Pattern.compile(FEED_FILE_PATH_PATTERN, Pattern.CASE_INSENSITIVE);
         return pattern.matcher(path).matches();
+    }
+
+    public static void restartApp(@NonNull Context context) {
+        var packageManager = context.getPackageManager();
+        var intent = packageManager.getLaunchIntentForPackage(context.getPackageName());
+        var componentName = intent.getComponent();
+        var mainIntent = Intent.makeRestartActivityTask(componentName);
+        // Required for API 34 and later
+        // Ref: https://developer.android.com/about/versions/14/behavior-changes-14#safer-intents
+        mainIntent.setPackage(context.getPackageName());
+        context.startActivity(mainIntent);
+        Runtime.getRuntime().exit(0);
+    }
+
+    public static void applyAppTheme(@NonNull Application application) {
+        var pref = RepositoryHelper.getSettingsRepository(application);
+        var theme = pref.theme();
+
+        if (theme instanceof PrefTheme.System) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        } else if (theme instanceof PrefTheme.Light) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (theme instanceof PrefTheme.Dark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if (theme instanceof PrefTheme.Black) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+                @Override
+                public void onActivityPreCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+                    var theme = pref.theme() instanceof PrefTheme.Black ? R.style.AppTheme_Black : R.style.AppTheme;
+                    activity.setTheme(theme);
+                }
+
+                @Override
+                public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+                }
+
+                @Override
+                public void onActivityStarted(@NonNull Activity activity) {
+                }
+
+                @Override
+                public void onActivityResumed(@NonNull Activity activity) {
+                }
+
+                @Override
+                public void onActivityPaused(@NonNull Activity activity) {
+                }
+
+                @Override
+                public void onActivityStopped(@NonNull Activity activity) {
+                }
+
+                @Override
+                public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+                }
+
+                @Override
+                public void onActivityDestroyed(@NonNull Activity activity) {
+                }
+            });
+        }
+    }
+
+    public static void applyDynamicTheme(@NonNull Application application) {
+        var pref = RepositoryHelper.getSettingsRepository(application);
+        if (pref.dynamicColors()) {
+            DynamicColors.applyToActivitiesIfAvailable(application);
+        }
     }
 }

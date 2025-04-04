@@ -71,7 +71,13 @@
 
     <style name="AppTheme" parent="BaseTheme" />
 
-    <style name="AppTheme.Translucent" parent="AppTheme">
+    <style name="AppTheme.Black" parent="BaseTheme">
+        <item name="colorSurface">@android:color/black</item>
+        <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    <style name="AppTheme.Translucent" parent="BaseTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>

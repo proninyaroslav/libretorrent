@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/pref_theme_category">
+
+        <ListPreference
+            android:entries="@array/pref_theme_entries"
+            android:entryValues="@array/pref_theme_entries_value"
+            android:key="@string/pref_key_theme"
+            android:persistent="false"
+            android:title="@string/pref_theme_title"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_theme_dynamic_colors"
+            android:persistent="false"
+            android:summary="@string/pref_theme_dynamic_colors_summary"
+            android:title="@string/pref_theme_dynamic_colors_title"
+            app:singleLineTitle="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_notification_category">
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_torrent_finish_notify"
+            android:persistent="false"
+            android:summary="@string/pref_torrent_finish_notify_summary"
+            android:title="@string/pref_torrent_finish_notify_title"
+            app:singleLineTitle="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_foreground_notification_category">
+
+        <ListPreference
+            android:entries="@array/pref_foreground_notify_status_filter_entries"
+            android:entryValues="@array/pref_foreground_notify_status_filter_entries_value"
+            android:key="@string/pref_key_foreground_notify_status_filter"
+            android:persistent="false"
+            android:title="@string/pref_foreground_notify_status_filter"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:entries="@array/pref_foreground_notify_sorting_entries"
+            android:entryValues="@array/pref_foreground_notify_sorting_entries_value"
+            android:key="@string/pref_key_foreground_notify_sorting"
+            android:persistent="false"
+            android:title="@string/pref_foreground_notify_sorting"
+            app:singleLineTitle="false"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_foreground_notify_combined_pause_button"
+            android:persistent="false"
+            android:summary="@string/pref_foreground_notify_combined_pause_button_summary"
+            android:title="@string/pref_foreground_notify_combined_pause_button_title"
+            app:singleLineTitle="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -33,6 +33,7 @@ import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.DialogConfigurationBuilder;
 import org.acra.config.MailSenderConfigurationBuilder;
 import org.acra.data.StringFormat;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
@@ -66,13 +67,8 @@ public class MainApplication extends MultiDexApplication {
 
         TorrentNotifier.getInstance(this).makeNotifyChans();
 
-        if (BuildConfig.DYNAMIC_THEME) {
-            DynamicColors.applyToActivitiesIfAvailable(this,
-                    new DynamicColorsOptions.Builder()
-                            .setThemeOverlay(R.style.AppTheme)
-                            .build()
-            );
-        }
+        Utils.applyAppTheme(this);
+        Utils.applyDynamicTheme(this);
     }
 
     /** @noinspection JavaReflectionMemberAccess*/

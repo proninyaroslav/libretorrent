@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -18,6 +18,8 @@
  */
 
 package org.proninyaroslav.libretorrent.core.settings;
+
+import org.proninyaroslav.libretorrent.core.model.preferences.PrefTheme;
 
 import io.reactivex.Flowable;
 
@@ -55,9 +57,13 @@ public interface SettingsRepository
 
     void vibrationNotify(boolean val);
 
-    int theme();
+    PrefTheme theme();
 
-    void theme(int val);
+    void theme(PrefTheme val);
+
+    boolean dynamicColors();
+
+    void dynamicColors(boolean val);
 
     int ledIndicatorColorNotify();
 

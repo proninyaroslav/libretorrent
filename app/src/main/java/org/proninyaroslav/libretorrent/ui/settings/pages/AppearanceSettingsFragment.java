@@ -43,7 +43,9 @@ import com.google.android.material.snackbar.Snackbar;
 import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.model.preferences.PrefTheme;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.settings.CustomPreferenceFragment;
 import org.proninyaroslav.libretorrent.ui.settings.customprefs.ColorPickerPreference;
 
@@ -81,9 +83,16 @@ public class AppearanceSettingsFragment extends CustomPreferenceFragment
         String keyTheme = getString(R.string.pref_key_theme);
         ListPreference theme = findPreference(keyTheme);
         if (theme != null) {
-            int type = pref.theme();
-            theme.setValueIndex(type);
+            var themeVal = pref.theme();
+            theme.setValueIndex(themeVal.getId());
             bindOnPreferenceChangeListener(theme);
+        }
+
+        String keyDynamicColors = getString(R.string.pref_key_theme_dynamic_colors);
+        SwitchPreferenceCompat dynamicColors = findPreference(keyDynamicColors);
+        if (dynamicColors != null) {
+            dynamicColors.setChecked(pref.dynamicColors());
+            bindOnPreferenceChangeListener(dynamicColors);
         }
 
         String keyTorrentFinishNotify = getString(R.string.pref_key_torrent_finish_notify);
@@ -116,8 +125,9 @@ public class AppearanceSettingsFragment extends CustomPreferenceFragment
             bindOnPreferenceChangeListener(combinedPauseButton);
         }
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             initLegacyNotifySettings(pref);
+        }
     }
 
     /*
@@ -222,13 +232,16 @@ public class AppearanceSettingsFragment extends CustomPreferenceFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
-            int type = Integer.parseInt((String) newValue);
-            pref.theme(type);
+            int id = Integer.parseInt((String) newValue);
+            pref.theme(PrefTheme.fromId(id));
+            Utils.applyAppTheme(activity.getApplication());
 
+        } else if (preference.getKey().equals(getString(R.string.pref_key_theme_dynamic_colors))) {
+            pref.dynamicColors((boolean) newValue);
             Snackbar.make(binding.coordinatorLayout,
                             R.string.theme_settings_apply_after_reboot,
                             Snackbar.LENGTH_LONG)
-                    .setAction(R.string.apply, (v) -> restartMainActivity())
+                    .setAction(R.string.apply, (v) -> Utils.restartApp(activity))
                     .show();
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_torrent_finish_notify))) {
@@ -257,11 +270,5 @@ public class AppearanceSettingsFragment extends CustomPreferenceFragment
         }
 
         return true;
-    }
-
-    private void restartMainActivity() {
-        Intent intent = new Intent(activity.getApplicationContext(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 }

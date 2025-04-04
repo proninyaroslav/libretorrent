@@ -433,10 +433,13 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Theme settings</string>
     <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_dynamic_colors_title">Dynamic colors</string>
+    <string name="pref_theme_dynamic_colors_summary">Theme colors are adjusted based on your system settings, wallpapers or selected color</string>
     <!-- pref_theme_entries -->
     <string name="pref_theme_entries_0">Light</string>
     <string name="pref_theme_entries_1">Dark</string>
     <string name="pref_theme_entries_2">Black</string>
+    <string name="pref_theme_entries_3">System</string>
     <string name="pref_notification_category">Notification settings</string>
     <string name="pref_torrent_finish_notify_title">Torrent finish notification</string>
     <string name="pref_torrent_finish_notify_summary">Show notification when a torrent is downloaded.</string>
