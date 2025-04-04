@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -140,6 +141,18 @@ public class MainActivity extends AppCompatActivity {
         if (!permissionManager.checkPermissions() && !dialogExists) {
             permissionManager.requestPermissions();
         }
+
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (navController == null) {
+                    return;
+                }
+                if (!navController.navigateUp()) {
+                    finish();
+                }
+            }
+        });
     }
 
     @Override

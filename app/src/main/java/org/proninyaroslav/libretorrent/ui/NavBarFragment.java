@@ -149,7 +149,7 @@ public class NavBarFragment extends Fragment {
             NavigationUI.setupWithNavController(bottomNav, navController);
         }
 
-        activity.getOnBackPressedDispatcher().addCallback(activity, new OnBackPressedCallback(true) {
+        activity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 if (navController == null || activity == null) {

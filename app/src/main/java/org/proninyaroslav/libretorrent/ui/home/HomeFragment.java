@@ -43,6 +43,8 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
@@ -327,7 +329,14 @@ public class HomeFragment extends AbstractListDetailFragment {
                 i.setAction(null);
                 var torrentId = i.getStringExtra(MainActivity.KEY_TORRENT_ID);
                 if (torrentId != null) {
-                    openTorrentDetails(torrentId);
+                    var lifecycle = getDetailPaneNavHostFragment().getLifecycle();
+                    lifecycle.addObserver(new DefaultLifecycleObserver() {
+                        @Override
+                        public void onStart(@NonNull LifecycleOwner owner) {
+                            lifecycle.removeObserver(this);
+                            openTorrentDetails(torrentId);
+                        }
+                    });
                 }
             }
         }
