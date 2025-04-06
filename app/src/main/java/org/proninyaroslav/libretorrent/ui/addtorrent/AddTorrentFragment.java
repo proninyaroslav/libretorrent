@@ -235,7 +235,7 @@ public class AddTorrentFragment extends Fragment {
     };
 
     private void observeDecodeState() {
-        viewModel.getDecodeState().observe(activity, (state) -> {
+        viewModel.getDecodeState().observe(getViewLifecycleOwner(), (state) -> {
             switch (state.status) {
                 case UNKNOWN -> {
                     if (inputUri != null) {
