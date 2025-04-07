@@ -19,7 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.settings;
 
-import org.proninyaroslav.libretorrent.core.model.preferences.PrefTheme;
+import org.proninyaroslav.libretorrent.core.model.data.preferences.PrefTheme;
 
 import io.reactivex.Flowable;
 

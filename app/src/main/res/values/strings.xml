@@ -114,6 +114,10 @@
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
     <string name="downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s \u2022 %4$s</string>
+    <!-- percent • ETA • download speed -->
+    <string name="single_downloading_torrent_notify_template">%1$d%% \u2022 %2$s \u2022 \u2193 %3$s/s</string>
+    <!-- ↓ download speed | ↑ upload speed • Online-->
+    <string name="foreground_notify_template">\u2193 %1$s/s | \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • upload speed • name -->
     <string name="seeding_torrent_notify_template">%1$s \u2022 \u2191 %2$s/s \u2022 %3$s</string>
     <!-- status • name -->

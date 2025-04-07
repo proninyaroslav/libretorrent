@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.proninyaroslav.libretorrent.core.model.preferences;
+package org.proninyaroslav.libretorrent.core.model.data.preferences;
 
 public abstract sealed class PrefTheme permits PrefTheme.Black, PrefTheme.Dark,
         PrefTheme.Light, PrefTheme.System, PrefTheme.Unknown {

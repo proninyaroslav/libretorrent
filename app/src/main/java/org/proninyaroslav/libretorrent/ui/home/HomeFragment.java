@@ -69,6 +69,8 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentListState;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
@@ -90,8 +92,10 @@ import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSort;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSortDirection;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerStatusFilter;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerTagFilter;
+import org.proninyaroslav.libretorrent.ui.home.model.TorrentListItemState;
 import org.proninyaroslav.libretorrent.ui.tag.TorrentTagChip;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -100,6 +104,7 @@ import java.util.stream.Collectors;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -265,6 +270,7 @@ public class HomeFragment extends AbstractListDetailFragment {
         binding.torrentList.setLayoutManager(layoutManager);
         binding.torrentList.setItemAnimator(animator);
         binding.torrentList.setEmptyView(binding.emptyViewTorrentList);
+        binding.torrentList.setLoadingView(binding.loadingViewTorrentList);
         binding.torrentList.addItemDecoration(Utils.buildListDivider(activity));
         binding.torrentList.setAdapter(adapter);
 
@@ -402,6 +408,7 @@ public class HomeFragment extends AbstractListDetailFragment {
         binding.searchTorrentList.setLayoutManager(new LinearLayoutManager(activity));
         binding.searchTorrentList.setItemAnimator(animator);
         binding.searchTorrentList.setEmptyView(binding.emptyViewSearchTorrentList);
+        binding.searchTorrentList.setLoadingView(binding.loadingViewSearchTorrentList);
         binding.searchTorrentList.addItemDecoration(Utils.buildListDivider(activity));
         binding.searchTorrentList.setAdapter(searchAdapter);
 
@@ -551,15 +558,28 @@ public class HomeFragment extends AbstractListDetailFragment {
     private Disposable observeTorrents() {
         return viewModel.observeAllTorrentsInfo()
                 .subscribeOn(Schedulers.io())
-                .flatMapSingle((infoList) ->
-                        Flowable.fromIterable(infoList)
+                .flatMapSingle((state) -> {
+                    if (state instanceof TorrentListState.Initial) {
+                        return Single.just((TorrentListItemState) new TorrentListItemState.Initial());
+                    } else if (state instanceof TorrentListState.Loaded loaded) {
+                        return Flowable.fromIterable(loaded.list())
                                 .filter(viewModel.getFilter())
                                 .map(TorrentListItem::new)
                                 .sorted(viewModel.getSorting())
                                 .toList()
-                )
+                                .map(TorrentListItemState.Loaded::new);
+                    }
+                    throw new IllegalStateException("Unknown state: " + state);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(adapter::submitList,
+                .subscribe((state) -> {
+                            if (state instanceof TorrentListItemState.Initial) {
+                                binding.torrentList.setLoading(true);
+                            } else if (state instanceof TorrentListItemState.Loaded loaded) {
+                                binding.torrentList.setLoading(false);
+                                adapter.submitList(loaded.list());
+                            }
+                        },
                         (Throwable t) -> Log.e(TAG, "Getting torrent info list error: " +
                                 Log.getStackTraceString(t)));
     }
@@ -578,15 +598,28 @@ public class HomeFragment extends AbstractListDetailFragment {
     private Disposable observeSearchListTorrents() {
         return viewModel.observeAllTorrentsInfo()
                 .subscribeOn(Schedulers.io())
-                .flatMapSingle((infoList) ->
-                        Flowable.fromIterable(infoList)
+                .flatMapSingle((state) -> {
+                    if (state instanceof TorrentListState.Initial) {
+                        return Single.just((TorrentListItemState) new TorrentListItemState.Initial());
+                    } else if (state instanceof TorrentListState.Loaded loaded) {
+                        return Flowable.fromIterable(loaded.list())
                                 .filter(viewModel.getSearchFilter())
                                 .map(TorrentListItem::new)
                                 .sorted(viewModel.getSorting())
                                 .toList()
-                )
+                                .map(TorrentListItemState.Loaded::new);
+                    }
+                    throw new IllegalStateException("Unknown state: " + state);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(searchAdapter::submitList,
+                .subscribe((state) -> {
+                            if (state instanceof TorrentListItemState.Initial) {
+                                binding.searchTorrentList.setLoading(true);
+                            } else if (state instanceof TorrentListItemState.Loaded loaded) {
+                                binding.searchTorrentList.setLoading(false);
+                                searchAdapter.submitList(loaded.list());
+                            }
+                        },
                         (Throwable t) -> Log.e(TAG, "Getting torrent info list error: " +
                                 Log.getStackTraceString(t)));
     }

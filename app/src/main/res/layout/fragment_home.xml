@@ -30,6 +30,16 @@
         app:text="@string/torrent_list_empty"
         tools:visibility="gone" />
 
+    <RelativeLayout
+        android:id="@+id/loading_view_torrent_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        tools:visibility="gone">
+
+        <include layout="@layout/list_load_indicator" />
+    </RelativeLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_torrent_fab"
         style="?attr/floatingActionButtonPrimaryStyle"
@@ -104,5 +114,14 @@
             android:paddingBottom="8dp"
             app:icon="@drawable/ic_search_24px"
             app:text="@string/torrent_list_empty" />
+
+        <RelativeLayout
+            android:id="@+id/loading_view_search_torrent_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <include layout="@layout/list_load_indicator" />
+        </RelativeLayout>
     </com.google.android.material.search.SearchView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

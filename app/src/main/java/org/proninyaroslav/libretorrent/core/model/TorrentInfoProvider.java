@@ -29,6 +29,7 @@ import org.proninyaroslav.libretorrent.core.model.data.AdvancedTorrentInfo;
 import org.proninyaroslav.libretorrent.core.model.data.PeerInfo;
 import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentListState;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.model.data.TrackerInfo;
 import org.proninyaroslav.libretorrent.core.storage.TagRepository;
@@ -97,7 +98,7 @@ public class TorrentInfoProvider {
         return makeInfoFlowable(id);
     }
 
-    public Flowable<List<TorrentInfo>> observeInfoList() {
+    public Flowable<TorrentListState> observeInfoList() {
         return makeInfoListFlowable();
     }
 
@@ -127,6 +128,10 @@ public class TorrentInfoProvider {
 
     public Flowable<SessionStats> observeSessionStats() {
         return makeSessionStatsFlowable();
+    }
+
+    public Single<SessionStats> getSessionStatsSingle() {
+        return makeSessionStatsSingle();
     }
 
     private Flowable<TorrentInfo> makeInfoFlowable(String id) {
@@ -237,7 +242,7 @@ public class TorrentInfoProvider {
         }, BackpressureStrategy.LATEST);
     }
 
-    private Flowable<List<TorrentInfo>> makeInfoListFlowable() {
+    private Flowable<TorrentListState> makeInfoListFlowable() {
         return Flowable.create((emitter) -> {
             final ConcurrentHashMap.KeySetView<TorrentInfo, Boolean> infoList
                     = ConcurrentHashMap.newKeySet();
@@ -248,7 +253,7 @@ public class TorrentInfoProvider {
                     infoList.clear();
                     infoList.addAll(newInfoList);
                     if (!emitter.isCancelled()) {
-                        emitter.onNext(newInfoList);
+                        emitter.onNext(new TorrentListState.Loaded(newInfoList));
                     }
                 }
             };
@@ -289,11 +294,12 @@ public class TorrentInfoProvider {
 
             if (!emitter.isCancelled()) {
                 Thread t = new Thread(() -> {
+                    emitter.onNext(new TorrentListState.Initial());
                     infoList.clear();
                     infoList.addAll(engine.makeInfoListSync());
                     if (!emitter.isCancelled()) {
                         /* Emit once to avoid missing any data and also easy chaining */
-                        emitter.onNext(infoList.stream().toList());
+                        emitter.onNext(new TorrentListState.Loaded(infoList.stream().toList()));
                         engine.addListener(listener);
                         CompositeDisposable disposables = new CompositeDisposable();
                         disposables.add(Disposables.fromAction(() ->
@@ -500,5 +506,26 @@ public class TorrentInfoProvider {
             }
 
         }, BackpressureStrategy.LATEST);
+    }
+
+    private Single<SessionStats> makeSessionStatsSingle() {
+        return Single.create((emitter) -> {
+            if (!emitter.isDisposed()) {
+                TorrentEngineListener listener = new TorrentEngineListener() {
+                    @Override
+                    public void onSessionStats(@NonNull SessionStats newStats) {
+                        if (!emitter.isDisposed()) {
+                            emitter.onSuccess(newStats);
+                        }
+                    }
+                };
+
+                if (!emitter.isDisposed()) {
+                    engine.addListener(listener);
+                    emitter.setDisposable(Disposables.fromAction(() ->
+                            engine.removeListener(listener)));
+                }
+            }
+        });
     }
 }

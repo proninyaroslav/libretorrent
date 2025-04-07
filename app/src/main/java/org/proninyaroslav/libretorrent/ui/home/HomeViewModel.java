@@ -38,6 +38,7 @@ import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentListState;
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
@@ -100,7 +101,7 @@ public class HomeViewModel extends AndroidViewModel {
         tagRepo = RepositoryHelper.getTagRepository(application);
     }
 
-    public Flowable<List<TorrentInfo>> observeAllTorrentsInfo() {
+    public Flowable<TorrentListState> observeAllTorrentsInfo() {
         return stateProvider.observeInfoList();
     }
 

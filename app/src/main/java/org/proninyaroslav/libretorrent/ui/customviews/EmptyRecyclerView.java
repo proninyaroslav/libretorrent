@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class EmptyRecyclerView extends RecyclerView {
     private View emptyView;
+    private View loadingView;
 
     final private AdapterDataObserver observer = new AdapterDataObserver() {
         @Override
@@ -86,5 +87,21 @@ public class EmptyRecyclerView extends RecyclerView {
     public void setEmptyView(View emptyView) {
         this.emptyView = emptyView;
         checkEmpty();
+    }
+
+    public void setLoadingView(View loadingView) {
+        this.loadingView = loadingView;
+        loadingView.setVisibility(GONE);
+    }
+
+    public void setLoading(boolean isLoading) {
+        if (loadingView != null) {
+            loadingView.setVisibility(isLoading ? VISIBLE : GONE);
+        }
+        if (isLoading) {
+            emptyView.setVisibility(GONE);
+        } else {
+            checkEmpty();
+        }
     }
 }
