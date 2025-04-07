@@ -30,6 +30,7 @@ import android.os.PowerManager;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -41,7 +42,9 @@ import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
+import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentListState;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
@@ -49,6 +52,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -57,6 +61,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -265,36 +270,67 @@ public class TorrentService extends Service {
     }
 
     private void startUpdateForegroundNotify() {
-        if (shuttingDown.get() || foregroundNotify == null)
+        if (shuttingDown.get() || foregroundNotify == null) {
             return;
+        }
 
-        foregroundDisposable = stateProvider.observeInfoList()
-                .subscribeOn(Schedulers.io())
-                .flatMapSingle((infoList) ->
-                        Flowable.fromIterable(infoList)
-                                .filter(itemsFilter)
-                                .sorted(itemsSorting)
-                                .toList()
+        foregroundDisposable = Flowable.combineLatest(
+                        stateProvider.observeInfoList(),
+                        stateProvider.observeSessionStats(),
+                        Pair::new
                 )
+                .subscribeOn(Schedulers.io())
+                .flatMapSingle((pair) -> {
+                    var state = pair.first;
+                    var sessionStats = pair.second;
+                    if (state instanceof TorrentListState.Initial) {
+                        return Single.just(Pair.create(new ArrayList<TorrentInfo>(0), sessionStats));
+                    } else if (state instanceof TorrentListState.Loaded loaded) {
+                        return Single.zip(
+                                Flowable.fromIterable(loaded.list())
+                                        .filter(itemsFilter)
+                                        .sorted(itemsSorting)
+                                        .toList(),
+                                Single.just(sessionStats),
+                                Pair::new
+                        );
+                    }
+                    throw new IllegalStateException("Unknown state: " + state);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .delay(FOREGROUND_NOTIFY_UPDATE_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(this::updateForegroundNotify,
+                .subscribe((pair) -> {
+                            var stateList = pair.first;
+                            var sessionStats = pair.second;
+                            updateForegroundNotify(stateList, sessionStats);
+                        },
                         (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
                                 + Log.getStackTraceString(t))
                 );
     }
 
     private Disposable getInfoListSingle() {
-        return stateProvider.getInfoListSingle()
-                .subscribeOn(Schedulers.io())
-                .flatMap((infoList) ->
-                        Observable.fromIterable(infoList)
-                                .filter(itemsFilter)
-                                .sorted(itemsSorting)
-                                .toList()
+        return Single.zip(
+                        stateProvider.getInfoListSingle(),
+                        stateProvider.getSessionStatsSingle(),
+                        Pair::new
                 )
+                .subscribeOn(Schedulers.io())
+                .flatMap((pair) -> {
+                    var infoList = pair.first;
+                    var sessionStats = pair.second;
+                    return Single.zip(
+                            Observable.fromIterable(infoList)
+                                    .filter(itemsFilter)
+                                    .sorted(itemsSorting)
+                                    .toList(),
+                            Single.just(sessionStats),
+                            Pair::new
+                    );
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::updateForegroundNotify,
+                .subscribe((Pair<List<TorrentInfo>, SessionStats> pair) ->
+                                updateForegroundNotify(pair.first, pair.second),
                         (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
                                 + Log.getStackTraceString(t))
                 );
@@ -316,7 +352,8 @@ public class TorrentService extends Service {
     }
 
     private void forceClearForeground() {
-        disposables.add(Completable.fromRunnable(() -> updateForegroundNotify(Collections.emptyList()))
+        disposables.add(Completable.fromRunnable(() ->
+                        updateForegroundNotify(Collections.emptyList(), null))
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe());
     }
@@ -351,9 +388,10 @@ public class TorrentService extends Service {
         startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
     }
 
-    private void updateForegroundNotify(List<TorrentInfo> stateList) {
-        if ((shuttingDown.get() && shutDownNotifyShow.get()) || foregroundNotify == null)
+    private void updateForegroundNotify(List<TorrentInfo> stateList, @Nullable SessionStats sessionStats) {
+        if ((shuttingDown.get() && shutDownNotifyShow.get()) || foregroundNotify == null) {
             return;
+        }
 
         isNetworkOnline = Utils.checkConnectivity(getApplicationContext());
 
@@ -365,48 +403,66 @@ public class TorrentService extends Service {
 
             String shuttingDownStr = getString(R.string.notify_shutting_down);
             foregroundNotify.setStyle(null);
+            foregroundNotify.setContentText(null);
             foregroundNotify.setTicker(shuttingDownStr);
             foregroundNotify.setContentTitle(shuttingDownStr);
         } else {
-            foregroundNotify.setContentText((isNetworkOnline ?
-                    getString(R.string.network_online) :
-                    getString(R.string.network_offline)));
-            if (stateList.isEmpty())
-                foregroundNotify.setStyle(null);
-            else
-                foregroundNotify.setStyle(makeDetailNotifyInboxStyle(stateList));
+            makeDetailNotifyInboxStyle(stateList, sessionStats);
         }
         /* Disallow killing the service process by system */
         startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
     }
 
-    private NotificationCompat.InboxStyle makeDetailNotifyInboxStyle(List<TorrentInfo> stateList) {
-        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+    private void makeDetailNotifyInboxStyle(List<TorrentInfo> stateList, @Nullable SessionStats sessionStats) {
+        var isNetworkOnlineText = isNetworkOnline
+                ? getString(R.string.network_online)
+                : getString(R.string.network_offline);
+        String defaultContentText;
+        if (sessionStats == null) {
+            defaultContentText = isNetworkOnline
+                    ? getString(R.string.network_online)
+                    : getString(R.string.network_offline);
+        } else {
+            String downSpeed = Formatter.formatFileSize(this, sessionStats.downloadSpeed);
+            String upSpeed = Formatter.formatFileSize(this, sessionStats.uploadSpeed);
+            defaultContentText = getString(R.string.foreground_notify_template,
+                    downSpeed, upSpeed, isNetworkOnlineText);
+        }
 
-        int downloadingCount = 0;
+        if (stateList.isEmpty()) {
+            var title = getString(R.string.app_running_in_the_background);
+            foregroundNotify.setStyle(null);
+            foregroundNotify.setContentTitle(title);
+            foregroundNotify.setContentText(defaultContentText);
+            foregroundNotify.setTicker(title);
+            return;
+        }
+        var inboxStyle = new NotificationCompat.InboxStyle();
+        var downloadingTorrents = new ArrayList<TorrentInfo>();
 
-        for (TorrentInfo state : stateList) {
-            if (state == null)
+        for (var state : stateList) {
+            if (state == null) {
                 continue;
+            }
 
-            TorrentStateCode code = state.stateCode;
-
+            var code = state.stateCode;
             if (code == TorrentStateCode.DOWNLOADING) {
-                ++downloadingCount;
+                downloadingTorrents.add(state);
                 inboxStyle.addLine(getString(R.string.downloading_torrent_notify_template,
                         state.progress,
-                        (state.ETA >= TorrentInfo.MAX_ETA) ? Utils.INFINITY_SYMBOL :
-                                DateUtils.formatElapsedTime(state.ETA),
+                        state.ETA >= TorrentInfo.MAX_ETA
+                                ? Utils.INFINITY_SYMBOL
+                                : DateUtils.formatElapsedTime(state.ETA),
                         Formatter.formatFileSize(this, state.downloadSpeed),
-                        state.name));
-
+                        state.name)
+                );
             } else if (code == TorrentStateCode.SEEDING) {
                 inboxStyle.addLine(getString(R.string.seeding_torrent_notify_template,
                         getString(R.string.torrent_status_seeding),
                         Formatter.formatFileSize(this, state.uploadSpeed),
                         state.name));
             } else {
-                String stateString = switch (code) {
+                var stateString = switch (code) {
                     case PAUSED -> getString(R.string.torrent_status_paused);
                     case STOPPED -> getString(R.string.torrent_status_stopped);
                     case CHECKING -> getString(R.string.torrent_status_checking);
@@ -414,20 +470,33 @@ public class TorrentService extends Service {
                             getString(R.string.torrent_status_downloading_metadata);
                     default -> "";
                 };
-
                 inboxStyle.addLine(getString(R.string.other_torrent_notify_template, stateString, state.name));
             }
         }
 
-        inboxStyle.setBigContentTitle(getString(R.string.torrent_count_notify_template,
-                downloadingCount,
-                stateList.size()));
+        var defaultContentTitle = getString(R.string.torrent_count_notify_template,
+                downloadingTorrents.size(), stateList.size());
+        String contentTitle, contentText;
+        if (downloadingTorrents.size() == 1) {
+            var state = downloadingTorrents.get(0);
+            contentTitle = state.name;
+            contentText = getString(R.string.single_downloading_torrent_notify_template,
+                    state.progress,
+                    state.ETA >= TorrentInfo.MAX_ETA
+                            ? Utils.INFINITY_SYMBOL
+                            : DateUtils.formatElapsedTime(state.ETA),
+                    Formatter.formatFileSize(this, state.downloadSpeed));
+        } else {
+            contentTitle = defaultContentTitle;
+            contentText = defaultContentText;
+        }
+        foregroundNotify.setContentTitle(contentTitle);
+        foregroundNotify.setContentText(contentText);
+        foregroundNotify.setTicker(contentTitle);
 
-        inboxStyle.setSummaryText((isNetworkOnline ?
-                getString(R.string.network_online) :
-                getString(R.string.network_offline)));
+        inboxStyle.setBigContentTitle(defaultContentTitle);
 
-        return inboxStyle;
+        foregroundNotify.setStyle(inboxStyle);
     }
 
     private void setForegroundNotifyActions(boolean combinedPauseButton) {
