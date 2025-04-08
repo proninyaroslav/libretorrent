@@ -29,38 +29,41 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class IPFilterParserTest
-{
-    private String dat_file =
-            "# Accept this ranges\n" +
-            "000.000.000.000 - 000.255.255.255 , 000 , Bogon\n" +
-            "2002:0000:0000:0:0:0:0:0 - 2002:00ff:ffff:0:0:0:0:0 , 000 , Bogon\n" +
-            "001.002.004.000 - 001.002.004.255 , 000 , China Internet Information Center (CNNIC)\n" +
-            "001.002.008.000 - 001.002.008.255 , 000 , China Internet Information Center (CNNIC)\n" +
-            "001.009.096.105 - 001.009.096.105 , 000 , Botnet on Telekom Malaysia\n" +
-            "001.009.102.251 - 001.009.102.251 , 000 , Botnet on Telekom Malaysia\n" +
-            "001.009.106.186 - 001.009.106.186 , 000 , Botnet on Telekom Malaysia\n" +
-            "001.016.000.000 - 001.019.255.255 , 000 , Korea Internet & Security Agency (KISA) - IPv6 Policy\n" +
-            "001.055.241.140 - 001.055.241.140 , 000 , Botnet on FPT Telecom\n" +
-            "// Ignore this ranges\n" +
-            "1.093.021.147-001.093.021.147,200,SMSHoax FakeAV Fraud Trojan\n" +
-            "001.093.026.097-001.093.026.97,200,SMSHoax FakeAV Fraud Trojan\n";
+public class IPFilterParserTest {
+    private final String dat_file =
+            """
+                    # Accept this ranges
+                    000.000.000.000 - 000.255.255.255 , 000 , Bogon
+                    2002:0000:0000:0:0:0:0:0 - 2002:00ff:ffff:0:0:0:0:0 , 000 , Bogon
+                    001.002.004.000 - 001.002.004.255 , 000 , China Internet Information Center (CNNIC)
+                    001.002.008.000 - 001.002.008.255 , 000 , China Internet Information Center (CNNIC)
+                    001.009.096.105 - 001.009.096.105 , 000 , Botnet on Telekom Malaysia
+                    001.009.102.251 - 001.009.102.251 , 000 , Botnet on Telekom Malaysia
+                    001.009.106.186 - 001.009.106.186 , 000 , Botnet on Telekom Malaysia
+                    001.016.000.000 - 001.019.255.255 , 000 , Korea Internet & Security Agency (KISA) - IPv6 Policy
+                    001.055.241.140 - 001.055.241.140 , 000 , Botnet on FPT Telecom
+                    // Ignore this ranges
+                    1.093.021.147-001.093.021.147,200,SMSHoax FakeAV Fraud Trojan
+                    001.093.026.097-001.093.026.97,200,SMSHoax FakeAV Fraud Trojan
+                    """;
 
-    private String p2p_file =
-            "# This is a comment\n" +
-            "Bogon : 000.000.000.000 - 000.255.255.255\n" +
-            "China Internet Information Center (CNNIC) : 001.002.004.000 - 001.002.004.255\n" +
-            "China Internet Information Center (CNNIC) : 001.002.008.000 - 001.002.008.255\n" +
-            "Botnet on Telekom Malaysia : 001.009.096.105 - 001.009.096.105\n" +
-            "Botnet on Telekom Malaysia : 001.009.102.251 - 001.009.102.251\n" +
-            "Botnet on Telekom Malaysia : 001.009.106.186 - 001.009.106.186\n" +
-            "Korea Internet & Security Agency (KISA) - IPv6 Policy : 001.016.000.000 - 001.019.255.255\n" +
-            "Botnet on FPT Telecom : 001.055.241.140 - 001.055.241.140\n" +
-            "// This is another comment\n" +
-            "SMSHoax FakeAV Fraud Trojan:1.093.021.147-001.093.021.147\n" +
-            "SMSHoax FakeAV Fraud Trojan:001.093.026.97-001.093.026.097\n";
+    private final String p2p_file =
+            """
+                    # This is a comment
+                    Bogon : 000.000.000.000 - 000.255.255.255
+                    China Internet Information Center (CNNIC) : 001.002.004.000 - 001.002.004.255
+                    China Internet Information Center (CNNIC) : 001.002.008.000 - 001.002.008.255
+                    Botnet on Telekom Malaysia : 001.009.096.105 - 001.009.096.105
+                    Botnet on Telekom Malaysia : 001.009.102.251 - 001.009.102.251
+                    Botnet on Telekom Malaysia : 001.009.106.186 - 001.009.106.186
+                    Korea Internet & Security Agency (KISA) - IPv6 Policy : 001.016.000.000 - 001.019.255.255
+                    Botnet on FPT Telecom : 001.055.241.140 - 001.055.241.140
+                    // This is another comment
+                    SMSHoax FakeAV Fraud Trojan:1.093.021.147-001.093.021.147
+                    SMSHoax FakeAV Fraud Trojan:001.093.026.97-001.093.026.097
+                    """;
 
-    private Pair[] dat_expected_ranges = new Pair[] {
+    private final Pair<String, String>[] dat_expected_ranges = new Pair[]{
             Pair.create("000.000.000.000", "000.255.255.255"),
             Pair.create("2002:0000:0000:0:0:0:0:0", "2002:00ff:ffff:0:0:0:0:0"),
             Pair.create("001.002.004.000", "001.002.004.255"),
@@ -72,7 +75,7 @@ public class IPFilterParserTest
             Pair.create("001.055.241.140", "001.055.241.140"),
     };
 
-    private Pair[] p2p_expected_ranges = new Pair[] {
+    private Pair[] p2p_expected_ranges = new Pair[]{
             Pair.create("000.000.000.000", "000.255.255.255"),
             Pair.create("001.002.004.000", "001.002.004.255"),
             Pair.create("001.002.008.000", "001.002.008.255"),
@@ -86,8 +89,7 @@ public class IPFilterParserTest
     };
 
     @Test
-    public void parseDAT()
-    {
+    public void parseDAT() {
         FakeIPFilter filter = new FakeIPFilter();
         try (InputStream is = IOUtils.toInputStream(dat_file, "UTF-8")) {
             int ruleCount = new IPFilterParser(false).parseDAT(is, filter);
@@ -105,8 +107,7 @@ public class IPFilterParserTest
     }
 
     @Test
-    public void parseP2P()
-    {
+    public void parseP2P() {
         FakeIPFilter filter = new FakeIPFilter();
         try (InputStream is = IOUtils.toInputStream(p2p_file, "UTF-8")) {
             int ruleCount = new IPFilterParser(false).parseP2P(is, filter);

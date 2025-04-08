@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,12 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.exception;
 
-public class TorrentAlreadyExistsException extends Exception
-{
-    public TorrentAlreadyExistsException() { }
-
-    public TorrentAlreadyExistsException(String message)
-    {
-        super(message);
+public class TorrentAlreadyExistsException extends Exception {
+    public TorrentAlreadyExistsException() {
     }
 }

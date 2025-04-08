@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,24 +20,17 @@
 package org.proninyaroslav.libretorrent.ui.log;
 
 import androidx.annotation.NonNull;
-import androidx.paging.DataSource;
 
-import org.proninyaroslav.libretorrent.core.logger.LogEntry;
 import org.proninyaroslav.libretorrent.core.logger.Logger;
 
-class LogSourceFactory extends LogDataSource.Factory<Integer, LogEntry>
-{
-    private Logger logger;
+class LogSourceFactory {
+    private final Logger logger;
 
-    public LogSourceFactory(@NonNull Logger logger)
-    {
+    public LogSourceFactory(@NonNull Logger logger) {
         this.logger = logger;
     }
 
-    @NonNull
-    @Override
-    public DataSource<Integer, LogEntry> create()
-    {
+    public LogDataSource create() {
         return new LogDataSource(logger);
     }
 }

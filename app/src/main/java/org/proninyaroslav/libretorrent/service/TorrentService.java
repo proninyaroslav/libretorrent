@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.service;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -29,25 +30,29 @@ import android.os.PowerManager;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngine;
 import org.proninyaroslav.libretorrent.core.model.TorrentEngineListener;
 import org.proninyaroslav.libretorrent.core.model.TorrentInfoProvider;
+import org.proninyaroslav.libretorrent.core.model.data.SessionStats;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
+import org.proninyaroslav.libretorrent.core.model.data.TorrentListState;
 import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.receiver.NotificationReceiver;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
-import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -56,6 +61,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -63,8 +69,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
-public class TorrentService extends Service
-{
+public class TorrentService extends Service {
     private static final String TAG = TorrentService.class.getSimpleName();
 
     private static final int SERVICE_STARTED_NOTIFICATION_ID = -1;
@@ -72,7 +77,7 @@ public class TorrentService extends Service
     public static final String ACTION_SHUTDOWN = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_SHUTDOWN";
     public static final String ACTION_RESTART_FOREGROUND_NOTIFICATION = "org.proninyaroslav.libretorrent.services.TorrentService.ACTION_RESTART_FOREGROUND_NOTIFICATION";
 
-    private AtomicBoolean isAlreadyRunning = new AtomicBoolean();
+    private final AtomicBoolean isAlreadyRunning = new AtomicBoolean();
     /* For the pause action button of foreground notify */
     private NotificationCompat.Builder foregroundNotify;
     private Disposable foregroundDisposable;
@@ -81,13 +86,13 @@ public class TorrentService extends Service
     private TorrentEngine engine;
     private SettingsRepository pref;
     private PowerManager.WakeLock wakeLock;
-    private CompositeDisposable disposables = new CompositeDisposable();
-    private AtomicBoolean shuttingDown = new AtomicBoolean(false);
-    private AtomicBoolean shutDownNotifyShow = new AtomicBoolean(false);
-    private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
+    private final CompositeDisposable disposables = new CompositeDisposable();
+    private final AtomicBoolean shuttingDown = new AtomicBoolean(false);
+    private final AtomicBoolean shutDownNotifyShow = new AtomicBoolean(false);
+    private final PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
     private TorrentFilter itemsFilter;
     private TorrentSortingComparator itemsSorting;
-    private BehaviorSubject<Boolean> combinedPauseButtonState =
+    private final BehaviorSubject<Boolean> combinedPauseButtonState =
             BehaviorSubject.createDefault(false);
 
     PendingIntent shutdownPendingIntent;
@@ -97,14 +102,12 @@ public class TorrentService extends Service
 
     @Nullable
     @Override
-    public IBinder onBind(Intent intent)
-    {
+    public IBinder onBind(Intent intent) {
         return null;
     }
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         engine = TorrentEngine.getInstance(getApplicationContext());
         stateProvider = TorrentInfoProvider.getInstance(getApplicationContext());
@@ -113,8 +116,7 @@ public class TorrentService extends Service
         makeForegroundNotify();
     }
 
-    private void init()
-    {
+    private void init() {
         Log.i(TAG, "Start " + TAG);
 
         makeForegroundNotify();
@@ -140,29 +142,25 @@ public class TorrentService extends Service
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
 
         Log.i(TAG, "Stop " + TAG);
     }
 
-    private void shutdown()
-    {
+    private void shutdown() {
         disposables.add(Completable.fromRunnable(this::stopEngine)
                 .subscribeOn(Schedulers.computation())
                 .subscribe());
     }
 
-    private void stopEngine()
-    {
+    private void stopEngine() {
         shuttingDown.set(true);
         forceClearForeground();
         engine.doStop();
     }
 
-    private void stopService()
-    {
+    private void stopService() {
         disposables.clear();
         engine.removeListener(engineListener);
         setKeepCpuAwake(false);
@@ -173,8 +171,7 @@ public class TorrentService extends Service
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         String action = null;
         if (intent != null)
             action = intent.getAction();
@@ -196,23 +193,22 @@ public class TorrentService extends Service
         return START_STICKY;
     }
 
-    private int handleShutdownActions(String action)
-    {
-        switch (action) {
-            case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
-            case ACTION_SHUTDOWN:
+    private int handleShutdownActions(String action) {
+        return switch (action) {
+            case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP, ACTION_SHUTDOWN -> {
                 shutdown();
-                return START_NOT_STICKY;
-            case ACTION_RESTART_FOREGROUND_NOTIFICATION:
+                yield START_NOT_STICKY;
+            }
+            case ACTION_RESTART_FOREGROUND_NOTIFICATION -> {
                 makeForegroundNotify();
-                return START_STICKY;
-        }
+                yield START_STICKY;
+            }
+            default -> -1;
+        };
 
-        return -1;
     }
 
-    private void handleActions(String action)
-    {
+    private void handleActions(String action) {
         switch (action) {
             case NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL:
                 engine.pauseAll();
@@ -232,16 +228,17 @@ public class TorrentService extends Service
         }
     }
 
-    private void setKeepCpuAwake(boolean enable)
-    {
+    @SuppressLint("WakelockTimeout")
+    private void setKeepCpuAwake(boolean enable) {
         if (enable) {
             if (wakeLock == null) {
-                PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+                PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                 wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
             }
 
-            if (!wakeLock.isHeld())
+            if (!wakeLock.isHeld()) {
                 wakeLock.acquire();
+            }
 
         } else {
             if (wakeLock == null)
@@ -254,15 +251,13 @@ public class TorrentService extends Service
 
     private final TorrentEngineListener engineListener = new TorrentEngineListener() {
         @Override
-        public void onSessionStopped()
-        {
+        public void onSessionStopped() {
             Log.i(TAG, "Session stopped");
             stopService();
         }
     };
 
-    private void handleSettingsChanged(String key)
-    {
+    private void handleSettingsChanged(String key) {
         if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep))) {
             setKeepCpuAwake(pref.cpuDoNotSleep());
         } else if (key.equals(getString(R.string.pref_key_foreground_notify_status_filter)) ||
@@ -274,38 +269,68 @@ public class TorrentService extends Service
         }
     }
 
-    private void startUpdateForegroundNotify()
-    {
-        if (shuttingDown.get() || foregroundNotify == null)
+    private void startUpdateForegroundNotify() {
+        if (shuttingDown.get() || foregroundNotify == null) {
             return;
+        }
 
-        foregroundDisposable = stateProvider.observeInfoList()
-                .subscribeOn(Schedulers.io())
-                .flatMapSingle((infoList) ->
-                        Flowable.fromIterable(infoList)
-                                .filter(itemsFilter)
-                                .sorted(itemsSorting)
-                                .toList()
+        foregroundDisposable = Flowable.combineLatest(
+                        stateProvider.observeInfoList(),
+                        stateProvider.observeSessionStats(),
+                        Pair::new
                 )
+                .subscribeOn(Schedulers.io())
+                .flatMapSingle((pair) -> {
+                    var state = pair.first;
+                    var sessionStats = pair.second;
+                    if (state instanceof TorrentListState.Initial) {
+                        return Single.just(Pair.create(new ArrayList<TorrentInfo>(0), sessionStats));
+                    } else if (state instanceof TorrentListState.Loaded loaded) {
+                        return Single.zip(
+                                Flowable.fromIterable(loaded.list())
+                                        .filter(itemsFilter)
+                                        .sorted(itemsSorting)
+                                        .toList(),
+                                Single.just(sessionStats),
+                                Pair::new
+                        );
+                    }
+                    throw new IllegalStateException("Unknown state: " + state);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .delay(FOREGROUND_NOTIFY_UPDATE_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(this::updateForegroundNotify,
+                .subscribe((pair) -> {
+                            var stateList = pair.first;
+                            var sessionStats = pair.second;
+                            updateForegroundNotify(stateList, sessionStats);
+                        },
                         (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
                                 + Log.getStackTraceString(t))
                 );
     }
 
     private Disposable getInfoListSingle() {
-        return stateProvider.getInfoListSingle()
-                .subscribeOn(Schedulers.io())
-                .flatMap((infoList) ->
-                        Observable.fromIterable(infoList)
-                                .filter(itemsFilter)
-                                .sorted(itemsSorting)
-                                .toList()
+        return Single.zip(
+                        stateProvider.getInfoListSingle(),
+                        stateProvider.getSessionStatsSingle(),
+                        Pair::new
                 )
+                .subscribeOn(Schedulers.io())
+                .flatMap((pair) -> {
+                    var infoList = pair.first;
+                    var sessionStats = pair.second;
+                    return Single.zip(
+                            Observable.fromIterable(infoList)
+                                    .filter(itemsFilter)
+                                    .sorted(itemsSorting)
+                                    .toList(),
+                            Single.just(sessionStats),
+                            Pair::new
+                    );
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::updateForegroundNotify,
+                .subscribe((Pair<List<TorrentInfo>, SessionStats> pair) ->
+                                updateForegroundNotify(pair.first, pair.second),
                         (Throwable t) -> Log.e(TAG, "Getting torrents info error: "
                                 + Log.getStackTraceString(t))
                 );
@@ -326,21 +351,19 @@ public class TorrentService extends Service
                 )));
     }
 
-    private void forceClearForeground()
-    {
-        disposables.add(Completable.fromRunnable(() -> updateForegroundNotify(Collections.emptyList()))
+    private void forceClearForeground() {
+        disposables.add(Completable.fromRunnable(() ->
+                        updateForegroundNotify(Collections.emptyList(), null))
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe());
     }
 
-    private void stopUpdateForegroundNotify()
-    {
+    private void stopUpdateForegroundNotify() {
         if (foregroundDisposable != null)
             foregroundDisposable.dispose();
     }
 
-    private void makeForegroundNotify()
-    {
+    private void makeForegroundNotify() {
         /* For starting main activity after click */
         Intent startupIntent = new Intent(getApplicationContext(), MainActivity.class);
         startupIntent.setAction(Intent.ACTION_MAIN);
@@ -365,10 +388,10 @@ public class TorrentService extends Service
         startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
     }
 
-    private void updateForegroundNotify(List<TorrentInfo> stateList)
-    {
-        if ((shuttingDown.get() && shutDownNotifyShow.get()) || foregroundNotify == null)
+    private void updateForegroundNotify(List<TorrentInfo> stateList, @Nullable SessionStats sessionStats) {
+        if ((shuttingDown.get() && shutDownNotifyShow.get()) || foregroundNotify == null) {
             return;
+        }
 
         isNetworkOnline = Utils.checkConnectivity(getApplicationContext());
 
@@ -380,76 +403,100 @@ public class TorrentService extends Service
 
             String shuttingDownStr = getString(R.string.notify_shutting_down);
             foregroundNotify.setStyle(null);
+            foregroundNotify.setContentText(null);
             foregroundNotify.setTicker(shuttingDownStr);
             foregroundNotify.setContentTitle(shuttingDownStr);
         } else {
-            foregroundNotify.setContentText((isNetworkOnline ?
-                    getString(R.string.network_online) :
-                    getString(R.string.network_offline)));
-            if (stateList.isEmpty())
-                foregroundNotify.setStyle(null);
-            else
-                foregroundNotify.setStyle(makeDetailNotifyInboxStyle(stateList));
+            makeDetailNotifyInboxStyle(stateList, sessionStats);
         }
         /* Disallow killing the service process by system */
         startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
     }
 
-    private NotificationCompat.InboxStyle makeDetailNotifyInboxStyle(List<TorrentInfo> stateList)
-    {
-        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+    private void makeDetailNotifyInboxStyle(List<TorrentInfo> stateList, @Nullable SessionStats sessionStats) {
+        var isNetworkOnlineText = isNetworkOnline
+                ? getString(R.string.network_online)
+                : getString(R.string.network_offline);
+        String defaultContentText;
+        if (sessionStats == null) {
+            defaultContentText = isNetworkOnline
+                    ? getString(R.string.network_online)
+                    : getString(R.string.network_offline);
+        } else {
+            String downSpeed = Formatter.formatFileSize(this, sessionStats.downloadSpeed);
+            String upSpeed = Formatter.formatFileSize(this, sessionStats.uploadSpeed);
+            defaultContentText = getString(R.string.foreground_notify_template,
+                    downSpeed, upSpeed, isNetworkOnlineText);
+        }
 
-        int downloadingCount = 0;
+        if (stateList.isEmpty()) {
+            var title = getString(R.string.app_running_in_the_background);
+            foregroundNotify.setStyle(null);
+            foregroundNotify.setContentTitle(title);
+            foregroundNotify.setContentText(defaultContentText);
+            foregroundNotify.setTicker(title);
+            return;
+        }
+        var inboxStyle = new NotificationCompat.InboxStyle();
+        var downloadingTorrents = new ArrayList<TorrentInfo>();
 
-        for (TorrentInfo state : stateList) {
-            if (state == null)
+        for (var state : stateList) {
+            if (state == null) {
                 continue;
+            }
 
-            TorrentStateCode code = state.stateCode;
-
+            var code = state.stateCode;
             if (code == TorrentStateCode.DOWNLOADING) {
-                ++downloadingCount;
+                downloadingTorrents.add(state);
                 inboxStyle.addLine(getString(R.string.downloading_torrent_notify_template,
                         state.progress,
-                        (state.ETA >= TorrentInfo.MAX_ETA) ? Utils.INFINITY_SYMBOL :
-                                DateUtils.formatElapsedTime(state.ETA),
+                        state.ETA >= TorrentInfo.MAX_ETA
+                                ? Utils.INFINITY_SYMBOL
+                                : DateUtils.formatElapsedTime(state.ETA),
                         Formatter.formatFileSize(this, state.downloadSpeed),
-                        state.name));
-
+                        state.name)
+                );
             } else if (code == TorrentStateCode.SEEDING) {
                 inboxStyle.addLine(getString(R.string.seeding_torrent_notify_template,
                         getString(R.string.torrent_status_seeding),
                         Formatter.formatFileSize(this, state.uploadSpeed),
                         state.name));
             } else {
-                String stateString = "";
-
-                switch (code) {
-                    case PAUSED:
-                        stateString = getString(R.string.torrent_status_paused);
-                        break;
-                    case STOPPED:
-                        stateString = getString(R.string.torrent_status_stopped);
-                        break;
-                    case CHECKING:
-                        stateString = getString(R.string.torrent_status_checking);
-                        break;
-                    case DOWNLOADING_METADATA:
-                        stateString = getString(R.string.torrent_status_downloading_metadata);
-                }
+                var stateString = switch (code) {
+                    case PAUSED -> getString(R.string.torrent_status_paused);
+                    case STOPPED -> getString(R.string.torrent_status_stopped);
+                    case CHECKING -> getString(R.string.torrent_status_checking);
+                    case DOWNLOADING_METADATA ->
+                            getString(R.string.torrent_status_downloading_metadata);
+                    default -> "";
+                };
                 inboxStyle.addLine(getString(R.string.other_torrent_notify_template, stateString, state.name));
             }
         }
 
-        inboxStyle.setBigContentTitle(getString(R.string.torrent_count_notify_template,
-                downloadingCount,
-                stateList.size()));
+        var defaultContentTitle = getString(R.string.torrent_count_notify_template,
+                downloadingTorrents.size(), stateList.size());
+        String contentTitle, contentText;
+        if (downloadingTorrents.size() == 1) {
+            var state = downloadingTorrents.get(0);
+            contentTitle = state.name;
+            contentText = getString(R.string.single_downloading_torrent_notify_template,
+                    state.progress,
+                    state.ETA >= TorrentInfo.MAX_ETA
+                            ? Utils.INFINITY_SYMBOL
+                            : DateUtils.formatElapsedTime(state.ETA),
+                    Formatter.formatFileSize(this, state.downloadSpeed));
+        } else {
+            contentTitle = defaultContentTitle;
+            contentText = defaultContentText;
+        }
+        foregroundNotify.setContentTitle(contentTitle);
+        foregroundNotify.setContentText(contentText);
+        foregroundNotify.setTicker(contentTitle);
 
-        inboxStyle.setSummaryText((isNetworkOnline ?
-                getString(R.string.network_online) :
-                getString(R.string.network_offline)));
+        inboxStyle.setBigContentTitle(defaultContentTitle);
 
-        return inboxStyle;
+        foregroundNotify.setStyle(inboxStyle);
     }
 
     private void setForegroundNotifyActions(boolean combinedPauseButton) {
@@ -459,7 +506,7 @@ public class TorrentService extends Service
             boolean paused = combinedPauseButtonState.getValue();
             foregroundNotify.addAction(
                     new NotificationCompat.Action.Builder(
-                            paused ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp,
+                            paused ? R.drawable.ic_play_arrow_24px : R.drawable.ic_pause_24px,
                             paused ? getString(R.string.resume_all) : getString(R.string.pause_all),
                             pauseResumePendingIntent
                     ).build()
@@ -467,14 +514,14 @@ public class TorrentService extends Service
         } else {
             foregroundNotify.addAction(
                     new NotificationCompat.Action.Builder(
-                            R.drawable.ic_pause_white_24dp,
+                            R.drawable.ic_pause_24px,
                             getString(R.string.pause_all),
                             pauseButtonPendingIntent
                     ).build()
             );
             foregroundNotify.addAction(
                     new NotificationCompat.Action.Builder(
-                            R.drawable.ic_play_arrow_white_24dp,
+                            R.drawable.ic_play_arrow_24px,
                             getString(R.string.resume_all),
                             resumeButtonPendingIntent
                     ).build()
@@ -482,7 +529,7 @@ public class TorrentService extends Service
         }
         foregroundNotify.addAction(
                 new NotificationCompat.Action.Builder(
-                        R.drawable.ic_power_settings_new_white_24dp,
+                        R.drawable.ic_power_settings_new_24px,
                         getString(R.string.shutdown),
                         shutdownPendingIntent
                 ).build()

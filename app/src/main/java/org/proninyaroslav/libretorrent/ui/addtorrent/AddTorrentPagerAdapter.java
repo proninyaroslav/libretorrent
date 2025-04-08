@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -21,7 +21,6 @@ package org.proninyaroslav.libretorrent.ui.addtorrent;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -29,24 +28,41 @@ public class AddTorrentPagerAdapter extends FragmentStateAdapter {
     @ViewPager2.OffscreenPageLimit
     public static final int NUM_FRAGMENTS = 2;
 
-    public static final int INFO_FRAG_POS = 0;
-    public static final int FILES_FRAG_POS = 1;
+    public enum Page {
+        INFO(0),
+        FILES(1);
 
-    public AddTorrentPagerAdapter(FragmentActivity fa) {
-        super(fa);
+        public final int position;
+
+        Page(int position) {
+            this.position = position;
+        }
+
+        public static Page fromPosition(int position) {
+            var enumValues = Page.class.getEnumConstants();
+            if (enumValues == null) {
+                throw new IllegalArgumentException("Unknown position: " + position);
+            }
+            for (var ev : enumValues) {
+                if (ev.position == position) {
+                    return ev;
+                }
+            }
+            throw new IllegalArgumentException("Unknown position: " + position);
+        }
+    }
+
+    public AddTorrentPagerAdapter(Fragment fragment) {
+        super(fragment);
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case INFO_FRAG_POS:
-                return AddTorrentInfoFragment.newInstance();
-            case FILES_FRAG_POS:
-                return AddTorrentFilesFragment.newInstance();
-            default:
-                return new Fragment();
-        }
+        return switch (Page.fromPosition(position)) {
+            case INFO -> AddTorrentInfoFragment.newInstance();
+            case FILES -> AddTorrentFilesFragment.newInstance();
+        };
     }
 
     @Override

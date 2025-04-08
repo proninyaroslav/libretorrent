@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,17 +19,8 @@
 
 package org.proninyaroslav.libretorrent.core.exception;
 
-public class IPFilterException extends Exception
-{
-    public IPFilterException() { }
-
-    public IPFilterException(String message)
-    {
+public class IPFilterException extends Exception {
+    public IPFilterException(String message) {
         super(message);
-    }
-
-    public IPFilterException(Exception e)
-    {
-        super(e);
     }
 }

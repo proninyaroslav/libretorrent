@@ -19,6 +19,9 @@
 
 package org.proninyaroslav.libretorrent.receiver;
 
+import static org.proninyaroslav.libretorrent.service.Scheduler.SCHEDULER_WORK_START_APP;
+import static org.proninyaroslav.libretorrent.service.Scheduler.SCHEDULER_WORK_STOP_APP;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,9 +33,6 @@ import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.Scheduler;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
-
-import static org.proninyaroslav.libretorrent.service.Scheduler.SCHEDULER_WORK_START_APP;
-import static org.proninyaroslav.libretorrent.service.Scheduler.SCHEDULER_WORK_STOP_APP;
 
 /*
  * The receiver for AlarmManager scheduling

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="32dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/drawer_button"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:icon="@drawable/ic_menu_24px" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_torrent_fab"
+        style="?attr/floatingActionButtonPrimaryStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/add_torrent_title"
+        app:elevation="0dp"
+        app:hoveredFocusedTranslationZ="0dp"
+        app:pressedTranslationZ="0dp"
+        app:srcCompat="@drawable/add_to_close_anim" />
+</LinearLayout>

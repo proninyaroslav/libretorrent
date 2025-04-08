@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,6 +19,14 @@
 
 package org.proninyaroslav.libretorrent.core.model.stream;
 
+import static org.nanohttpd.NanoHTTPD.Response.Status.BAD_REQUEST;
+import static org.nanohttpd.NanoHTTPD.Response.Status.FORBIDDEN;
+import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_FOUND;
+import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_MODIFIED;
+import static org.nanohttpd.NanoHTTPD.Response.Status.OK;
+import static org.nanohttpd.NanoHTTPD.Response.Status.PARTIAL_CONTENT;
+import static org.nanohttpd.NanoHTTPD.Response.Status.RANGE_NOT_SATISFIABLE;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -35,26 +43,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.nanohttpd.NanoHTTPD.Response.Status.BAD_REQUEST;
-import static org.nanohttpd.NanoHTTPD.Response.Status.FORBIDDEN;
-import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_FOUND;
-import static org.nanohttpd.NanoHTTPD.Response.Status.NOT_MODIFIED;
-import static org.nanohttpd.NanoHTTPD.Response.Status.OK;
-import static org.nanohttpd.NanoHTTPD.Response.Status.PARTIAL_CONTENT;
-import static org.nanohttpd.NanoHTTPD.Response.Status.RANGE_NOT_SATISFIABLE;
-
 /*
  * The server that allows to stream selected file from a torrent and to which a specific address is assigned.
  * Supports partial content and DLNA (for some file formats)
  */
 
-public class TorrentStreamServer extends NanoHTTPD
-{
+public class TorrentStreamServer extends NanoHTTPD {
     private static final String TAG = TorrentStreamServer.class.getSimpleName();
 
     private static final String MIME_OCTET_STREAM = "application/octet-stream";
 
-    private static HashMap<String, DLNAFileType> DLNA_FILE_TYPES;
+    private static final HashMap<String, DLNAFileType> DLNA_FILE_TYPES;
+
     static {
         DLNA_FILE_TYPES = new HashMap<>();
         DLNA_FILE_TYPES.put("mp4", new DLNAFileType("mp4", "video/mp4", "DLNA.ORG_PN=AVC_MP4_BL_L3L_SD_AAC;DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000", "Streaming"));
@@ -64,13 +64,11 @@ public class TorrentStreamServer extends NanoHTTPD
 
     private TorrentEngine engine;
 
-    public TorrentStreamServer(@NonNull String host, int port)
-    {
+    public TorrentStreamServer(@NonNull String host, int port) {
         super(host, port);
     }
 
-    public void start(@NonNull Context appContext) throws IOException
-    {
+    public void start(@NonNull Context appContext) throws IOException {
         Log.i(TAG, "Start " + TAG);
 
         engine = TorrentEngine.getInstance(appContext);
@@ -79,8 +77,7 @@ public class TorrentStreamServer extends NanoHTTPD
     }
 
     @Override
-    public void stop()
-    {
+    public void stop() {
         super.stop();
 
         Log.i(TAG, "Stop " + TAG);
@@ -91,25 +88,23 @@ public class TorrentStreamServer extends NanoHTTPD
      */
 
     public static String makeStreamUrl(@NonNull String hostname, int port,
-                                       @NonNull String torrentId, int fileIndex)
-    {
+                                       @NonNull String torrentId, int fileIndex) {
         try {
             return new URI("http", null, hostname, port,
-                           "/stream",
-                           String.format(Locale.getDefault(),
-                                         "file=%d&torrent=%s",
-                                         fileIndex,
-                                         torrentId),
-                           null)
-                          .toString();
+                    "/stream",
+                    String.format(Locale.getDefault(),
+                            "file=%d&torrent=%s",
+                            fileIndex,
+                            torrentId),
+                    null)
+                    .toString();
         } catch (URISyntaxException e) {
             return null;
         }
     }
 
     @Override
-    public Response serve(IHTTPSession session)
-    {
+    public Response serve(IHTTPSession session) {
         String uri = session.getUri();
         String extension = uri.substring(uri.lastIndexOf('.') + 1);
         DLNAFileType fileType = DLNA_FILE_TYPES.get(extension);
@@ -121,8 +116,7 @@ public class TorrentStreamServer extends NanoHTTPD
         return res;
     }
 
-    public Response handleTorrent(IHTTPSession httpSession)
-    {
+    public Response handleTorrent(IHTTPSession httpSession) {
         if (engine == null)
             return newFixedLengthResponse(NOT_FOUND, "", "");
 
@@ -182,7 +176,7 @@ public class TorrentStreamServer extends NanoHTTPD
                     ("*".equals(ifNoneMatch) || ifNoneMatch.equals(etag));
 
             if (headerIfRangeMissingOrMatching && range != null &&
-                startFrom >= 0 && startFrom < stream.fileSize) {
+                    startFrom >= 0 && startFrom < stream.fileSize) {
                 /*
                  * Range request that matches current etag
                  * and the startFrom of the range is satisfiable
@@ -257,23 +251,10 @@ public class TorrentStreamServer extends NanoHTTPD
         }
     }
 
-    static class DLNAFileType
-    {
-        public final String dlnaContentFeatures;
-        public final String dlnaTransferMode;
-        public final String extension;
-        public final String mimeType;
+    record DLNAFileType(String extension, String mimeType, String dlnaContentFeatures,
+                        String dlnaTransferMode) {
 
-        DLNAFileType(String extension, String mimeType, String dlnaContentFeatures, String dlnaTransferMode)
-        {
-            this.extension = extension;
-            this.mimeType = mimeType;
-            this.dlnaContentFeatures = dlnaContentFeatures;
-            this.dlnaTransferMode = dlnaTransferMode;
-        }
-
-        void setHeaders(Response res)
-        {
+        void setHeaders(Response res) {
             res.addHeader("contentFeatures.dlna.org", this.dlnaContentFeatures);
             res.addHeader("TransferMode.DLNA.ORG", this.dlnaTransferMode);
             res.addHeader("DAAP-Server", "iTunes/11.0.5 (OS X)");

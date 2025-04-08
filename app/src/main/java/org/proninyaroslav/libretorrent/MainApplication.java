@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,24 +23,22 @@ import android.annotation.SuppressLint;
 import android.database.CursorWindow;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
+
+import com.google.android.material.color.DynamicColors;
+import com.google.android.material.color.DynamicColorsOptions;
 
 import org.acra.ACRA;
 import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.DialogConfigurationBuilder;
 import org.acra.config.MailSenderConfigurationBuilder;
 import org.acra.data.StringFormat;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
 public class MainApplication extends MultiDexApplication {
     public static final String TAG = MainApplication.class.getSimpleName();
-
-    static {
-        /* Vector Drawable support in ImageView for API < 21 */
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-    }
 
     @Override
     public void onCreate() {
@@ -68,8 +66,12 @@ public class MainApplication extends MultiDexApplication {
         increaseCursorWindowSize();
 
         TorrentNotifier.getInstance(this).makeNotifyChans();
+
+        Utils.applyAppTheme(this);
+        Utils.applyDynamicTheme(this);
     }
 
+    /** @noinspection JavaReflectionMemberAccess*/
     @SuppressLint("DiscouragedPrivateApi")
     private void increaseCursorWindowSize() {
         try {

@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    style="@style/App.Components.ListItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:orientation="vertical"
-        android:background="?attr/defaultRectRipple">
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="12dp"
+        android:minHeight="@dimen/list_item_three_lines_height"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/ip"
+            style="@style/App.Components.ListItem.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
+            android:layout_marginBottom="8dp"
             android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            android:maxLines="1"
+            tools:text="tcp://127.0.0.1:443" />
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="false"
             android:max="100"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+            tools:progress="25" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,26 +44,28 @@
 
             <TextView
                 android:id="@+id/port"
+                style="@style/App.Components.ListItem.SupportingText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextCaption"
-                android:layout_marginEnd="8dp" />
+                tools:text="Port: 443" />
 
             <TextView
                 android:id="@+id/relevance"
+                style="@style/App.Components.ListItem.SupportingText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="end|center_vertical"
                 android:maxLines="1"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                tools:text="Relevance: 1.0" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,26 +77,28 @@
 
             <TextView
                 android:id="@+id/connection_type"
+                style="@style/App.Components.ListItem.SupportingText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextCaption"
-                android:layout_marginEnd="8dp" />
+                tools:text="Connection: BT" />
 
             <TextView
                 android:id="@+id/up_down_speed"
+                style="@style/App.Components.ListItem.SupportingText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="end|center_vertical"
                 android:maxLines="1"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                tools:text="↓ 1 Mb/s | ↑ 1 Mb/s" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,26 +110,28 @@
 
             <TextView
                 android:id="@+id/client"
+                style="@style/App.Components.ListItem.SupportingText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextCaption"
-                android:layout_marginEnd="8dp" />
+                tools:text="Client: LT" />
 
             <TextView
                 android:id="@+id/total_download_upload"
+                style="@style/App.Components.ListItem.SupportingText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="end|center_vertical"
                 android:maxLines="1"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextCaption" />
+                tools:text="↓ 100 Mb • ↑ 100 Mb" />
         </LinearLayout>
     </LinearLayout>
-</layout>
+</com.google.android.material.card.MaterialCardView>

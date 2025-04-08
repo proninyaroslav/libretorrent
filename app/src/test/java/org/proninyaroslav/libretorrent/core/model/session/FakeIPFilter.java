@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,22 +22,18 @@ package org.proninyaroslav.libretorrent.core.model.session;
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
-import org.proninyaroslav.libretorrent.core.exception.IPFilterException;
-
 import java.util.ArrayList;
 import java.util.List;
 
-class FakeIPFilter implements IPFilter
-{
-    private ArrayList<Pair<String, String>> ranges = new ArrayList<>();
+class FakeIPFilter implements IPFilter {
+    private final ArrayList<Pair<String, String>> ranges = new ArrayList<>();
 
     @Override
     public void addRange(@NonNull String first, @NonNull String last) {
         ranges.add(Pair.create(first, last));
     }
 
-    List<Pair<String, String>> getRanges()
-    {
+    List<Pair<String, String>> getRanges() {
         return ranges;
     }
 }

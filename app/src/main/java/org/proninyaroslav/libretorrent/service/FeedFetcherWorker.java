@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent.service;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
@@ -39,7 +40,6 @@ import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -48,15 +48,14 @@ import java.util.regex.PatternSyntaxException;
  * The worker for fetching items from RSS/Atom channels.
  */
 
-public class FeedFetcherWorker extends Worker
-{
+public class FeedFetcherWorker extends Worker {
     private static final String TAG = FeedFetcherWorker.class.getSimpleName();
 
     public static final String ACTION_FETCH_CHANNEL = "org.proninyaroslav.libretorrent.service.FeedFetcherWorker.ACTION_FETCH_CHANNEL";
     public static final String ACTION_FETCH_CHANNEL_LIST = "org.proninyaroslav.libretorrent.service.FeedFetcherWorker.ACTION_FETCH_CHANNEL_LIST";
     public static final String ACTION_FETCH_ALL_CHANNELS = "org.proninyaroslav.libretorrent.service.FeedFetcherWorker.ACTION_FETCH_ALL_CHANNELS";
     public static final String TAG_ACTION = "action";
-    public static final String TAG_NO_AUTO_DOWNLOAD = "no_download";
+    public static final String TAG_FORCE_AUTO_DOWNLOAD = "force_auto_download";
     public static final String TAG_CHANNEL_ID = "channel_url_id";
     public static final String TAG_CHANNEL_ID_LIST = "channel_id_list";
 
@@ -64,15 +63,13 @@ public class FeedFetcherWorker extends Worker
     private FeedRepository repo;
     private SettingsRepository pref;
 
-    public FeedFetcherWorker(@NonNull Context context, @NonNull WorkerParameters params)
-    {
+    public FeedFetcherWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
     }
 
     @NonNull
     @Override
-    public Result doWork()
-    {
+    public Result doWork() {
         context = getApplicationContext();
         repo = RepositoryHelper.getFeedRepository(context);
         pref = RepositoryHelper.getSettingsRepository(context);
@@ -84,72 +81,80 @@ public class FeedFetcherWorker extends Worker
 
         Data data = getInputData();
         String action = data.getString(TAG_ACTION);
-        boolean noAutoDownload = data.getBoolean(TAG_NO_AUTO_DOWNLOAD, false);
+        boolean forceAutoDownload = data.getBoolean(TAG_FORCE_AUTO_DOWNLOAD, false);
 
-        if (action == null)
+        if (action == null) {
             return Result.failure();
-
-        switch (action) {
-            case ACTION_FETCH_CHANNEL:
-                return fetchChannel(data.getLong(TAG_CHANNEL_ID, -1),
-                        keepDateBorderTime, noAutoDownload);
-            case ACTION_FETCH_CHANNEL_LIST:
-                return fetchChannelsByUrl(data.getLongArray(TAG_CHANNEL_ID_LIST),
-                        keepDateBorderTime, noAutoDownload);
-            case ACTION_FETCH_ALL_CHANNELS:
-                return fetchChannels(repo.getAllFeeds(),
-                        keepDateBorderTime, noAutoDownload);
-            default:
-                return Result.failure();
         }
+
+        return switch (action) {
+            case ACTION_FETCH_CHANNEL -> fetchChannel(data.getLong(TAG_CHANNEL_ID, -1),
+                    keepDateBorderTime, forceAutoDownload);
+            case ACTION_FETCH_CHANNEL_LIST ->
+                    fetchChannelsByUrl(data.getLongArray(TAG_CHANNEL_ID_LIST),
+                            keepDateBorderTime, forceAutoDownload);
+            case ACTION_FETCH_ALL_CHANNELS -> fetchChannels(repo.getAllFeeds(),
+                    keepDateBorderTime, forceAutoDownload);
+            default -> Result.failure();
+        };
     }
 
+    @SuppressLint("RestrictedApi")
     private Result fetchChannelsByUrl(long[] ids, long acceptMinDate,
-                                      boolean noAutoDownload)
-    {
-        if (ids == null)
+                                      boolean noAutoDownload) {
+        if (ids == null) {
             return Result.failure();
+        }
 
         ArrayList<Result> results = new ArrayList<>();
-        for (long id : ids)
+        for (long id : ids) {
             results.add(fetchChannel(id, acceptMinDate, noAutoDownload));
+        }
 
-        for (Result result : results)
-            if (result instanceof Result.Failure)
+        for (Result result : results) {
+            if (result instanceof Result.Failure) {
                 return result;
+            }
+        }
 
         return Result.success();
     }
 
+    @SuppressLint("RestrictedApi")
     private Result fetchChannels(List<FeedChannel> channels, long acceptMinDate,
-                                 boolean noAutoDownload)
-    {
-        if (channels == null)
+                                 boolean noAutoDownload) {
+        if (channels == null) {
             return Result.failure();
+        }
 
         ArrayList<Result> results = new ArrayList<>();
         for (FeedChannel channel : channels) {
-            if (channel == null)
+            if (channel == null) {
                 continue;
+            }
             results.add(fetchChannel(channel.id, acceptMinDate, noAutoDownload));
         }
 
-        for (Result result : results)
-            if (result instanceof Result.Failure)
+        for (Result result : results) {
+            if (result instanceof Result.Failure) {
                 return result;
+            }
+        }
 
         return Result.success();
     }
 
     private Result fetchChannel(long id, long acceptMinDate,
-                                boolean noAutoDownload)
-    {
-        if (id == -1)
+                                boolean forceAutoDownload) {
+        if (id == -1) {
             return Result.failure();
+        }
 
         FeedChannel channel = repo.getFeedById(id);
-        if (channel == null)
+        if (channel == null) {
             return Result.failure();
+        }
+        var lastUpdated = channel.lastUpdate;
 
         FeedParser parser;
         try {
@@ -166,55 +171,63 @@ public class FeedFetcherWorker extends Worker
 
         filterItems(id, items, acceptMinDate);
 
-        if (pref.feedRemoveDuplicates())
+        if (pref.feedRemoveDuplicates()) {
             filterItemDuplicates(items);
+        }
+
+        if (!forceAutoDownload && lastUpdated == 0) {
+            for (var item : items) {
+                item.read = true;
+            }
+        }
 
         repo.addItems(items);
 
         channel.fetchError = null;
         if (TextUtils.isEmpty(channel.name)) {
             channel.name = parser.getTitle();
-            if (TextUtils.isEmpty(channel.name))
+            if (TextUtils.isEmpty(channel.name)) {
                 channel.name = channel.url;
+            }
         }
         channel.lastUpdate = System.currentTimeMillis();
         repo.updateFeed(channel);
 
-        if (!noAutoDownload && channel.autoDownload)
+        if (forceAutoDownload || channel.autoDownload) {
             sendFetchedItems(channel, items);
+        }
 
         return Result.success();
     }
 
-    private void filterItems(long id, List<FeedItem> items, long acceptMinDate)
-    {
+    private void filterItems(long id, List<FeedItem> items, long acceptMinDate) {
         List<String> existingItemsId = repo.getItemsIdByFeedId(id);
         /* Also filtering the items that we already have in db */
         items.removeIf(item -> item != null && (item.pubDate > 0 && item.pubDate <= acceptMinDate || existingItemsId.contains(item.id)));
     }
 
-    private void filterItemDuplicates(List<FeedItem> items)
-    {
+    private void filterItemDuplicates(List<FeedItem> items) {
         List<String> titles = new ArrayList<>();
-        for (FeedItem item : items)
+        for (FeedItem item : items) {
             titles.add(item.title);
+        }
 
         List<String> existingTitles = repo.findItemsExistingTitles(titles);
         items.removeIf(item -> item != null && existingTitles.contains(item.title));
     }
 
-    private void deleteOldItems(long keepDateBorderTime)
-    {
-        if (keepDateBorderTime > 0)
+    private void deleteOldItems(long keepDateBorderTime) {
+        if (keepDateBorderTime > 0) {
             repo.deleteItemsOlderThan(keepDateBorderTime);
+        }
     }
 
-    private void sendFetchedItems(FeedChannel channel, List<FeedItem> items)
-    {
+    private void sendFetchedItems(FeedChannel channel, List<FeedItem> items) {
         ArrayList<String> ids = new ArrayList<>();
         for (FeedItem item : items) {
-            if (item == null || item.read)
+            if (item == null || item.read) {
                 continue;
+            }
 
             if (isMatch(item, channel.filter, channel.isRegexFilter)) {
                 ids.add(item.id);
@@ -222,8 +235,9 @@ public class FeedFetcherWorker extends Worker
             }
         }
 
-        if (ids.isEmpty())
+        if (ids.isEmpty()) {
             return;
+        }
 
         Data data = new Data.Builder()
                 .putString(FeedDownloaderWorker.TAG_ACTION, FeedDownloaderWorker.ACTION_DOWNLOAD_TORRENT_LIST)
@@ -236,14 +250,15 @@ public class FeedFetcherWorker extends Worker
         WorkManager.getInstance(context).enqueue(work);
     }
 
-    private boolean isMatch(FeedItem item, String filters, boolean isRegex)
-    {
-        if (filters == null || TextUtils.isEmpty(filters))
+    private boolean isMatch(FeedItem item, String filters, boolean isRegex) {
+        if (filters == null || TextUtils.isEmpty(filters)) {
             return true;
+        }
 
         for (String filter : filters.split(Utils.NEWLINE_PATTERN)) {
-            if (TextUtils.isEmpty(filter))
+            if (TextUtils.isEmpty(filter)) {
                 continue;
+            }
 
             if (isRegex) {
                 Pattern pattern;
@@ -259,9 +274,11 @@ public class FeedFetcherWorker extends Worker
                 return pattern.matcher(item.title).matches();
             } else {
                 String[] words = filter.split(repo.getFilterSeparator());
-                for (String word : words)
-                    if (item.title.toLowerCase().contains(word.toLowerCase().trim()))
+                for (String word : words) {
+                    if (item.title.toLowerCase().contains(word.toLowerCase().trim())) {
                         return true;
+                    }
+                }
             }
         }
 

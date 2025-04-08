@@ -20,6 +20,11 @@
 
 package org.proninyaroslav.libretorrent.core;
 
+import static android.text.format.DateUtils.SECOND_IN_MILLIS;
+import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
+import static java.net.HttpURLConnection.HTTP_MOVED_TEMP;
+import static java.net.HttpURLConnection.HTTP_SEE_OTHER;
+
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.IOException;
@@ -30,11 +35,6 @@ import java.security.GeneralSecurityException;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-
-import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
-import static java.net.HttpURLConnection.HTTP_MOVED_TEMP;
-import static java.net.HttpURLConnection.HTTP_SEE_OTHER;
 
 /*
  * The wrapper for HttpUrlConnection.
@@ -47,7 +47,7 @@ public class HttpConnection implements Runnable
     private static final int DEFAULT_TIMEOUT = (int)(20 * SECOND_IN_MILLIS);
 
     private URL url;
-    private SSLContext sslContext;
+    private final SSLContext sslContext;
     private Listener listener;
 
     public interface Listener

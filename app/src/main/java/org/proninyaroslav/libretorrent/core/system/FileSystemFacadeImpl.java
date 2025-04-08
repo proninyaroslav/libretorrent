@@ -46,8 +46,8 @@ class FileSystemFacadeImpl implements FileSystemFacade
     private static final String EXTENSION_SEPARATOR = ".";
     private static final String TEMP_DIR = "temp";
 
-    private Context appContext;
-    private FsModuleResolver fsResolver;
+    private final Context appContext;
+    private final FsModuleResolver fsResolver;
 
     public FileSystemFacadeImpl(@NonNull Context appContext,
                                 @NonNull FsModuleResolver fsResolver)
@@ -364,23 +364,12 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
     private boolean isValidFatFilenameChar(char c)
     {
-        if ((0x00 <= c && c <= 0x1f))
+        if (c <= 0x1f)
             return false;
-        switch (c) {
-            case '"':
-            case '*':
-            case '/':
-            case ':':
-            case '<':
-            case '>':
-            case '?':
-            case '\\':
-            case '|':
-            case 0x7F:
-                return false;
-            default:
-                return true;
-        }
+        return switch (c) {
+            case '"', '*', '/', ':', '<', '>', '?', '\\', '|', 0x7F -> false;
+            default -> true;
+        };
     }
 
     private void trimFilename(StringBuilder res, int maxBytes)

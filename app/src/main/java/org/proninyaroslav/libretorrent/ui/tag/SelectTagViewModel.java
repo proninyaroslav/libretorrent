@@ -35,7 +35,7 @@ import java.util.Set;
 import io.reactivex.Flowable;
 
 public class SelectTagViewModel extends AndroidViewModel {
-    private TagRepository tagRepo;
+    private final TagRepository tagRepo;
     private Set<Long> excludeTagsId;
 
     public SelectTagViewModel(@NonNull Application application) {

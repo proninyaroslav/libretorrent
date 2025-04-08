@@ -2,18 +2,18 @@ package com.ernieyu.feedparser.impl;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import org.xml.sax.Attributes;
-
 import com.ernieyu.feedparser.Element;
 import com.ernieyu.feedparser.Feed;
 import com.ernieyu.feedparser.FeedType;
 import com.ernieyu.feedparser.FeedUtils;
 import com.ernieyu.feedparser.Item;
+
+import org.xml.sax.Attributes;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Feed implementation for RSS 1.0.

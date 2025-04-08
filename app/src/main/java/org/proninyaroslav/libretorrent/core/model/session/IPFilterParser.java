@@ -44,7 +44,7 @@ class IPFilterParser
 
     private static final int MAX_LOGGED_ERRORS = 5;
 
-    private boolean logEnabled;
+    private final boolean logEnabled;
 
     public IPFilterParser()
     {

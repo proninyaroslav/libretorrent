@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -27,6 +27,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity
 public class TagInfo implements Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -50,7 +52,7 @@ public class TagInfo implements Parcelable {
     @Ignore
     public TagInfo(Parcel source) {
         id = source.readLong();
-        name = source.readString();
+        name = Objects.requireNonNull(source.readString());
         color = source.readInt();
     }
 
@@ -66,7 +68,7 @@ public class TagInfo implements Parcelable {
         dest.writeInt(color);
     }
 
-    public static final Parcelable.Creator<TagInfo> CREATOR = new Parcelable.Creator<TagInfo>() {
+    public static final Parcelable.Creator<TagInfo> CREATOR = new Parcelable.Creator<>() {
         @Override
         public TagInfo createFromParcel(Parcel source) {
             return new TagInfo(source);
@@ -92,7 +94,7 @@ public class TagInfo implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = Long.hashCode(id);
         result = 31 * result + name.hashCode();
         result = 31 * result + color;
         return result;

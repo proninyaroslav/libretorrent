@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -27,28 +27,23 @@ import java.io.Serializable;
  * The class represents a tree model hierarchy of downloadable file.
  */
 
-public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serializable
-{
+public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serializable {
     private boolean selected = false;
     private long numChangedChildren = 0;
 
-    public BencodeFileTree(String name, long size, int type)
-    {
+    public BencodeFileTree(String name, long size, int type) {
         super(name, size, type);
     }
 
-    public BencodeFileTree(int index, String name, long size, int type, BencodeFileTree parent)
-    {
+    public BencodeFileTree(int index, String name, long size, int type, BencodeFileTree parent) {
         super(index, name, size, type, parent);
     }
 
-    public BencodeFileTree(String name, long size, int type, BencodeFileTree parent)
-    {
+    public BencodeFileTree(String name, long size, int type, BencodeFileTree parent) {
         super(name, size, type, parent);
     }
 
-    public boolean isSelected()
-    {
+    public boolean isSelected() {
         return selected;
     }
 
@@ -58,13 +53,11 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
      * You can override this with the `forceUpdateParent` option
      */
 
-    public void select(boolean check, boolean forceUpdateParent)
-    {
+    public void select(boolean check, boolean forceUpdateParent) {
         doSelect(check, true, forceUpdateParent);
     }
 
-    private void doSelect(boolean check, boolean updateParent, boolean forceUpdateParent)
-    {
+    private void doSelect(boolean check, boolean updateParent, boolean forceUpdateParent) {
         selected = check;
 
         /* Sending select change event up the parent */
@@ -82,15 +75,14 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
      * Sending select change events up the tree.
      */
 
-    private synchronized void onChildSelectChange(boolean forceUpdateParent)
-    {
+    private synchronized void onChildSelectChange(boolean forceUpdateParent) {
         ++numChangedChildren;
 
         boolean allChildrenChanged = numChangedChildren == children.size();
         if (allChildrenChanged)
             numChangedChildren = 0;
 
-        if (children.size() != 0 && (forceUpdateParent || allChildrenChanged)) {
+        if (!children.isEmpty() && (forceUpdateParent || allChildrenChanged)) {
             long childrenCheckNum = 0;
             for (BencodeFileTree child : children.values())
                 if (child.selected)
@@ -104,11 +96,10 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
         }
     }
 
-    public long selectedFileSize()
-    {
+    public long selectedFileSize() {
         long size = 0;
 
-        if (children.size() != 0) {
+        if (!children.isEmpty()) {
             for (BencodeFileTree child : children.values())
                 if (child.selected)
                     size += child.selectedFileSize();
@@ -122,8 +113,7 @@ public class BencodeFileTree extends FileTree<BencodeFileTree> implements Serial
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "BencodeFileTree{" +
                 super.toString() +
                 ", selected=" + selected +

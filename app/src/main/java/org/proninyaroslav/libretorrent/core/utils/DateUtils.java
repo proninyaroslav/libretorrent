@@ -38,7 +38,7 @@ public class DateUtils
     private static String elapsedFormatMMSS;
     private static String elapsedFormatHMMSS;
     private static String elapsedFormatDHMM;
-    private static ReentrantLock lock = new ReentrantLock();
+    private static final ReentrantLock lock = new ReentrantLock();
 
     public static String formatElapsedTime(Context context, long elapsedSeconds)
     {

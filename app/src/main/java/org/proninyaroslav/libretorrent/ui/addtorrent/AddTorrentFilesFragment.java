@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -48,12 +48,7 @@ import io.reactivex.schedulers.Schedulers;
  * The fragment for list files of torrent. Part of AddTorrentFragment.
  */
 
-public class AddTorrentFilesFragment extends Fragment
-        implements
-        DownloadableFilesAdapter.ClickListener
-{
-    private static final String TAG = AddTorrentFilesFragment.class.getSimpleName();
-
+public class AddTorrentFilesFragment extends Fragment implements DownloadableFilesAdapter.ClickListener {
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
 
     private AppCompatActivity activity;
@@ -63,10 +58,9 @@ public class AddTorrentFilesFragment extends Fragment
     private DownloadableFilesAdapter adapter;
     /* Save state scrolling */
     private Parcelable listFilesState;
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private final CompositeDisposable disposable = new CompositeDisposable();
 
-    public static AddTorrentFilesFragment newInstance()
-    {
+    public static AddTorrentFilesFragment newInstance() {
         AddTorrentFilesFragment fragment = new AddTorrentFilesFragment();
 
         Bundle args = new Bundle();
@@ -76,40 +70,36 @@ public class AddTorrentFilesFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_torrent_files, container, false);
 
         return binding.getRoot();
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+        if (context instanceof AppCompatActivity a) {
+            activity = a;
+        }
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
 
         disposable.clear();
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         subscribeAdapter();
     }
 
-    private void subscribeAdapter()
-    {
+    private void subscribeAdapter() {
         disposable.add(viewModel.children
                 .subscribeOn(Schedulers.computation())
                 .flatMapSingle((children) ->
@@ -128,10 +118,11 @@ public class AddTorrentFilesFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (activity == null)
+        if (activity == null) {
             activity = (AppCompatActivity) getActivity();
+        }
 
-        viewModel = new ViewModelProvider(activity).get(AddTorrentViewModel.class);
+        viewModel = new ViewModelProvider(requireParentFragment()).get(AddTorrentViewModel.class);
         binding.setViewModel(viewModel);
 
         layoutManager = new LinearLayoutManager(activity);
@@ -140,10 +131,10 @@ public class AddTorrentFilesFragment extends Fragment
         binding.fileList.setAdapter(adapter);
     }
 
-    private void updateFileSize()
-    {
-        if (viewModel.fileTree == null)
+    private void updateFileSize() {
+        if (viewModel.fileTree == null) {
             return;
+        }
 
         binding.filesSize.setText(getString(R.string.files_size,
                 Formatter.formatFileSize(activity.getApplicationContext(),
@@ -153,44 +144,44 @@ public class AddTorrentFilesFragment extends Fragment
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState)
-    {
-        listFilesState = layoutManager.onSaveInstanceState();
-        outState.putParcelable(TAG_LIST_FILES_STATE, listFilesState);
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (layoutManager != null) {
+            listFilesState = layoutManager.onSaveInstanceState();
+            outState.putParcelable(TAG_LIST_FILES_STATE, listFilesState);
+        }
 
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState)
-    {
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             listFilesState = savedInstanceState.getParcelable(TAG_LIST_FILES_STATE);
+        }
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
-        if (listFilesState != null)
+        if (listFilesState != null && layoutManager != null) {
             layoutManager.onRestoreInstanceState(listFilesState);
+        }
     }
 
     @Override
-    public void onItemClicked(@NonNull DownloadableFileItem item)
-    {
-        if (item.name.equals(BencodeFileTree.PARENT_DIR))
+    public void onItemClicked(@NonNull DownloadableFileItem item) {
+        if (item.name.equals(BencodeFileTree.PARENT_DIR)) {
             viewModel.upToParentDirectory();
-        else if (!item.isFile)
+        } else if (!item.isFile) {
             viewModel.chooseDirectory(item.name);
+        }
     }
 
     @Override
-    public void onItemCheckedChanged(@NonNull DownloadableFileItem item, boolean selected)
-    {
+    public void onItemCheckedChanged(@NonNull DownloadableFileItem item, boolean selected) {
         viewModel.selectFile(item.name, selected);
         updateFileSize();
     }

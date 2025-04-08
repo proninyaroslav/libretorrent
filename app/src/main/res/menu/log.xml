@@ -4,27 +4,32 @@
 
     <group android:id="@+id/log_menu">
 
-        <item android:id="@+id/pause_resume_log_menu"
-            app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_pause_white_24dp"
-            android:title="@string/pause_torrent" />
+        <item
+            android:id="@+id/pause_resume_log_menu"
+            android:icon="@drawable/ic_pause_24px"
+            android:title="@string/pause_torrent"
+            app:showAsAction="ifRoom" />
 
-        <item android:id="@+id/record_log_menu"
-            app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_record_white_24dp"
-            android:title="@string/journal_start_recording" />
+        <item
+            android:id="@+id/record_log_menu"
+            android:icon="@drawable/ic_screen_record_24px"
+            android:title="@string/journal_start_recording"
+            app:showAsAction="ifRoom" />
 
-        <item android:id="@+id/save_log_menu"
-            app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_save_white_24dp"
-            android:title="@string/save" />
+        <item
+            android:id="@+id/save_log_menu"
+            android:icon="@drawable/ic_save_24px"
+            android:title="@string/save"
+            app:showAsAction="ifRoom" />
 
-        <item android:id="@+id/filter_log_menu"
-            app:showAsAction="never"
-            android:title="@string/filter" />
+        <item
+            android:id="@+id/filter_log_menu"
+            android:title="@string/filter"
+            app:showAsAction="never" />
 
-        <item android:id="@+id/log_settings_menu"
-            app:showAsAction="never"
-            android:title="@string/settings" />
+        <item
+            android:id="@+id/log_settings_menu"
+            android:title="@string/settings"
+            app:showAsAction="never" />
     </group>
 </menu>

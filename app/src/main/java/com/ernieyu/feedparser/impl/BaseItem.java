@@ -2,10 +2,10 @@ package com.ernieyu.feedparser.impl;
 
 import androidx.annotation.NonNull;
 
-import org.xml.sax.Attributes;
-
 import com.ernieyu.feedparser.FeedUtils;
 import com.ernieyu.feedparser.Item;
+
+import org.xml.sax.Attributes;
 
 import java.util.List;
 

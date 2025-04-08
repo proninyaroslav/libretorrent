@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/refresh_feed_channel_menu"
-        android:icon="@drawable/ic_refresh_white_24dp"
+        android:icon="@drawable/ic_refresh_24px"
         app:showAsAction="ifRoom"
         android:title="@string/refresh" />
 

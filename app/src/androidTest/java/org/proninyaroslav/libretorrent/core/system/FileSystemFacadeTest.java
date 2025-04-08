@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -32,7 +32,6 @@ import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
@@ -43,29 +42,21 @@ import static org.junit.Assert.fail;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
-public class FileSystemFacadeTest extends AbstractTest
-{
+public class FileSystemFacadeTest extends AbstractTest {
     private FileSystemFacadeImpl fakeFs;
     private FakeFsModuleResolver fsResolver;
-    private Uri dirUri = Uri.parse("file:///root");
-
-    private static final long FILE_10_MB_SIZE = 1024 * 1024 * 10;
-    private static final long FILE_5_MB_SIZE = 1024 * 1024 * 5;
-    private Uri dir;
+    private final Uri dirUri = Uri.parse("file:///root");
 
     @Override
-    public void init()
-    {
+    public void init() {
         super.init();
 
-        dir = Uri.parse("file://" + fs.getDefaultDownloadPath());
         fsResolver = new FakeFsModuleResolver();
         fakeFs = new FileSystemFacadeImpl(context, fsResolver);
     }
 
     @Test
-    public void deleteFile() throws UnknownUriException
-    {
+    public void deleteFile() throws UnknownUriException {
         fsResolver.existsFileNames = Collections.singletonList("test.txt");
         try {
             assertTrue(fakeFs.deleteFile(Uri.parse("file:///root/test.txt")));
@@ -79,8 +70,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void getFileUri() throws UnknownUriException
-    {
+    public void getFileUri() throws UnknownUriException {
         fsResolver.existsFileNames = Collections.singletonList("test.txt");
         assertEquals("file:///root/test.txt", fakeFs.getFileUri(dirUri, "test.txt").toString());
         fsResolver.existsFileNames = Collections.singletonList("bar");
@@ -89,8 +79,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void getFileUri_relativePath() throws UnknownUriException
-    {
+    public void getFileUri_relativePath() throws UnknownUriException {
         fsResolver.existsFileNames = Collections.singletonList("bar.txt");
         assertEquals("file:///root/foo/bar.txt", fakeFs.getFileUri("foo/bar.txt", dirUri).toString());
         fsResolver.existsFileNames = Collections.singletonList("test.txt");
@@ -99,8 +88,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void createFile() throws UnknownUriException
-    {
+    public void createFile() throws UnknownUriException {
         try {
             fsResolver.existsFileNames = Collections.singletonList("test.txt");
             assertEquals("file:///root/test.txt", fakeFs.createFile(dirUri, "test.txt", false).toString());
@@ -118,8 +106,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void getExtension()
-    {
+    public void getExtension() {
         assertEquals("txt", fakeFs.getExtension("test.txt"));
         assertEquals("png", fakeFs.getExtension("test.png"));
         assertEquals("", fakeFs.getExtension("test"));
@@ -127,8 +114,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void isValidFatFilename()
-    {
+    public void isValidFatFilename() {
         assertTrue(fakeFs.isValidFatFilename("Valid_012345"));
         assertFalse(fakeFs.isValidFatFilename("IVALID*012345"));
         assertFalse(fakeFs.isValidFatFilename(""));
@@ -136,24 +122,21 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void buildValidFatFilename()
-    {
+    public void buildValidFatFilename() {
         assertEquals("Valid_012345", fakeFs.buildValidFatFilename("Valid_012345"));
         assertEquals("(invalid)", fakeFs.buildValidFatFilename(""));
         assertEquals("IVALID_012345", fakeFs.buildValidFatFilename("IVALID*012345"));
     }
 
     @Test
-    public void getDirName() throws UnknownUriException
-    {
+    public void getDirName() throws UnknownUriException {
         fsResolver.existsFileNames = Collections.singletonList("bar");
         assertEquals("bar", fakeFs.getDirPath(Uri.parse("file///root/bar")));
         fsResolver.existsFileNames = null;
     }
 
     @Test
-    public void fileExists() throws UnknownUriException
-    {
+    public void fileExists() throws UnknownUriException {
         fsResolver.existsFileNames = Collections.singletonList("test.txt");
         assertTrue(fakeFs.fileExists(Uri.parse("file///root/test.txt")));
         fsResolver.existsFileNames = Collections.singletonList("bar");
@@ -162,8 +145,7 @@ public class FileSystemFacadeTest extends AbstractTest
     }
 
     @Test
-    public void makeFileSystemPath() throws UnknownUriException
-    {
+    public void makeFileSystemPath() throws UnknownUriException {
         fsResolver.existsFileNames = Collections.singletonList("bar.txt");
         assertEquals("/root/foo/bar.txt", fakeFs.makeFileSystemPath(dirUri, "foo/bar.txt"));
         fsResolver.existsFileNames = Collections.singletonList("test.txt");

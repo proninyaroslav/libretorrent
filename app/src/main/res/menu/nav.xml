@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_nav"
+        android:icon="@drawable/ic_lists_24px"
+        android:title="@string/torrents" />
+
+    <item
+        android:id="@+id/feed_nav"
+        android:icon="@drawable/ic_rss_feed_24px"
+        android:title="@string/feed" />
+
+    <item
+        android:id="@+id/settings_nav"
+        android:icon="@drawable/ic_settings_24px"
+        android:title="@string/settings" />
+</menu>

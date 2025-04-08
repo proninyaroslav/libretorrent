@@ -24,14 +24,14 @@ package org.proninyaroslav.libretorrent.core.model.data.entity;
  * more about it see https://www.libtorrent.org/manual-ref.html#fast-resume.
  */
 
+import static androidx.room.ForeignKey.CASCADE;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-
-import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(indices = {@Index(value = "torrentId")},
         foreignKeys = @ForeignKey(

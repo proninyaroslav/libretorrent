@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2023 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -36,7 +36,6 @@ import org.libtorrent4j.SessionManager;
 import org.libtorrent4j.SessionParams;
 import org.libtorrent4j.SettingsPack;
 import org.libtorrent4j.Sha1Hash;
-import org.libtorrent4j.TcpEndpoint;
 import org.libtorrent4j.TorrentFlags;
 import org.libtorrent4j.TorrentHandle;
 import org.libtorrent4j.TorrentInfo;
@@ -63,7 +62,6 @@ import org.libtorrent4j.swig.session_params;
 import org.libtorrent4j.swig.settings_pack;
 import org.libtorrent4j.swig.sha1_hash;
 import org.libtorrent4j.swig.string_vector;
-import org.libtorrent4j.swig.tcp_endpoint_vector;
 import org.libtorrent4j.swig.torrent_flags_t;
 import org.libtorrent4j.swig.torrent_handle;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
@@ -112,11 +110,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class TorrentSessionImpl extends SessionManager
-        implements TorrentSession
-{
+        implements TorrentSession {
     private static final String TAG = TorrentSession.class.getSimpleName();
 
-    private static final int[] INNER_LISTENER_TYPES = new int[] {
+    private static final int[] INNER_LISTENER_TYPES = new int[]{
             AlertType.ADD_TORRENT.swig(),
             AlertType.METADATA_RECEIVED.swig(),
             AlertType.SESSION_ERROR.swig(),
@@ -138,31 +135,30 @@ public class TorrentSessionImpl extends SessionManager
     private static final String PEER_FINGERPRINT = "Lr"; /* called peer id */
     private static final String USER_AGENT = "LibreTorrent %s";
 
-    private InnerListener innerListener;
-    private ConcurrentLinkedQueue<TorrentEngineListener> listeners = new ConcurrentLinkedQueue<>();
+    private final InnerListener innerListener;
+    private final ConcurrentLinkedQueue<TorrentEngineListener> listeners = new ConcurrentLinkedQueue<>();
     private SessionSettings settings = new SessionSettings();
-    private ReentrantLock settingsLock = new ReentrantLock();
-    private Queue<LoadTorrentTask> restoreTorrentsQueue = new LinkedList<>();
-    private ExecutorService loadTorrentsExec;
-    private ConcurrentHashMap<String, TorrentDownload> torrentTasks = new ConcurrentHashMap<>();
+    private final ReentrantLock settingsLock = new ReentrantLock();
+    private final Queue<LoadTorrentTask> restoreTorrentsQueue = new LinkedList<>();
+    private final ExecutorService loadTorrentsExec;
+    private final ConcurrentHashMap<String, TorrentDownload> torrentTasks = new ConcurrentHashMap<>();
     /* Wait list for non added magnets */
-    private HashSet<String> magnets = new HashSet<>();
-    private ConcurrentHashMap<String, byte[]> loadedMagnets = new ConcurrentHashMap<>();
-    private ArrayList<String> addTorrentsList = new ArrayList<>();
-    private ReentrantLock syncMagnet = new ReentrantLock();
-    private CompositeDisposable disposables = new CompositeDisposable();
-    private TorrentRepository repo;
-    private FileSystemFacade fs;
-    private SystemFacade system;
-    private SessionLogger sessionLogger;
+    private final HashSet<String> magnets = new HashSet<>();
+    private final ConcurrentHashMap<String, byte[]> loadedMagnets = new ConcurrentHashMap<>();
+    private final ArrayList<String> addTorrentsList = new ArrayList<>();
+    private final ReentrantLock syncMagnet = new ReentrantLock();
+    private final CompositeDisposable disposables = new CompositeDisposable();
+    private final TorrentRepository repo;
+    private final FileSystemFacade fs;
+    private final SystemFacade system;
+    private final SessionLogger sessionLogger;
     private boolean started;
-    private AtomicBoolean stopRequested;
+    private final AtomicBoolean stopRequested;
     private Thread parseIpFilterThread;
 
     public TorrentSessionImpl(@NonNull TorrentRepository repo,
                               @NonNull FileSystemFacade fs,
-                              @NonNull SystemFacade system)
-    {
+                              @NonNull SystemFacade system) {
         super(false);
 
         this.stopRequested = new AtomicBoolean(false);
@@ -176,26 +172,22 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public SessionLogger getLogger()
-    {
+    public SessionLogger getLogger() {
         return sessionLogger;
     }
 
     @Override
-    public void addListener(TorrentEngineListener listener)
-    {
+    public void addListener(TorrentEngineListener listener) {
         listeners.add(listener);
     }
 
     @Override
-    public void removeListener(TorrentEngineListener listener)
-    {
+    public void removeListener(TorrentEngineListener listener) {
         listeners.remove(listener);
     }
 
     @Override
-    public TorrentDownload getTask(String id)
-    {
+    public TorrentDownload getTask(String id) {
         return torrentTasks.get(id);
     }
 
@@ -204,8 +196,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void setSettings(@NonNull SessionSettings settings, boolean keepPort)
-    {
+    public void setSettings(@NonNull SessionSettings settings, boolean keepPort) {
         settingsLock.lock();
 
         try {
@@ -218,8 +209,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public SessionSettings getSettings()
-    {
+    public SessionSettings getSettings() {
         settingsLock.lock();
 
         try {
@@ -231,19 +221,16 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public byte[] getLoadedMagnet(String hash)
-    {
+    public byte[] getLoadedMagnet(String hash) {
         return loadedMagnets.get(hash);
     }
 
     @Override
-    public void removeLoadedMagnet(String hash)
-    {
+    public void removeLoadedMagnet(String hash) {
         loadedMagnets.remove(hash);
     }
 
-    private boolean operationNotAllowed()
-    {
+    private boolean operationNotAllowed() {
         return swig() == null || stopRequested.get();
     }
 
@@ -255,8 +242,7 @@ public class TorrentSessionImpl extends SessionManager
             IOException,
             TorrentAlreadyExistsException,
             DecodeException,
-            UnknownUriException
-    {
+            UnknownUriException {
         if (operationNotAllowed())
             return null;
 
@@ -325,8 +311,7 @@ public class TorrentSessionImpl extends SessionManager
         return torrent;
     }
 
-    private void download(String id, AddTorrentParams params, byte[] bencode) throws IOException, UnknownUriException
-    {
+    private void download(String id, AddTorrentParams params, byte[] bencode) throws IOException, UnknownUriException {
         if (operationNotAllowed())
             return;
 
@@ -354,8 +339,8 @@ public class TorrentSessionImpl extends SessionManager
                     saveDir,
                     params.filePriorities,
                     params.sequentialDownload,
-                    params.addPaused,
-                    null);
+                    params.addPaused
+            );
         } else {
             try (FileDescriptorWrapper w = fs.getFD(Uri.parse(params.source))) {
                 FileDescriptor fd = w.open("r");
@@ -366,16 +351,15 @@ public class TorrentSessionImpl extends SessionManager
                             saveDir,
                             params.filePriorities,
                             params.sequentialDownload,
-                            params.addPaused,
-                            null);
+                            params.addPaused
+                    );
                 }
             }
         }
     }
 
     @Override
-    public void deleteTorrent(@NonNull String id, boolean withFiles)
-    {
+    public void deleteTorrent(@NonNull String id, boolean withFiles) {
         if (operationNotAllowed())
             return;
 
@@ -393,8 +377,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void restoreTorrents()
-    {
+    public void restoreTorrents() {
         if (operationNotAllowed())
             return;
 
@@ -424,8 +407,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public MagnetInfo fetchMagnet(@NonNull String uri) throws Exception
-    {
+    public MagnetInfo fetchMagnet(@NonNull String uri) throws Exception {
         if (operationNotAllowed())
             return null;
 
@@ -441,8 +423,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public MagnetInfo parseMagnet(@NonNull String uri)
-    {
+    public MagnetInfo parseMagnet(@NonNull String uri) {
         org.libtorrent4j.AddTorrentParams p = org.libtorrent4j.AddTorrentParams.parseMagnetUri(uri);
         String sha1hash = p.getInfoHashes().getBest().toHex();
         String name = (TextUtils.isEmpty(p.getName()) ? sha1hash : p.getName());
@@ -451,8 +432,7 @@ public class TorrentSessionImpl extends SessionManager
                 Arrays.asList(PriorityConverter.convert(p.filePriorities())));
     }
 
-    private org.libtorrent4j.AddTorrentParams fetchMagnet(org.libtorrent4j.AddTorrentParams params) throws Exception
-    {
+    private org.libtorrent4j.AddTorrentParams fetchMagnet(org.libtorrent4j.AddTorrentParams params) throws Exception {
         if (operationNotAllowed())
             return null;
 
@@ -511,8 +491,7 @@ public class TorrentSessionImpl extends SessionManager
         return new org.libtorrent4j.AddTorrentParams(p);
     }
 
-    private org.libtorrent4j.AddTorrentParams parseMagnetUri(String uri)
-    {
+    private org.libtorrent4j.AddTorrentParams parseMagnetUri(String uri) {
         error_code ec = new error_code();
         add_torrent_params p = libtorrent.parse_magnet_uri(uri, ec);
 
@@ -523,8 +502,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void cancelFetchMagnet(@NonNull String infoHash)
-    {
+    public void cancelFetchMagnet(@NonNull String infoHash) {
         if (operationNotAllowed() || !magnets.contains(infoHash))
             return;
 
@@ -569,7 +547,7 @@ public class TorrentSessionImpl extends SessionManager
         if (th != null) {
             byte[] b;
             if (bencode == null) {
-                b = FileUtils.readFileToByteArray(new File(Uri.parse(params.source).getPath()));
+                b = FileUtils.readFileToByteArray(new File(Objects.requireNonNull(Uri.parse(params.source).getPath())));
             } else {
                 b = bencode;
             }
@@ -656,60 +634,51 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public long getDownloadSpeed()
-    {
+    public long getDownloadSpeed() {
         return stats().downloadRate();
     }
 
     @Override
-    public long getUploadSpeed()
-    {
+    public long getUploadSpeed() {
         return stats().uploadRate();
     }
 
     @Override
-    public long getTotalDownload()
-    {
+    public long getTotalDownload() {
         return stats().totalDownload();
     }
 
     @Override
-    public long getTotalUpload()
-    {
+    public long getTotalUpload() {
         return stats().totalUpload();
     }
 
     @Override
-    public int getDownloadSpeedLimit()
-    {
+    public int getDownloadSpeedLimit() {
         SettingsPack settingsPack = settings();
 
         return (settingsPack == null ? -1 : settingsPack.downloadRateLimit());
     }
 
     @Override
-    public int getUploadSpeedLimit()
-    {
+    public int getUploadSpeedLimit() {
         SettingsPack settingsPack = settings();
 
         return (settingsPack == null ? -1 : settingsPack.uploadRateLimit());
     }
 
     @Override
-    public int getListenPort()
-    {
+    public int getListenPort() {
         return (swig() == null ? -1 : swig().listen_port());
     }
 
     @Override
-    public long getDhtNodes()
-    {
+    public long getDhtNodes() {
         return stats().dhtNodes();
     }
 
     @Override
-    public void enableIpFilter(@NonNull Uri path)
-    {
+    public void enableIpFilter(@NonNull Uri path) {
         if (operationNotAllowed())
             return;
 
@@ -734,8 +703,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void disableIpFilter()
-    {
+    public void disableIpFilter() {
         if (operationNotAllowed())
             return;
 
@@ -746,8 +714,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void pauseAll()
-    {
+    public void pauseAll() {
         if (operationNotAllowed())
             return;
 
@@ -759,8 +726,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void resumeAll()
-    {
+    public void resumeAll() {
         if (operationNotAllowed())
             return;
 
@@ -772,8 +738,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void pauseAllManually()
-    {
+    public void pauseAllManually() {
         if (operationNotAllowed())
             return;
 
@@ -785,8 +750,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void resumeAllManually()
-    {
+    public void resumeAllManually() {
         if (operationNotAllowed())
             return;
 
@@ -798,8 +762,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void setMaxConnectionsPerTorrent(int connections)
-    {
+    public void setMaxConnectionsPerTorrent(int connections) {
         if (operationNotAllowed())
             return;
 
@@ -812,8 +775,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void setMaxUploadsPerTorrent(int uploads)
-    {
+    public void setMaxUploadsPerTorrent(int uploads) {
         if (operationNotAllowed())
             return;
 
@@ -826,8 +788,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void setAutoManaged(boolean autoManaged)
-    {
+    public void setAutoManaged(boolean autoManaged) {
         if (operationNotAllowed())
             return;
 
@@ -837,23 +798,20 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public boolean isDHTEnabled()
-    {
+    public boolean isDHTEnabled() {
         SettingsPack sp = settings();
 
         return sp != null && sp.isEnableDht();
     }
 
     @Override
-    public boolean isPeXEnabled()
-    {
+    public boolean isPeXEnabled() {
         /* PeX enabled by default in session_handle.session_flags_t::add_default_plugins */
         return true;
     }
 
     @Override
-    public void start()
-    {
+    public void start() {
         if (isRunning())
             return;
 
@@ -901,8 +859,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public void requestStop()
-    {
+    public void requestStop() {
         if (stopRequested.getAndSet(true))
             return;
 
@@ -910,8 +867,7 @@ public class TorrentSessionImpl extends SessionManager
         stopTasks();
     }
 
-    private void stopTasks()
-    {
+    private void stopTasks() {
         disposables.add(Observable.fromIterable(torrentTasks.values())
                 .filter(Objects::nonNull)
                 .map(TorrentDownload::requestStop)
@@ -927,21 +883,18 @@ public class TorrentSessionImpl extends SessionManager
                 ));
     }
 
-    private void handleStoppingTasks()
-    {
+    private void handleStoppingTasks() {
         /* Handles must be destructed before the session is destructed */
         torrentTasks.clear();
         checkStop();
     }
 
-    private void checkStop()
-    {
+    private void checkStop() {
         if (stopRequested.get() && torrentTasks.isEmpty() && addTorrentsList.isEmpty())
             super.stop();
     }
 
-    private void saveAllResumeData()
-    {
+    private void saveAllResumeData() {
         for (TorrentDownload task : torrentTasks.values()) {
             if (task == null || task.hasMissingFiles())
                 continue;
@@ -950,39 +903,33 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    public boolean isRunning()
-    {
+    public boolean isRunning() {
         return super.isRunning() && started;
     }
 
     @Override
-    public long dhtNodes()
-    {
+    public long dhtNodes() {
         return super.dhtNodes();
     }
 
     @Override
-    public int[] getPieceSizeList()
-    {
+    public int[] getPieceSizeList() {
         return pieceSize;
     }
 
     @Override
-    public int[] getTorrentVersionList()
-    {
+    public int[] getTorrentVersionList() {
         return torrentVersions;
     }
 
     @Override
-    protected void onBeforeStart()
-    {
+    protected void onBeforeStart() {
         addListener(torrentTaskListener);
         addListener(innerListener);
     }
 
     @Override
-    protected void onAfterStart()
-    {
+    protected void onAfterStart() {
         /*
          * Overwrite default behaviour of super.start()
          * and enable logging in onAfterStart()
@@ -1000,13 +947,12 @@ public class TorrentSessionImpl extends SessionManager
         saveSettings();
         started = true;
         disposables.add(Completable.fromRunnable(() ->
-                notifyListeners(TorrentEngineListener::onSessionStarted))
+                        notifyListeners(TorrentEngineListener::onSessionStarted))
                 .subscribeOn(Schedulers.io())
                 .subscribe());
     }
 
-    private void enableSessionLogger(boolean enable)
-    {
+    private void enableSessionLogger(boolean enable) {
         if (enable) {
             sessionLogger.resume();
 
@@ -1018,8 +964,7 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    protected void onBeforeStop()
-    {
+    protected void onBeforeStop() {
         disposables.clear();
         started = false;
         enableSessionLogger(false);
@@ -1031,40 +976,34 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     @Override
-    protected void onAfterStop()
-    {
+    protected void onAfterStop() {
         notifyListeners(TorrentEngineListener::onSessionStopped);
         stopRequested.set(false);
     }
 
     @Override
-    protected void onApplySettings(SettingsPack sp)
-    {
+    protected void onApplySettings(SettingsPack sp) {
         saveSettings();
     }
 
     private final TorrentEngineListener torrentTaskListener = new TorrentEngineListener() {
         @Override
-        public void onTorrentRemoved(@NonNull String id)
-        {
+        public void onTorrentRemoved(@NonNull String id) {
             torrentTasks.remove(id);
         }
     };
 
-    private final class InnerListener implements AlertListener
-    {
+    private final class InnerListener implements AlertListener {
         @Override
-        public int[] types()
-        {
+        public int[] types() {
             return INNER_LISTENER_TYPES;
         }
 
         @Override
-        public void alert(Alert<?> alert)
-        {
+        public void alert(Alert<?> alert) {
             switch (alert.type()) {
                 case ADD_TORRENT:
-                    TorrentAlert<?> torrentAlert = (TorrentAlert<?>)alert;
+                    TorrentAlert<?> torrentAlert = (TorrentAlert<?>) alert;
                     TorrentHandle th = find(torrentAlert.handle().infoHash());
                     if (th == null)
                         break;
@@ -1099,13 +1038,12 @@ public class TorrentSessionImpl extends SessionManager
         }
     }
 
-    private void checkError(Alert<?> alert)
-    {
+    private void checkError(Alert<?> alert) {
         notifyListeners((listener) -> {
             String msg = null;
             switch (alert.type()) {
                 case SESSION_ERROR: {
-                    SessionErrorAlert sessionErrorAlert = (SessionErrorAlert)alert;
+                    SessionErrorAlert sessionErrorAlert = (SessionErrorAlert) alert;
                     ErrorCode error = sessionErrorAlert.error();
                     msg = SessionErrors.getErrorMsg(error);
                     if (!SessionErrors.isNonCritical(error))
@@ -1113,7 +1051,7 @@ public class TorrentSessionImpl extends SessionManager
                     break;
                 }
                 case LISTEN_FAILED: {
-                    ListenFailedAlert listenFailedAlert = (ListenFailedAlert)alert;
+                    ListenFailedAlert listenFailedAlert = (ListenFailedAlert) alert;
                     msg = SessionErrors.getErrorMsg(listenFailedAlert.error());
                     ErrorCode error = listenFailedAlert.error();
                     if (!SessionErrors.isNonCritical(error))
@@ -1121,7 +1059,7 @@ public class TorrentSessionImpl extends SessionManager
                     break;
                 }
                 case PORTMAP_ERROR: {
-                    PortmapErrorAlert portmapErrorAlert = (PortmapErrorAlert)alert;
+                    PortmapErrorAlert portmapErrorAlert = (PortmapErrorAlert) alert;
                     ErrorCode error = portmapErrorAlert.error();
                     msg = SessionErrors.getErrorMsg(error);
                     if (!SessionErrors.isNonCritical(error))
@@ -1158,8 +1096,7 @@ public class TorrentSessionImpl extends SessionManager
                 listener.onMagnetLoaded(hash, loadedMagnets.get(hash)));
     }
 
-    private void handleStats()
-    {
+    private void handleStats() {
         if (operationNotAllowed())
             return;
 
@@ -1173,17 +1110,15 @@ public class TorrentSessionImpl extends SessionManager
         );
     }
 
-    private static String dhtBootstrapNodes()
-    {
-       return "dht.libtorrent.org:25401" + "," +
+    private static String dhtBootstrapNodes() {
+        return "dht.libtorrent.org:25401" + "," +
                 "router.bittorrent.com:6881" + "," +
                 "dht.transmissionbt.com:6881" + "," +
                 /* For IPv6 DHT */
                 "outer.silotis.us:6881";
     }
 
-    private SessionParams loadSettings()
-    {
+    private SessionParams loadSettings() {
         try {
             String sessionPath = repo.getSessionFile();
             if (sessionPath == null)
@@ -1218,8 +1153,7 @@ public class TorrentSessionImpl extends SessionManager
         }
     }
 
-    private void saveSettings()
-    {
+    private void saveSettings() {
         try {
             session_params params = swig().session_state();
             entry e = session_params.write_session_params(params);
@@ -1232,16 +1166,14 @@ public class TorrentSessionImpl extends SessionManager
         }
     }
 
-    private SettingsPack defaultSettingsPack()
-    {
+    private SettingsPack defaultSettingsPack() {
         SettingsPack sp = new SettingsPack();
         settingsToSettingsPack(settings, sp);
 
         return sp;
     }
 
-    private void settingsToSettingsPack(SessionSettings settings, SettingsPack sp)
-    {
+    private void settingsToSettingsPack(SessionSettings settings, SettingsPack sp) {
         sp.activeDownloads(settings.activeDownloads);
         sp.activeSeeds(settings.activeSeeds);
         sp.activeLimit(settings.activeLimit);
@@ -1274,8 +1206,7 @@ public class TorrentSessionImpl extends SessionManager
         applyProxy(settings, sp);
     }
 
-    private void applyProxy(SessionSettings settings, SettingsPack sp)
-    {
+    private void applyProxy(SessionSettings settings, SettingsPack sp) {
         int proxyType = convertProxyType(settings.proxyType, settings.proxyRequiresAuth);
         sp.setInteger(settings_pack.int_types.proxy_type.swigValue(), proxyType);
         if (settings.proxyType != SessionSettings.ProxyType.NONE) {
@@ -1291,8 +1222,7 @@ public class TorrentSessionImpl extends SessionManager
         }
     }
 
-    private alert_category_t getAlertMask(SessionSettings settings)
-    {
+    private alert_category_t getAlertMask(SessionSettings settings) {
         alert_category_t mask = alert.all_categories;
         if (!settings.logging) {
             alert_category_t log_mask = alert.session_log_notification;
@@ -1308,16 +1238,12 @@ public class TorrentSessionImpl extends SessionManager
         return mask;
     }
 
-    private int convertEncryptMode(SessionSettings.EncryptMode mode)
-    {
-        switch (mode) {
-            case ENABLED:
-                return settings_pack.enc_policy.pe_enabled.swigValue();
-            case FORCED:
-                return settings_pack.enc_policy.pe_forced.swigValue();
-            default:
-                return settings_pack.enc_policy.pe_disabled.swigValue();
-        }
+    private int convertEncryptMode(SessionSettings.EncryptMode mode) {
+        return switch (mode) {
+            case ENABLED -> settings_pack.enc_policy.pe_enabled.swigValue();
+            case FORCED -> settings_pack.enc_policy.pe_forced.swigValue();
+            default -> settings_pack.enc_policy.pe_disabled.swigValue();
+        };
     }
 
     private int getAllowedEncryptLevel(
@@ -1332,26 +1258,20 @@ public class TorrentSessionImpl extends SessionManager
         }
     }
 
-    private int convertProxyType(SessionSettings.ProxyType mode, boolean authRequired)
-    {
-        switch (mode) {
-            case SOCKS4:
-                return settings_pack.proxy_type_t.socks4.swigValue();
-            case SOCKS5:
-                return (authRequired ?
-                        settings_pack.proxy_type_t.socks5_pw.swigValue() :
-                        settings_pack.proxy_type_t.socks5.swigValue());
-            case HTTP:
-                return (authRequired ?
-                        settings_pack.proxy_type_t.http_pw.swigValue() :
-                        settings_pack.proxy_type_t.http.swigValue());
-            default:
-                return settings_pack.proxy_type_t.none.swigValue();
-        }
+    private int convertProxyType(SessionSettings.ProxyType mode, boolean authRequired) {
+        return switch (mode) {
+            case SOCKS4 -> settings_pack.proxy_type_t.socks4.swigValue();
+            case SOCKS5 -> (authRequired ?
+                    settings_pack.proxy_type_t.socks5_pw.swigValue() :
+                    settings_pack.proxy_type_t.socks5.swigValue());
+            case HTTP -> (authRequired ?
+                    settings_pack.proxy_type_t.http_pw.swigValue() :
+                    settings_pack.proxy_type_t.http.swigValue());
+            default -> settings_pack.proxy_type_t.none.swigValue();
+        };
     }
 
-    private String getIface(String inetAddress, int portRangeFirst)
-    {
+    private String getIface(String inetAddress, int portRangeFirst) {
         String iface;
         if (inetAddress.equals(SessionSettings.DEFAULT_INETADDRESS)) {
             iface = "0.0.0.0:%1$d,[::]:%1$d";
@@ -1369,14 +1289,12 @@ public class TorrentSessionImpl extends SessionManager
         return String.format(iface, portRangeFirst);
     }
 
-    private void applySettingsPack(SettingsPack sp)
-    {
+    private void applySettingsPack(SettingsPack sp) {
         applySettings(sp);
         saveSettings();
     }
 
-    private void applySettings(SessionSettings settings, boolean keepPort)
-    {
+    private void applySettings(SessionSettings settings, boolean keepPort) {
         applyMaxStoredLogs(settings);
         applySessionLoggerFilters(settings);
         enableSessionLogger(settings.logging);
@@ -1398,30 +1316,27 @@ public class TorrentSessionImpl extends SessionManager
         settings.portRangeSecond = range.second;
     }
 
-    private void applyMaxStoredLogs(SessionSettings settings)
-    {
+    private void applyMaxStoredLogs(SessionSettings settings) {
         if (settings.maxLogSize == sessionLogger.getMaxStoredLogs())
             return;
 
         sessionLogger.setMaxStoredLogs(settings.maxLogSize);
     }
 
-    private void applySessionLoggerFilters(SessionSettings settings)
-    {
+    private void applySessionLoggerFilters(SessionSettings settings) {
         disposables.add(Completable.fromRunnable(() ->
-                sessionLogger.applyFilterParams(new SessionLogger.SessionFilterParams(
-                        settings.logSessionFilter,
-                        settings.logDhtFilter,
-                        settings.logPeerFilter,
-                        settings.logPortmapFilter,
-                        settings.logTorrentFilter
-        )))
-        .subscribeOn(Schedulers.computation())
-        .subscribe());
+                        sessionLogger.applyFilterParams(new SessionLogger.SessionFilterParams(
+                                settings.logSessionFilter,
+                                settings.logDhtFilter,
+                                settings.logPeerFilter,
+                                settings.logPortmapFilter,
+                                settings.logTorrentFilter
+                        )))
+                .subscribeOn(Schedulers.computation())
+                .subscribe());
     }
 
-    private TorrentDownload newTask(TorrentHandle th, String id)
-    {
+    private TorrentDownload newTask(TorrentHandle th, String id) {
         TorrentDownload task = new TorrentDownloadImpl(this, repo, fs, listeners,
                 id, th, settings.autoManaged);
         task.setMaxConnections(settings.connectionsLimitPerTorrent);
@@ -1430,21 +1345,18 @@ public class TorrentSessionImpl extends SessionManager
         return task;
     }
 
-    private interface CallListener
-    {
+    private interface CallListener {
         void apply(TorrentEngineListener listener);
     }
 
-    private void notifyListeners(@NonNull CallListener l)
-    {
+    private void notifyListeners(@NonNull CallListener l) {
         for (TorrentEngineListener listener : listeners) {
             if (listener != null)
                 l.apply(listener);
         }
     }
 
-    private void runNextLoadTorrentTask()
-    {
+    private void runNextLoadTorrentTask() {
         if (operationNotAllowed()) {
             restoreTorrentsQueue.clear();
 
@@ -1465,22 +1377,19 @@ public class TorrentSessionImpl extends SessionManager
             loadTorrentsExec.execute(task);
     }
 
-    private boolean isTorrentAlreadyRunning(String torrentId)
-    {
+    private boolean isTorrentAlreadyRunning(String torrentId) {
         return torrentTasks.containsKey(torrentId) || addTorrentsList.contains(torrentId);
     }
 
-    private final class LoadTorrentTask implements Runnable
-    {
-        private String torrentId;
+    private final class LoadTorrentTask implements Runnable {
+        private final String torrentId;
         private File saveDir = null;
         private String magnetUri = null;
         private boolean isMagnet = false;
         private boolean magnetPaused = false;
         private boolean magnetSequentialDownload = false;
 
-        LoadTorrentTask(String torrentId)
-        {
+        LoadTorrentTask(String torrentId) {
             this.torrentId = torrentId;
         }
 
@@ -1498,8 +1407,7 @@ public class TorrentSessionImpl extends SessionManager
         }
 
         @Override
-        public void run()
-        {
+        public void run() {
             try {
                 if (isTorrentAlreadyRunning(torrentId))
                     return;
@@ -1525,16 +1433,14 @@ public class TorrentSessionImpl extends SessionManager
 
     private void download(byte[] bencode, File saveDir,
                           Priority[] priorities, boolean sequentialDownload,
-                          boolean paused, List<TcpEndpoint> peers)
-    {
+                          boolean paused) {
         download((bencode == null ? null : new TorrentInfo(bencode)),
-                saveDir, priorities, sequentialDownload, paused, peers);
+                saveDir, priorities, sequentialDownload, paused);
     }
 
     private void download(TorrentInfo ti, File saveDir,
                           Priority[] priorities, boolean sequentialDownload,
-                          boolean paused, List<TcpEndpoint> peers)
-    {
+                          boolean paused) {
         if (operationNotAllowed())
             return;
 
@@ -1568,14 +1474,6 @@ public class TorrentSessionImpl extends SessionManager
             }
 
             p.set_file_priorities(v);
-        }
-
-        if (peers != null && !peers.isEmpty()) {
-            tcp_endpoint_vector v = new tcp_endpoint_vector();
-            for (TcpEndpoint endp : peers)
-                v.add(endp.swig());
-
-            p.setPeers(v);
         }
 
         torrent_flags_t flags = p.getFlags();
@@ -1671,8 +1569,7 @@ public class TorrentSessionImpl extends SessionManager
         settings.defaultTrackersList = trackersList;
     }
 
-    private void restoreDownload(String id) throws IOException
-    {
+    private void restoreDownload(String id) throws IOException {
         if (operationNotAllowed())
             return;
 

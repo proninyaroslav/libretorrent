@@ -93,17 +93,14 @@ public class BencodeFileItem implements Parcelable, Comparable<BencodeFileItem>
     }
 
     public static final Parcelable.Creator<BencodeFileItem> CREATOR =
-            new Parcelable.Creator<BencodeFileItem>()
-            {
+            new Parcelable.Creator<>() {
                 @Override
-                public BencodeFileItem createFromParcel(Parcel source)
-                {
+                public BencodeFileItem createFromParcel(Parcel source) {
                     return new BencodeFileItem(source);
                 }
 
                 @Override
-                public BencodeFileItem[] newArray(int size)
-                {
+                public BencodeFileItem[] newArray(int size) {
                     return new BencodeFileItem[size];
                 }
             };

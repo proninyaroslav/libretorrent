@@ -35,7 +35,7 @@ import io.reactivex.disposables.Disposables;
 
 class DownloadsCompletedListener
 {
-    private TorrentEngine engine;
+    private final TorrentEngine engine;
 
     DownloadsCompletedListener(@NonNull TorrentEngine engine)
     {

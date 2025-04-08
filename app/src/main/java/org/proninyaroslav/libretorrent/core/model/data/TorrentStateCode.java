@@ -23,6 +23,8 @@ package org.proninyaroslav.libretorrent.core.model.data;
  * The different overall states a torrent can be in.
  */
 
+import java.util.Objects;
+
 public enum TorrentStateCode
 {
     UNKNOWN(-1),
@@ -67,7 +69,7 @@ public enum TorrentStateCode
 
     public static TorrentStateCode fromValue(int value)
     {
-        for (TorrentStateCode ev : TorrentStateCode.class.getEnumConstants())
+        for (TorrentStateCode ev : Objects.requireNonNull(TorrentStateCode.class.getEnumConstants()))
             if (ev.value() == value)
                 return ev;
 

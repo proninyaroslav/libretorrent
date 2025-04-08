@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentViewModel" />
+
+        <variable
+            name="viewModel"
+            type="org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        style="@style/ThemeOverlay.App.Surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigationIcon="@drawable/abc_ic_ab_back_material"
+                app:title="@string/create_torrent" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/creating_progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:progress="@{viewModel.buildProgress.intValue()}"
+                android:visibility="@{viewModel.state.status == CreateTorrentViewModel.BuildState.Status.BUILDING ? View.VISIBLE : View.GONE}"
+                tools:progress="25"
+                tools:visibility="visible" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/bottom_bar_padding"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <org.proninyaroslav.libretorrent.ui.customviews.MaxWidthLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:maxWidth="@dimen/text_filed_max_width">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_file_or_dir_path"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/file_or_folder_for_seeding"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/file_or_dir_path"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.isUIEnabled}"
+                                android:inputType="textMultiLine"
+                                android:text="@{viewModel.mutableParams.seedPathName}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <androidx.constraintlayout.helper.widget.Flow
+                            android:id="@+id/choose_buttons_flow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal"
+                            app:constraint_referenced_ids="folder_chooser_button,file_chooser_button"
+                            app:flow_horizontalAlign="start"
+                            app:flow_horizontalGap="16dp"
+                            app:flow_horizontalStyle="packed"
+                            app:flow_wrapMode="chain"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/layout_file_or_dir_path" />
+
+                        <Button
+                            android:id="@+id/folder_chooser_button"
+                            style="?attr/materialButtonTonalStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:enabled="@{viewModel.isUIEnabled}"
+                            android:text="@string/folder"
+                            app:icon="@drawable/ic_folder_24px" />
+
+                        <Button
+                            android:id="@+id/file_chooser_button"
+                            style="?attr/materialButtonTonalStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:enabled="@{viewModel.isUIEnabled}"
+                            android:text="@string/file"
+                            app:icon="@drawable/ic_file_24px" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp">
+
+                        <TextView
+                            android:id="@+id/label_options"
+                            style="@style/TextAppearance.App.SectionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/create_torrent_options"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.helper.widget.Flow
+                            android:id="@+id/options_flow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            app:constraint_referenced_ids="start_seeding,private_torrent"
+                            app:flow_horizontalAlign="start"
+                            app:flow_horizontalBias="-1"
+                            app:flow_horizontalGap="16dp"
+                            app:flow_horizontalStyle="spread"
+                            app:flow_wrapMode="chain"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/label_options" />
+
+                        <CheckBox
+                            android:id="@+id/start_seeding"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.mutableParams.startSeeding}"
+                            android:enabled="@{viewModel.isUIEnabled}"
+                            android:text="@string/option_start_seeding" />
+
+                        <CheckBox
+                            android:id="@+id/private_torrent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.mutableParams.privateTorrent}"
+                            android:enabled="@{viewModel.isUIEnabled}"
+                            android:text="@string/option_private_torrent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/App.Components.MaterialCard.Filled.SurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_skip_files"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:hint="@string/skip_files"
+                            app:helperText="@string/skip_files_hint">
+
+                            <org.proninyaroslav.libretorrent.ui.customviews.FixHintTextInputEditText
+                                android:id="@+id/skip_files"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:enabled="@{viewModel.isUIEnabled}"
+                                android:inputType="text|textNoSuggestions"
+                                android:text="@={viewModel.mutableParams.skipFiles}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_tracker_urls"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:hint="@string/tracker_urls"
+                            app:helperText="@string/tracker_urls_hint">
+
+                            <org.proninyaroslav.libretorrent.ui.customviews.FixHintTextInputEditText
+                                android:id="@+id/tracker_urls"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.isUIEnabled}"
+                                android:inputType="textMultiLine|textNoSuggestions"
+                                android:text="@={viewModel.mutableParams.trackerUrls}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_web_seed_urls"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:hint="@string/web_seed_urls"
+                            app:helperText="@string/web_seed_urls_hint">
+
+                            <org.proninyaroslav.libretorrent.ui.customviews.FixHintTextInputEditText
+                                android:id="@+id/web_seed_urls"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.isUIEnabled}"
+                                android:inputType="textMultiLine|textNoSuggestions"
+                                android:text="@={viewModel.mutableParams.webSeedUrls}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/piece_size_menu"
+                            style="@style/ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu.OnSurfaceContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:theme="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/piece_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.isUIEnabled}"
+                                android:hint="@string/piece_size"
+                                android:inputType="none"
+                                app:simpleItems="@array/piece_size_entries" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/torrent_version_menu"
+                            style="@style/ThemeOverlay.App.TextInputLayout.ExposedDropdownMenu.OnSurfaceContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/torrent_version"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.isUIEnabled}"
+                                android:hint="@string/torrent_version"
+                                android:inputType="none"
+                                app:simpleItems="@array/torrent_version_entries" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_comments"
+                            style="@style/ThemeOverlay.App.TextInputLayout.OnSurfaceContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/comments"
+                            app:helperText="@string/optional_hint">
+
+                            <org.proninyaroslav.libretorrent.ui.customviews.FixHintTextInputEditText
+                                android:id="@+id/comments"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.isUIEnabled}"
+                                android:inputType="textMultiLine|textNoSuggestions"
+                                android:text="@={viewModel.mutableParams.comments}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </org.proninyaroslav.libretorrent.ui.customviews.MaxWidthLinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:id="@+id/bottom_bar"
+            style="@style/ThemeOverlay.App.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:id="@+id/create_button"
+                style="?attr/materialButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_margin="16dp"
+                android:text="@string/create"
+                app:icon="@drawable/ic_add_24px" />
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

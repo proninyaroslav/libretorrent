@@ -32,9 +32,9 @@ import java.util.List;
 
 public class MagnetInfo implements Parcelable
 {
-    private String uri;
-    private String sha1hash;
-    private String name;
+    private final String uri;
+    private final String sha1hash;
+    private final String name;
     /*
      * BEP53 standard http://www.bittorrent.org/beps/bep_0053.html
      *
@@ -43,7 +43,7 @@ public class MagnetInfo implements Parcelable
      *       In this case, manually add the missing number
      *       of priorities to the end of the array
      */
-    private List<Priority> filePriorities;
+    private final List<Priority> filePriorities;
 
     public MagnetInfo(String uri, String sha1hash, String name, List<Priority> filePriorities)
     {
@@ -77,17 +77,14 @@ public class MagnetInfo implements Parcelable
     }
 
     public static final Parcelable.Creator<MagnetInfo> CREATOR =
-            new Parcelable.Creator<MagnetInfo>()
-            {
+            new Parcelable.Creator<>() {
                 @Override
-                public MagnetInfo createFromParcel(Parcel source)
-                {
+                public MagnetInfo createFromParcel(Parcel source) {
                     return new MagnetInfo(source);
                 }
 
                 @Override
-                public MagnetInfo[] newArray(int size)
-                {
+                public MagnetInfo[] newArray(int size) {
                     return new MagnetInfo[size];
                 }
             };

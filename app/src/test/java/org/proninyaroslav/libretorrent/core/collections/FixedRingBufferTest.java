@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  */
 
-
 package org.proninyaroslav.libretorrent.core.collections;
 
 import org.junit.Test;
@@ -32,37 +31,31 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class FixedRingBufferTest
-{
+public class FixedRingBufferTest {
     @Test(expected = IllegalArgumentException.class)
-    public void testCapacityZero()
-    {
+    public void testCapacityZero() {
         new FixedRingBuffer<Integer>(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInitCapacityNegative()
-    {
+    public void testInitCapacityNegative() {
         new FixedRingBuffer<Integer>(-1, 10);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInitCapacityGreatCapacity()
-    {
+    public void testInitCapacityGreatCapacity() {
         new FixedRingBuffer<Integer>(11, 10);
     }
 
     @Test
-    public void test()
-    {
+    public void test() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(5);
         for (int i = 0; i < 100; i++)
             buffer.add(i);
     }
 
     @Test
-    public void testAdd()
-    {
+    public void testAdd() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(5);
         assertTrue(buffer.isEmpty());
         assertEquals(5, buffer.getAllocatedSize());
@@ -84,8 +77,7 @@ public class FixedRingBufferTest
     }
 
     @Test
-    public void testAllocation()
-    {
+    public void testAllocation() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(1, 10);
         assertEquals(1, buffer.getAllocatedSize());
 
@@ -132,18 +124,17 @@ public class FixedRingBufferTest
         assertTrue(buffer.isFull());
 
         for (int i = 0; i < buffer.size(); i++)
-            assertEquals(new Integer(i + 1), buffer.get(i));
+            assertEquals(Integer.valueOf(i + 1), buffer.get(i));
 
         buffer.clear();
         assertEquals(10, buffer.getAllocatedSize());
     }
 
     @Test
-    public void testRemove()
-    {
+    public void testRemove() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(10);
         buffer.add(5);
-        assertEquals(new Integer(5), buffer.remove(5));
+        assertEquals(Integer.valueOf(5), buffer.remove(5));
         assertTrue(buffer.isEmpty());
 
         for (int i = 0; i < 100; i++)
@@ -152,13 +143,12 @@ public class FixedRingBufferTest
 
         int index = 0;
         while (!buffer.isEmpty())
-            assertEquals(new Integer(90 + index++), buffer.removeAt(0));
+            assertEquals(Integer.valueOf(90 + index++), buffer.removeAt(0));
         assertTrue(buffer.isEmpty());
     }
 
     @Test
-    public void testAddAfterRemove()
-    {
+    public void testAddAfterRemove() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(5);
 
         for (int i = 0; i < 5; i++)
@@ -180,8 +170,7 @@ public class FixedRingBufferTest
     }
 
     @Test
-    public void testIndexOf()
-    {
+    public void testIndexOf() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(10);
         assertEquals(-1, buffer.indexOf(12));
 
@@ -198,26 +187,24 @@ public class FixedRingBufferTest
     }
 
     @Test
-    public void testGet()
-    {
+    public void testGet() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(10);
 
         buffer.add(1);
         buffer.add(2);
 
-        assertEquals(new Integer(1), buffer.get(0));
-        assertEquals(new Integer(2), buffer.get(1));
+        assertEquals(Integer.valueOf(1), buffer.get(0));
+        assertEquals(Integer.valueOf(2), buffer.get(1));
 
         for (int i = 0; i < 100; i++)
             buffer.add(i);
 
-        assertEquals(new Integer(99), buffer.get(buffer.size() - 1));
-        assertEquals(new Integer(90), buffer.get(0));
+        assertEquals(Integer.valueOf(99), buffer.get(buffer.size() - 1));
+        assertEquals(Integer.valueOf(90), buffer.get(0));
     }
 
     @Test
-    public void testIsFull()
-    {
+    public void testIsFull() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(100);
         assertTrue(buffer.isEmpty());
         assertFalse(buffer.isFull());
@@ -232,8 +219,7 @@ public class FixedRingBufferTest
     }
 
     @Test
-    public void testIterator()
-    {
+    public void testIterator() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(10);
         ArrayList<Integer> expected = new ArrayList<>(10);
         for (int i = 0; i < buffer.size(); i++) {
@@ -249,8 +235,7 @@ public class FixedRingBufferTest
     }
 
     @Test
-    public void testContains()
-    {
+    public void testContains() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(100);
         buffer.add(1);
         buffer.add(2);
@@ -268,8 +253,7 @@ public class FixedRingBufferTest
     }
 
     @Test
-    public void testClear()
-    {
+    public void testClear() {
         FixedRingBuffer<Integer> buffer = new FixedRingBuffer<>(10);
         buffer.add(1);
         buffer.add(2);

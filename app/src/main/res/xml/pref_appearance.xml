@@ -2,89 +2,86 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory
-        android:title="@string/pref_theme_category">
+    <PreferenceCategory android:title="@string/pref_theme_category">
 
         <ListPreference
-            android:key="@string/pref_key_theme"
-            android:title="@string/pref_theme_title"
-            app:useSimpleSummaryProvider="true"
             android:entries="@array/pref_theme_entries"
             android:entryValues="@array/pref_theme_entries_value"
+            android:key="@string/pref_key_theme"
+            android:persistent="false"
+            android:title="@string/pref_theme_title"
             app:singleLineTitle="false"
-            android:persistent="false" />
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/pref_notification_category">
+    <PreferenceCategory android:title="@string/pref_notification_category">
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_torrent_finish_notify"
-            android:title="@string/pref_torrent_finish_notify_title"
+            android:persistent="false"
             android:summary="@string/pref_torrent_finish_notify_summary"
-            app:singleLineTitle="false"
-            android:persistent="false" />
+            android:title="@string/pref_torrent_finish_notify_title"
+            app:singleLineTitle="false" />
 
         <PreferenceCategory>
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_play_sound_notify"
+                android:persistent="false"
                 android:title="@string/pref_play_sound_notify_title"
-                app:singleLineTitle="false"
-                android:persistent="false" />
+                app:singleLineTitle="false" />
 
             <Preference
+                android:dependency="@string/pref_key_play_sound_notify"
                 android:key="@string/pref_key_notify_sound"
                 android:title="@string/pref_notify_sound_title"
-                app:singleLineTitle="false"
-                android:dependency="@string/pref_key_play_sound_notify"/>
+                app:singleLineTitle="false" />
 
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_led_indicator_notify"
+                android:persistent="false"
                 android:title="@string/pref_led_indicator_notify_title"
-                app:singleLineTitle="false"
-                android:persistent="false" />
+                app:singleLineTitle="false" />
 
-            <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
-                android:key="@string/pref_key_led_indicator_color_notify"
-                android:title="@string/pref_led_indicator_color_notify_title"
+            <org.proninyaroslav.libretorrent.ui.settings.customprefs.ColorPickerPreference
                 android:dependency="@string/pref_key_led_indicator_notify"
-                app:singleLineTitle="false"
-                android:persistent="false" />
+                android:key="@string/pref_key_led_indicator_color_notify"
+                android:persistent="false"
+                android:title="@string/pref_led_indicator_color_notify_title"
+                app:singleLineTitle="false" />
 
             <SwitchPreferenceCompat
                 android:key="@string/pref_key_vibration_notify"
+                android:persistent="false"
                 android:title="@string/pref_vibration_notify_title"
-                app:singleLineTitle="false"
-                android:persistent="false" />
+                app:singleLineTitle="false" />
         </PreferenceCategory>
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/pref_foreground_notification_category">
+    <PreferenceCategory android:title="@string/pref_foreground_notification_category">
 
         <ListPreference
-            android:key="@string/pref_key_foreground_notify_status_filter"
-            android:title="@string/pref_foreground_notify_status_filter"
-            app:useSimpleSummaryProvider="true"
             android:entries="@array/pref_foreground_notify_status_filter_entries"
             android:entryValues="@array/pref_foreground_notify_status_filter_entries_value"
+            android:key="@string/pref_key_foreground_notify_status_filter"
+            android:persistent="false"
+            android:title="@string/pref_foreground_notify_status_filter"
             app:singleLineTitle="false"
-            android:persistent="false" />
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            android:key="@string/pref_key_foreground_notify_sorting"
-            android:title="@string/pref_foreground_notify_sorting"
-            app:useSimpleSummaryProvider="true"
             android:entries="@array/pref_foreground_notify_sorting_entries"
             android:entryValues="@array/pref_foreground_notify_sorting_entries_value"
+            android:key="@string/pref_key_foreground_notify_sorting"
+            android:persistent="false"
+            android:title="@string/pref_foreground_notify_sorting"
             app:singleLineTitle="false"
-            android:persistent="false" />
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_foreground_notify_combined_pause_button"
-            android:title="@string/pref_foreground_notify_combined_pause_button_title"
+            android:persistent="false"
             android:summary="@string/pref_foreground_notify_combined_pause_button_summary"
-            app:singleLineTitle="false"
-            android:persistent="false" />
+            android:title="@string/pref_foreground_notify_combined_pause_button_title"
+            app:singleLineTitle="false" />
     </PreferenceCategory>
 </PreferenceScreen>

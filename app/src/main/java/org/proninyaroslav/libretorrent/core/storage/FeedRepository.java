@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedUnreadCount;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,8 +34,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
-public interface FeedRepository
-{
+public interface FeedRepository {
     String getSerializeFileFormat();
 
     String getSerializeMimeType();
@@ -57,9 +57,11 @@ public interface FeedRepository
 
     Flowable<List<FeedChannel>> observeAllFeeds();
 
-    List<FeedChannel> getAllFeeds();
+    Flowable<List<Long>> observeUnreadFeedIdList();
 
-    Single<List<FeedChannel>> getAllFeedsSingle();
+    Flowable<List<FeedUnreadCount>> observeUnreadItemsCount();
+
+    List<FeedChannel> getAllFeeds();
 
     void serializeAllFeeds(@NonNull Uri file) throws IOException, UnknownUriException;
 
@@ -76,8 +78,6 @@ public interface FeedRepository
     void markAsReadByFeedId(List<Long> feedId);
 
     Flowable<List<FeedItem>> observeItemsByFeedId(long feedId);
-
-    Single<List<FeedItem>> getItemsByFeedIdSingle(long feedId);
 
     List<String> getItemsIdByFeedId(long feedId);
 

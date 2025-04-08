@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feed_two_pane_nav"
+    app:startDestination="@id/blankFragment">
+
+    <action
+        android:id="@+id/action_open_blank"
+        app:destination="@id/blankFragment" />
+
+    <action
+        android:id="@+id/action_feed_items"
+        app:destination="@id/feedItemsFragment" />
+
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragment"
+        android:label="BlankFragment"
+        tools:layout="@layout/fragment_blank">
+        <argument
+            android:name="text"
+            android:defaultValue="@string/select_or_add_feed_channel"
+            app:argType="reference" />
+        <argument
+            android:name="icon"
+            android:defaultValue="@drawable/ic_list_alt_add_24px"
+            app:argType="reference" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedItemsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.feeditems.FeedItemsFragment"
+        android:label="FeedItemsFragment"
+        tools:layout="@layout/fragment_feed_items">
+        <argument
+            android:name="feed_id"
+            app:argType="long" />
+    </fragment>
+</navigation>

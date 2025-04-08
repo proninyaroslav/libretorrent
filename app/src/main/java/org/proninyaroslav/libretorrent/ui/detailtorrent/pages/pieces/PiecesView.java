@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,14 +20,14 @@
 package org.proninyaroslav.libretorrent.ui.detailtorrent.pages.pieces;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+
+import com.google.android.material.color.MaterialColors;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -35,107 +35,110 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import java.util.Arrays;
 
 /*
- * A widget for display parts map.
+ * A widget for display pieces map.
  */
 
-public class PiecesView extends View
-{
-    private static final float CELL_SIZE_DP = 20f;
-    private static final float BORDER_SIZE_DP  = 1f;
+public class PiecesView extends View {
+    private static final float CELL_SIZE_BIG_DP = 20f;
+    private static final float CELL_SIZE_SMALL_DP = 10f;
+    private static final float BORDER_SIZE_DP = 1f;
+
+    private static final boolean[] UNINITIALIZED_VIEW_PIECES = new boolean[10];
 
     private boolean[] pieces;
-    private int cells = 0;
-    private int cellSize;
     private int borderSize;
-    private int stepSize;
-    private int cols = 0;
-    private int rows = 0;
-    private int margin = 0;
-    Paint empty = new Paint();
-    Paint complete = new Paint();
+    private MeasureResult measureResult;
+    private final Paint empty = new Paint();
+    private final Paint complete = new Paint();
 
-    public PiecesView(@NonNull Context context, AttributeSet attrs)
-    {
+    public PiecesView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        create(context, attrs);
+        create();
     }
 
-    public PiecesView(@NonNull Context context, AttributeSet attrs, int defStyleAttr)
-    {
+    public PiecesView(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        create(context, attrs);
+        create();
     }
 
-    void create(Context context, AttributeSet attrs)
-    {
-        cellSize = Utils.dpToPx(getContext(), CELL_SIZE_DP);
+    void create() {
+        Arrays.fill(UNINITIALIZED_VIEW_PIECES, false);
         borderSize = Utils.dpToPx(getContext(), BORDER_SIZE_DP);
-        stepSize = cellSize + borderSize;
+        pieces = UNINITIALIZED_VIEW_PIECES;
 
-        if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PiecesView);
-            int color = a.getColor(R.styleable.PiecesView_pieces_cellColor, 0);
-            empty.setColor(color);
-            a.recycle();
+        complete.setColor(MaterialColors.getColor(this, R.attr.colorPrimaryInverse));
+        empty.setColor(MaterialColors.getColor(this, R.attr.colorSurfaceVariant));
+    }
+
+    public void setPieces(boolean[] pieces) {
+        if (pieces == null || Arrays.equals(this.pieces, pieces)) {
+            return;
         }
 
-        TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] { R.attr.colorSecondary });
-        complete.setColor(a.getColor(0, 0));
-        a.recycle();
-    }
-
-    public void setPieces(boolean[] pieces)
-    {
-        if (pieces == null || Arrays.equals(this.pieces, pieces))
-            return;
-
-        int prevLength = (this.pieces != null ? this.pieces.length : 0);
-        cells = pieces.length;
+        int prevLength = this.pieces != null ? this.pieces.length : 0;
         this.pieces = pieces;
-        if (prevLength == pieces.length)
+
+        if (prevLength == pieces.length) {
             invalidate();
-        else
+        } else {
             requestLayout();
+        }
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         int width = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();
-        cols = width / stepSize;
+        var result = measure(width, pieces.length, CELL_SIZE_BIG_DP);
+        if (result.height >= result.width) {
+            result = measure(width, pieces.length, CELL_SIZE_SMALL_DP);
+        }
+        measureResult = result;
+
+        setMeasuredDimension(result.width, result.height);
+    }
+
+    private MeasureResult measure(int width, int piecesLength, float cellSizeDp) {
+        int cellSize = Utils.dpToPx(getContext(), cellSizeDp);
+        int stepSize = cellSize + borderSize;
+        int cols = width / stepSize;
         /* We don't limit rows in the smaller side, thereby preventing cuts display cells */
-        rows = (int)Math.ceil((float)cells / (float)cols);
-        margin = (width - cols * stepSize) / 2;
+        int rows = (int) Math.ceil((float) piecesLength / (float) cols);
+        int margin = (width - cols * stepSize) / 2;
         int height = rows * stepSize;
 
-        setMeasuredDimension(width, Math.max(width, height));
+        return new MeasureResult(stepSize, width, height, rows, cols, margin);
     }
 
+
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
 
-        if (pieces == null)
-            return;
-
         int position = 0;
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols && position < pieces.length; c++) {
-                Paint paint = (pieces[position] ? complete : empty);
-                int left = c * stepSize + borderSize + margin;
-                int right = left + stepSize - borderSize * 2;
-                int top = r * stepSize + borderSize;
-                int bottom = top + stepSize - borderSize * 2;
+        for (int r = 0; r < measureResult.rows; r++) {
+            for (int c = 0; c < measureResult.cols && position < pieces.length; c++) {
+                var paint = pieces[position] ? complete : empty;
+                int left = c * measureResult.stepSize + borderSize + measureResult.margin;
+                int right = left + measureResult.stepSize - borderSize * 2;
+                int top = r * measureResult.stepSize + borderSize;
+                int bottom = top + measureResult.stepSize - borderSize * 2;
 
-                canvas.drawRect(left + borderSize, top + borderSize,
-                        right + borderSize, bottom + borderSize, paint);
+                canvas.drawRect(
+                        left + borderSize,
+                        top + borderSize,
+                        right + borderSize,
+                        bottom + borderSize,
+                        paint
+                );
                 ++position;
             }
         }
+    }
+
+    private record MeasureResult(int stepSize, int width, int height,
+                                 int rows, int cols, int margin) {
     }
 }

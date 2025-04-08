@@ -91,17 +91,14 @@ public class TorrentStream implements Parcelable
     }
 
     public static final Parcelable.Creator<TorrentStream> CREATOR =
-            new Parcelable.Creator<TorrentStream>()
-            {
+            new Parcelable.Creator<>() {
                 @Override
-                public TorrentStream createFromParcel(Parcel source)
-                {
+                public TorrentStream createFromParcel(Parcel source) {
                     return new TorrentStream(source);
                 }
 
                 @Override
-                public TorrentStream[] newArray(int size)
-                {
+                public TorrentStream[] newArray(int size) {
                     return new TorrentStream[size];
                 }
             };

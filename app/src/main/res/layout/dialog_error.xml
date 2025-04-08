@@ -3,100 +3,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-            name="detailError"
+            name="stackTrace"
             type="String" />
     </data>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:minWidth="@dimen/min_width_dialog">
+        android:layout_height="match_parent">
 
-        <org.proninyaroslav.libretorrent.ui.customviews.ExpansionHeader
-            android:id="@+id/expansion_header"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:paddingStart="@dimen/dialog_padding"
-            android:paddingEnd="@dimen/dialog_padding"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            app:expansion_text="@string/more_details"
-            app:expansion_expanded="false"
-            app:expansion_textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:background="?attr/dialogRectRipple"
-            android:focusable="true" />
-
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandable_layout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:el_duration="5"
-            app:el_parallax="0"
-            app:el_expanded="false">
+            android:minWidth="@dimen/min_width_dialog"
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <org.proninyaroslav.libretorrent.ui.customviews.ExpansionHeader
+                android:id="@+id/expansion_header"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
+                android:focusable="true"
+                app:expansion_expanded="false"
+                app:expansion_text="@string/more_details" />
 
-                <View
-                    android:id="@+id/divider1"
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandable_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:el_duration="5"
+                app:el_expanded="false"
+                app:el_parallax="0">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentTop="true"
-                    android:background="?attr/divider" />
+                    android:layout_height="200dp">
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fadeScrollbars="false">
-
-                    <TextView
-                        android:id="@+id/detail_error_text"
+                    <com.google.android.material.divider.MaterialDivider
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/dialog_padding"
-                        android:paddingEnd="@dimen/dialog_padding"
-                        android:paddingBottom="8dp"
-                        android:paddingTop="8dp"
-                        android:textIsSelectable="true"
-                        android:textAppearance="@style/TextCaption"
-                        android:text="@{detailError}" />
-                </ScrollView>
+                        android:layout_alignParentTop="true" />
 
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="?attr/divider" />
-            </RelativeLayout>
-        </net.cachapa.expandablelayout.ExpandableLayout>
+                    <androidx.core.widget.NestedScrollView
+                        android:id="@+id/stack_trace_nested_scroll_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="vertical"
+                        android:fadeScrollbars="false">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dialog_padding"
-            android:layout_marginRight="@dimen/dialog_padding"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/error_comment_prompt"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+                        <TextView
+                            android:id="@+id/stack_trace"
+                            style="@style/App.Components.ErrorReportDialog.StackTrace"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/dialog_padding"
+                            android:paddingVertical="8dp"
+                            android:text="@{stackTrace}"
+                            android:textIsSelectable="true" />
+                    </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true" />
+                </RelativeLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/comment"
+            <TextView
+                style="?attr/textAppearanceBodyMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dialog_padding"
-                android:layout_marginRight="@dimen/dialog_padding"
-                android:inputType="textMultiLine" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:layout_marginHorizontal="@dimen/dialog_padding"
+                android:layout_marginVertical="8dp"
+                android:text="@string/error_comment_prompt" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dialog_padding"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

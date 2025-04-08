@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2017-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,18 +23,11 @@ package org.proninyaroslav.libretorrent.core.exception;
  * Not enough free space exception.
  */
 
-public class FreeSpaceException extends Exception
-{
-    public FreeSpaceException() { }
-
-    public FreeSpaceException(String message)
-    {
-        super(message);
+public class FreeSpaceException extends Exception {
+    public FreeSpaceException() {
     }
 
-    public FreeSpaceException(Exception e)
-    {
-        super(e.getMessage());
-        super.setStackTrace(e.getStackTrace());
+    public FreeSpaceException(String message) {
+        super(message);
     }
 }

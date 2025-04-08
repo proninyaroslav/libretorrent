@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,21 +23,18 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.paging.PagedListAdapter;
+import androidx.paging.PagingDataAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.logger.LogEntry;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemLogListBinding;
 
-class LogAdapter extends PagedListAdapter<LogEntry, LogAdapter.ViewHolder>
-{
-    private ClickListener listener;
+class LogAdapter extends PagingDataAdapter<LogEntry, LogAdapter.ViewHolder> {
+    private final ClickListener listener;
 
-    LogAdapter(ClickListener listener)
-    {
+    LogAdapter(ClickListener listener) {
         super(diffCallback);
 
         this.listener = listener;
@@ -45,65 +42,56 @@ class LogAdapter extends PagedListAdapter<LogEntry, LogAdapter.ViewHolder>
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemLogListBinding binding = DataBindingUtil.inflate(inflater,
-                R.layout.item_log_list,
-                parent,
-                false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        var inflater = LayoutInflater.from(parent.getContext());
+        var binding = ItemLogListBinding.inflate(inflater, parent, false);
 
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
-    {
-        LogEntry entry = getItem(position);
-        if (entry != null)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        var entry = getItem(position);
+        if (entry != null) {
             holder.bind(entry, listener);
+        }
     }
 
-    private static final DiffUtil.ItemCallback<LogEntry> diffCallback = new DiffUtil.ItemCallback<LogEntry>()
-    {
+    private static final DiffUtil.ItemCallback<LogEntry> diffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areContentsTheSame(@NonNull LogEntry oldItem,
-                                          @NonNull LogEntry newItem)
-        {
+                                          @NonNull LogEntry newItem) {
             return oldItem.equals(newItem);
         }
 
         @Override
         public boolean areItemsTheSame(@NonNull LogEntry oldItem,
-                                       @NonNull LogEntry newItem)
-        {
+                                       @NonNull LogEntry newItem) {
             return oldItem.getId() == newItem.getId();
         }
     };
 
-    public interface ClickListener
-    {
+    public interface ClickListener {
         void onItemClicked(@NonNull LogEntry entry);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
-    {
-        private ItemLogListBinding binding;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final ItemLogListBinding binding;
 
-        ViewHolder(ItemLogListBinding binding)
-        {
+        ViewHolder(ItemLogListBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
         }
 
-        void bind(@NonNull LogEntry entry, ClickListener listener)
-        {
-            itemView.setOnClickListener((v) -> {
-                if (listener != null)
+        void bind(@NonNull LogEntry entry, ClickListener listener) {
+            binding.card.setOnClickListener((v) -> {
+                if (listener != null) {
                     listener.onItemClicked(entry);
+                }
             });
 
+            binding.tag.setTypeface(Utils.getBoldTypeface(binding.tag.getTypeface()));
             binding.tag.setText(entry.getTag());
             binding.msg.setText(entry.getMsg());
             binding.timeStamp.setText(entry.getTimeStampAsString());

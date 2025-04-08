@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.SwitchBarPreference
+        android:key="@string/pref_key_feed_auto_refresh"
+        android:persistent="false"
+        android:summary="@string/pref_enable_feed_auto_refresh"
+        app:singleLineTitle="false" />
+
+    <ListPreference
+        android:dependency="@string/pref_key_feed_auto_refresh"
+        android:entries="@array/pref_feed_refresh_intervals_entries"
+        android:entryValues="@array/pref_feed_refresh_intervals_values"
+        android:key="@string/pref_key_feed_refresh_interval"
+        android:persistent="false"
+        android:title="@string/pref_feed_refresh_interval_title"
+        app:singleLineTitle="false"
+        app:useSimpleSummaryProvider="true" />
+
+    <SwitchPreferenceCompat
+        android:dependency="@string/pref_key_feed_auto_refresh"
+        android:key="@string/pref_key_feed_auto_refresh_unmetered_connections_only"
+        android:persistent="false"
+        android:summary="@string/pref_feed_auto_refresh_unmetered_connections_only_summary"
+        android:title="@string/pref_feed_auto_refresh_unmetered_connections_only_title"
+        app:singleLineTitle="false" />
+
+    <SwitchPreferenceCompat
+        android:dependency="@string/pref_key_feed_auto_refresh"
+        android:key="@string/pref_key_feed_auto_refresh_enable_roaming"
+        android:persistent="false"
+        android:title="@string/pref_feed_auto_refresh_enable_roaming_title"
+        app:singleLineTitle="false" />
+
+    <org.proninyaroslav.libretorrent.ui.settings.customprefs.SummaryPreference android:summary="@string/pref_feed_auto_refresh_summary" />
+</PreferenceScreen>

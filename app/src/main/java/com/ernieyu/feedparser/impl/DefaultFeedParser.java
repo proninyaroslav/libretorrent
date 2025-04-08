@@ -1,16 +1,16 @@
 package com.ernieyu.feedparser.impl;
 
+import com.ernieyu.feedparser.Feed;
+import com.ernieyu.feedparser.FeedException;
+import com.ernieyu.feedparser.FeedParser;
+import com.ernieyu.feedparser.XMLInputStream;
+
+import org.xml.sax.XMLReader;
+
 import java.io.InputStream;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
-import com.ernieyu.feedparser.XMLInputStream;
-import org.xml.sax.XMLReader;
-
-import com.ernieyu.feedparser.Feed;
-import com.ernieyu.feedparser.FeedException;
-import com.ernieyu.feedparser.FeedParser;
 
 /**
  * Default implementation of FeedParser.  This uses a SAX parser to process

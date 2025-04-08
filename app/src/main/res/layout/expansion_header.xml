@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/_expansion_header_card"
+    style="@style/App.Components.ListItem"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    tools:viewBindingIgnore="true">
 
-    <TextView
-        android:id="@+id/_expansion_header_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_toStartOf="@id/_expansion_header_arrow"
-        android:layout_marginEnd="16dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:minHeight="@dimen/list_item_one_line_height"
+        android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/_expansion_header_arrow"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_centerInParent="true"
-        android:contentDescription="@null"
-        app:srcCompat="@drawable/ic_arrow_down_grey600_24dp"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/_expansion_header_text"
+            style="@style/App.Components.ListItem.Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginVertical="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            tools:text="Label" />
+
+        <Button
+            android:id="@+id/_expansion_header_arrow"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            app:icon="@drawable/ic_keyboard_arrow_down_24px" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

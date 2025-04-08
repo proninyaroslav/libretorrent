@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -30,6 +30,7 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class AddTorrentParams implements Parcelable {
     /* File path or magnet link */
@@ -75,15 +76,15 @@ public class AddTorrentParams implements Parcelable {
     }
 
     public AddTorrentParams(Parcel source) {
-        this.source = source.readString();
+        this.source = Objects.requireNonNull(source.readString());
         fromMagnet = source.readByte() != 0;
-        sha1hash = source.readString();
-        name = source.readString();
+        sha1hash = Objects.requireNonNull(source.readString());
+        name = Objects.requireNonNull(source.readString());
         filePriorities = (Priority[]) source.readArray(Priority.class.getClassLoader());
-        downloadPath = source.readParcelable(Uri.class.getClassLoader());
+        downloadPath = Objects.requireNonNull(source.readParcelable(Uri.class.getClassLoader()));
         sequentialDownload = source.readByte() != 0;
         addPaused = source.readByte() != 0;
-        tags = source.readArrayList(TagInfo.class.getClassLoader());
+        tags = Objects.requireNonNull(source.readArrayList(TagInfo.class.getClassLoader()));
         firstLastPiecePriority = source.readByte() != 0;
     }
 

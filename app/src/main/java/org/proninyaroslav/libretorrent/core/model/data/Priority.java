@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,8 +19,7 @@
 
 package org.proninyaroslav.libretorrent.core.model.data;
 
-public enum Priority
-{
+public enum Priority {
     /*
      * piece or file is not downloaded at all
      */
@@ -55,21 +54,19 @@ public enum Priority
      */
     TOP_PRIORITY(7);
 
-    Priority(int val)
-    {
+    Priority(int val) {
         this.val = val;
     }
 
     private final int val;
 
-    public int value()
-    {
+    public int value() {
         return val;
     }
 
-    public static Priority fromValue(int value)
-    {
+    public static Priority fromValue(int value) {
         Priority[] enumValues = Priority.class.getEnumConstants();
+        assert enumValues != null;
         for (Priority ev : enumValues) {
             if (ev.value() == value)
                 return ev;

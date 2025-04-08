@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,9 +28,11 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.paging.LivePagedListBuilder;
-import androidx.paging.PagedList;
+import androidx.lifecycle.ViewModelKt;
+import androidx.paging.Pager;
+import androidx.paging.PagingConfig;
+import androidx.paging.PagingData;
+import androidx.paging.rxjava2.PagingRx;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -47,23 +49,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class LogViewModel extends AndroidViewModel
-{
-    private static final int PAGE_SIZE = 20;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
-    private TorrentEngine engine;
-    private SettingsRepository pref;
+public class LogViewModel extends AndroidViewModel {
+    private static final int PAGE_SIZE = 50;
+    private static final int PREFETCH_SIZE = 50;
+
+    private final TorrentEngine engine;
+    private final SettingsRepository pref;
     public LogMutableParams mutableParams = new LogMutableParams();
-    private LogSourceFactory sourceFactory;
-    private PagedList.Config pageConfig = new PagedList.Config.Builder()
-            .setPageSize(PAGE_SIZE)
-            .setEnablePlaceholders(false)
-            .build();
+    private final LogSourceFactory sourceFactory;
+    private final PagingConfig pageConfig = new PagingConfig(PAGE_SIZE, PREFETCH_SIZE, false);
     private boolean logPaused;
     private boolean recordingStopped;
 
-    public LogViewModel(@NonNull Application application)
-    {
+    public LogViewModel(@NonNull Application application) {
         super(application);
 
         engine = TorrentEngine.getInstance(application);
@@ -77,8 +78,7 @@ public class LogViewModel extends AndroidViewModel
         initMutableParams();
     }
 
-    private void initMutableParams()
-    {
+    private void initMutableParams() {
         mutableParams.setLogging(pref.logging());
         mutableParams.setLogSessionFilter(pref.logSessionFilter());
         mutableParams.setLogDhtFilter(pref.logDhtFilter());
@@ -89,16 +89,22 @@ public class LogViewModel extends AndroidViewModel
         mutableParams.addOnPropertyChangedCallback(paramsCallback);
     }
 
-    LiveData<PagedList<LogEntry>> observeLog()
-    {
-        return new LivePagedListBuilder<>(sourceFactory, pageConfig)
-                .setInitialLoadKey(Integer.MAX_VALUE) /* Start from the last entry */
-                .build();
+    public Flowable<PagingData<LogEntry>> observeLog() {
+        var viewModelScope = ViewModelKt.getViewModelScope(this);
+        Pager<Integer, LogEntry> pager = new Pager<>(pageConfig, sourceFactory::create);
+
+        var flowable = PagingRx.getFlowable(pager);
+        PagingRx.cachedIn(flowable, viewModelScope);
+
+        return flowable;
+    }
+
+    public Observable<Logger.DataSetChange> observeDataSetChanged() {
+        return engine.getSessionLogger().observeDataSetChanged();
     }
 
     @Override
-    protected void onCleared()
-    {
+    protected void onCleared() {
         super.onCleared();
 
         mutableParams.removeOnPropertyChangedCallback(paramsCallback);
@@ -106,98 +112,86 @@ public class LogViewModel extends AndroidViewModel
 
     private final androidx.databinding.Observable.OnPropertyChangedCallback paramsCallback =
             new androidx.databinding.Observable.OnPropertyChangedCallback() {
-        @Override
-        public void onPropertyChanged(androidx.databinding.Observable sender, int propertyId)
-        {
-            switch (propertyId) {
-                case BR.logging:
-                    boolean logging = mutableParams.isLogging();
-                    if (!logging) {
-                        logPaused = false;
-                        recordingStopped = false;
+                @Override
+                public void onPropertyChanged(androidx.databinding.Observable sender, int propertyId) {
+                    switch (propertyId) {
+                        case BR.logging:
+                            boolean logging = mutableParams.isLogging();
+                            if (!logging) {
+                                logPaused = false;
+                                recordingStopped = false;
+                            }
+                            pref.logging(logging);
+                            break;
+                        case BR.logSessionFilter:
+                            pref.logSessionFilter(mutableParams.isLogSessionFilter());
+                            break;
+                        case BR.logDhtFilter:
+                            pref.logDhtFilter(mutableParams.isLogDhtFilter());
+                            break;
+                        case BR.logPeerFilter:
+                            pref.logPeerFilter(mutableParams.isLogPeerFilter());
+                            break;
+                        case BR.logPortmapFilter:
+                            pref.logPortmapFilter(mutableParams.isLogPortmapFilter());
+                            break;
+                        case BR.logTorrentFilter:
+                            pref.logTorrentFilter(mutableParams.isLogTorrentFilter());
+                            break;
                     }
-                    pref.logging(logging);
-                    break;
-                case BR.logSessionFilter:
-                    pref.logSessionFilter(mutableParams.isLogSessionFilter());
-                    break;
-                case BR.logDhtFilter:
-                    pref.logDhtFilter(mutableParams.isLogDhtFilter());
-                    break;
-                case BR.logPeerFilter:
-                    pref.logPeerFilter(mutableParams.isLogPeerFilter());
-                    break;
-                case BR.logPortmapFilter:
-                    pref.logPortmapFilter(mutableParams.isLogPortmapFilter());
-                    break;
-                case BR.logTorrentFilter:
-                    pref.logTorrentFilter(mutableParams.isLogTorrentFilter());
-                    break;
-            }
-        }
-    };
+                }
+            };
 
-    void pauseLog()
-    {
+    void pauseLog() {
         engine.getSessionLogger().pause();
     }
 
-    void pauseLogManually()
-    {
+    void pauseLogManually() {
         pauseLog();
         logPaused = true;
     }
 
-    void resumeLog()
-    {
+    void resumeLog() {
         engine.getSessionLogger().resume();
     }
 
-    void resumeLogManually()
-    {
+    void resumeLogManually() {
         resumeLog();
         logPaused = false;
     }
 
-    int getLogEntriesCount()
-    {
+    int getLogEntriesCount() {
         return engine.getSessionLogger().getNumEntries();
     }
 
-    boolean logPausedManually()
-    {
+    boolean logPausedManually() {
         return logPaused;
     }
 
-    void startLogRecording()
-    {
+    void startLogRecording() {
         recordingStopped = false;
 
         engine.getSessionLogger().startRecording();
     }
 
-    void stopLogRecording()
-    {
+    void stopLogRecording() {
         recordingStopped = true;
 
         engine.getSessionLogger().stopRecording();
     }
 
-    boolean logRecording()
-    {
+    boolean logRecording() {
         return !recordingStopped && engine.getSessionLogger().isRecording();
     }
 
-    String getSaveLogFileName()
-    {
+    String getSaveLogFileName() {
         String timeStamp = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss", Locale.getDefault())
                 .format(new Date());
 
         return getApplication().getString(R.string.app_name) + "_log_" + timeStamp + ".txt";
     }
 
-    void saveLog(@NonNull Uri filePath)
-    {
+    void saveLog(@NonNull Uri filePath) {
         recordingStopped = true;
 
         Data data = new Data.Builder()
@@ -212,11 +206,11 @@ public class LogViewModel extends AndroidViewModel
         WorkManager.getInstance(getApplication()).enqueue(request);
     }
 
-    boolean copyLogEntryToClipboard(@NonNull LogEntry entry)
-    {
-        ClipboardManager clipboard = (ClipboardManager)getApplication().getSystemService(Activity.CLIPBOARD_SERVICE);
-        if (clipboard == null)
+    boolean copyLogEntryToClipboard(@NonNull LogEntry entry) {
+        ClipboardManager clipboard = (ClipboardManager) getApplication().getSystemService(Activity.CLIPBOARD_SERVICE);
+        if (clipboard == null) {
             return false;
+        }
 
         ClipData clip;
         clip = ClipData.newPlainText("Log entry", entry.toString());

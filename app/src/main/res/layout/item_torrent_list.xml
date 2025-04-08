@@ -1,55 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    style="@style/App.Components.ListItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/defaultRectRipple">
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="12dp"
+        android:minHeight="@dimen/list_item_three_lines_height">
 
-        <View
-            android:id="@+id/indicator_cur_open_torrent"
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent" />
-
-        <ImageButton
-            android:id="@+id/pause"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/pause_button_background"
-            android:contentDescription="@string/pause_torrent"
-            android:scaleType="fitXY"
-            android:padding="6dp"
+        <Button
+            android:id="@+id/pause_button"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="9dp" />
+            android:layout_marginEnd="16dp"
+            android:checkable="true"
+            android:contentDescription="@string/pause_torrent"
+            android:padding="12dp"
+            app:icon="@drawable/pause_button_selector" />
 
         <LinearLayout
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/name"
+                style="@style/App.Components.ListItem.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                tools:text="Name" />
 
-            <ProgressBar
+            <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:indeterminate="false"
                 android:max="100"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+                tools:progress="50" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,22 +62,24 @@
 
                 <TextView
                     android:id="@+id/status"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:textAppearance="@style/TextCaption"
-                    android:layout_marginEnd="8dp" />
+                    android:gravity="center_vertical"
+                    tools:text="Downloading" />
 
                 <TextView
                     android:id="@+id/download_upload_speed"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="end|center_vertical"
                     android:layout_weight="1"
-                    android:textAppearance="@style/TextCaption" />
+                    android:gravity="end|center_vertical"
+                    tools:text="↓ 1 Mb/s | ↑ 1 Mb/s " />
             </LinearLayout>
 
             <LinearLayout
@@ -85,37 +90,49 @@
 
                 <TextView
                     android:id="@+id/download_counter"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="0.8"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
-                    android:layout_weight="0.8"
-                    android:textAppearance="@style/TextCaption"
-                    android:layout_marginEnd="8dp" />
+                    tools:text="1 Mb/2 Mb (50%) • 01:00" />
 
                 <TextView
                     android:id="@+id/peers"
+                    style="@style/App.Components.ListItem.SupportingText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="0.2"
                     android:ellipsize="end"
                     android:gravity="end|center_vertical"
-                    android:layout_weight="0.2"
-                    android:textAppearance="@style/TextCaption" />
+                    tools:text="1/1" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/error"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/error_container"
+                style="?attr/materialCardViewFilledStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:textColor="?attr/colorError"
-                android:textAppearance="@style/TextCaption"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="?attr/colorErrorContainer"
+                app:contentPadding="8dp"
+                app:shapeAppearance="?attr/shapeAppearanceCornerSmall"
+                tools:visibility="gone">
+
+                <TextView
+                    android:id="@+id/error"
+                    style="@style/App.Components.ListItem.SupportingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:textColor="?attr/colorOnErrorContainer"
+                    tools:text="Error: long error message" />
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </LinearLayout>
-</layout>
+</com.google.android.material.card.MaterialCardView>

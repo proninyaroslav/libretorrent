@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,6 +23,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -32,41 +33,35 @@ import org.proninyaroslav.libretorrent.R;
  * A stub preference only for summary only.
  */
 
-public class SummaryPreference extends Preference
-{
+public class SummaryPreference extends Preference {
     private TextView summaryView;
 
-    public SummaryPreference(Context context)
-    {
+    public SummaryPreference(Context context) {
         this(context, null);
     }
 
-    public SummaryPreference(Context context, AttributeSet attrs)
-    {
+    public SummaryPreference(Context context, AttributeSet attrs) {
         /* Use the preferenceStyle as the default style */
         this(context, attrs, R.attr.preferenceStyle);
     }
 
-    public SummaryPreference(Context context, AttributeSet attrs, int defStyleAttr)
-    {
+    public SummaryPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, defStyleAttr);
     }
 
-    public SummaryPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-    {
+    public SummaryPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        setLayoutResource(R.layout.preference_summary);
+        setLayoutResource(R.layout.pref_widget_summary);
         /* Icon stub */
         setIcon(android.R.color.transparent);
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
-    {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
-        summaryView = (TextView)holder.findViewById(R.id.summary);
+        summaryView = (TextView) holder.findViewById(R.id.summary);
 
         /* Disable click */
         holder.itemView.setClickable(false);
@@ -76,16 +71,14 @@ public class SummaryPreference extends Preference
     }
 
     @Override
-    public void setSummary(CharSequence summary)
-    {
+    public void setSummary(CharSequence summary) {
         super.setSummary(summary);
 
         summaryView.setText(summary);
     }
 
     @Override
-    public void setSummary(int summaryResId)
-    {
+    public void setSummary(int summaryResId) {
         super.setSummary(summaryResId);
 
         summaryView.setText(summaryResId);
