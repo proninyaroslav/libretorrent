@@ -54,10 +54,10 @@ class TorrentCriticalWork
         }
     }
 
-    private ExecutorService exec = Executors.newFixedThreadPool(2);
-    private AtomicBoolean moving = new AtomicBoolean();
-    private AtomicInteger saveResume = new AtomicInteger();
-    private BehaviorSubject<State> stateChangedEvent =
+    private final ExecutorService exec = Executors.newFixedThreadPool(2);
+    private final AtomicBoolean moving = new AtomicBoolean();
+    private final AtomicInteger saveResume = new AtomicInteger();
+    private final BehaviorSubject<State> stateChangedEvent =
             BehaviorSubject.createDefault(new State(false, false, System.currentTimeMillis()));
 
     public boolean isMoving()

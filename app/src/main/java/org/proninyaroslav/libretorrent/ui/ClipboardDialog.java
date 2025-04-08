@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,96 +22,63 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
-
-public class ClipboardDialog extends DialogFragment
-{
-    private static final String TAG = ClipboardDialog.class.getSimpleName();
+public class ClipboardDialog extends DialogFragment {
+    public static final String KEY_RESULT_CLIPBOARD_ITEM = "clipboard_item";
 
     private AppCompatActivity activity;
     private ArrayAdapter<CharSequence> adapter;
-    private SharedViewModel viewModel;
-
-    public static class SharedViewModel extends androidx.lifecycle.ViewModel
-    {
-        private final PublishSubject<Item> selectedItemSubject = PublishSubject.create();
-
-        public Observable<Item> observeSelectedItem()
-        {
-            return selectedItemSubject;
-        }
-
-        public void sendSelectedItem(Item item)
-        {
-            selectedItemSubject.onNext(item);
-        }
-    }
-
-    public static class Item
-    {
-        public String dialogTag;
-        public String str;
-
-        public Item(String dialogTag, String str)
-        {
-            this.dialogTag = dialogTag;
-            this.str = str;
-        }
-    }
-
-    public static ClipboardDialog newInstance()
-    {
-        ClipboardDialog frag = new ClipboardDialog();
-
-        Bundle args = new Bundle();
-        frag.setArguments(args);
-
-        return frag;
-    }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity)
-            activity = (AppCompatActivity)context;
+        if (context instanceof AppCompatActivity a) {
+            activity = a;
+        }
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
-        if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        if (activity == null) {
+            activity = (AppCompatActivity) requireActivity();
+        }
 
-        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity)
+        var args = ClipboardDialogArgs.fromBundle(getArguments());
+        var builder = new MaterialAlertDialogBuilder(activity)
+                .setIcon(R.drawable.ic_content_copy_24px)
                 .setTitle(R.string.clipboard)
                 .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 
-        List<CharSequence> clipboardText = Utils.getClipboardText(activity.getApplicationContext());
         adapter = new ArrayAdapter<>(activity, R.layout.item_clipboard_list);
-        adapter.addAll(clipboardText);
-
-        dialogBuilder.setAdapter(adapter, (dialog, which) -> {
+        builder.setAdapter(adapter, (dialog, which) -> {
             CharSequence item = adapter.getItem(which);
-            if (item != null)
-                viewModel.sendSelectedItem(new Item(getTag(), item.toString()));
+            if (item != null) {
+                var bundle = new Bundle();
+                bundle.putString(KEY_RESULT_CLIPBOARD_ITEM, item.toString());
+                getParentFragmentManager().setFragmentResult(args.getFragmentRequestKey(), bundle);
+                dismiss();
+            }
         });
 
-        return dialogBuilder.create();
+        return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        List<CharSequence> clipboardText = Utils.getClipboardText(activity.getApplicationContext());
+        adapter.addAll(clipboardText);
     }
 }

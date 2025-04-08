@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,7 +20,11 @@
 package org.proninyaroslav.libretorrent.core.utils;
 
 import android.Manifest;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -28,17 +32,15 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
@@ -46,15 +48,25 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import org.proninyaroslav.libretorrent.ui.ManageAllFilesWarningDialog;
+import com.google.android.material.color.DynamicColors;
+import com.google.android.material.divider.MaterialDividerItemDecoration;
+import com.google.android.material.motion.MotionUtils;
+
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.apache.commons.io.IOUtils;
@@ -66,7 +78,9 @@ import org.proninyaroslav.libretorrent.core.exception.FetchLinkException;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilter;
 import org.proninyaroslav.libretorrent.core.filter.TorrentFilterCollection;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
+import org.proninyaroslav.libretorrent.core.model.data.preferences.PrefTheme;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSorting;
 import org.proninyaroslav.libretorrent.core.sorting.TorrentSortingComparator;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
@@ -74,13 +88,14 @@ import org.proninyaroslav.libretorrent.core.system.SafFileSystem;
 import org.proninyaroslav.libretorrent.core.system.SystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.receiver.BootReceiver;
-import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroup;
-import org.proninyaroslav.libretorrent.ui.main.drawer.DrawerGroupItem;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerDateAddedFilter;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSort;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSortDirection;
+import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerStatusFilter;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.IDN;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
@@ -105,13 +120,10 @@ import javax.net.ssl.X509TrustManager;
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
 
-    private static final String TAG_MANAGE_ALL_FILES_WARNING_DIALOG = "manage_all_files_warning_dialog";
-
-    public static final String INFINITY_SYMBOL = "\u221e";
+    public static final String INFINITY_SYMBOL = "∞";
     public static final String MAGNET_PREFIX = "magnet";
     public static final String HTTP_PREFIX = "http";
     public static final String HTTPS_PREFIX = "https";
-    public static final String UDP_PREFIX = "udp";
     public static final String INFOHASH_PREFIX = "magnet:?xt=urn:btih:";
     public static final String FILE_PREFIX = "file";
     public static final String CONTENT_PREFIX = "content";
@@ -121,18 +133,8 @@ public class Utils {
     public static final String MIME_TORRENT = "application/x-bittorrent";
     public static final String MIME_TEXT_PLAIN = "text/plain";
     public static final String NEWLINE_PATTERN = "\\r\\n|\\r|\\n";
-
-    /*
-     * Colorize the progress bar in the accent color (for pre-Lollipop).
-     */
-
-    public static void colorizeProgressBar(@NonNull Context context,
-                                           @NonNull ProgressBar progress) {
-        progress.getProgressDrawable().setColorFilter(new PorterDuffColorFilter(
-                getAttributeColor(context, R.attr.colorSecondary),
-                PorterDuff.Mode.SRC_IN)
-        );
-    }
+    private static final String FEED_MIME_TYPE_PATTERN = "^(application|text)/((atom|rss)\\+)?xml";
+    private static final String FEED_FILE_PATH_PATTERN = ".*\\.(xml|rss|atom)";
 
     /*
      * Returns the list of BencodeFileItem objects, extracted from FileStorage.
@@ -147,11 +149,6 @@ public class Utils {
         }
 
         return files;
-    }
-
-    public static void setBackground(@NonNull View v,
-                                     @NonNull Drawable d) {
-        v.setBackground(d);
     }
 
     public static boolean checkConnectivity(@NonNull Context context) {
@@ -211,19 +208,6 @@ public class Utils {
             NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
             return netInfo != null && netInfo.isRoaming();
         }
-    }
-
-    /*
-     * Returns the link as "(http[s]|ftp)://[www.]name.domain/...".
-     */
-
-    public static String normalizeURL(@NonNull String url) {
-        url = IDN.toUnicode(url);
-
-        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX))
-            return HTTP_PREFIX + url;
-        else
-            return url;
     }
 
     /*
@@ -316,10 +300,12 @@ public class Utils {
         return clipboardText;
     }
 
-    public static void reportError(@NonNull Throwable error,
-                                   String comment) {
-        if (comment != null)
+    public static void reportError(@Nullable Throwable error,
+                                   @Nullable String comment
+    ) {
+        if (comment != null) {
             ACRA.getErrorReporter().putCustomData(ReportField.USER_COMMENT.toString(), comment);
+        }
 
         ACRA.getErrorReporter().handleSilentException(error);
     }
@@ -330,6 +316,7 @@ public class Utils {
                 context.getResources().getDisplayMetrics());
     }
 
+    @SuppressLint("DiscouragedApi")
     public static int getDefaultBatteryLowLevel() {
         return Resources.getSystem().getInteger(
                 Resources.getSystem().getIdentifier("config_lowBatteryWarningLevel", "integer", "android"));
@@ -365,49 +352,6 @@ public class Utils {
 
     public static boolean isBatteryBelowThreshold(@NonNull Context context, int threshold) {
         return Utils.getBatteryLevel(context) <= threshold;
-    }
-
-    public static int getThemePreference(@NonNull Context context) {
-        return RepositoryHelper.getSettingsRepository(context).theme();
-    }
-
-    public static int getAppTheme(@NonNull Context context) {
-        int theme = getThemePreference(context);
-
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.AppTheme;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.AppTheme_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.AppTheme_Black;
-
-        return R.style.AppTheme;
-    }
-
-    public static int getTranslucentAppTheme(@NonNull Context appContext) {
-        int theme = getThemePreference(appContext);
-
-        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
-            return R.style.AppTheme_Translucent;
-        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
-            return R.style.AppTheme_Translucent_Dark;
-        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
-            return R.style.AppTheme_Translucent_Black;
-
-        return R.style.AppTheme_Translucent;
-    }
-
-    public static int getSettingsTheme(@NonNull Context context) {
-        int theme = getThemePreference(context);
-
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.AppTheme_Settings;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.AppTheme_Settings_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.AppTheme_Settings_Black;
-
-        return R.style.AppTheme_Settings;
     }
 
     public static boolean shouldRequestStoragePermission(@NonNull Activity activity) {
@@ -483,7 +427,7 @@ public class Utils {
             @Override
             public void onResponseHandle(HttpURLConnection conn, int code, String message) {
                 if (code == HttpURLConnection.HTTP_OK) {
-                    try(InputStream is = conn.getInputStream()) {
+                    try (InputStream is = conn.getInputStream()) {
                         response[0] = IOUtils.toByteArray(is);
 
                     } catch (IOException e) {
@@ -591,7 +535,7 @@ public class Utils {
 
         TrustManager[] wrappedTrustManagers = new TrustManager[]{
                 new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    public X509Certificate[] getAcceptedIssuers() {
                         return origTrustManager.getAcceptedIssuers();
                     }
 
@@ -610,9 +554,23 @@ public class Utils {
         return sslContext;
     }
 
-    public static void showActionModeStatusBar(@NonNull Activity activity, boolean mode) {
-        int attr = (mode ? R.attr.actionModeBackground : R.attr.statusBarColor);
-        activity.getWindow().setStatusBarColor(getAttributeColor(activity, attr));
+    public static void showActionModeStatusBar(@NonNull Activity activity, boolean show) {
+        var actionModeColor = getAttributeColor(activity, R.attr.actionModeBackground);
+        var statusBarColor = getAttributeColor(activity, R.attr.colorSurface);
+        var transparent = ColorUtils.setAlphaComponent(actionModeColor, 0);
+
+        var colorFrom = show ? statusBarColor : actionModeColor;
+        var colorTo = show ? actionModeColor : transparent;
+        var colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+
+        colorAnimation.setDuration(MotionUtils.resolveThemeDuration(
+                activity,
+                R.attr.motionDurationLong1,
+                450
+        ));
+        colorAnimation.addUpdateListener(animation ->
+                activity.getWindow().setStatusBarColor((int) animation.getAnimatedValue()));
+        colorAnimation.start();
     }
 
     public static int getAttributeColor(@NonNull Context context, int attributeId) {
@@ -696,178 +654,134 @@ public class Utils {
         return false;
     }
 
-    public static void showManageAllFilesWarningDialog(
-            @NonNull Context appContext,
-            @NonNull FragmentManager fm
-    ) {
-        var pref = RepositoryHelper.getSettingsRepository(appContext);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                || Utils.hasManageExternalStoragePermission(appContext)
-                || !pref.showManageAllFilesWarningDialog()) {
-            return;
+    public static TorrentFilter getStatusFilterById(@NonNull DrawerStatusFilter filter) {
+        switch (filter) {
+            case Downloading -> {
+                return TorrentFilterCollection.statusDownloading();
+            }
+            case Downloaded -> {
+                return TorrentFilterCollection.statusDownloaded();
+            }
+            case DownloadingMetadata -> {
+                return TorrentFilterCollection.statusDownloadingMetadata();
+            }
+            case Error -> {
+                return TorrentFilterCollection.statusError();
+            }
         }
 
-        if (fm.findFragmentByTag(TAG_MANAGE_ALL_FILES_WARNING_DIALOG) == null) {
-            pref.showManageAllFilesWarningDialog(false);
+        return TorrentFilterCollection.all();
+    }
 
-            var dialog = ManageAllFilesWarningDialog.newInstance();
-            var ft = fm.beginTransaction();
-            ft.add(dialog, TAG_MANAGE_ALL_FILES_WARNING_DIALOG);
-            ft.commitAllowingStateLoss();
+    @Nullable
+    public static DrawerStatusFilter getDrawerStatusFilterByChip(@IdRes int chipId) {
+        if (chipId == R.id.drawer_status_downloading) {
+            return DrawerStatusFilter.Downloading;
+        } else if (chipId == R.id.drawer_status_downloaded) {
+            return DrawerStatusFilter.Downloaded;
+        } else if (chipId == R.id.drawer_status_downloading_metadata) {
+            return DrawerStatusFilter.DownloadingMetadata;
+        } else if (chipId == R.id.drawer_status_error) {
+            return DrawerStatusFilter.Error;
         }
+
+        return null;
     }
 
-    public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
-                                                       @NonNull SharedPreferences localPref) {
-        Resources res = context.getResources();
+    public static TorrentFilter getDateAddedFilterById(DrawerDateAddedFilter filter) {
+        switch (filter) {
+            case Today -> {
+                return TorrentFilterCollection.dateAddedToday();
+            }
+            case Yesterday -> {
+                return TorrentFilterCollection.dateAddedYesterday();
+            }
+            case Week -> {
+                return TorrentFilterCollection.dateAddedWeek();
+            }
+            case Month -> {
+                return TorrentFilterCollection.dateAddedMonth();
+            }
+            case Year -> {
+                return TorrentFilterCollection.dateAddedYear();
+            }
+        }
 
-        ArrayList<DrawerGroup> groups = new ArrayList<>();
-
-        DrawerGroup status = new DrawerGroup(res.getInteger(R.integer.drawer_status_id),
-                res.getString(R.string.drawer_status),
-                localPref.getBoolean(res.getString(R.string.drawer_status_is_expanded), true));
-        status.selectItem(localPref.getLong(res.getString(R.string.drawer_status_selected_item),
-                DrawerGroup.DEFAULT_SELECTED_ID));
-
-        DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
-                res.getString(R.string.drawer_sorting),
-                localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
-        final long DEFAULT_SORTING_ITEM = 1;
-        sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
-                DEFAULT_SORTING_ITEM));
-
-        DrawerGroup dateAdded = new DrawerGroup(res.getInteger(R.integer.drawer_date_added_id),
-                res.getString(R.string.drawer_date_added),
-                localPref.getBoolean(res.getString(R.string.drawer_time_is_expanded), false));
-        dateAdded.selectItem(localPref.getLong(res.getString(R.string.drawer_time_selected_item),
-                DrawerGroup.DEFAULT_SELECTED_ID));
-
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_all_id),
-                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_id),
-                R.drawable.ic_download_grey600_24dp, res.getString(R.string.drawer_status_downloading)));
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloaded_id),
-                R.drawable.ic_file_grey600_24dp, res.getString(R.string.drawer_status_downloaded)));
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_downloading_metadata_id),
-                R.drawable.ic_magnet_grey600_24dp, res.getString(R.string.drawer_status_downloading_metadata)));
-        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_error),
-                R.drawable.ic_error_grey600_24dp, res.getString(R.string.drawer_status_error)));
-
-
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_progress)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_progress_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_progress)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_ETA)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_ETA_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_ETA)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_asc_id),
-                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_peers)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_peers_desc_id),
-                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_peers)));
-        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_no_sorting_id),
-                R.drawable.ic_sort_off_grey600_24dp, res.getString(R.string.drawer_sorting_no_sorting)));
-
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_all_id),
-                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_today_id),
-                R.drawable.ic_calendar_today_grey600_24dp, res.getString(R.string.drawer_date_added_today)));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_yesterday_id),
-                R.drawable.ic_calendar_yesterday_grey600_24dp, res.getString(R.string.drawer_date_added_yesterday)));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_week_id),
-                R.drawable.ic_calendar_week_grey600_24dp, res.getString(R.string.drawer_date_added_week)));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_month_id),
-                R.drawable.ic_calendar_month_grey600_24dp, res.getString(R.string.drawer_date_added_month)));
-        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_year_id),
-                R.drawable.ic_calendar_year_grey600_24dp, res.getString(R.string.drawer_date_added_year)));
-
-        groups.add(status);
-        groups.add(sorting);
-        groups.add(dateAdded);
-
-        return groups;
+        return TorrentFilterCollection.all();
     }
 
-    public static TorrentSortingComparator getDrawerGroupItemSorting(@NonNull Context context,
-                                                                     long itemId) {
-        Resources res = context.getResources();
-        if (itemId == res.getInteger(R.integer.drawer_sorting_no_sorting_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_progress_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_progress_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_ETA_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_ETA_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, TorrentSorting.Direction.DESC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_peers_asc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.ASC));
-        else if (itemId == res.getInteger(R.integer.drawer_sorting_peers_desc_id))
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, TorrentSorting.Direction.DESC));
-        else
-            return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
+    @Nullable
+    public static DrawerDateAddedFilter getDrawerDateAddedFilterByChip(@IdRes int chipId) {
+        if (chipId == R.id.drawer_date_added_today) {
+            return DrawerDateAddedFilter.Today;
+        } else if (chipId == R.id.drawer_date_added_yesterday) {
+            return DrawerDateAddedFilter.Yesterday;
+        } else if (chipId == R.id.drawer_date_added_week) {
+            return DrawerDateAddedFilter.Week;
+        } else if (chipId == R.id.drawer_date_added_month) {
+            return DrawerDateAddedFilter.Month;
+        } else if (chipId == R.id.drawer_date_added_year) {
+            return DrawerDateAddedFilter.Year;
+        }
+
+        return null;
     }
 
-    public static TorrentFilter getDrawerGroupStatusFilter(@NonNull Context context,
-                                                           long itemId) {
-        Resources res = context.getResources();
-        if (itemId == res.getInteger(R.integer.drawer_status_all_id))
-            return TorrentFilterCollection.all();
-        else if (itemId == res.getInteger(R.integer.drawer_status_downloading_id))
-            return TorrentFilterCollection.statusDownloading();
-        else if (itemId == res.getInteger(R.integer.drawer_status_downloaded_id))
-            return TorrentFilterCollection.statusDownloaded();
-        else if (itemId == res.getInteger(R.integer.drawer_status_downloading_metadata_id))
-            return TorrentFilterCollection.statusDownloadingMetadata();
-        else if (itemId == res.getInteger(R.integer.drawer_status_error))
-            return TorrentFilterCollection.statusError();
-        else
-            return TorrentFilterCollection.all();
+    public static TorrentSortingComparator getSortingById(@NonNull DrawerSort sort, BaseSorting.Direction direction) {
+        switch (sort) {
+            case None -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, direction));
+            }
+            case DateAdded -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.dateAdded, direction));
+            }
+            case Size -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.size, direction));
+            }
+            case Name -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.name, direction));
+            }
+            case Progress -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.progress, direction));
+            }
+            case Eta -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.ETA, direction));
+            }
+            case Peers -> {
+                return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.peers, direction));
+            }
+        }
+        return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, direction));
     }
 
-    public static TorrentFilter getDrawerGroupDateAddedFilter(@NonNull Context context,
-                                                              long itemId) {
-        Resources res = context.getResources();
-        if (itemId == res.getInteger(R.integer.drawer_date_added_all_id))
-            return TorrentFilterCollection.all();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_today_id))
-            return TorrentFilterCollection.dateAddedToday();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_yesterday_id))
-            return TorrentFilterCollection.dateAddedYesterday();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_week_id))
-            return TorrentFilterCollection.dateAddedWeek();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_month_id))
-            return TorrentFilterCollection.dateAddedMonth();
-        else if (itemId == res.getInteger(R.integer.drawer_date_added_year_id))
-            return TorrentFilterCollection.dateAddedYear();
-        else
-            return TorrentFilterCollection.all();
+    public static DrawerSort getDrawerSortingByChip(@IdRes int chipId) {
+        if (chipId == R.id.drawer_sorting_date_added) {
+            return DrawerSort.DateAdded;
+        } else if (chipId == R.id.drawer_sorting_size) {
+            return DrawerSort.Size;
+        } else if (chipId == R.id.drawer_sorting_name) {
+            return DrawerSort.Name;
+        } else if (chipId == R.id.drawer_sorting_progress) {
+            return DrawerSort.Progress;
+        } else if (chipId == R.id.drawer_sorting_ETA) {
+            return DrawerSort.Eta;
+        } else if (chipId == R.id.drawer_sorting_peers) {
+            return DrawerSort.Peers;
+        }
+
+        return DrawerSort.None;
+    }
+
+    public static BaseSorting.Direction getSortingDirection(@NonNull DrawerSortDirection direction) {
+        switch (direction) {
+            case Ascending -> {
+                return BaseSorting.Direction.ASC;
+            }
+            case Descending -> {
+                return BaseSorting.Direction.DESC;
+            }
+        }
+        return BaseSorting.Direction.DESC;
     }
 
     public static TorrentFilter getForegroundNotifyFilter(
@@ -922,5 +836,167 @@ public class Utils {
             return new TorrentSortingComparator(new TorrentSorting(TorrentSorting.SortingColumns.none, TorrentSorting.Direction.ASC));
         }
         throw new IllegalStateException("Unknown sorting type: " + val);
+    }
+
+    public static void enableEdgeToEdge(Activity activity) {
+        WindowCompat.setDecorFitsSystemWindows(activity.getWindow(), false);
+    }
+
+    public static void applyWindowInsets(View view) {
+        applyWindowInsets(null, view, WindowInsetsSide.ALL, (baseMask) -> baseMask);
+    }
+
+    public static void applyWindowInsets(@Nullable View parent, View child) {
+        applyWindowInsets(parent, child, WindowInsetsSide.ALL, (baseMask) -> baseMask);
+    }
+
+    public static void applyWindowInsets(View view, @WindowInsetsSide.Flag int sideMask) {
+        applyWindowInsets(null, view, sideMask, (baseMask) -> baseMask);
+    }
+
+    public static void applyWindowInsets(
+            View view,
+            @WindowInsetsSide.Flag int sideMask,
+            @WindowInsetsCompat.Type.InsetsType int typeMask
+    ) {
+        applyWindowInsets(null, view, sideMask,
+                (baseMask) -> typeMask == -1 ? baseMask : typeMask | baseMask);
+    }
+
+    public static void applyWindowInsets(
+            View view,
+            @WindowInsetsSide.Flag int sideMask,
+            WindowInsetsMaskCallback onApplyInsetsMask
+    ) {
+        applyWindowInsets(null, view, sideMask, onApplyInsetsMask);
+    }
+
+    public static void applyWindowInsets(@Nullable View parent,
+                                         View child,
+                                         @WindowInsetsSide.Flag int sideMask,
+                                         WindowInsetsMaskCallback onApplyInsetsMask
+    ) {
+        var baseTypeMask = WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout();
+
+        var params = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
+        var initialTop = params == null ? 0 : params.topMargin;
+        var initialBottom = params == null ? 0 : params.bottomMargin;
+        var initialLeft = params == null ? 0 : params.leftMargin;
+        var initialRight = params == null ? 0 : params.rightMargin;
+
+        ViewCompat.setOnApplyWindowInsetsListener(parent == null ? child : parent, (v, windowInsets) -> {
+            var insets = windowInsets.getInsets(onApplyInsetsMask.onApply(baseTypeMask));
+            var p = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
+            if ((sideMask & WindowInsetsSide.TOP) != 0) {
+                p.topMargin = initialTop + insets.top;
+            }
+            if ((sideMask & WindowInsetsSide.BOTTOM) != 0) {
+                p.bottomMargin = initialBottom + insets.bottom;
+            }
+            if ((sideMask & WindowInsetsSide.LEFT) != 0) {
+                p.leftMargin = initialLeft + insets.left;
+            }
+            if ((sideMask & WindowInsetsSide.RIGHT) != 0) {
+                p.rightMargin = initialRight + insets.right;
+            }
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+    }
+
+    public static RecyclerView.ItemDecoration buildListDivider(@NonNull Context context) {
+        var divider = new MaterialDividerItemDecoration(context, LinearLayoutManager.VERTICAL);
+        divider.setDividerInsetEnd(32);
+        divider.setDividerInsetStart(32);
+        divider.setLastItemDecorated(false);
+
+        return divider;
+    }
+
+    public static Typeface getBoldTypeface(Typeface typeface) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return Typeface.create(typeface, 500, false);
+        } else {
+            return Typeface.create(typeface, Typeface.BOLD);
+        }
+    }
+
+    public static boolean matchFeedMimeType(@NonNull String mimeType) {
+        var pattern = Pattern.compile(FEED_MIME_TYPE_PATTERN, Pattern.CASE_INSENSITIVE);
+        return pattern.matcher(mimeType).matches();
+    }
+
+    public static boolean matchFeedFilePath(@NonNull String path) {
+        var pattern = Pattern.compile(FEED_FILE_PATH_PATTERN, Pattern.CASE_INSENSITIVE);
+        return pattern.matcher(path).matches();
+    }
+
+    public static void restartApp(@NonNull Context context) {
+        var packageManager = context.getPackageManager();
+        var intent = packageManager.getLaunchIntentForPackage(context.getPackageName());
+        var componentName = intent.getComponent();
+        var mainIntent = Intent.makeRestartActivityTask(componentName);
+        // Required for API 34 and later
+        // Ref: https://developer.android.com/about/versions/14/behavior-changes-14#safer-intents
+        mainIntent.setPackage(context.getPackageName());
+        context.startActivity(mainIntent);
+        Runtime.getRuntime().exit(0);
+    }
+
+    public static void applyAppTheme(@NonNull Application application) {
+        var pref = RepositoryHelper.getSettingsRepository(application);
+        var theme = pref.theme();
+
+        if (theme instanceof PrefTheme.System) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        } else if (theme instanceof PrefTheme.Light) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (theme instanceof PrefTheme.Dark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if (theme instanceof PrefTheme.Black) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+                @Override
+                public void onActivityPreCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+                    var theme = pref.theme() instanceof PrefTheme.Black ? R.style.AppTheme_Black : R.style.AppTheme;
+                    activity.setTheme(theme);
+                }
+
+                @Override
+                public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+                }
+
+                @Override
+                public void onActivityStarted(@NonNull Activity activity) {
+                }
+
+                @Override
+                public void onActivityResumed(@NonNull Activity activity) {
+                }
+
+                @Override
+                public void onActivityPaused(@NonNull Activity activity) {
+                }
+
+                @Override
+                public void onActivityStopped(@NonNull Activity activity) {
+                }
+
+                @Override
+                public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+                }
+
+                @Override
+                public void onActivityDestroyed(@NonNull Activity activity) {
+                }
+            });
+        }
+    }
+
+    public static void applyDynamicTheme(@NonNull Application application) {
+        var pref = RepositoryHelper.getSettingsRepository(application);
+        if (pref.dynamicColors()) {
+            DynamicColors.applyToActivitiesIfAvailable(application);
+        }
     }
 }

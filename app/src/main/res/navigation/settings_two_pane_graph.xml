@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings_two_pane_nav"
+    app:startDestination="@id/appearanceSettingsFragment">
+
+    <action
+        android:id="@+id/action_appearance_settings"
+        app:destination="@id/appearanceSettingsFragment" />
+    <action
+        android:id="@+id/action_behavior_settings"
+        app:destination="@id/behaviorSettingsFragment" />
+    <action
+        android:id="@+id/action_network_settings"
+        app:destination="@id/networkSettingsFragment" />
+    <action
+        android:id="@+id/action_storage_settings"
+        app:destination="@id/storageSettingsFragment" />
+    <action
+        android:id="@+id/action_limitation_settings"
+        app:destination="@id/limitationsSettingsFragment" />
+    <action
+        android:id="@+id/action_scheduling_settings"
+        app:destination="@id/schedulingSettingsFragment" />
+    <action
+        android:id="@+id/action_feed_settings"
+        app:destination="@id/feedSettingsFragment" />
+    <action
+        android:id="@+id/action_streaming_settings"
+        app:destination="@id/streamingSettingsFragment" />
+
+    <fragment
+        android:id="@+id/appearanceSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.AppearanceSettingsFragment"
+        android:label="AppearanceSettingsFragment" />
+    <fragment
+        android:id="@+id/behaviorSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.BehaviorSettingsFragment"
+        android:label="BehaviorSettingsFragment" />
+    <fragment
+        android:id="@+id/networkSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.NetworkSettingsFragment"
+        android:label="NetworkSettingsFragment">
+        <action
+            android:id="@+id/action_proxy_settings"
+            app:destination="@id/proxySettingsFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_anonymou_mode_settings"
+            app:destination="@id/anonymousModeSettingsFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+    </fragment>
+    <fragment
+        android:id="@+id/proxySettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.ProxySettingsFragment"
+        android:label="ProxySettingsFragment" />
+    <fragment
+        android:id="@+id/anonymousModeSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.AnonymousModeSettingsFragment"
+        android:label="AnonymousModeSettingsFragment">
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/storageSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.StorageSettingsFragment"
+        android:label="StorageSettingsFragment" />
+    <fragment
+        android:id="@+id/limitationsSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.LimitationsSettingsFragment"
+        android:label="LimitationsSettingsFragment">
+        <action
+            android:id="@+id/action_auto_manage_settings"
+            app:destination="@id/autoManageSettingsFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+    </fragment>
+    <fragment
+        android:id="@+id/autoManageSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.AutoManageSettingsFragment"
+        android:label="AutoManageSettingsFragment">
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/schedulingSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.SchedulingSettingsFragment"
+        android:label="SchedulingSettingsFragment" />
+    <fragment
+        android:id="@+id/feedSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.FeedSettingsFragment"
+        android:label="FeedSettingsFragment">
+        <action
+            android:id="@+id/action_auto_refresh_settings"
+            app:destination="@id/feedAutoRefreshSettingsFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedAutoRefreshSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.FeedAutoRefreshSettingsFragment"
+        android:label="FeedAutoRefreshSettingsFragment">
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/streamingSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.StreamingSettingsFragment"
+        android:label="StreamingSettingsFragment" />
+</navigation>

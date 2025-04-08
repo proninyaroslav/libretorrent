@@ -23,8 +23,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.service.TorrentService;
-import org.proninyaroslav.libretorrent.ui.main.MainActivity;
 
 /*
  * The receiver for actions of foreground notification, added by service.

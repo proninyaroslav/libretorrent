@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,6 +28,7 @@ import androidx.room.Update;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedChannel;
 import org.proninyaroslav.libretorrent.core.model.data.entity.FeedItem;
+import org.proninyaroslav.libretorrent.core.model.data.entity.FeedUnreadCount;
 
 import java.util.List;
 
@@ -35,8 +36,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao
-public interface FeedDao
-{
+public interface FeedDao {
     String QUERY_GET_ALL_FEEDS = "SELECT * FROM FeedChannel";
     String QUERY_GET_FEED_BY_ID = "SELECT * FROM FeedChannel WHERE id = :id";
     String QUERY_DELETE_ITEMS_OLDER_THAN = "DELETE FROM FeedItem WHERE fetchDate < :keepDateBorderTime";
@@ -47,6 +47,8 @@ public interface FeedDao
     String QUERY_GET_ITEMS_ID_BY_FEED_ID = "SELECT id FROM FeedItem WHERE feedId = :feedId";
     String QUERY_FIND_ITEMS_EXISTING_TITLES = "SELECT title FROM FeedItem WHERE title IN (:titles)";
     String QUERY_GET_ITEMS_BY_ID = "SELECT * FROM FeedItem WHERE id IN (:itemsId)";
+    String QUERY_GET_UNREAD_ITEMS_COUNT = "SELECT feedId, COUNT(*) as count FROM FeedItem WHERE read = 0 GROUP BY feedId";
+    String QUERY_GET_UNREAD_FEED_ID_LIST = "SELECT DISTINCT feedId FROM FeedItem WHERE read = 0";
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long addFeed(FeedChannel channel);
@@ -75,9 +77,6 @@ public interface FeedDao
     @Query(QUERY_GET_ALL_FEEDS)
     List<FeedChannel> getAllFeeds();
 
-    @Query(QUERY_GET_ALL_FEEDS)
-    Single<List<FeedChannel>> getAllFeedsSingle();
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addItems(List<FeedItem> items);
 
@@ -96,9 +95,6 @@ public interface FeedDao
     @Query(QUERY_GET_ITEMS_BY_FEED_ID)
     Flowable<List<FeedItem>> observeItemsByFeedId(long feedId);
 
-    @Query(QUERY_GET_ITEMS_BY_FEED_ID)
-    Single<List<FeedItem>> getItemsByFeedIdSingle(long feedId);
-
     @Query(QUERY_GET_ITEMS_ID_BY_FEED_ID)
     List<String> getItemsIdByFeedId(long feedId);
 
@@ -107,4 +103,10 @@ public interface FeedDao
 
     @Query(QUERY_GET_ITEMS_BY_ID)
     List<FeedItem> getItemsById(String... itemsId);
+
+    @Query(QUERY_GET_UNREAD_ITEMS_COUNT)
+    Flowable<List<FeedUnreadCount>> observeUnreadItemsCount();
+
+    @Query(QUERY_GET_UNREAD_FEED_ID_LIST)
+    Flowable<List<Long>> observeUnreadFeedIdList();
 }

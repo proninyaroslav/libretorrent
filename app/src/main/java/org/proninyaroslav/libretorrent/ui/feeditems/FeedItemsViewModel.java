@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -40,20 +40,17 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 
-public class FeedItemsViewModel extends AndroidViewModel
-{
-    private FeedRepository repo;
+public class FeedItemsViewModel extends AndroidViewModel {
+    private final FeedRepository repo;
     private long feedId;
-    private BehaviorSubject<Boolean> refreshStatus = BehaviorSubject.create();
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final BehaviorSubject<Boolean> refreshStatus = BehaviorSubject.create();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
-    public FeedItemsViewModel(@NonNull Application application)
-    {
+    public FeedItemsViewModel(@NonNull Application application) {
         super(application);
 
         repo = RepositoryHelper.getFeedRepository(application);
@@ -61,43 +58,29 @@ public class FeedItemsViewModel extends AndroidViewModel
     }
 
     @Override
-    protected void onCleared()
-    {
+    protected void onCleared() {
         super.onCleared();
 
-        disposables.clear();
-    }
-
-    public void clearData()
-    {
         disposables.clear();
         feedId = -1;
     }
 
-    public void setFeedId(long feedId)
-    {
+    public void setFeedId(long feedId) {
         this.feedId = feedId;
     }
 
-    public Flowable<List<FeedItem>> observeItemsByFeedId()
-    {
+    public Flowable<List<FeedItem>> observeItemsByFeedId() {
         return repo.observeItemsByFeedId(feedId);
     }
 
-    public Single<List<FeedItem>> getItemsByFeedIdSingle()
-    {
-        return repo.getItemsByFeedIdSingle(feedId);
-    }
-
-    public Observable<Boolean> observeRefreshStatus()
-    {
+    public Observable<Boolean> observeRefreshStatus() {
         return refreshStatus;
     }
 
-    public void refreshChannel()
-    {
-        if (feedId == -1)
+    public void refreshChannel() {
+        if (feedId == -1) {
             return;
+        }
 
         Data data = new Data.Builder()
                 .putString(FeedFetcherWorker.TAG_ACTION, FeedFetcherWorker.ACTION_FETCH_CHANNEL)
@@ -110,31 +93,28 @@ public class FeedItemsViewModel extends AndroidViewModel
         runFetchWorker(work);
     }
 
-    public void markAllAsRead()
-    {
-        if (feedId == -1)
+    public void markAllAsRead() {
+        if (feedId == -1) {
             return;
+        }
 
         disposables.add(Completable.fromRunnable(() -> repo.markAsReadByFeedId(Collections.singletonList(feedId))).subscribeOn(Schedulers.io())
-          .subscribe());
+                .subscribe());
     }
 
-    public void markAsRead(@NonNull String itemId)
-    {
+    public void markAsRead(@NonNull String itemId) {
         disposables.add(Completable.fromRunnable(() -> repo.markAsRead(itemId))
                 .subscribeOn(Schedulers.io())
                 .subscribe());
     }
 
-    public void markAsUnread(@NonNull String itemId)
-    {
+    public void markAsUnread(@NonNull String itemId) {
         disposables.add(Completable.fromRunnable(() -> repo.markAsUnread(itemId))
                 .subscribeOn(Schedulers.io())
                 .subscribe());
     }
 
-    private void runFetchWorker(WorkRequest work)
-    {
+    private void runFetchWorker(WorkRequest work) {
         refreshStatus.onNext(true);
 
         WorkManager.getInstance(getApplication()).enqueue(work);
@@ -143,12 +123,12 @@ public class FeedItemsViewModel extends AndroidViewModel
                 .observeForever(this::observeWorkResult);
     }
 
-    private void observeWorkResult(WorkInfo info)
-    {
+    private void observeWorkResult(WorkInfo info) {
         boolean finished = info.getState().isFinished();
-        if (finished)
+        if (finished) {
             WorkManager.getInstance(getApplication()).getWorkInfoByIdLiveData(info.getId())
                     .removeObserver(this::observeWorkResult);
+        }
 
         refreshStatus.onNext(!finished);
     }

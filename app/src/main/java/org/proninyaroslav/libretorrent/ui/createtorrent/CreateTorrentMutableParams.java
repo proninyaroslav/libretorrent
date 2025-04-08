@@ -32,7 +32,7 @@ public class CreateTorrentMutableParams extends BaseObservable
 {
     public static final String FILTER_SEPARATOR = "\\|";
 
-    private ObservableField<Uri> seedPath = new ObservableField<>();
+    private final ObservableField<Uri> seedPath = new ObservableField<>();
     private String seedPathName;
     private String skipFiles;
     private String trackerUrls;

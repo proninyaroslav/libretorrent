@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,99 +20,67 @@
 package org.proninyaroslav.libretorrent.ui.log;
 
 import androidx.annotation.NonNull;
-import androidx.paging.PositionalDataSource;
+import androidx.annotation.Nullable;
+import androidx.paging.PagingState;
+import androidx.paging.rxjava2.RxPagingSource;
 
 import org.proninyaroslav.libretorrent.core.logger.LogEntry;
 import org.proninyaroslav.libretorrent.core.logger.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
-import io.reactivex.disposables.Disposable;
+import io.reactivex.Single;
 
-class LogDataSource extends PositionalDataSource<LogEntry>
-{
-    private Logger logger;
-    private Disposable disposable;
+class LogDataSource extends RxPagingSource<Integer, LogEntry> {
+    private final Logger logger;
 
-    LogDataSource(@NonNull Logger logger)
-    {
+    LogDataSource(@NonNull Logger logger) {
         this.logger = logger;
-
-        disposable = logger.observeDataSetChanged()
-                .subscribe((__) -> invalidate());
     }
 
+    @Nullable
     @Override
-    public void invalidate()
-    {
-        disposable.dispose();
-
-        super.invalidate();
+    public Integer getRefreshKey(@NonNull PagingState<Integer, LogEntry> pagingState) {
+        return Math.max((pagingState.getAnchorPosition() == null ? 0 : pagingState.getAnchorPosition()) -
+                pagingState.getConfig().initialLoadSize / 2, 0);
     }
 
+    @NonNull
     @Override
-    public void loadInitial(@NonNull LoadInitialParams params,
-                            @NonNull LoadInitialCallback<LogEntry> callback)
-    {
-        boolean paused = false;
-        if (!logger.isPaused()) {
-            logger.pause();
-            paused = true;
-        }
-
-        try {
-            List<LogEntry> entries;
-            int numEntries = logger.getNumEntries();
-            int pos = params.requestedStartPosition;
-
-            if (params.requestedStartPosition < numEntries) {
-                entries = logger.getEntries(params.requestedStartPosition, params.requestedLoadSize);
-
-            } else if (params.requestedLoadSize <= numEntries) {
-                pos = numEntries - params.requestedLoadSize;
-                entries = logger.getEntries(pos, params.requestedLoadSize);
-
-            } else {
-                pos = 0;
-                entries = logger.getEntries(pos, numEntries);
+    public Single<LoadResult<Integer, LogEntry>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
+        return Single.fromCallable(() -> {
+            boolean paused = false;
+            if (!logger.isPaused()) {
+                logger.pause();
+                paused = true;
             }
 
-            if (entries.isEmpty())
-                callback.onResult(entries, 0);
-            else
-                callback.onResult(entries, pos);
+            int endOfPaginationOffset = logger.getNumEntries();
+            int offset = 0;
+            if (loadParams.getKey() != null && loadParams.getKey() >= 0) {
+                offset = loadParams.getKey() > endOfPaginationOffset
+                        ? endOfPaginationOffset
+                        : loadParams.getKey();
+            }
+            var limit = loadParams.getLoadSize();
 
-        } finally {
-            if (paused)
-                logger.resume();
-        }
-    }
+            if (endOfPaginationOffset == 0) {
+                return new LoadResult.Page<>(Collections.emptyList(), null, null);
+            }
 
-    @Override
-    public void loadRange(@NonNull LoadRangeParams params,
-                          @NonNull LoadRangeCallback<LogEntry> callback)
-    {
-        boolean paused = false;
-        if (!logger.isPaused()) {
-            logger.pause();
-            paused = true;
-        }
-
-        try {
-            List<LogEntry> entries;
-            int numEntries = logger.getNumEntries();
-
-            if (params.startPosition < numEntries)
-                entries = logger.getEntries(params.startPosition, params.loadSize);
-            else
-                entries = new ArrayList<>(0);
-
-            callback.onResult(entries);
-
-        } finally {
-            if (paused)
-                logger.resume();
-        }
+            try {
+                var entries = logger.getEntries(offset, limit);
+                var endOfPaginationReached = offset + limit >= endOfPaginationOffset || entries.isEmpty();
+                return new LoadResult.Page<>(
+                        entries,
+                        offset == 0 ? null : offset - limit,
+                        endOfPaginationReached ? null : offset + limit
+                );
+            } finally {
+                if (paused) {
+                    logger.resume();
+                }
+            }
+        });
     }
 }

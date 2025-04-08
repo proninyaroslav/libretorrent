@@ -1,9 +1,9 @@
 package com.ernieyu.feedparser;
 
+import org.xml.sax.Attributes;
+
 import java.util.List;
 import java.util.Set;
-
-import org.xml.sax.Attributes;
 
 /**
  * An XML element in the feed.

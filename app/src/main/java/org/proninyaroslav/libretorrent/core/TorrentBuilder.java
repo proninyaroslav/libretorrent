@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -38,41 +38,22 @@ import io.reactivex.Single;
 import io.reactivex.functions.Predicate;
 import io.reactivex.subjects.BehaviorSubject;
 
-public class TorrentBuilder
-{
-    private Context context;
-    private org.libtorrent4j.TorrentBuilder builder;
+public class TorrentBuilder {
+    private final Context context;
+    private final org.libtorrent4j.TorrentBuilder builder;
     private Predicate<String> fileNameFilter;
-    private BehaviorSubject<Progress> progress = BehaviorSubject.create();
+    private final BehaviorSubject<Progress> progress = BehaviorSubject.create();
 
-    public static class Tracker
-    {
-        public final String url;
-        public final int tier;
-
-        public Tracker(@NonNull String url, int tier)
-        {
-            this.url = url;
-            this.tier = tier;
-        }
+    public record Tracker(@NonNull String url, int tier) {
     }
 
-    public static final class Progress
-    {
-        public final int piece;
-        public final int numPieces;
-
-        public Progress(int piece, int numPieces)
-        {
-            this.piece = piece;
-            this.numPieces = numPieces;
-        }
+    public record Progress(int piece, int numPieces) {
     }
 
     public enum TorrentVersion {
-        V1_ONLY (org.libtorrent4j.TorrentBuilder.V1_ONLY),
-        V2_ONLY (org.libtorrent4j.TorrentBuilder.V2_ONLY),
-        HYBRID (create_flags_t.from_int(0));
+        V1_ONLY(org.libtorrent4j.TorrentBuilder.V1_ONLY),
+        V2_ONLY(org.libtorrent4j.TorrentBuilder.V2_ONLY),
+        HYBRID(create_flags_t.from_int(0));
 
         private final create_flags_t flag;
 
@@ -85,14 +66,12 @@ public class TorrentBuilder
         }
     }
 
-    public TorrentBuilder(@NonNull Context context)
-    {
+    public TorrentBuilder(@NonNull Context context) {
         this.context = context;
         builder = new org.libtorrent4j.TorrentBuilder();
     }
 
-    public TorrentBuilder setSeedPath(Uri path) throws UnknownUriException
-    {
+    public TorrentBuilder setSeedPath(Uri path) throws UnknownUriException {
         String seedPathStr = SystemFacadeHelper.getFileSystemFacade(context)
                 .makeFileSystemPath(path);
         builder.path(new File(seedPathStr));
@@ -106,15 +85,13 @@ public class TorrentBuilder
      * piece size will be calculated such that the torrent file is roughly 40 kB
      */
 
-    public TorrentBuilder setPieceSize(int size)
-    {
+    public TorrentBuilder setPieceSize(int size) {
         builder.pieceSize(size);
 
         return this;
     }
 
-    public TorrentBuilder addTrackers(@NonNull List<Tracker> trackers)
-    {
+    public TorrentBuilder addTrackers(@NonNull List<Tracker> trackers) {
         ArrayList<Pair<String, Integer>> list = new ArrayList<>();
         for (Tracker tracker : trackers)
             list.add(new Pair<>(tracker.url, tracker.tier));
@@ -124,36 +101,31 @@ public class TorrentBuilder
         return this;
     }
 
-    public TorrentBuilder addUrlSeeds(@NonNull List<String> urls)
-    {
+    public TorrentBuilder addUrlSeeds(@NonNull List<String> urls) {
         builder.addUrlSeeds(urls);
 
         return this;
     }
 
-    public TorrentBuilder setAsPrivate(boolean isPrivate)
-    {
+    public TorrentBuilder setAsPrivate(boolean isPrivate) {
         builder.setPrivate(isPrivate);
 
         return this;
     }
 
-    public TorrentBuilder setCreator(String creator)
-    {
+    public TorrentBuilder setCreator(String creator) {
         builder.creator(creator);
 
         return this;
     }
 
-    public TorrentBuilder setComment(String comment)
-    {
+    public TorrentBuilder setComment(String comment) {
         builder.comment(comment);
 
         return this;
     }
 
-    public TorrentBuilder setFileNameFilter(Predicate<String> fileNameFilter)
-    {
+    public TorrentBuilder setFileNameFilter(Predicate<String> fileNameFilter) {
         this.fileNameFilter = fileNameFilter;
 
         return this;
@@ -165,24 +137,20 @@ public class TorrentBuilder
         return this;
     }
 
-    public Observable<Progress> observeProgress()
-    {
+    public Observable<Progress> observeProgress() {
         return progress;
     }
 
-    public Single<byte[]> build()
-    {
+    public Single<byte[]> build() {
         subscribeProgress();
 
         return Single.fromCallable(() -> builder.generate().entry().bencode());
     }
 
-    private void subscribeProgress()
-    {
+    private void subscribeProgress() {
         builder.listener(new org.libtorrent4j.TorrentBuilder.Listener() {
             @Override
-            public boolean accept(String filename)
-            {
+            public boolean accept(String filename) {
                 try {
                     return fileNameFilter == null || fileNameFilter.test(filename);
 
@@ -192,8 +160,7 @@ public class TorrentBuilder
             }
 
             @Override
-            public void progress(int pieceIndex, int numPieces)
-            {
+            public void progress(int pieceIndex, int numPieces) {
                 progress.onNext(new Progress(pieceIndex, numPieces));
             }
         });

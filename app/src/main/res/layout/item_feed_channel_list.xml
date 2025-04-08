@@ -1,65 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    style="@style/App.Components.ListItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/defaultRectRipple">
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="12dp"
+        android:minHeight="@dimen/list_item_three_lines_height"
+        android:orientation="vertical">
 
-        <View
-            android:id="@+id/indicator_cur_open_feed"
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent" />
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/name"
+            style="@style/App.Components.ListItem.Label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="11dp">
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            tools:text="Name" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:ellipsize="end"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+        <TextView
+            android:id="@+id/url"
+            style="@style/App.Components.ListItem.SupportingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            tools:text="https://example.org" />
 
-            <TextView
-                android:id="@+id/url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="@style/TextCaption"
-                android:layout_marginEnd="8dp" />
+        <TextView
+            android:id="@+id/last_update"
+            style="?attr/textAppearanceLabelSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:textColor="?android:attr/textColorSecondary"
+            tools:text="Updated: 01.01.2025" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/error_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="?attr/colorErrorContainer"
+            app:contentPadding="8dp"
+            app:shapeAppearance="?attr/shapeAppearanceCornerSmall"
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/error"
+                style="@style/App.Components.ListItem.SupportingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:ellipsize="end"
-                android:textColor="?attr/colorError"
-                android:textAppearance="@style/TextCaption"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/last_update"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:gravity="end"
-                android:ellipsize="end"
-                android:textAppearance="@style/TextCaption"
-                android:layout_marginEnd="8dp" />
-        </LinearLayout>
+                android:textColor="?attr/colorOnErrorContainer"
+                tools:text="Error: long error message" />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-</layout>
+</com.google.android.material.card.MaterialCardView>

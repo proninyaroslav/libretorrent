@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,6 +23,8 @@ package org.proninyaroslav.libretorrent.ui;
  * Helper of showing notifications.
  */
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -36,16 +38,14 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import org.proninyaroslav.libretorrent.MainActivity;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.entity.Torrent;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
-import org.proninyaroslav.libretorrent.ui.detailtorrent.DetailTorrentActivity;
 
 import java.util.ArrayList;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class TorrentNotifier {
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "org.proninyaroslav.libretorrent.FOREGROUND_NOTIFY_CHAN";
@@ -58,9 +58,9 @@ public class TorrentNotifier {
 
     private static volatile TorrentNotifier INSTANCE;
 
-    private Context appContext;
-    private NotificationManager notifyManager;
-    private SettingsRepository pref;
+    private final Context appContext;
+    private final NotificationManager notifyManager;
+    private final SettingsRepository pref;
 
     public static TorrentNotifier getInstance(@NonNull Context appContext) {
         if (INSTANCE == null) {
@@ -87,7 +87,7 @@ public class TorrentNotifier {
                 appContext.getString(R.string.def),
                 NotificationManager.IMPORTANCE_DEFAULT
         );
-        defaultChan.setLightColor(ContextCompat.getColor(appContext, R.color.primary));
+        defaultChan.setLightColor(ContextCompat.getColor(appContext, R.color.branding_color));
 
         NotificationChannel foregroundChan = new NotificationChannel(
                 FOREGROUND_NOTIFY_CHAN_ID,
@@ -103,7 +103,7 @@ public class TorrentNotifier {
         );
         finishChan.enableLights(true);
         finishChan.enableVibration(true);
-        finishChan.setLightColor(ContextCompat.getColor(appContext, R.color.primary));
+        finishChan.setLightColor(ContextCompat.getColor(appContext, R.color.branding_color));
 
         ArrayList<NotificationChannel> channels = new ArrayList<>();
         channels.add(defaultChan);
@@ -116,8 +116,8 @@ public class TorrentNotifier {
     public void makeTorrentErrorNotify(@NonNull String name, @NonNull String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
                 DEFAULT_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.drawable.ic_error_white_24dp)
-                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setSmallIcon(R.drawable.ic_error_24px)
+                .setColor(ContextCompat.getColor(appContext, R.color.branding_color))
                 .setContentTitle(name)
                 .setTicker(appContext.getString(R.string.torrent_error_notify_title))
                 .setContentText(appContext.getString(R.string.error_template, message))
@@ -132,8 +132,8 @@ public class TorrentNotifier {
     public void makeTorrentInfoNotify(@NonNull String name, @NonNull String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
                 DEFAULT_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.drawable.ic_info_white_24dp)
-                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setSmallIcon(R.drawable.ic_info_24px)
+                .setColor(ContextCompat.getColor(appContext, R.color.branding_color))
                 .setContentTitle(name)
                 .setTicker(message)
                 .setContentText(message)
@@ -148,8 +148,8 @@ public class TorrentNotifier {
     public void makeErrorNotify(@NonNull String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
                 DEFAULT_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.drawable.ic_error_white_24dp)
-                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setSmallIcon(R.drawable.ic_error_24px)
+                .setColor(ContextCompat.getColor(appContext, R.color.branding_color))
                 .setContentTitle(appContext.getString(R.string.error))
                 .setTicker(message)
                 .setContentText(message)
@@ -164,8 +164,8 @@ public class TorrentNotifier {
     public void makeSessionErrorNotify(@NonNull String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
                 DEFAULT_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.drawable.ic_error_white_24dp)
-                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setSmallIcon(R.drawable.ic_error_24px)
+                .setColor(ContextCompat.getColor(appContext, R.color.branding_color))
                 .setContentTitle(appContext.getString(R.string.session_error_title))
                 .setTicker(appContext.getString(R.string.session_error_title))
                 .setContentText(appContext.getString(R.string.error_template, message))
@@ -180,8 +180,8 @@ public class TorrentNotifier {
     public void makeNatErrorNotify(@NonNull String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
                 DEFAULT_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.drawable.ic_error_white_24dp)
-                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setSmallIcon(R.drawable.ic_error_24px)
+                .setColor(ContextCompat.getColor(appContext, R.color.branding_color))
                 .setContentTitle(appContext.getString(R.string.nat_error_title))
                 .setTicker(appContext.getString(R.string.nat_error_title))
                 .setContentText(appContext.getString(R.string.error_template, message))
@@ -196,8 +196,8 @@ public class TorrentNotifier {
     public void makeMovingTorrentNotify(@NonNull String name) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
                 DEFAULT_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.drawable.ic_folder_move_white_24dp)
-                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setSmallIcon(R.drawable.ic_drive_file_move_24px)
+                .setColor(ContextCompat.getColor(appContext, R.color.branding_color))
                 .setContentTitle(name)
                 .setTicker(appContext.getString(R.string.torrent_moving_title))
                 .setContentText(appContext.getString(R.string.torrent_moving_content, name))
@@ -215,8 +215,8 @@ public class TorrentNotifier {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
                 FINISH_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.drawable.ic_done_white_24dp)
-                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setSmallIcon(R.drawable.ic_check_24px)
+                .setColor(ContextCompat.getColor(appContext, R.color.branding_color))
                 .setContentTitle(appContext.getString(R.string.torrent_finished_notify))
                 .setTicker(appContext.getString(R.string.torrent_finished_notify))
                 .setContentText(torrent.name)
@@ -227,10 +227,10 @@ public class TorrentNotifier {
 
         applyLegacyNotifySettings(builder);
 
-        Intent openIntent = new Intent(appContext, DetailTorrentActivity.class);
+        Intent openIntent = new Intent(appContext, MainActivity.class);
         openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        openIntent.setAction(DetailTorrentActivity.ACTION_OPEN_FILES);
-        openIntent.putExtra(DetailTorrentActivity.TAG_TORRENT_ID, torrent.id);
+        openIntent.setAction(MainActivity.ACTION_OPEN_TORRENT_DETAILS);
+        openIntent.putExtra(MainActivity.KEY_TORRENT_ID, torrent.id);
 
         PendingIntent openPendingIntent = PendingIntent.getActivity(
                 appContext, torrent.id.hashCode(), openIntent,
@@ -253,8 +253,8 @@ public class TorrentNotifier {
         );
         var builder = new NotificationCompat.Builder(appContext,
                 DEFAULT_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.drawable.ic_error_white_24dp)
-                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setSmallIcon(R.drawable.ic_error_24px)
+                .setColor(ContextCompat.getColor(appContext, R.color.branding_color))
                 .setContentTitle(appContext.getString(R.string.permission_denied))
                 .setTicker(appContext.getString(R.string.permission_denied))
                 .setContentText(appContext.getString(R.string.exact_alarm_permission_warning))

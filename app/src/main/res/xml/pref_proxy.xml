@@ -3,55 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
-        android:key="@string/pref_key_proxy_type"
-        android:title="@string/pref_proxy_type_title"
-        app:useSimpleSummaryProvider="true"
         android:entries="@array/pref_proxy_type_entries"
         android:entryValues="@array/pref_proxy_type_entries_value"
+        android:key="@string/pref_key_proxy_type"
+        android:persistent="false"
+        android:title="@string/pref_proxy_type_title"
         app:singleLineTitle="false"
-        android:persistent="false" />
+        app:useSimpleSummaryProvider="true" />
 
     <EditTextPreference
-        android:key="@string/pref_key_proxy_address"
-        android:title="@string/pref_proxy_address_title"
         android:inputType="text|textNoSuggestions"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:key="@string/pref_key_proxy_address"
+        android:persistent="false"
+        android:title="@string/pref_proxy_address_title"
+        app:singleLineTitle="false" />
 
     <EditTextPreference
-        android:key="@string/pref_key_proxy_port"
-        android:title="@string/pref_proxy_port_title"
         android:inputType="numberDecimal"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:key="@string/pref_key_proxy_port"
+        android:persistent="false"
+        android:title="@string/pref_proxy_port_title"
+        app:singleLineTitle="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_proxy_peers_too"
-        android:title="@string/pref_proxy_peers_too_title"
+        android:persistent="false"
         android:summary="@string/pref_proxy_peers_too_summary"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:title="@string/pref_proxy_peers_too_title"
+        app:singleLineTitle="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_proxy_requires_auth"
-        android:title="@string/pref_proxy_requires_auth_title"
+        android:persistent="false"
         android:summary="@string/pref_proxy_requires_auth_summary"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:title="@string/pref_proxy_requires_auth_title"
+        app:singleLineTitle="false" />
 
     <EditTextPreference
-        android:key="@string/pref_key_proxy_login"
-        android:title="@string/pref_proxy_login_title"
+        android:dependency="@string/pref_key_proxy_requires_auth"
         android:inputType="text|textNoSuggestions"
-        android:dependency="@string/pref_key_proxy_requires_auth"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:key="@string/pref_key_proxy_login"
+        android:persistent="false"
+        android:title="@string/pref_proxy_login_title"
+        app:singleLineTitle="false" />
 
     <EditTextPreference
-        android:key="@string/pref_key_proxy_password"
-        android:title="@string/pref_proxy_password_title"
-        android:inputType="textPassword"
         android:dependency="@string/pref_key_proxy_requires_auth"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:inputType="textPassword"
+        android:key="@string/pref_key_proxy_password"
+        android:persistent="false"
+        android:title="@string/pref_proxy_password_title"
+        app:singleLineTitle="false" />
 </PreferenceScreen>

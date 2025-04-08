@@ -5,16 +5,16 @@
 
     <shortcut
         android:enabled="true"
-        android:icon="@mipmap/ic_shortcut_add">
+        android:icon="@drawable/shortcut_add">
         <intent
             android:action="org.proninyaroslav.libretorrent.ADD_TORRENT_SHORTCUT"
-            android:targetClass="org.proninyaroslav.libretorrent.ui.main.MainActivity"
+            android:targetClass="org.proninyaroslav.libretorrent.MainActivity"
             android:targetPackage="org.proninyaroslav.libretorrent.debug" />
     </shortcut>
 
     <shortcut
         android:enabled="true"
-        android:icon="@mipmap/ic_shortcut_rss_feed">
+        android:icon="@drawable/shortcut_feed">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="org.proninyaroslav.libretorrent.ui.addfeed.AddFeedActivity"

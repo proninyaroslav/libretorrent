@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:icon="@drawable/ic_palette_24px"
+        android:key="@string/pref_key_appearance_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_appearance" />
 
     <Preference
-        android:key="AppearanceSettingsFragment"
-        android:title="@string/pref_header_appearance"
-        android:persistent="false" />
+        android:icon="@drawable/ic_tune_24px"
+        android:key="@string/pref_key_behavior_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_behavior" />
 
     <Preference
-        android:key="BehaviorSettingsFragment"
-        android:title="@string/pref_header_behavior"
-        android:persistent="false" />
+        android:icon="@drawable/ic_lan_24px"
+        android:key="@string/pref_key_network_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_network" />
 
     <Preference
-        android:key="NetworkSettingsFragment"
-        android:title="@string/pref_header_network"
-        android:persistent="false" />
+        android:icon="@drawable/ic_storage_24px"
+        android:key="@string/pref_key_storage_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_storage" />
 
     <Preference
-        android:key="StorageSettingsFragment"
-        android:title="@string/pref_header_storage"
-        android:persistent="false" />
+        android:icon="@drawable/ic_speed_24px"
+        android:key="@string/pref_key_limitations_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_limitations" />
 
     <Preference
-        android:key="LimitationsSettingsFragment"
-        android:title="@string/pref_header_limitations"
-        android:persistent="false" />
+        android:icon="@drawable/ic_schedule_24px"
+        android:key="@string/pref_key_scheduling_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_scheduling" />
 
     <Preference
-        android:key="SchedulingSettingsFragment"
-        android:title="@string/pref_header_scheduling"
-        android:persistent="false" />
+        android:icon="@drawable/ic_rss_feed_24px"
+        android:key="@string/pref_key_feed_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_feed" />
 
     <Preference
-        android:key="FeedSettingsFragment"
-        android:title="@string/pref_header_feed"
-        android:persistent="false" />
-
-    <Preference
-        android:key="StreamingSettingsFragment"
-        android:title="@string/pref_header_streaming"
-        android:persistent="false" />
+        android:icon="@drawable/ic_play_arrow_24px"
+        android:key="@string/pref_key_streaming_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_streaming" />
 </PreferenceScreen>

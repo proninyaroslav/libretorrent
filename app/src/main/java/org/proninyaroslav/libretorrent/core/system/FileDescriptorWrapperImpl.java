@@ -32,8 +32,8 @@ import java.io.IOException;
 
 class FileDescriptorWrapperImpl implements FileDescriptorWrapper
 {
-    private ContentResolver contentResolver;
-    private Uri path;
+    private final ContentResolver contentResolver;
+    private final Uri path;
     private ParcelFileDescriptor pfd;
 
     public FileDescriptorWrapperImpl(@NonNull Context appContext, @NonNull Uri path)

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/error_report_nav"
+    app:startDestination="@id/errorReportDialog">
+
+    <dialog
+        android:id="@+id/errorReportDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportDialog"
+        android:label="ErrorReportDialog"
+        tools:layout="@layout/dialog_error">
+        <argument
+            android:name="message"
+            app:argType="string" />
+        <argument
+            android:name="exception"
+            android:defaultValue="@null"
+            app:argType="java.lang.Throwable"
+            app:nullable="true" />
+    </dialog>
+</navigation>

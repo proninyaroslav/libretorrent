@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,13 +23,7 @@ import androidx.annotation.NonNull;
 
 import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 
-public class TagItem {
-    @NonNull
-    public final TagInfo info;
-
-    public TagItem(@NonNull TagInfo info) {
-        this.info = info;
-    }
+public record TagItem(@NonNull TagInfo info) {
 
     public boolean isSame(TagItem o) {
         return info.id == o.info.id;
@@ -43,11 +37,6 @@ public class TagItem {
         TagItem tagItem = (TagItem) o;
 
         return info.equals(tagItem.info);
-    }
-
-    @Override
-    public int hashCode() {
-        return info.hashCode();
     }
 
     @NonNull

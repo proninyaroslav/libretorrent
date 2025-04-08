@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,6 +23,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -30,11 +31,9 @@ import io.reactivex.disposables.Disposable;
 
 import static org.junit.Assert.*;
 
-public class LoggerTest
-{
+public class LoggerTest {
     @Test
-    public void testSend()
-    {
+    public void testSend() {
         Logger logger = new Logger(5);
 
         logger.send(new LogEntry(0, "TEST", "1", 1));
@@ -44,23 +43,22 @@ public class LoggerTest
         logger.send(new LogEntry(4, "TEST", "5", 5));
         logger.send(new LogEntry(5, "TEST", "6", 6));
 
-        assertEquals(1, logger.getEntry(0).getId());
-        assertEquals(2, logger.getEntry(1).getId());
-        assertEquals(3, logger.getEntry(2).getId());
-        assertEquals(4, logger.getEntry(3).getId());
-        assertEquals(5, logger.getEntry(4).getId());
+        assertEquals(1, Objects.requireNonNull(logger.getEntry(0)).getId());
+        assertEquals(2, Objects.requireNonNull(logger.getEntry(1)).getId());
+        assertEquals(3, Objects.requireNonNull(logger.getEntry(2)).getId());
+        assertEquals(4, Objects.requireNonNull(logger.getEntry(3)).getId());
+        assertEquals(5, Objects.requireNonNull(logger.getEntry(4)).getId());
     }
 
     @Test
-    public void testMaxStoredLogs()
-    {
+    public void testMaxStoredLogs() {
         Logger logger = new Logger(5);
         assertEquals(5, logger.getMaxStoredLogs());
 
         for (int i = 0; i < 100; i++)
             logger.send(new LogEntry(i, "TEST", "" + i, i + 1));
 
-        LogEntry[] expected = new LogEntry[] {
+        LogEntry[] expected = new LogEntry[]{
                 new LogEntry(95, "TEST", "95", 96),
                 new LogEntry(96, "TEST", "96", 97),
                 new LogEntry(97, "TEST", "97", 98),
@@ -76,7 +74,7 @@ public class LoggerTest
         for (int i = 0; i < 11; i++)
             logger.send(new LogEntry(i, "TEST", "" + i, i));
 
-        expected = new LogEntry[] {
+        expected = new LogEntry[]{
                 new LogEntry(5, "TEST", "5", 5),
                 new LogEntry(6, "TEST", "6", 6),
                 new LogEntry(7, "TEST", "7", 7),
@@ -89,8 +87,7 @@ public class LoggerTest
     }
 
     @Test
-    public void testGetLogEntry()
-    {
+    public void testGetLogEntry() {
         Logger logger = new Logger(1);
 
         LogEntry entry = new LogEntry(1, "TEST", "1", 1);
@@ -100,8 +97,7 @@ public class LoggerTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetLogEntry_outOfBounds()
-    {
+    public void testGetLogEntry_outOfBounds() {
         Logger logger = new Logger(1);
 
         LogEntry entry = new LogEntry(1, "TEST", "1", 1);
@@ -111,14 +107,13 @@ public class LoggerTest
     }
 
     @Test
-    public void testGetLogEntries()
-    {
+    public void testGetLogEntries() {
         Logger logger = new Logger(50);
 
         for (int i = 1; i <= 100; i++)
             logger.send(new LogEntry(i, "TEST", "" + i, i));
 
-        LogEntry[] expected = new LogEntry[] {
+        LogEntry[] expected = new LogEntry[]{
                 new LogEntry(60, "TEST", "60", 60),
                 new LogEntry(61, "TEST", "61", 61),
                 new LogEntry(62, "TEST", "62", 62),
@@ -133,14 +128,13 @@ public class LoggerTest
     }
 
     @Test
-    public void testGetLogEntries_entriesLessThanMaxSize()
-    {
+    public void testGetLogEntries_entriesLessThanMaxSize() {
         Logger logger = new Logger(10);
 
         for (int i = 1; i <= 5; i++)
             logger.send(new LogEntry(i, "TEST", "" + i, i));
 
-        LogEntry[] expected = new LogEntry[] {
+        LogEntry[] expected = new LogEntry[]{
                 new LogEntry(3, "TEST", "3", 3),
                 new LogEntry(4, "TEST", "4", 4),
                 new LogEntry(5, "TEST", "5", 5),
@@ -152,8 +146,7 @@ public class LoggerTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetLogEntries_indexOutOfBound()
-    {
+    public void testGetLogEntries_indexOutOfBound() {
         Logger logger = new Logger(3);
 
         logger.send(new LogEntry(1, "TEST", "1", 1));
@@ -164,48 +157,53 @@ public class LoggerTest
     }
 
     @Test
-    public void testFilter()
-    {
-        Logger logger = new Logger(20);
-        logger.addFilter(new Logger.NewFilter("filter1", (entry) -> entry.getId() % 2 != 0),
-                         new Logger.NewFilter("filter2", (entry) -> entry.getId() / 10 == 1));
+    public void testFilter() {
+        Logger logger = new Logger(10);
+        logger.addFilter(
+                new Logger.NewFilter("filter1", (entry) -> entry.getId() % 2 != 0),
+                new Logger.NewFilter("filter2", (entry) -> entry.getId() >= 10));
 
-        for (int i = 1; i <= 20; i++)
+        for (int i = 1; i <= 10; i++) {
             logger.send(new LogEntry(i, "TEST", "" + i, i));
+        }
 
         LogEntry[] expected = new LogEntry[]{
-                new LogEntry(11, "TEST", "11", 11),
-                new LogEntry(13, "TEST", "13", 13),
-                new LogEntry(15, "TEST", "15", 15),
-                new LogEntry(17, "TEST", "17", 17),
-                new LogEntry(19, "TEST", "19", 19),
+                new LogEntry(1, "TEST", "1", 1),
+                new LogEntry(3, "TEST", "3", 3),
+                new LogEntry(5, "TEST", "5", 5),
+                new LogEntry(7, "TEST", "7", 7),
+                new LogEntry(9, "TEST", "9", 9),
+                new LogEntry(10, "TEST", "10", 10),
         };
 
-        for (int i = 0; i < expected.length; i++)
+        for (int i = 0; i < expected.length; i++) {
             assertEquals(expected[i], logger.getEntry(i));
+        }
 
         logger.removeFilter("filter1", "filter2");
-        for (int i = 0; i < 20; i++)
-            assertEquals(i + 1, logger.getEntry(i).getId());
+        for (int i = 0; i < 10; i++) {
+            assertEquals(i + 1, Objects.requireNonNull(logger.getEntry(i)).getId());
+        }
     }
 
     @Test
-    public void testFilter_alreadyAddedEntries()
-    {
+    public void testFilter_alreadyAddedEntries() {
         Logger logger = new Logger(20);
 
-        for (int i = 1; i <= 20; i++)
+        for (int i = 1; i <= 10; i++)
             logger.send(new LogEntry(i, "TEST", "" + i, i));
 
-        logger.addFilter(new Logger.NewFilter("filter1", (entry) -> entry.getId() % 2 != 0),
-                         new Logger.NewFilter("filter2", (entry) -> entry.getId() / 10 == 1));
+        logger.addFilter(
+                new Logger.NewFilter("filter1", (entry) -> entry.getId() % 2 != 0),
+                new Logger.NewFilter("filter2", (entry) -> entry.getId() >= 10));
 
         LogEntry[] expected = new LogEntry[]{
-                new LogEntry(11, "TEST", "11", 11),
-                new LogEntry(13, "TEST", "13", 13),
-                new LogEntry(15, "TEST", "15", 15),
-                new LogEntry(17, "TEST", "17", 17),
-                new LogEntry(19, "TEST", "19", 19),
+                new LogEntry(1, "TEST", "1", 1),
+                new LogEntry(3, "TEST", "3", 3),
+                new LogEntry(5, "TEST", "5", 5),
+                new LogEntry(7, "TEST", "7", 7),
+                new LogEntry(9, "TEST", "9", 9),
+                new LogEntry(10, "TEST", "10", 10),
         };
 
         for (int i = 0; i < expected.length; i++)
@@ -213,16 +211,15 @@ public class LoggerTest
     }
 
     @Test
-    public void testObserveNewLogEntries()
-    {
+    public void testObserveNewLogEntries() {
         Logger logger = new Logger(100);
         CountDownLatch c = new CountDownLatch(100);
 
         Disposable d = logger.observeDataSetChanged()
                 .subscribe((change) -> {
-                    assertEquals(Logger.DataSetChange.Reason.NEW_ENTRIES, change.reason);
-                    assertNotNull(change.entries);
-                    for (LogEntry entry : change.entries) {
+                    assertEquals(Logger.DataSetChange.Reason.NEW_ENTRIES, change.reason());
+                    assertNotNull(change.entries());
+                    for (LogEntry entry : change.entries()) {
                         assertNotNull(entry);
                         c.countDown();
                     }
@@ -245,8 +242,7 @@ public class LoggerTest
     }
 
     @Test
-    public void testRecording()
-    {
+    public void testRecording() {
         Logger logger = new Logger(10);
 
         for (int i = 0; i < 16; i++)
@@ -259,11 +255,13 @@ public class LoggerTest
             logger.send(new LogEntry(i, "TEST", "" + i, i));
 
         String expected =
-                "[TEST] 15\n" +
-                "[TEST] 16\n" +
-                "[TEST] 17\n" +
-                "[TEST] 18\n" +
-                "[TEST] 19\n";
+                """
+                        [TEST] 15
+                        [TEST] 16
+                        [TEST] 17
+                        [TEST] 18
+                        [TEST] 19
+                        """;
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         assertEquals(5, logger.stopRecording(os));
@@ -272,8 +270,7 @@ public class LoggerTest
     }
 
     @Test
-    public void testRecording_bufferFull()
-    {
+    public void testRecording_bufferFull() {
         Logger logger = new Logger(10);
 
         logger.startRecording();
@@ -283,16 +280,18 @@ public class LoggerTest
             logger.send(new LogEntry(i, "TEST", "" + i, i));
 
         String expected =
-                "[TEST] 10\n" +
-                "[TEST] 11\n" +
-                "[TEST] 12\n" +
-                "[TEST] 13\n" +
-                "[TEST] 14\n" +
-                "[TEST] 15\n" +
-                "[TEST] 16\n" +
-                "[TEST] 17\n" +
-                "[TEST] 18\n" +
-                "[TEST] 19\n";
+                """
+                        [TEST] 10
+                        [TEST] 11
+                        [TEST] 12
+                        [TEST] 13
+                        [TEST] 14
+                        [TEST] 15
+                        [TEST] 16
+                        [TEST] 17
+                        [TEST] 18
+                        [TEST] 19
+                        """;
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         assertEquals(10, logger.stopRecording(os));
@@ -301,19 +300,20 @@ public class LoggerTest
     }
 
     @Test
-    public void testWrite()
-    {
+    public void testWrite() {
         Logger logger = new Logger(5);
 
         for (int i = 0; i < 10; i++)
             logger.send(new LogEntry(i, "TEST", "" + i, i));
 
         String expected =
-                "[TEST] 5\n" +
-                "[TEST] 6\n" +
-                "[TEST] 7\n" +
-                "[TEST] 8\n" +
-                "[TEST] 9\n";
+                """
+                        [TEST] 5
+                        [TEST] 6
+                        [TEST] 7
+                        [TEST] 8
+                        [TEST] 9
+                        """;
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         assertEquals(5, logger.write(os));

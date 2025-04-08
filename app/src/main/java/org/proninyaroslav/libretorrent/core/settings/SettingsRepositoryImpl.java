@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,21 +23,30 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory;
+
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.model.data.preferences.PrefTheme;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+
+import java.io.IOException;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposables;
 
 public class SettingsRepositoryImpl implements SettingsRepository {
+    private static final String TAG = SettingsRepositoryImpl.class.getSimpleName();
+
     private static class Default {
         /* Appearance settings */
         static final String notifySound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
@@ -45,13 +54,11 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         static final boolean playSoundNotify = true;
         static final boolean ledIndicatorNotify = true;
         static final boolean vibrationNotify = true;
-
-        static int theme(@NonNull Context context) {
-            return Integer.parseInt(context.getString(R.string.pref_theme_light_value));
-        }
+        static final PrefTheme theme = new PrefTheme.System();
+        static final boolean dynamicColors = true;
 
         static int ledIndicatorColorNotify(@NonNull Context context) {
-            return ContextCompat.getColor(context, R.color.primary);
+            return ContextCompat.getColor(context, R.color.branding_color);
         }
 
         static String foregroundNotifyStatusFilter(@NonNull Context context) {
@@ -177,9 +184,18 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         static final boolean askNotificationPermission = true;
     }
 
-    private Context appContext;
-    private SharedPreferences pref;
-    private FileSystemFacade fs;
+    private final Context appContext;
+    private final SharedPreferences pref;
+    private final FileSystemFacade fs;
+    private final Moshi moshi = new Moshi.Builder()
+            .add(PolymorphicJsonAdapterFactory.of(PrefTheme.class, "type")
+                    .withSubtype(PrefTheme.Unknown.class, "unknown")
+                    .withSubtype(PrefTheme.System.class, "system")
+                    .withSubtype(PrefTheme.Light.class, "light")
+                    .withSubtype(PrefTheme.Dark.class, "dark")
+                    .withSubtype(PrefTheme.Black.class, "black")
+            )
+            .build();
 
     public SettingsRepositoryImpl(@NonNull Context appContext) {
         this.appContext = appContext;
@@ -326,15 +342,38 @@ public class SettingsRepositoryImpl implements SettingsRepository {
     }
 
     @Override
-    public int theme() {
-        return pref.getInt(appContext.getString(R.string.pref_key_theme),
-                Default.theme(appContext));
+    public PrefTheme theme() {
+        var json = pref.getString(appContext.getString(R.string.pref_key_theme), null);
+        if (json == null) {
+            return Default.theme;
+        } else {
+            try {
+                return moshi.adapter(PrefTheme.class).fromJson(json);
+            } catch (IOException e) {
+                Log.e(TAG, "Unable to decode theme", e);
+                return new PrefTheme.Unknown();
+            }
+        }
     }
 
     @Override
-    public void theme(int val) {
+    public void theme(PrefTheme val) {
+        var json = moshi.adapter(PrefTheme.class).toJson(val);
         pref.edit()
-                .putInt(appContext.getString(R.string.pref_key_theme), val)
+                .putString(appContext.getString(R.string.pref_key_theme), json)
+                .apply();
+    }
+
+    @Override
+    public boolean dynamicColors() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_theme_dynamic_colors),
+                Default.dynamicColors);
+    }
+
+    @Override
+    public void dynamicColors(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_theme_dynamic_colors), val)
                 .apply();
     }
 

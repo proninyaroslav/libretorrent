@@ -40,8 +40,8 @@ public class InputFilterRange implements InputFilter
             .setMax(Integer.MAX_VALUE)
             .build();
 
-    private Integer min;
-    private Integer max;
+    private final Integer min;
+    private final Integer max;
 
     private InputFilterRange(Integer min, Integer max)
     {
@@ -69,7 +69,7 @@ public class InputFilterRange implements InputFilter
             return null;
 
         try {
-            int input = Integer.parseInt(dest.toString() + source.toString());
+            int input = Integer.parseInt(dest.toString() + source);
             if (inRange(input))
                 return null;
 

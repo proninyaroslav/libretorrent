@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -72,7 +72,7 @@ public class TorrentTagInfo {
 
     @Override
     public int hashCode() {
-        int result = (int) (tagId ^ (tagId >>> 32));
+        int result = Long.hashCode(tagId);
         result = 31 * result + torrentId.hashCode();
         return result;
     }

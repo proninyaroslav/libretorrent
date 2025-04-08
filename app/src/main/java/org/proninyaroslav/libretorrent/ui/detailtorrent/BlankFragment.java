@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,33 +23,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.databinding.FragmentBlankBinding;
 
-public class BlankFragment extends Fragment
-{
-    private String text;
-    public static BlankFragment newInstance(String text)
-    {
-        BlankFragment fragment = new BlankFragment();
-        fragment.text = text;
-
-        fragment.setArguments(new Bundle());
-
-        return fragment;
-    }
-
+public class BlankFragment extends Fragment {
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View v = inflater.inflate(R.layout.fragment_blank, container, false);
-        TextView textView = v.findViewById(R.id.blank_text);
-        textView.setText(text);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        var binding = FragmentBlankBinding.inflate(inflater, container, false);
 
-        return v;
+        var args = BlankFragmentArgs.fromBundle(getArguments());
+        binding.placeholder.setText(args.getText());
+        binding.placeholder.setText(args.getText());
+        binding.placeholder.setIconResource(args.getIcon());
+
+        return binding.getRoot();
     }
 }

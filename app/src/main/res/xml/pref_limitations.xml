@@ -2,77 +2,47 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <Preference
+        android:key="@string/pref_key_auto_manage"
+        android:persistent="false"
+        android:title="@string/pref_auto_manage_title"
+        app:singleLineTitle="false" />
+
     <EditTextPreference
+        android:inputType="numberDecimal"
         android:key="@string/pref_key_max_connections"
+        android:persistent="false"
         android:title="@string/pref_max_connections_title"
-        android:inputType="numberDecimal"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        app:singleLineTitle="false" />
 
     <EditTextPreference
+        android:inputType="numberDecimal"
         android:key="@string/pref_key_max_connections_per_torrent"
+        android:persistent="false"
         android:title="@string/pref_max_connections_per_torrent_title"
-        android:inputType="numberDecimal"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        app:singleLineTitle="false" />
 
     <EditTextPreference
-        android:key="@string/pref_key_max_uploads_per_torrent"
-        android:title="@string/pref_max_uploads_per_torrent_title"
         android:inputType="numberDecimal|numberSigned"
-        app:singleLineTitle="false"
-        android:persistent="false" />
+        android:key="@string/pref_key_max_uploads_per_torrent"
+        android:persistent="false"
+        android:title="@string/pref_max_uploads_per_torrent_title"
+        app:singleLineTitle="false" />
 
-    <PreferenceCategory
-        android:title="@string/pref_speed_category">
+    <PreferenceCategory android:title="@string/pref_speed_category">
 
         <EditTextPreference
+            android:inputType="numberDecimal"
             android:key="@string/pref_key_max_download_speed"
+            android:persistent="false"
             android:title="@string/pref_max_download_speed_title"
-            android:inputType="numberDecimal"
-            app:singleLineTitle="false"
-            android:persistent="false" />
+            app:singleLineTitle="false" />
 
         <EditTextPreference
+            android:inputType="numberDecimal"
             android:key="@string/pref_key_max_upload_speed"
+            android:persistent="false"
             android:title="@string/pref_max_upload_speed_title"
-            android:inputType="numberDecimal"
-            app:singleLineTitle="false"
-            android:persistent="false" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/pref_torrent_queueing_category">
-
-        <SwitchPreferenceCompat
-            android:key="@string/pref_key_auto_manage"
-            android:title="@string/pref_auto_manage_title"
-            android:summary="@string/pref_auto_manage_summary"
-            app:singleLineTitle="false"
-            android:persistent="false" />
-
-        <EditTextPreference
-            android:key="@string/pref_key_max_active_downloads"
-            android:title="@string/pref_max_active_downloads_title"
-            android:inputType="numberDecimal|numberSigned"
-            android:dependency="@string/pref_key_auto_manage"
-            app:singleLineTitle="false"
-            android:persistent="false" />
-
-        <EditTextPreference
-            android:key="@string/pref_key_max_active_uploads"
-            android:title="@string/pref_max_active_uploads_title"
-            android:inputType="numberDecimal|numberSigned"
-            android:dependency="@string/pref_key_auto_manage"
-            app:singleLineTitle="false"
-            android:persistent="false" />
-
-        <EditTextPreference
-            android:key="@string/pref_key_max_active_torrents"
-            android:title="@string/pref_max_active_torrents_title"
-            android:inputType="numberDecimal|numberSigned"
-            android:dependency="@string/pref_key_auto_manage"
-            app:singleLineTitle="false"
-            android:persistent="false" />
+            app:singleLineTitle="false" />
     </PreferenceCategory>
 </PreferenceScreen>

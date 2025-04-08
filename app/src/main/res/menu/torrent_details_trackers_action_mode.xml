@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/share_url_menu"
+        android:icon="@drawable/ic_share_24px"
+        app:showAsAction="ifRoom"
+        android:title="@string/share_tracker_url" />
+
+    <item android:id="@+id/delete_tracker_url"
+        android:icon="@drawable/ic_delete_24px"
+        app:showAsAction="ifRoom"
+        android:title="@string/delete" />
+
+    <item android:id="@+id/select_all_trackers_menu"
+        android:icon="@drawable/ic_select_all_24px"
+        app:showAsAction="ifRoom"
+        android:title="@string/select_all" />
+</menu>

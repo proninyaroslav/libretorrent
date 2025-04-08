@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,7 +22,6 @@ package org.proninyaroslav.libretorrent.core.model.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -30,7 +29,6 @@ import org.libtorrent4j.AnnounceEndpoint;
 import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.AnnounceInfohash;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +38,7 @@ import java.util.Map;
  * about the state of the bittorrent tracker, sent from the service.
  */
 
-public class TrackerInfo extends AbstractInfoParcel {
+public class TrackerInfo extends AbstractInfoParcel<TrackerInfo> {
     public String url;
     public String message;
     public int tier;
@@ -54,7 +52,7 @@ public class TrackerInfo extends AbstractInfoParcel {
         public static final int NOT_WORKING = 3;
     }
 
-    private class Result {
+    private static class Result {
         int status;
         String message;
 
@@ -151,7 +149,7 @@ public class TrackerInfo extends AbstractInfoParcel {
     ) {
         var status = infoHashStatus(entry, infoHash);
         var count = statusMap.getOrDefault(status, 0);
-        statusMap.put(status, count + 1);
+        statusMap.put(status, (count == null ? 0 : count) + 1);
     }
 
     private int infoHashStatus(AnnounceEntry entry, AnnounceInfohash infoHash) {
@@ -191,7 +189,7 @@ public class TrackerInfo extends AbstractInfoParcel {
     }
 
     public static final Parcelable.Creator<TrackerInfo> CREATOR =
-            new Parcelable.Creator<TrackerInfo>() {
+            new Parcelable.Creator<>() {
                 @Override
                 public TrackerInfo createFromParcel(Parcel source) {
                     return new TrackerInfo(source);
@@ -205,8 +203,8 @@ public class TrackerInfo extends AbstractInfoParcel {
 
 
     @Override
-    public int compareTo(@NonNull Object another) {
-        return url.compareTo(((TrackerInfo) another).url);
+    public int compareTo(@NonNull TrackerInfo another) {
+        return url.compareTo(another.url);
     }
 
     @Override
@@ -223,13 +221,13 @@ public class TrackerInfo extends AbstractInfoParcel {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TrackerInfo))
+        if (!(o instanceof TrackerInfo state)) {
             return false;
+        }
 
-        if (o == this)
+        if (o == this) {
             return true;
-
-        TrackerInfo state = (TrackerInfo) o;
+        }
 
         return (url == null || url.equals(state.url)) &&
                 (message == null || message.equals(state.message)) &&
@@ -240,24 +238,13 @@ public class TrackerInfo extends AbstractInfoParcel {
     @NonNull
     @Override
     public String toString() {
-        String status;
-
-        switch (this.status) {
-            case Status.NOT_CONTACTED:
-                status = "NOT_CONTACTED";
-                break;
-            case Status.WORKING:
-                status = "WORKING";
-                break;
-            case Status.UPDATING:
-                status = "UPDATING";
-                break;
-            case Status.NOT_WORKING:
-                status = "NOT_WORKING";
-                break;
-            default:
-                status = "UNKNOWN";
-        }
+        String status = switch (this.status) {
+            case Status.NOT_CONTACTED -> "NOT_CONTACTED";
+            case Status.WORKING -> "WORKING";
+            case Status.UPDATING -> "UPDATING";
+            case Status.NOT_WORKING -> "NOT_WORKING";
+            default -> "UNKNOWN";
+        };
 
         return "TrackerInfo{" +
                 "url='" + url + '\'' +

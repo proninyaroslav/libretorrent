@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2024 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -45,8 +45,6 @@ public class SessionSettings
     public static final boolean DEFAULT_UTP_ENABLED = true;
     public static final boolean DEFAULT_UPNP_ENABLED = true;
     public static final boolean DEFAULT_NATPMP_ENABLED = true;
-    public static final boolean DEFAULT_ENCRYPT_IN_CONNECTIONS = true;
-    public static final boolean DEFAULT_ENCRYPT_OUT_CONNECTIONS = true;
     public static final EncryptMode DEFAULT_ENCRYPT_MODE = EncryptMode.ENABLED;
     public static final boolean DEFAULT_AUTO_MANAGED = false;
     public static final String DEFAULT_INETADDRESS = "0.0.0.0";
@@ -63,11 +61,11 @@ public class SessionSettings
     public static final boolean DEFAULT_SEEDING_OUTGOING_CONNECTIONS = true;
     public static final boolean DEFAULT_LOGGING = BuildConfig.SESSION_LOGGING;
     public static final int DEFAULT_MAX_LOG_SIZE = 10000;
-    public static final boolean DEFAULT_LOG_SESSION_FILTER = false;
-    public static final boolean DEFAULT_LOG_DHT_FILTER = true;
-    public static final boolean DEFAULT_LOG_PEER_FILTER = true;
-    public static final boolean DEFAULT_LOG_PORTMAP_FILTER = true;
-    public static final boolean DEFAULT_LOG_TORRENT_FILTER = true;
+    public static final boolean DEFAULT_LOG_SESSION_FILTER = true;
+    public static final boolean DEFAULT_LOG_DHT_FILTER = false;
+    public static final boolean DEFAULT_LOG_PEER_FILTER = false;
+    public static final boolean DEFAULT_LOG_PORTMAP_FILTER = false;
+    public static final boolean DEFAULT_LOG_TORRENT_FILTER = false;
     public static final boolean DEFAULT_USE_RANDOM_PORT = true;
     public static final boolean DEFAULT_VALIDATE_HTTPS_TRACKERS = true;
     public static final boolean DEFAULT_POSIX_DISK_IO = false;
@@ -186,6 +184,7 @@ public class SessionSettings
         public static EncryptMode fromValue(int value)
         {
             EncryptMode[] enumValues = EncryptMode.class.getEnumConstants();
+            assert enumValues != null;
             for (EncryptMode ev : enumValues) {
                 if (ev.value() == value)
                     return ev;
@@ -211,6 +210,7 @@ public class SessionSettings
         public static ProxyType fromValue(int value)
         {
             ProxyType[] enumValues = ProxyType.class.getEnumConstants();
+            assert enumValues != null;
             for (ProxyType ev : enumValues) {
                 if (ev.value() == value) {
                     return ev;

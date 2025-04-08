@@ -26,74 +26,82 @@ import androidx.recyclerview.widget.RecyclerView;
  * A RecyclerView with empty view.
  */
 
-public class EmptyRecyclerView extends RecyclerView
-{
+public class EmptyRecyclerView extends RecyclerView {
     private View emptyView;
+    private View loadingView;
 
-    final private AdapterDataObserver observer = new AdapterDataObserver()
-    {
+    final private AdapterDataObserver observer = new AdapterDataObserver() {
         @Override
-        public void onChanged()
-        {
+        public void onChanged() {
             checkEmpty();
         }
 
         @Override
-        public void onItemRangeInserted(int positionStart, int itemCount)
-        {
+        public void onItemRangeInserted(int positionStart, int itemCount) {
             checkEmpty();
         }
 
         @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount)
-        {
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
             checkEmpty();
         }
     };
 
-    public EmptyRecyclerView(Context context)
-    {
+    public EmptyRecyclerView(Context context) {
         super(context);
     }
 
-    public EmptyRecyclerView(Context context, AttributeSet attrs)
-    {
+    public EmptyRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public EmptyRecyclerView(Context context, AttributeSet attrs, int defStyle)
-    {
+    public EmptyRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    void checkEmpty()
-    {
+    void checkEmpty() {
         if (emptyView != null && getAdapter() != null) {
             boolean isEmptyViewVisible = getAdapter().getItemCount() == 0;
 
-            emptyView.setVisibility((isEmptyViewVisible ? VISIBLE : GONE));
-            setVisibility((isEmptyViewVisible ? GONE : VISIBLE));
+            emptyView.setVisibility(isEmptyViewVisible ? VISIBLE : GONE);
+            setVisibility(isEmptyViewVisible ? GONE : VISIBLE);
         }
     }
 
     @Override
-    public void setAdapter(Adapter adapter)
-    {
+    public void setAdapter(Adapter adapter) {
         var oldAdapter = getAdapter();
-        if (oldAdapter != null)
+        if (oldAdapter != null) {
             oldAdapter.unregisterAdapterDataObserver(observer);
+        }
 
         super.setAdapter(adapter);
 
-        if (adapter != null)
+        if (adapter != null) {
             adapter.registerAdapterDataObserver(observer);
+        }
 
         checkEmpty();
     }
 
-    public void setEmptyView(View emptyView)
-    {
+    public void setEmptyView(View emptyView) {
         this.emptyView = emptyView;
         checkEmpty();
+    }
+
+    public void setLoadingView(View loadingView) {
+        this.loadingView = loadingView;
+        loadingView.setVisibility(GONE);
+    }
+
+    public void setLoading(boolean isLoading) {
+        if (loadingView != null) {
+            loadingView.setVisibility(isLoading ? VISIBLE : GONE);
+        }
+        if (isLoading) {
+            emptyView.setVisibility(GONE);
+        } else {
+            checkEmpty();
+        }
     }
 }

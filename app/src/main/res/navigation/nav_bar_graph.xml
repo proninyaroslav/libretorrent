@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bar"
+    app:startDestination="@id/home_nav">
+
+    <action
+        android:id="@+id/action_add_feed_dialog"
+        app:destination="@id/feed_nav">
+
+        <argument
+            android:name="uri"
+            app:argType="android.net.Uri" />
+    </action>
+
+    <navigation
+        android:id="@+id/home_nav"
+        app:startDestination="@id/homeFragment">
+
+        <fragment
+            android:id="@+id/homeFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.home.HomeFragment"
+            android:label="HomeFragment"
+            tools:layout="@layout/fragment_home">
+            <action
+                android:id="@+id/action_add_link_dialog"
+                app:destination="@id/addLinkDialog" />
+            <action
+                android:id="@+id/action_about_dialog"
+                app:destination="@id/aboutDialog" />
+            <action
+                android:id="@+id/action_delete_torrent_dialog"
+                app:destination="@id/deleteTorrentDialog" />
+            <action
+                android:id="@+id/action_edit_tag_dialog"
+                app:destination="@id/tag_nav">
+                <argument
+                    android:name="tag"
+                    android:defaultValue="@null"
+                    app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
+                    app:nullable="true" />
+            </action>
+            <action
+                android:id="@+id/action_add_tag_dialog"
+                app:destination="@id/tag_nav">
+                <argument
+                    android:name="tag"
+                    android:defaultValue="@null"
+                    app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
+                    app:nullable="true" />
+            </action>
+            <action
+                android:id="@+id/action_open_log"
+                app:destination="@id/logFragment"
+                app:enterAnim="?attr/navEnterAnim"
+                app:exitAnim="?attr/navExitAnim"
+                app:popEnterAnim="?attr/navPopEnterAnim"
+                app:popExitAnim="?attr/navPopExitAnim" />
+        </fragment>
+        <dialog
+            android:id="@+id/addLinkDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.addlink.AddLinkDialog"
+            android:label="AddLinkDialog"
+            tools:layout="@layout/dialog_add_link">
+            <action
+                android:id="@+id/action_clipboard_dialog"
+                app:destination="@id/clipboardDialog" />
+        </dialog>
+        <dialog
+            android:id="@+id/clipboardDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.ClipboardDialog"
+            android:label="ClipboardDialog"
+            tools:layout="@layout/item_clipboard_list">
+            <argument
+                android:name="fragment_request_key"
+                app:argType="string" />
+        </dialog>
+        <dialog
+            android:id="@+id/aboutDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.home.AboutDialog"
+            android:label="AboutDialog"
+            tools:layout="@layout/dialog_about" />
+        <dialog
+            android:id="@+id/deleteTorrentDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.home.DeleteTorrentDialog"
+            android:label="DeleteTorrentDialog"
+            tools:layout="@layout/dialog_delete_torrent">
+            <argument
+                android:name="torrent_count"
+                app:argType="integer" />
+            <argument
+                android:name="fragment_request_key"
+                app:argType="string" />
+        </dialog>
+        <include app:graph="@navigation/tag_graph" />
+        <fragment
+            android:id="@+id/logSettingsFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.log.LogSettingsFragment"
+            android:label="LogSettingsFragment" />
+        <fragment
+            android:id="@+id/logFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.log.LogFragment"
+            android:label="LogFragment"
+            tools:layout="@layout/fragment_log">
+            <action
+                android:id="@+id/action_open_log_settings"
+                app:destination="@id/logSettingsFragment"
+                app:enterAnim="?attr/navEnterAnim"
+                app:exitAnim="?attr/navExitAnim"
+                app:popEnterAnim="?attr/navPopEnterAnim"
+                app:popExitAnim="?attr/navPopExitAnim" />
+            <action
+                android:id="@+id/action_log_filter_dialog"
+                app:destination="@id/logFilterDialog" />
+        </fragment>
+        <dialog
+            android:id="@+id/logFilterDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.log.LogFilterDialog"
+            android:label="LogFilterDialog"
+            tools:layout="@layout/dialog_log_filter" />
+    </navigation>
+    <navigation
+        android:id="@+id/settings_nav"
+        app:startDestination="@id/settingsFragment">
+        <fragment
+            android:id="@+id/settingsFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.settings.SettingsFragment"
+            android:label="SettingsFragment" />
+    </navigation>
+    <navigation
+        android:id="@+id/feed_nav"
+        app:startDestination="@id/feedFragment">
+        <fragment
+            android:id="@+id/feedFragment"
+            android:name="org.proninyaroslav.libretorrent.ui.feeds.FeedFragment"
+            android:label="FeedFragment"
+            tools:layout="@layout/fragment_feed">
+            <action
+                android:id="@+id/action_add_feed_dialog"
+                app:destination="@id/addFeedDialog">
+                <argument
+                    android:name="uri"
+                    android:defaultValue="@null"
+                    app:argType="android.net.Uri"
+                    app:nullable="true" />
+            </action>
+            <action
+                android:id="@+id/action_edit_feed_dialog"
+                app:destination="@id/addFeedDialog">
+                <argument
+                    android:name="feed_id"
+                    app:argType="long" />
+            </action>
+            <action
+                android:id="@+id/action_error_report_dialog"
+                app:destination="@id/error_report_nav">
+                <argument
+                    android:name="message"
+                    app:argType="string" />
+                <argument
+                    android:name="exception"
+                    android:defaultValue="@null"
+                    app:argType="java.lang.Throwable"
+                    app:nullable="true" />
+            </action>
+            <action
+                android:id="@+id/action_delete_feeds_dialog"
+                app:destination="@id/deleteFeedDialog" />
+            <argument
+                android:name="uri"
+                android:defaultValue="@null"
+                app:argType="android.net.Uri"
+                app:nullable="true" />
+        </fragment>
+        <dialog
+            android:id="@+id/addFeedDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.addfeed.AddFeedDialog"
+            android:label="AddFeedDialog"
+            tools:layout="@layout/dialog_add_feed_channel">
+            <argument
+                android:name="feed_id"
+                android:defaultValue="-1L"
+                app:argType="long" />
+            <argument
+                android:name="uri"
+                android:defaultValue="@null"
+                app:argType="android.net.Uri"
+                app:nullable="true" />
+            <action
+                android:id="@+id/action_clipboard_dialog"
+                app:destination="@id/clipboardDialog" />
+            <action
+                android:id="@+id/action_delete_feed_dialog"
+                app:destination="@id/deleteFeedDialog" />
+        </dialog>
+        <dialog
+            android:id="@+id/clipboardDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.ClipboardDialog"
+            android:label="ClipboardDialog"
+            tools:layout="@layout/item_clipboard_list">
+            <argument
+                android:name="fragment_request_key"
+                app:argType="string" />
+        </dialog>
+        <include app:graph="@navigation/error_report_graph" />
+        <dialog
+            android:id="@+id/deleteFeedDialog"
+            android:name="org.proninyaroslav.libretorrent.ui.feeds.DeleteFeedDialog"
+            android:label="DeleteFeedDialog">
+            <argument
+                android:name="fragment_request_key"
+                app:argType="string" />
+            <argument
+                android:name="feed_count"
+                app:argType="integer" />
+        </dialog>
+    </navigation>
+</navigation>

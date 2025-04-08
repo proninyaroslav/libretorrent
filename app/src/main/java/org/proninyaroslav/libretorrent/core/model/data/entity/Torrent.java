@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -30,14 +30,14 @@ import androidx.room.PrimaryKey;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /*
  * The class encapsulates the torrent file and its meta information.
  */
 
 @Entity
-public class Torrent implements Parcelable
-{
+public class Torrent implements Parcelable {
     /*
      * This torrent is visible and shows in the notifications after completion
      */
@@ -76,7 +76,7 @@ public class Torrent implements Parcelable
                    long dateAdded,
                    boolean sequentialDownload,
                    boolean firstLastPiecePriority
-    ){
+    ) {
         this.id = id;
         this.name = name;
         this.downloadPath = downloadPath;
@@ -94,19 +94,18 @@ public class Torrent implements Parcelable
                    long dateAdded,
                    boolean sequentialDownload,
                    boolean firstLastPiecePriority
-    ){
+    ) {
         this(id, downloadPath, name, manuallyPaused, dateAdded, sequentialDownload, firstLastPiecePriority);
 
         this.magnet = magnet;
     }
 
     @Ignore
-    public Torrent(Parcel source)
-    {
-        id = source.readString();
+    public Torrent(Parcel source) {
+        id = Objects.requireNonNull(source.readString());
         magnet = source.readString();
-        downloadPath = source.readParcelable(Uri.class.getClassLoader());
-        name = source.readString();
+        downloadPath = Objects.requireNonNull(source.readParcelable(Uri.class.getClassLoader()));
+        name = Objects.requireNonNull(source.readString());
         downloadingMetadata = source.readByte() != 0;
         dateAdded = source.readLong();
         error = source.readString();
@@ -116,69 +115,59 @@ public class Torrent implements Parcelable
         firstLastPiecePriority = source.readByte() != 0;
     }
 
-    public boolean isDownloadingMetadata()
-    {
+    public boolean isDownloadingMetadata() {
         return downloadingMetadata;
     }
 
-    public String getMagnet()
-    {
+    public String getMagnet() {
         return magnet;
     }
 
-    public void setMagnetUri(String magnet)
-    {
+    public void setMagnetUri(String magnet) {
         this.magnet = magnet;
         downloadingMetadata = magnet != null;
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(magnet);
         dest.writeParcelable(downloadPath, flags);
         dest.writeString(name);
-        dest.writeByte((byte)(downloadingMetadata ? 1 : 0));
+        dest.writeByte((byte) (downloadingMetadata ? 1 : 0));
         dest.writeLong(dateAdded);
         dest.writeString(error);
-        dest.writeByte((byte)(manuallyPaused ? 1 : 0));
+        dest.writeByte((byte) (manuallyPaused ? 1 : 0));
         dest.writeInt(visibility);
-        dest.writeByte((byte)(sequentialDownload ? 1 : 0));
-        dest.writeByte((byte)(firstLastPiecePriority ? 1 : 0));
+        dest.writeByte((byte) (sequentialDownload ? 1 : 0));
+        dest.writeByte((byte) (firstLastPiecePriority ? 1 : 0));
     }
 
-    public static final Creator<Torrent> CREATOR = new Creator<>()
-            {
-                @Override
-                public Torrent createFromParcel(Parcel source)
-                {
-                    return new Torrent(source);
-                }
+    public static final Creator<Torrent> CREATOR = new Creator<>() {
+        @Override
+        public Torrent createFromParcel(Parcel source) {
+            return new Torrent(source);
+        }
 
-                @Override
-                public Torrent[] newArray(int size)
-                {
-                    return new Torrent[size];
-                }
-            };
+        @Override
+        public Torrent[] newArray(int size) {
+            return new Torrent[size];
+        }
+    };
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return id.hashCode();
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        return o instanceof Torrent && (o == this || id.equals(((Torrent)o).id));
+    public boolean equals(Object o) {
+        return o instanceof Torrent && (o == this || id.equals(((Torrent) o).id));
     }
 
     @NonNull

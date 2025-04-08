@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -31,13 +31,11 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class TorrentContentFileTreeTest
-{
-    private ArrayList<BencodeFileItem> files = new ArrayList<>();
+public class TorrentContentFileTreeTest {
+    private final ArrayList<BencodeFileItem> files = new ArrayList<>();
 
     @Before
-    public void init()
-    {
+    public void init() {
         files.add(new BencodeFileItem("foo/dir1/file1.txt", 0, 0));
         files.add(new BencodeFileItem("foo/dir1/file2.txt", 1, 1));
         files.add(new BencodeFileItem("foo/dir2/file1.txt", 2, 2));
@@ -46,8 +44,7 @@ public class TorrentContentFileTreeTest
     }
 
     @Test
-    public void makeTreeTest()
-    {
+    public void makeTreeTest() {
         Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
         TorrentContentFileTree tree = res.first;
         TorrentContentFileTree[] child = res.second;
@@ -174,8 +171,7 @@ public class TorrentContentFileTreeTest
     }
 
     @Test
-    public void setPriorityTest()
-    {
+    public void setPriorityTest() {
         Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
         TorrentContentFileTree tree = res.first;
         TorrentContentFileTree[] child = res.second;
@@ -204,8 +200,7 @@ public class TorrentContentFileTreeTest
     }
 
     @Test
-    public void setPriorityTest_NoForceUpdateParent()
-    {
+    public void setPriorityTest_NoForceUpdateParent() {
         Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
         TorrentContentFileTree tree = res.first;
         TorrentContentFileTree[] child = res.second;
@@ -240,8 +235,7 @@ public class TorrentContentFileTreeTest
     }
 
     @Test
-    public void selectTest()
-    {
+    public void selectTest() {
         Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
         TorrentContentFileTree tree = res.first;
         TorrentContentFileTree[] child = res.second;
@@ -270,8 +264,7 @@ public class TorrentContentFileTreeTest
     }
 
     @Test
-    public void selectTest_NoForceUpdateParent()
-    {
+    public void selectTest_NoForceUpdateParent() {
         Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
         TorrentContentFileTree tree = res.first;
         TorrentContentFileTree[] child = res.second;
@@ -307,8 +300,7 @@ public class TorrentContentFileTreeTest
     }
 
     @Test
-    public void selectedFileSizeTest()
-    {
+    public void selectedFileSizeTest() {
         Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
         TorrentContentFileTree tree = res.first;
         TorrentContentFileTree[] child = res.second;
@@ -324,8 +316,7 @@ public class TorrentContentFileTreeTest
     }
 
     @Test
-    public void getReceivedBytesTest()
-    {
+    public void getReceivedBytesTest() {
         Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
         TorrentContentFileTree tree = res.first;
         TorrentContentFileTree[] child = res.second;
@@ -346,8 +337,7 @@ public class TorrentContentFileTreeTest
     }
 
     @Test
-    public void getAvailabilityTest()
-    {
+    public void getAvailabilityTest() {
         Pair<TorrentContentFileTree, TorrentContentFileTree[]> res = TorrentContentFileTreeUtils.buildFileTree(files);
         TorrentContentFileTree tree = res.first;
         TorrentContentFileTree[] child = res.second;

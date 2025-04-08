@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,9 @@
 
 package org.proninyaroslav.libretorrent.core.exception;
 
-public class NormalizeUrlException extends Exception
-{
-    public NormalizeUrlException(String message, Exception e)
-    {
+public class NormalizeUrlException extends Exception {
+    public NormalizeUrlException(String message, Exception e) {
         super(message);
         initCause(e);
-    }
-
-    public NormalizeUrlException(String message)
-    {
-        super(message);
     }
 }

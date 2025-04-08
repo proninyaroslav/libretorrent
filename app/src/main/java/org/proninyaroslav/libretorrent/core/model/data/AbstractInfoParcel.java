@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,29 +28,23 @@ import java.util.UUID;
  * The class provides an abstract package model, sent from the service.
  */
 
-public abstract class AbstractInfoParcel
-        implements Parcelable, Comparable
-{
+public abstract class AbstractInfoParcel<T> implements Parcelable, Comparable<T> {
     public String parcelId;
 
-    protected AbstractInfoParcel()
-    {
+    protected AbstractInfoParcel() {
         parcelId = UUID.randomUUID().toString();
     }
 
-    protected AbstractInfoParcel(String parcelId)
-    {
+    protected AbstractInfoParcel(String parcelId) {
         this.parcelId = parcelId;
     }
 
-    protected AbstractInfoParcel(Parcel source)
-    {
+    protected AbstractInfoParcel(Parcel source) {
         parcelId = source.readString();
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(parcelId);
     }
 

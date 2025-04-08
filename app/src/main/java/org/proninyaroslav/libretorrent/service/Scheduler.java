@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -122,7 +122,7 @@ public class Scheduler {
                 .build();
 
         WorkManager.getInstance(appContext).enqueueUniquePeriodicWork(SCHEDULER_WORK_PERIODICAL_REFRESH_FEEDS,
-                ExistingPeriodicWorkPolicy.REPLACE, work);
+                ExistingPeriodicWorkPolicy.UPDATE, work);
     }
 
     private static Constraints getRefreshFeedsConstraints(Context appContext) {

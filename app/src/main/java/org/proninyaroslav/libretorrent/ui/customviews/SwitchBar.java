@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -20,56 +20,56 @@
 package org.proninyaroslav.libretorrent.ui.customviews;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.RippleDrawable;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
+
+import com.google.android.material.color.MaterialColors;
+import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.shape.MaterialShapeDrawable;
+import com.google.android.material.shape.ShapeAppearanceModel;
 
 import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-public class SwitchBar extends SwitchCompat
-{
-    public SwitchBar(@NonNull Context context)
-    {
-        super(new ContextThemeWrapper(context, R.style.SwitchBar));
+public class SwitchBar extends MaterialSwitch {
+    public SwitchBar(@NonNull Context context) {
+        super(new ContextThemeWrapper(context, R.style.App_Components_SwitchBar), null, R.style.App_Components_SwitchBar);
 
-        init(context);
+        init();
     }
 
-    public SwitchBar(@NonNull Context context, @Nullable AttributeSet attrs)
-    {
-        super(new ContextThemeWrapper(context, R.style.SwitchBar), attrs);
+    public SwitchBar(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(new ContextThemeWrapper(context, R.style.App_Components_SwitchBar), attrs, R.style.App_Components_SwitchBar);
 
-        init(context);
+        init();
     }
 
-    public SwitchBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
-    {
-        super(new ContextThemeWrapper(context, R.style.SwitchBar), attrs, defStyleAttr);
+    public SwitchBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(new ContextThemeWrapper(context, R.style.App_Components_SwitchBar), attrs, defStyleAttr);
 
-        init(context);
+        init();
     }
 
-    private void init(Context context)
-    {
-        Drawable background = ContextCompat.getDrawable(context, R.drawable.switchbar_background);
-        if (background != null)
-            Utils.setBackground(this, background);
+    private void init() {
+        setTextAppearance(R.style.TextAppearance_App_Components_SwitchBar);
 
-        setTextColor(ContextCompat.getColor(context, R.color.text_primary));
-        setText(isChecked() ? R.string.switch_on : R.string.switch_off);
-    }
+        var background = new MaterialShapeDrawable();
+        background.setTint(MaterialColors.getColor(this, R.attr.colorPrimaryContainer));
+        var shape = ShapeAppearanceModel.builder()
+                .setAllCornerSizes(80f)
+                .build();
+        background.setShapeAppearanceModel(shape);
+        setBackground(background);
 
-    @Override
-    public void setChecked(boolean checked)
-    {
-        super.setChecked(checked);
-
-        setText(isChecked() ? R.string.switch_on : R.string.switch_off);
+        var foregroundShapeDrawable = new MaterialShapeDrawable();
+        foregroundShapeDrawable.setShapeAppearanceModel(background.getShapeAppearanceModel());
+        var rippleColor = ColorStateList.valueOf(
+                MaterialColors.getColor(this, R.attr.colorControlHighlight));
+        var foreground = new RippleDrawable(rippleColor, null, foregroundShapeDrawable);
+        setForeground(foreground);
     }
 }

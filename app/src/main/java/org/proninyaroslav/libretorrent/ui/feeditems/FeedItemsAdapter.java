@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -19,23 +19,20 @@
 
 package org.proninyaroslav.libretorrent.ui.feeditems;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.util.TypedValue;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.proninyaroslav.libretorrent.R;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemFeedItemsListBinding;
 import org.proninyaroslav.libretorrent.ui.Selectable;
 
@@ -46,14 +43,10 @@ import java.util.Date;
 import java.util.List;
 
 public class FeedItemsAdapter extends ListAdapter<FeedItemsListItem, FeedItemsAdapter.ViewHolder>
-        implements Selectable<FeedItemsListItem>
-{
-    private static final String TAG = FeedItemsAdapter.class.getSimpleName();
+        implements Selectable<FeedItemsListItem> {
+    private final ClickListener listener;
 
-    private ClickListener listener;
-
-    public FeedItemsAdapter(ClickListener listener)
-    {
+    public FeedItemsAdapter(ClickListener listener) {
         super(diffCallback);
 
         this.listener = listener;
@@ -61,97 +54,88 @@ public class FeedItemsAdapter extends ListAdapter<FeedItemsListItem, FeedItemsAd
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemFeedItemsListBinding binding = DataBindingUtil.inflate(inflater,
-                R.layout.item_feed_items_list,
-                parent,
-                false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        var inflater = LayoutInflater.from(parent.getContext());
+        var binding = ItemFeedItemsListBinding.inflate(inflater, parent, false);
 
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(getItem(position), listener);
     }
 
     @Override
-    public void submitList(@Nullable List<FeedItemsListItem> list)
-    {
-        if (list != null)
+    public void submitList(@Nullable List<FeedItemsListItem> list) {
+        if (list != null) {
             Collections.sort(list);
+        }
 
         super.submitList(list);
     }
 
     @Override
-    public FeedItemsListItem getItemKey(int position)
-    {
-        if (position < 0 || position >= getCurrentList().size())
+    public FeedItemsListItem getItemKey(int position) {
+        if (position < 0 || position >= getCurrentList().size()) {
             return null;
+        }
 
         return getItem(position);
     }
 
     @Override
-    public int getItemPosition(FeedItemsListItem key)
-    {
+    public int getItemPosition(FeedItemsListItem key) {
         return getCurrentList().indexOf(key);
     }
 
-    private static final DiffUtil.ItemCallback<FeedItemsListItem> diffCallback = new DiffUtil.ItemCallback<FeedItemsListItem>()
-    {
+    private static final DiffUtil.ItemCallback<FeedItemsListItem> diffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areContentsTheSame(@NonNull FeedItemsListItem oldItem,
-                                          @NonNull FeedItemsListItem newItem)
-        {
+                                          @NonNull FeedItemsListItem newItem) {
             return oldItem.equalsContent(newItem);
         }
 
         @Override
         public boolean areItemsTheSame(@NonNull FeedItemsListItem oldItem,
-                                       @NonNull FeedItemsListItem newItem)
-        {
+                                       @NonNull FeedItemsListItem newItem) {
             return oldItem.equals(newItem);
         }
     };
 
-    public interface ClickListener
-    {
+    public interface ClickListener {
         void onItemClicked(@NonNull FeedItemsListItem item);
 
         void onItemMenuClicked(int menuId, @NonNull FeedItemsListItem item);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
-    {
-        private ItemFeedItemsListBinding binding;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final ItemFeedItemsListBinding binding;
+        private final Typeface titleTypeface;
+        private final Typeface titleTypefaceBold;
 
-        public ViewHolder(ItemFeedItemsListBinding binding)
-        {
+        public ViewHolder(ItemFeedItemsListBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
+            titleTypeface = binding.title.getTypeface();
+            titleTypefaceBold = Utils.getBoldTypeface(titleTypeface);
         }
 
-        void bind(FeedItemsListItem item, ClickListener listener)
-        {
-            Context context = itemView.getContext();
-
+        void bind(FeedItemsListItem item, ClickListener listener) {
             binding.menu.setOnClickListener((v) -> {
-                PopupMenu popup = new PopupMenu(v.getContext(), v);
+                var popup = new PopupMenu(v.getContext(), v);
                 popup.inflate(R.menu.feed_item_popup);
 
-                Menu menu = popup.getMenu();
-                MenuItem markAsRead = menu.findItem(R.id.mark_as_read_menu);
-                MenuItem markAsUnread = menu.findItem(R.id.mark_as_unread_menu);
-                if (markAsRead != null)
+                var menu = popup.getMenu();
+                var markAsRead = menu.findItem(R.id.mark_as_read_menu);
+                var markAsUnread = menu.findItem(R.id.mark_as_unread_menu);
+                if (markAsRead != null) {
                     markAsRead.setVisible(!item.read);
-                if (markAsUnread != null)
+                }
+                if (markAsUnread != null) {
                     markAsUnread.setVisible(item.read);
+                }
 
                 popup.setOnMenuItemClickListener((MenuItem menuItem) -> {
                     if (listener != null)
@@ -161,20 +145,13 @@ public class FeedItemsAdapter extends ListAdapter<FeedItemsListItem, FeedItemsAd
                 popup.show();
             });
 
-            itemView.setOnClickListener((v) -> {
-                if (listener != null)
+            binding.card.setOnClickListener((v) -> {
+                if (listener != null) {
                     listener.onItemClicked(item);
+                }
             });
 
-            int styleAttr;
-            if (item.read)
-                styleAttr = android.R.attr.textColorSecondary;
-            else
-                styleAttr = android.R.attr.textColorPrimary;
-            TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[]{ styleAttr });
-            binding.title.setTextColor(a.getColor(0, 0));
-            a.recycle();
-            binding.title.setTextAppearance(item.read ? R.style.normalText : R.style.boldText);
+            binding.title.setTypeface(item.read ? titleTypeface : titleTypefaceBold);
             binding.title.setText(item.title);
 
             binding.pubDate.setText(SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)

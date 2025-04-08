@@ -1,14 +1,14 @@
 package com.ernieyu.feedparser.impl;
 
-import java.util.Stack;
+import com.ernieyu.feedparser.Feed;
+import com.ernieyu.feedparser.FeedType;
 
 import org.apache.commons.text.StringEscapeUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.ernieyu.feedparser.Feed;
-import com.ernieyu.feedparser.FeedType;
+import java.util.Stack;
 
 /**
  * SAX parser content handler to process feed XML.

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,13 +23,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.proninyaroslav.libretorrent.R;
-import org.proninyaroslav.libretorrent.databinding.TagsListItemBinding;
+import org.proninyaroslav.libretorrent.databinding.ItemTagsListBinding;
 
 public class TagsAdapter extends ListAdapter<TagItem, TagsAdapter.ViewHolder> {
     @NonNull
@@ -44,26 +42,21 @@ public class TagsAdapter extends ListAdapter<TagItem, TagsAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        TagsListItemBinding binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.tags_list_item,
-                parent,
-                false
-        );
+        var inflater = LayoutInflater.from(parent.getContext());
+        var binding = ItemTagsListBinding.inflate(inflater, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TagItem item = getItem(position);
+        var item = getItem(position);
         if (item != null) {
             holder.bind(item, listener);
         }
     }
 
     static final DiffUtil.ItemCallback<TagItem> diffCallback =
-            new DiffUtil.ItemCallback<TagItem>() {
+            new DiffUtil.ItemCallback<>() {
                 @Override
                 public boolean areContentsTheSame(
                         @NonNull TagItem oldItem,
@@ -85,22 +78,19 @@ public class TagsAdapter extends ListAdapter<TagItem, TagsAdapter.ViewHolder> {
         void onTagClicked(@NonNull TagItem item);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         @NonNull
-        private final TagsListItemBinding binding;
+        private final ItemTagsListBinding binding;
 
-        public ViewHolder(@NonNull TagsListItemBinding binding) {
+        public ViewHolder(@NonNull ItemTagsListBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
         }
 
-        void bind(
-                @NonNull TagItem item,
-                OnClickListener listener
-        ) {
-            binding.name.setText(item.info.name);
-            binding.color.setColor(item.info.color);
+        void bind(@NonNull TagItem item, OnClickListener listener) {
+            binding.name.setText(item.info().name);
+            binding.color.setColor(item.info().color);
             binding.getRoot().setOnClickListener((v) -> {
                 if (listener != null) {
                     listener.onTagClicked(item);

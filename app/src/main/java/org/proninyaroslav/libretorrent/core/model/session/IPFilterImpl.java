@@ -28,7 +28,7 @@ import org.proninyaroslav.libretorrent.core.exception.IPFilterException;
 
 class IPFilterImpl implements IPFilter
 {
-    private ip_filter filter;
+    private final ip_filter filter;
 
     public IPFilterImpl()
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -54,13 +54,11 @@ import java.util.List;
  *  - ezRSS <torrent: ... > namespace
  */
 
-public class FeedParser
-{
-    private FeedChannel feedChannel;
+public class FeedParser {
+    private final FeedChannel feedChannel;
     private Feed feed;
 
-    public FeedParser(@NonNull Context context, @NonNull FeedChannel feedChannel) throws Exception
-    {
+    public FeedParser(@NonNull Context context, @NonNull FeedChannel feedChannel) throws Exception {
         this.feedChannel = feedChannel;
         ByteArrayInputStream bsStream = null;
         try {
@@ -81,13 +79,11 @@ public class FeedParser
         }
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return feed.getTitle();
     }
 
-    public List<FeedItem> getItems()
-    {
+    public List<FeedItem> getItems() {
         List<FeedItem> items = new ArrayList<>();
         if (feed == null)
             return items;
@@ -115,8 +111,7 @@ public class FeedParser
         return items;
     }
 
-    private String getFirstNotNullLink(List<String> links)
-    {
+    private String getFirstNotNullLink(List<String> links) {
         for (String link : links) {
             if (!TextUtils.isEmpty(link))
                 return link;
@@ -125,8 +120,7 @@ public class FeedParser
         return null;
     }
 
-    private String watchDownloadableLink(List<String> links)
-    {
+    private String watchDownloadableLink(List<String> links) {
         for (String link : links) {
             if (link == null)
                 continue;
@@ -138,8 +132,7 @@ public class FeedParser
         return null;
     }
 
-    private String findDownloadUrl(Item item)
-    {
+    private String findDownloadUrl(Item item) {
         /*
          * Watch tags in descending order of importance
          * (hashes in the last place)
@@ -156,8 +149,7 @@ public class FeedParser
         if (mediaContentUrl != null)
             return mediaContentUrl;
 
-        String guid = watchGuid(item);
-        return guid;
+        return watchGuid(item);
     }
 
     /*
@@ -165,8 +157,7 @@ public class FeedParser
      * <enclosure type="application/x-bittorrent" url="http://foo.com/bar.torrent"/>
      */
 
-    private String watchEnclosure(Item item)
-    {
+    private String watchEnclosure(Item item) {
         for (Enclosure enclosure : item.getEnclosures()) {
             if (enclosure == null)
                 continue;
@@ -185,8 +176,7 @@ public class FeedParser
      * <media:content type="application/x-bittorrent" url="http://foo.com/bar.torrent"/>
      */
 
-    private String watchMediaContent(Item item)
-    {
+    private String watchMediaContent(Item item) {
         MediaRss media = item.getMediaRss();
         if (media == null)
             return null;
@@ -212,8 +202,7 @@ public class FeedParser
      * <media:hash algo="sha1">8c056e06fbc16d2a2be79cefbf3e4ddc15396abe</media:hash>
      */
 
-    private String watchMediaHash(MediaRss media)
-    {
+    private String watchMediaHash(MediaRss media) {
         Hash hash = media.getHash();
         if (hash == null)
             return null;
@@ -233,8 +222,7 @@ public class FeedParser
      * <torrent:infoHash>8c056e06fbc16d2a2be79cefbf3e4ddc15396abe</torrent:infoHash>
      */
 
-    private String watchTorrentInfoHash(Item item)
-    {
+    private String watchTorrentInfoHash(Item item) {
         EzRssTorrentItem torrentItem = item.getEzRssTorrentItem();
         if (torrentItem == null)
             return null;
@@ -251,8 +239,7 @@ public class FeedParser
      * <guid>http://foo.com/bar.torrent</guid>
      */
 
-    private String watchGuid(Item item)
-    {
+    private String watchGuid(Item item) {
         String url = item.getGuid();
         if (url != null && isMagnetOrTorrent(url))
             return url;
@@ -260,8 +247,7 @@ public class FeedParser
         return null;
     }
 
-    private boolean isMagnetOrTorrent(String url)
-    {
+    private boolean isMagnetOrTorrent(String url) {
         return url.endsWith(".torrent") || url.startsWith(Utils.MAGNET_PREFIX);
     }
 }

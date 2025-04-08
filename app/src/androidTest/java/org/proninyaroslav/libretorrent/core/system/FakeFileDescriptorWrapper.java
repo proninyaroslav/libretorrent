@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,21 +23,19 @@ import androidx.annotation.NonNull;
 
 import java.io.FileDescriptor;
 
-public class FakeFileDescriptorWrapper implements FileDescriptorWrapper
-{
-    private FileDescriptor fd;
+public class FakeFileDescriptorWrapper implements FileDescriptorWrapper {
+    private final FileDescriptor fd;
 
-    public FakeFileDescriptorWrapper(FileDescriptor fd)
-    {
+    public FakeFileDescriptorWrapper(FileDescriptor fd) {
         this.fd = fd;
     }
 
     @Override
-    public FileDescriptor open(@NonNull String mode)
-    {
+    public FileDescriptor open(@NonNull String mode) {
         return fd;
     }
 
     @Override
-    public void close() { }
+    public void close() {
+    }
 }

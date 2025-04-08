@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/resumed"
+        android:drawable="@drawable/ic_pause_24px"
+        android:state_checked="true" />
+    <item
+        android:id="@+id/paused"
+        android:drawable="@drawable/ic_play_arrow_24px"
+        android:state_checked="false" />
+
+    <transition
+        android:drawable="@drawable/avd_pause_to_play"
+        android:fromId="@id/resumed"
+        android:toId="@id/paused" />
+    <transition
+        android:drawable="@drawable/avd_play_to_pause"
+        android:fromId="@id/paused"
+        android:toId="@id/resumed" />
+</animated-selector>

@@ -24,8 +24,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
-public class LogMutableParams extends BaseObservable
-{
+public class LogMutableParams extends BaseObservable {
     private boolean logging;
     private boolean logSessionFilter;
     private boolean logDhtFilter;
@@ -34,81 +33,68 @@ public class LogMutableParams extends BaseObservable
     private boolean logTorrentFilter;
 
     @Bindable
-    public boolean isLogging()
-    {
+    public boolean isLogging() {
         return logging;
     }
 
-    public void setLogging(boolean logging)
-    {
+    public void setLogging(boolean logging) {
         this.logging = logging;
         notifyPropertyChanged(BR.logging);
     }
 
     @Bindable
-    public boolean isLogSessionFilter()
-    {
+    public boolean isLogSessionFilter() {
         return logSessionFilter;
     }
 
-    public void setLogSessionFilter(boolean logSessionFilter)
-    {
+    public void setLogSessionFilter(boolean logSessionFilter) {
         this.logSessionFilter = logSessionFilter;
         notifyPropertyChanged(BR.logSessionFilter);
     }
 
     @Bindable
-    public boolean isLogDhtFilter()
-    {
+    public boolean isLogDhtFilter() {
         return logDhtFilter;
     }
 
-    public void setLogDhtFilter(boolean logDhtFilter)
-    {
+    public void setLogDhtFilter(boolean logDhtFilter) {
         this.logDhtFilter = logDhtFilter;
         notifyPropertyChanged(BR.logDhtFilter);
     }
 
     @Bindable
-    public boolean isLogPeerFilter()
-    {
+    public boolean isLogPeerFilter() {
         return logPeerFilter;
     }
 
-    public void setLogPeerFilter(boolean logPeerFilter)
-    {
+    public void setLogPeerFilter(boolean logPeerFilter) {
         this.logPeerFilter = logPeerFilter;
         notifyPropertyChanged(BR.logPeerFilter);
     }
 
     @Bindable
-    public boolean isLogPortmapFilter()
-    {
+    public boolean isLogPortmapFilter() {
         return logPortmapFilter;
     }
 
-    public void setLogPortmapFilter(boolean logPortmapFilter)
-    {
+    public void setLogPortmapFilter(boolean logPortmapFilter) {
         this.logPortmapFilter = logPortmapFilter;
         notifyPropertyChanged(BR.logPeerFilter);
     }
 
     @Bindable
-    public boolean isLogTorrentFilter()
-    {
+    public boolean isLogTorrentFilter() {
         return logTorrentFilter;
     }
 
-    public void setLogTorrentFilter(boolean logTorrentFilter)
-    {
+    public void setLogTorrentFilter(boolean logTorrentFilter) {
         this.logTorrentFilter = logTorrentFilter;
         notifyPropertyChanged(BR.logTorrentFilter);
     }
 
     @NonNull
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "LogMutableParams{" +
                 "logging=" + logging +
                 ", logSessionFilter=" + logSessionFilter +

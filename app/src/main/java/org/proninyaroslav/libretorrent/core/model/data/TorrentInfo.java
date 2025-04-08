@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -29,13 +29,14 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /*
  * The class provides a package model with dynamically changing information
  * about state of the torrent, sent from the service.
  */
 
-public class TorrentInfo extends AbstractInfoParcel {
+public class TorrentInfo extends AbstractInfoParcel<TorrentInfo> {
     public static final long MAX_ETA = 8640000;
 
     @NonNull
@@ -57,6 +58,11 @@ public class TorrentInfo extends AbstractInfoParcel {
     public Priority[] filePriorities = new Priority[0];
     public List<TagInfo> tags;
     public boolean firstLastPiecePriority = false;
+
+    public TorrentInfo(@NonNull String torrentId) {
+        super(torrentId);
+        this.torrentId = torrentId;
+    }
 
     public TorrentInfo(
             @NonNull String torrentId,
@@ -120,7 +126,7 @@ public class TorrentInfo extends AbstractInfoParcel {
     public TorrentInfo(Parcel source) {
         super(source);
 
-        torrentId = source.readString();
+        torrentId = Objects.requireNonNull(source.readString());
         name = source.readString();
         stateCode = TorrentStateCode.fromValue(source.readInt());
         progress = source.readInt();
@@ -171,20 +177,20 @@ public class TorrentInfo extends AbstractInfoParcel {
     }
 
     public static final Parcelable.Creator<TorrentInfo> CREATOR = new Parcelable.Creator<>() {
-                @Override
-                public TorrentInfo createFromParcel(Parcel source) {
-                    return new TorrentInfo(source);
-                }
+        @Override
+        public TorrentInfo createFromParcel(Parcel source) {
+            return new TorrentInfo(source);
+        }
 
-                @Override
-                public TorrentInfo[] newArray(int size) {
-                    return new TorrentInfo[size];
-                }
-            };
+        @Override
+        public TorrentInfo[] newArray(int size) {
+            return new TorrentInfo[size];
+        }
+    };
 
     @Override
-    public int compareTo(@NonNull Object another) {
-        return name.compareTo(((TorrentInfo) another).name);
+    public int compareTo(@NonNull TorrentInfo another) {
+        return name.compareTo((another).name);
     }
 
     @Override
@@ -195,13 +201,13 @@ public class TorrentInfo extends AbstractInfoParcel {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((stateCode == null) ? 0 : stateCode.hashCode());
         result = prime * result + progress;
-        result = prime * result + (int) (receivedBytes ^ (receivedBytes >>> 32));
-        result = prime * result + (int) (uploadedBytes ^ (uploadedBytes >>> 32));
-        result = prime * result + (int) (totalBytes ^ (totalBytes >>> 32));
-        result = prime * result + (int) (downloadSpeed ^ (downloadSpeed >>> 32));
-        result = prime * result + (int) (uploadSpeed ^ (uploadSpeed >>> 32));
-        result = prime * result + (int) (ETA ^ (ETA >>> 32));
-        result = prime * result + (int) (dateAdded ^ (dateAdded >>> 32));
+        result = prime * result + Long.hashCode(receivedBytes);
+        result = prime * result + Long.hashCode(uploadedBytes);
+        result = prime * result + Long.hashCode(totalBytes);
+        result = prime * result + Long.hashCode(downloadSpeed);
+        result = prime * result + Long.hashCode(uploadSpeed);
+        result = prime * result + Long.hashCode(ETA);
+        result = prime * result + Long.hashCode(dateAdded);
         result = prime * result + totalPeers;
         result = prime * result + peers;
         result = prime * result + ((error == null) ? 0 : error.hashCode());
@@ -215,13 +221,13 @@ public class TorrentInfo extends AbstractInfoParcel {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TorrentInfo))
+        if (!(o instanceof TorrentInfo info)) {
             return false;
+        }
 
-        if (o == this)
+        if (o == this) {
             return true;
-
-        TorrentInfo info = (TorrentInfo) o;
+        }
 
         return (torrentId.equals(info.torrentId) &&
                 (name == null || name.equals(info.name)) &&

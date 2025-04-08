@@ -55,7 +55,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
 
     public long getReceivedBytes()
     {
-        if (children.size() != 0) {
+        if (!children.isEmpty()) {
             receivedBytes = 0;
             for (TorrentContentFileTree node : children.values())
                 receivedBytes += node.getReceivedBytes();
@@ -91,7 +91,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
             parent.onChangePriority(p, forceUpdateParent);
 
         /* Sending change event down the tree */
-        if (children.size() != 0)
+        if (!children.isEmpty())
             for (TorrentContentFileTree node : children.values())
                 if (node.priority.getType() != p.getType())
                     node.changePriority(p, false, forceUpdateParent);
@@ -105,7 +105,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
         if (allChildrenChanged)
             numChangedChildren = 0;
 
-        if (children.size() != 0 && (forceUpdateParent || allChildrenChanged)) {
+        if (!children.isEmpty() && (forceUpdateParent || allChildrenChanged)) {
             boolean isMixedPriority = false;
 
             for (TorrentContentFileTree child : children.values()) {
@@ -131,7 +131,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
     {
         long size = 0;
 
-        if (children.size() != 0) {
+        if (!children.isEmpty()) {
             for (TorrentContentFileTree child : children.values())
                 if (child.priority.getType() != FilePriority.Type.IGNORE)
                     size += child.nonIgnoreFileSize();
@@ -149,7 +149,7 @@ public class TorrentContentFileTree extends FileTree<TorrentContentFileTree> imp
 
     public double getAvailability()
     {
-        if (children.size() != 0) {
+        if (!children.isEmpty()) {
             double avail = 0;
             long size = 0;
             for (TorrentContentFileTree node : children.values()) {

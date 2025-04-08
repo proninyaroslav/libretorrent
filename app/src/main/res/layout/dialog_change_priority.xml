@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialog_priorities_group"
+    android:id="@+id/priorities_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dialog_padding"
-    android:minWidth="@dimen/min_width_dialog">
+    android:minWidth="@dimen/min_width_dialog"
+    android:padding="@dimen/dialog_padding">
 
     <RadioButton
-        android:id="@+id/dialog_priority_low"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        android:text="@string/change_priority_low" />
+        android:id="@+id/priority_high"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/change_priority_high" />
 
     <RadioButton
-        android:id="@+id/dialog_priority_normal"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:id="@+id/priority_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/change_priority_normal" />
 
     <RadioButton
-        android:id="@+id/dialog_priority_high"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        android:text="@string/change_priority_high" />
+        android:id="@+id/priority_low"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/change_priority_low" />
 </RadioGroup>

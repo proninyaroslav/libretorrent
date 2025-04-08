@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nested_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            style="?attr/textAppearanceTitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/stats" />
+
+        <TextView
+            android:id="@+id/session_listen_port_stat"
+            style="@style/App.Components.ListItem.Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/ic_lan_24px"
+            tools:text="Listening port: 6881" />
+
+        <TextView
+            android:id="@+id/session_dht_nodes_stat"
+            style="@style/App.Components.ListItem.Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/ic_hub_24px"
+            tools:text="DHT nodes: 100" />
+
+        <TextView
+            android:id="@+id/session_download_stat"
+            style="@style/App.Components.ListItem.Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/download_speed"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/ic_download_24px"
+            tools:text="1 Mb/s • 1 Mb/s" />
+
+        <TextView
+            android:id="@+id/session_upload_stat"
+            style="@style/App.Components.ListItem.Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/upload_speed"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/ic_upload_24px"
+            tools:text="1 Mb/s • 1 Mb/s" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp" />
+
+        <TextView
+            style="?attr/textAppearanceTitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/filters" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp">
+
+            <TextView
+                style="?attr/textAppearanceTitleMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/status_clear_button"
+                android:text="@string/drawer_status" />
+
+            <Button
+                android:id="@+id/status_clear_button"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/reset_filter"
+                app:icon="@drawable/ic_filter_list_off_24px" />
+        </RelativeLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/drawer_status_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_status_downloading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_status_downloading"
+                app:chipIcon="@drawable/ic_download_24px" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_status_downloaded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_status_downloaded"
+                app:chipIcon="@drawable/ic_download_done_24px" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_status_downloading_metadata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_status_downloading_metadata"
+                app:chipIcon="@drawable/ic_magnet_24px" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_status_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_status_error"
+                app:chipIcon="@drawable/ic_error_24px" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp">
+
+            <TextView
+                style="?attr/textAppearanceTitleMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/sort_direction_toggle_button"
+                android:text="@string/drawer_sorting" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/sort_direction_toggle_button"
+                style="@style/Widget.Material3.MaterialButtonGroup.Connected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                app:checkedButton="@id/sort_desc_button"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/sort_desc_button"
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/descending_sort"
+                    app:icon="@drawable/ic_sort_desc_24px" />
+
+                <Button
+                    android:id="@+id/sort_asc_button"
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/ascending_sort"
+                    app:icon="@drawable/ic_sort_24px" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </RelativeLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/drawer_sorting_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            app:singleSelection="true"
+            tools:checkedChip="@id/drawer_sorting_date_added">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_sorting_date_added"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_sorting_date_added" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_sorting_name"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_sorting_name" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_sorting_size"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_sorting_size" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_sorting_progress"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_sorting_progress" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_sorting_ETA"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_sorting_ETA" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_sorting_peers"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_sorting_peers" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp">
+
+            <TextView
+                style="?attr/textAppearanceTitleMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/date_added_clear_button"
+                android:text="@string/drawer_date_added" />
+
+            <Button
+                android:id="@+id/date_added_clear_button"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/reset_filter"
+                app:icon="@drawable/ic_filter_list_off_24px" />
+        </RelativeLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/drawer_date_added_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            tools:checkedChip="@id/drawer_sorting_date_added_asc">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_date_added_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_date_added_today"
+                app:chipIcon="@drawable/ic_today_24px" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_date_added_yesterday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_date_added_yesterday"
+                app:chipIcon="@drawable/ic_calendar_month_24px" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_date_added_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_date_added_week"
+                app:chipIcon="@drawable/ic_calendar_month_24px" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_date_added_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_date_added_month"
+                app:chipIcon="@drawable/ic_calendar_month_24px" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/drawer_date_added_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/drawer_date_added_year"
+                app:chipIcon="@drawable/ic_calendar_month_24px" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp">
+
+            <TextView
+                style="?attr/textAppearanceTitleMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/tags_clear_button"
+                android:text="@string/tags" />
+
+            <Button
+                android:id="@+id/add_tag_button"
+                style="?attr/materialIconButtonFilledTonalStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/tags_clear_button"
+                android:contentDescription="@string/add_tag"
+                app:icon="@drawable/ic_add_24px" />
+
+            <Button
+                android:id="@+id/tags_clear_button"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/reset_filter"
+                app:icon="@drawable/ic_filter_list_off_24px" />
+        </RelativeLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/drawer_tags_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/no_tags"
+                app:chipIcon="@drawable/ic_label_off_24px" />
+        </com.google.android.material.chip.ChipGroup>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

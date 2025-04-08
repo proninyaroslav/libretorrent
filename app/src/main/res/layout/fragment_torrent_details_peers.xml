@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ThemeOverlay.App.Surface"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.proninyaroslav.libretorrent.ui.customviews.EmptyRecyclerView
+        android:id="@+id/peer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_peers_list" />
+
+    <org.proninyaroslav.libretorrent.ui.customviews.EmptyListPlaceholder
+        android:id="@+id/empty_view_peer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:icon="@drawable/ic_hub_24px"
+        app:text="@string/peer_list_empty"
+        tools:visibility="gone" />
+</RelativeLayout>

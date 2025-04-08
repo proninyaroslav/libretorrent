@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ThemeOverlay.App.Surface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragment"
-    android:background="?attr/backgroundBlank">
+    android:layout_weight="1"
+    tools:context="org.proninyaroslav.libretorrent.ui.detailtorrent.BlankFragment"> <!-- For SlidingPaneLayout -->
 
-    <View
-        android:id="@+id/fake_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        android:background="?attr/toolbarColor" />
-
-    <TextView
-        android:id="@+id/blank_text"
+    <org.proninyaroslav.libretorrent.ui.customviews.EmptyListPlaceholder
+        android:id="@+id/placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fake_toolbar"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
+        app:icon="@drawable/ic_list_alt_add_24px"
+        tools:text="Empty window" />
 </RelativeLayout>

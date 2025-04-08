@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -28,10 +28,15 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.viewmodel.CreationExtras;
+import androidx.lifecycle.viewmodel.ViewModelInitializer;
 
+import org.proninyaroslav.libretorrent.MainApplication;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.exception.UnknownUriException;
 import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
@@ -46,23 +51,43 @@ import java.util.List;
 
 import io.reactivex.subjects.BehaviorSubject;
 
-public class FileManagerViewModel extends AndroidViewModel
-{
+public class FileManagerViewModel extends AndroidViewModel {
     private static final String TAG = FileManagerViewModel.class.getSimpleName();
 
-    private FileSystemFacade fs;
+    public static final CreationExtras.Key<FileManagerConfig> KEY_CONFIG = new CreationExtras.Key<>() {
+    };
+
+    public static final CreationExtras.Key<String> KEY_START_DIR = new CreationExtras.Key<>() {
+    };
+
+    private final FileSystemFacade fs;
     public String startDir;
     /* Current directory */
     public ObservableField<String> curDir = new ObservableField<>();
     public FileManagerConfig config;
     public BehaviorSubject<List<FileManagerNode>> childNodes = BehaviorSubject.create();
-    public Exception errorReport;
+    private List<StorageItem> storageList;
+
+    static final ViewModelInitializer<FileManagerViewModel> initializer = new ViewModelInitializer<>(
+            FileManagerViewModel.class,
+            creationExtras -> {
+                var app = (MainApplication) creationExtras.get(
+                        ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY
+                );
+                var config = creationExtras.get(KEY_CONFIG);
+                var startDir = creationExtras.get(KEY_START_DIR);
+                if (app == null || config == null || startDir == null) {
+                    throw new IllegalStateException();
+                }
+                return new FileManagerViewModel(app, config, startDir);
+            }
+    );
 
     public FileManagerViewModel(
             @NonNull Application application,
             FileManagerConfig config,
             String startDir
-    ){
+    ) {
         super(application);
 
         this.config = config;
@@ -76,11 +101,15 @@ public class FileManagerViewModel extends AndroidViewModel
         if (startDir == null) {
             startDir = fs.getDefaultDownloadPath();
         }
-        File dir = new File(startDir);
-        boolean canAccess = checkPermissions(dir, config);
-        if (!(dir.exists() && canAccess)) {
-            startDir = fs.getDefaultDownloadPath();
+        if (startDir != null) {
+            File dir = new File(startDir);
+            boolean canAccess = checkPermissions(dir, config);
+            if (!(dir.exists() && canAccess)) {
+                startDir = fs.getDefaultDownloadPath();
+            }
         }
+
+        storageList = generateStorageList();
 
         try {
             if (startDir != null) {
@@ -93,13 +122,11 @@ public class FileManagerViewModel extends AndroidViewModel
         }
     }
 
-    public void refreshCurDirectory()
-    {
+    public void refreshCurDirectory() {
         childNodes.onNext(getChildItems());
     }
 
-    private void updateCurDir(String newPath)
-    {
+    private void updateCurDir(String newPath) {
         if (newPath == null)
             return;
         curDir.set(newPath);
@@ -110,31 +137,35 @@ public class FileManagerViewModel extends AndroidViewModel
      * Get subfolders or files.
      */
 
-    private List<FileManagerNode> getChildItems()
-    {
+    private List<FileManagerNode> getChildItems() {
         var items = new ArrayList<FileManagerNode>();
         var dir = curDir.get();
-        if (dir == null)
+        if (dir == null) {
             return items;
+        }
 
         try {
             var dirFile = new File(dir);
-            if (!(dirFile.exists() && dirFile.isDirectory()))
+            if (!(dirFile.exists() && dirFile.isDirectory())) {
                 return items;
+            }
 
             /* Adding parent dir for navigation */
-            if (!dirFile.getPath().equals(FileManagerNode.ROOT_DIR))
+            if (!dirFile.getPath().equals(FileManagerNode.ROOT_DIR)) {
                 items.add(0, new FileManagerNode(FileManagerNode.PARENT_DIR, FileNode.Type.DIR, true));
+            }
 
             var files = dirFile.listFiles();
-            if (files == null)
+            if (files == null) {
                 return items;
+            }
             for (var file : filterDirectories(files)) {
-                if (file.isDirectory())
+                if (file.isDirectory()) {
                     items.add(new FileManagerNode(file.getName(), FileNode.Type.DIR, true));
-                else
+                } else {
                     items.add(new FileManagerNode(file.getName(), FileManagerNode.Type.FILE,
-                            config.showMode == FileManagerConfig.FILE_CHOOSER_MODE));
+                            config.showMode == FileManagerConfig.Mode.FILE_CHOOSER));
+                }
             }
 
         } catch (Exception e) {
@@ -146,7 +177,7 @@ public class FileManagerViewModel extends AndroidViewModel
 
     List<File> filterDirectories(File[] files) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                || config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
+                || config.showMode == FileManagerConfig.Mode.FILE_CHOOSER) {
             return Arrays.asList(files);
         }
 
@@ -160,31 +191,30 @@ public class FileManagerViewModel extends AndroidViewModel
         return filtered;
     }
 
-    public boolean createDirectory(String name)
-    {
-        if (TextUtils.isEmpty(name))
+    public boolean createDirectory(String name) {
+        if (name == null || TextUtils.isEmpty(name)) {
             return false;
+        }
 
         File newDir = new File(curDir.get(), name);
 
         return !newDir.exists() && newDir.mkdir();
     }
 
-    public void openDirectory(String name) throws IOException, SecurityException
-    {
+    public void openDirectory(String name) throws IOException, SecurityException {
         File dir = new File(curDir.get(), name);
         String path = dir.getCanonicalPath();
 
-        if (!(dir.exists() && dir.isDirectory()))
+        if (!(dir.exists() && dir.isDirectory())) {
             path = startDir;
-        else if (!checkPermissions(dir, config))
+        } else if (!checkPermissions(dir, config)) {
             throw new SecurityException("Permission denied");
+        }
 
         updateCurDir(path);
     }
 
-    public void jumpToDirectory(String path) throws SecurityException
-    {
+    public void jumpToDirectory(String path) throws SecurityException {
         File dir = new File(path);
 
         if (!checkPermissions(dir, config)) {
@@ -203,31 +233,31 @@ public class FileManagerViewModel extends AndroidViewModel
      * Navigate back to an upper directory.
      */
 
-    public void upToParentDirectory() throws SecurityException
-    {
+    public void upToParentDirectory() throws SecurityException {
         String path = curDir.get();
-        if (path == null)
+        if (path == null) {
             return;
+        }
         File dir = new File(path);
         File parentDir = dir.getParentFile();
-        if (parentDir != null && !checkPermissions(parentDir, config))
+        if (parentDir != null && !checkPermissions(parentDir, config)) {
             throw new SecurityException("Permission denied");
+        }
 
         updateCurDir(dir.getParent());
     }
 
-    public boolean fileExists(String fileName)
-    {
-        if (fileName == null)
+    public boolean fileExists(String fileName) {
+        if (fileName == null) {
             return false;
+        }
 
         fileName = appendExtension(fileName);
 
         return new File(curDir.get(), fileName).exists();
     }
 
-    private String appendExtension(String fileName)
-    {
+    private String appendExtension(String fileName) {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         String extension = fs.getExtension(fileName);
 
@@ -239,23 +269,25 @@ public class FileManagerViewModel extends AndroidViewModel
                 extension = mimeTypeMap.getExtensionFromMimeType(config.mimeType);
         }
 
-        if (extension != null && !fileName.endsWith(extension))
+        if (extension != null && !fileName.endsWith(extension)) {
             fileName += fs.getExtensionSeparator() + extension;
+        }
 
         return fileName;
     }
 
-    public Uri createFile(String fileName) throws SecurityException
-    {
-        if (TextUtils.isEmpty(fileName))
+    public Uri createFile(String fileName) throws SecurityException {
+        if (TextUtils.isEmpty(fileName)) {
             fileName = config.fileName;
+        }
 
         fileName = appendExtension(fs.buildValidFatFilename(fileName));
 
         File f = new File(curDir.get(), fileName);
         File parent = f.getParentFile();
-        if (parent != null && !checkPermissions(parent, config))
+        if (parent != null && !checkPermissions(parent, config)) {
             throw new SecurityException("Permission denied");
+        }
         try {
             if (f.exists() && !f.delete())
                 return null;
@@ -269,28 +301,30 @@ public class FileManagerViewModel extends AndroidViewModel
         return Uri.fromFile(f);
     }
 
-    public Uri getCurDirectoryUri() throws SecurityException
-    {
+    public Uri getCurDirectoryUri() throws SecurityException {
         String path = curDir.get();
-        if (path == null)
+        if (path == null) {
             return null;
+        }
 
         File dir = new File(path);
-        if (!checkPermissions(dir, config))
+        if (!checkPermissions(dir, config)) {
             throw new SecurityException("Permission denied");
+        }
 
         return Uri.fromFile(dir);
     }
 
-    public Uri getFileUri(String fileName) throws SecurityException
-    {
+    public Uri getFileUri(String fileName) throws SecurityException {
         String path = curDir.get();
-        if (path == null)
+        if (path == null) {
             return null;
+        }
 
         File f = new File(path, fileName);
-        if (!checkPermissions(f, config))
+        if (!checkPermissions(f, config)) {
             throw new SecurityException("Permission denied");
+        }
 
         return Uri.fromFile(f);
     }
@@ -345,26 +379,39 @@ public class FileManagerViewModel extends AndroidViewModel
     }
 
     private boolean checkPermissions(File file, FileManagerConfig config) {
-        switch (config.showMode) {
-            case FileManagerConfig.FILE_CHOOSER_MODE:
-                return file.canRead();
-            case FileManagerConfig.DIR_CHOOSER_MODE:
-                return file.canRead() && file.canWrite();
-            case FileManagerConfig.SAVE_FILE_MODE:
-                return file.canWrite();
-        }
-
-        throw new IllegalArgumentException("Unknown mode: " + config.showMode);
+        return switch (config.showMode) {
+            case FILE_CHOOSER -> file.canRead();
+            case DIR_CHOOSER -> file.canRead() && file.canWrite();
+            case SAVE_FILE -> file.canWrite();
+        };
     }
 
-    public List<FileManagerSpinnerAdapter.StorageSpinnerItem> getStorageList()
-    {
-        ArrayList<FileManagerSpinnerAdapter.StorageSpinnerItem> items = new ArrayList<>();
+    public List<StorageItem> getStorageList() {
+        return storageList;
+    }
+
+    public List<StorageItem> regenerateStorageList() {
+        storageList = generateStorageList();
+        return storageList;
+    }
+
+    @Nullable
+    public StorageItem getStorageById(int id) {
+        try {
+            return storageList.get(id);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    private List<StorageItem> generateStorageList() {
+        var items = new ArrayList<StorageItem>();
         List<Uri> storageList = getExtSdCardPaths();
 
         Uri primaryStorage = Uri.fromFile(Environment.getExternalStorageDirectory());
         try {
-            items.add(new FileManagerSpinnerAdapter.StorageSpinnerItem(
+            items.add(new StorageItem(
+                    0,
                     getApplication().getString(R.string.internal_storage_name),
                     fs.getDirPath(primaryStorage),
                     fs.getDirAvailableBytes(primaryStorage))
@@ -377,7 +424,8 @@ public class FileManagerViewModel extends AndroidViewModel
             for (int i = 0; i < storageList.size(); i++) {
                 String template = getApplication().getString(R.string.external_storage_name);
                 try {
-                    items.add(new FileManagerSpinnerAdapter.StorageSpinnerItem(
+                    items.add(new StorageItem(
+                            i + 1,
                             String.format(template, i + 1),
                             storageList.get(i).getPath(),
                             fs.getDirAvailableBytes(storageList.get(i)))
@@ -389,5 +437,8 @@ public class FileManagerViewModel extends AndroidViewModel
         }
 
         return items;
+    }
+
+    public record StorageItem(int id, String name, String path, long size) {
     }
 }

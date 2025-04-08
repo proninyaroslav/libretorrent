@@ -91,13 +91,11 @@ public class FileManagerNode implements FileNode<FileManagerNode>
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof FileManagerNode))
+        if (!(o instanceof FileManagerNode fileManagerNode))
             return false;
 
         if (o == this)
             return true;
-
-        FileManagerNode fileManagerNode = (FileManagerNode)o;
 
         return (node == null || node.equals(fileManagerNode.node)) &&
                 nodeType == fileManagerNode.nodeType &&

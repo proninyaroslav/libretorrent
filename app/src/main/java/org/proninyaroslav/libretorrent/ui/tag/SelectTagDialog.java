@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2021-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -22,26 +22,19 @@ package org.proninyaroslav.libretorrent.ui.tag;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogSelectTagBinding;
-import org.proninyaroslav.libretorrent.ui.FragmentCallback;
-import org.proninyaroslav.libretorrent.ui.addtag.AddTagActivity;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -49,51 +42,22 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnClickListener {
-    private static final String TAG = SelectTagDialog.class.getSimpleName();
+    public static final String KEY_RESULT_TAG = "tag";
 
-    private static final String TAG_EXCLUDE_TAGS_ID = "exclude_tags_id";
-
-    private AlertDialog alert;
     private AppCompatActivity activity;
     private SelectTagViewModel viewModel;
     private TagsAdapter adapter;
     private DialogSelectTagBinding binding;
     private final CompositeDisposable disposables = new CompositeDisposable();
-
-    public static SelectTagDialog newInstance(@Nullable long[] excludeTagsId) {
-        SelectTagDialog frag = new SelectTagDialog();
-
-        Bundle args = new Bundle();
-        args.putLongArray(TAG_EXCLUDE_TAGS_ID, excludeTagsId);
-        frag.setArguments(args);
-
-        return frag;
-    }
+    private String requestKey;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof AppCompatActivity) {
-            activity = (AppCompatActivity) context;
+        if (context instanceof AppCompatActivity a) {
+            activity = a;
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Back button handle
-        getDialog().setOnKeyListener((dialog, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    onBackPressed();
-                }
-                return true;
-            } else {
-                return false;
-            }
-        });
     }
 
     @Override
@@ -117,20 +81,35 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
             activity = (AppCompatActivity) getActivity();
         }
 
+        var args = SelectTagDialogArgs.fromBundle(getArguments());
+        requestKey = args.getFragmentRequestKey();
+
         ViewModelProvider provider = new ViewModelProvider(activity);
         viewModel = provider.get(SelectTagViewModel.class);
         if (getArguments() != null) {
-            viewModel.setExcludeTagsId(getArguments()
-                    .getLongArray(TAG_EXCLUDE_TAGS_ID));
+            viewModel.setExcludeTagsId(args.getExcludeTagsId());
         }
 
-        LayoutInflater i = LayoutInflater.from(activity);
-        binding = DataBindingUtil.inflate(i, R.layout.dialog_select_tag, null, false);
-
+        binding = DialogSelectTagBinding.inflate(getLayoutInflater(), null, false);
         adapter = new TagsAdapter(this);
 
         initLayoutView();
-        initAlertDialog(binding.getRoot());
+
+        var alert = new MaterialAlertDialogBuilder(activity)
+                .setIcon(R.drawable.ic_label_24px)
+                .setTitle(R.string.select_tag)
+                .setPositiveButton(R.string.new_tag, null)
+                .setNegativeButton(R.string.cancel, ((dialog, which) -> dismiss()))
+                .setView(binding.getRoot())
+                .create();
+
+        alert.setOnShowListener((dialog) -> {
+            var positiveButton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener((v) -> {
+                var action = SelectTagDialogDirections.actionAddTagDialog();
+                NavHostFragment.findNavController(this).navigate(action);
+            });
+        });
 
         return alert;
     }
@@ -141,55 +120,25 @@ public class SelectTagDialog extends DialogFragment implements TagsAdapter.OnCli
         binding.tagsList.setAdapter(adapter);
     }
 
-    private void initAlertDialog(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
-                .setTitle(R.string.select_tag)
-                .setPositiveButton(R.string.new_tag, null)
-                .setNegativeButton(R.string.cancel, null)
-                .setView(view);
-
-        alert = builder.create();
-        alert.setCanceledOnTouchOutside(false);
-        alert.setOnShowListener((DialogInterface dialog) -> {
-            Button newTagButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
-            Button cancelButton = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
-            newTagButton.setOnClickListener(
-                    (v) -> startActivity(new Intent(activity, AddTagActivity.class))
-            );
-            cancelButton.setOnClickListener(
-                    (v) -> finish(new Intent(), FragmentCallback.ResultCode.CANCEL)
-            );
-        });
-    }
-
     private void subscribeTags() {
         disposables.add(viewModel.observeTags()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapSingle((list) -> Flowable.fromIterable(list)
-                                .filter(viewModel::filterExcludeTags)
-                                .map(TagItem::new)
-                                .toList()
-                        )
-                        .subscribe(adapter::submitList)
-                );
+                        .filter(viewModel::filterExcludeTags)
+                        .map(TagItem::new)
+                        .toList()
+                )
+                .subscribe(adapter::submitList)
+        );
     }
 
     @Override
     public void onTagClicked(@NonNull TagItem item) {
-        Intent i = new Intent();
-        i.putExtra(SelectTagActivity.TAG_RESULT_SELECTED_TAG, item.info);
+        var bundle = new Bundle();
+        bundle.putParcelable(KEY_RESULT_TAG, item.info());
+        getParentFragmentManager().setFragmentResult(requestKey, bundle);
 
-        finish(i, FragmentCallback.ResultCode.OK);
-    }
-
-    public void onBackPressed() {
-
-        finish(new Intent(), FragmentCallback.ResultCode.BACK);
-    }
-
-    private void finish(Intent intent, FragmentCallback.ResultCode code) {
-        alert.dismiss();
-        ((FragmentCallback) activity).onFragmentFinished(this, intent, code);
+        dismiss();
     }
 }

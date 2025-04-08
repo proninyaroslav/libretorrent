@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/navBarFragment">
+
+    <action
+        android:id="@+id/action_permission_denied_dialog"
+        app:destination="@id/permissionDeniedDialog" />
+
+    <fragment
+        android:id="@+id/navBarFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.NavBarFragment"
+        android:label="NavBarFragment">
+        <action
+            android:id="@+id/action_open_file_dialog"
+            app:destination="@id/fileManagerFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_add_torrent"
+            app:destination="@id/addTorrentFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/errorReportDialog" />
+        <action
+            android:id="@+id/action_create_torrent"
+            app:destination="@id/createTorrentFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_open_directory_dialog"
+            app:destination="@id/fileManagerFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_save_file_choose_dialog"
+            app:destination="@id/fileManagerFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+    </fragment>
+    <fragment
+        android:id="@+id/fileManagerFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment"
+        android:label="FileManagerFragment"
+        tools:layout="@layout/fragment_file_manager">
+        <argument
+            android:name="config"
+            app:argType="org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig" />
+        <action
+            android:id="@+id/action_open_input_name_dialog"
+            app:destination="@id/inputNameDialog" />
+        <action
+            android:id="@+id/action_go_to_folder_dialog"
+            app:destination="@id/goToFolderDialog" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/errorReportDialog">
+            <argument
+                android:name="message"
+                app:argType="string" />
+            <argument
+                android:name="exception"
+                android:defaultValue="@null"
+                app:argType="java.lang.Throwable"
+                app:nullable="true" />
+        </action>
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTorrentFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.addtorrent.AddTorrentFragment"
+        android:label="AddTorrentFragment"
+        tools:layout="@layout/fragment_add_torrent">
+        <argument
+            android:name="uri"
+            app:argType="android.net.Uri" />
+        <action
+            android:id="@+id/action_select_tag_dialog"
+            app:destination="@id/selectTagDialog" />
+        <action
+            android:id="@+id/action_choose_directory_dialog"
+            app:destination="@id/fileManagerFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/error_report_nav">
+            <argument
+                android:name="message"
+                app:argType="string" />
+            <argument
+                android:name="exception"
+                android:defaultValue="@null"
+                app:argType="java.lang.Throwable"
+                app:nullable="true" />
+        </action>
+    </fragment>
+    <dialog
+        android:id="@+id/inputNameDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.filemanager.InputNameDialog"
+        android:label="InputNameDialog"
+        tools:layout="@layout/dialog_text_input">
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/goToFolderDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.filemanager.GoToFolderDialog"
+        android:label="GoToFolderDialog"
+        tools:layout="@layout/dialog_text_input">
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <include app:graph="@navigation/error_report_graph" />
+    <dialog
+        android:id="@+id/permissionDeniedDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog"
+        android:label="PermissionDeniedDialog">
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/createTorrentFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.createtorrent.CreateTorrentFragment"
+        android:label="CreateTorrentFragment"
+        tools:layout="@layout/fragment_create_torrent">
+        <action
+            android:id="@+id/action_file_manager_dialog"
+            app:destination="@id/fileManagerFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_error_report_dialog"
+            app:destination="@id/error_report_nav">
+            <argument
+                android:name="message"
+                app:argType="string" />
+            <argument
+                android:name="exception"
+                android:defaultValue="@null"
+                app:argType="java.lang.Throwable"
+                app:nullable="true" />
+        </action>
+    </fragment>
+    <dialog
+        android:id="@+id/selectTagDialog"
+        android:name="org.proninyaroslav.libretorrent.ui.tag.SelectTagDialog"
+        android:label="SelectTagDialog"
+        tools:layout="@layout/dialog_select_tag">
+        <argument
+            android:name="exclude_tags_id"
+            app:argType="long[]" />
+        <action
+            android:id="@+id/action_add_tag_dialog"
+            app:destination="@id/tag_nav">
+            <argument
+                android:name="tag"
+                android:defaultValue="@null"
+                app:argType="org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo"
+                app:nullable="true" />
+        </action>
+        <argument
+            android:name="fragment_request_key"
+            app:argType="string" />
+    </dialog>
+    <include app:graph="@navigation/tag_graph" />
+</navigation>

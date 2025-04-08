@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.loadingindicator.LoadingIndicator xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.Material3.LoadingIndicator.Contained"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerInParent="true"
+    android:contentDescription="@string/load_message"
+    app:indicatorSize="54dp"
+    app:containerWidth="64dp"
+    app:containerHeight="64dp" />

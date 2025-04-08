@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2018 Sébastiaan (github.com/se-bastiaan),
+ * Copyright (C) 2015-2025 Sébastiaan (github.com/se-bastiaan),
  *                         Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
@@ -48,54 +48,48 @@ import java.util.concurrent.locks.ReentrantLock;
  *                     fileStart  filePos             EOF
  */
 
-public class TorrentInputStream extends InputStream
-{
+public class TorrentInputStream extends InputStream {
     public static final int EOF = -1;
 
     private TorrentSession session;
-    private TorrentStream stream;
+    private final TorrentStream stream;
     private ReadSession readSession;
-    private long filePos, fileStart, eof;
+    private long filePos;
+    private final long eof;
     private byte[] cacheBuf;
     private int cachePieceIndex = -1;
     private boolean stopped;
-    private static ReentrantLock lock = new ReentrantLock();
+    private static final ReentrantLock lock = new ReentrantLock();
 
-    private class ReadSession
-    {
+    private static class ReadSession {
         private int countLatch;
         private Piece[] piecesForReading;
         private byte[] buf;
     }
 
-    private static class Piece
-    {
+    private static class Piece {
         int index;
         int readLength;
         int readOffset;
         int bufIndex;
         boolean cache = false;
 
-        Piece(int index)
-        {
+        Piece(int index) {
             this.index = index;
         }
 
         @Override
-        public int hashCode()
-        {
+        public int hashCode() {
             return index;
         }
 
         @Override
-        public boolean equals(Object o)
-        {
-            return o instanceof Piece && (o == this || index == ((Piece)o).index);
+        public boolean equals(Object o) {
+            return o instanceof Piece && (o == this || index == ((Piece) o).index);
         }
     }
 
-    public TorrentInputStream(@NonNull TorrentSession session, @NonNull TorrentStream stream)
-    {
+    public TorrentInputStream(@NonNull TorrentSession session, @NonNull TorrentStream stream) {
         this.session = session;
         this.stream = stream;
         TorrentDownload task = session.getTask(stream.torrentId);
@@ -103,15 +97,14 @@ public class TorrentInputStream extends InputStream
             throw new NullPointerException("task " + stream.torrentId + " is null");
 
         int firstPieceSize = (stream.firstFilePiece == stream.lastFilePiece ?
-                              stream.lastFilePieceSize :
-                              stream.pieceLength);
-        long firstPieceEnd = (long)stream.firstFilePiece * stream.pieceLength + firstPieceSize;
+                stream.lastFilePieceSize :
+                stream.pieceLength);
+        long firstPieceEnd = (long) stream.firstFilePiece * stream.pieceLength + firstPieceSize;
 
         if (stream.fileOffset > firstPieceEnd)
             throw new IllegalArgumentException();
 
         filePos = firstPieceSize - (firstPieceEnd - stream.fileOffset);
-        fileStart = filePos + 1;
         eof = filePos + stream.fileSize;
 
         session.addListener(listener);
@@ -119,8 +112,7 @@ public class TorrentInputStream extends InputStream
     }
 
     @Override
-    protected void finalize() throws Throwable
-    {
+    protected void finalize() throws Throwable {
         synchronized (this) {
             stopped = true;
             if (session != null)
@@ -132,8 +124,7 @@ public class TorrentInputStream extends InputStream
         super.finalize();
     }
 
-    private synchronized boolean waitForPiece(TorrentDownload task, int pieceIndex)
-    {
+    private synchronized boolean waitForPiece(TorrentDownload task, int pieceIndex) {
         while (!Thread.currentThread().isInterrupted() && !stopped) {
             try {
                 if (task.havePiece(pieceIndex))
@@ -147,8 +138,7 @@ public class TorrentInputStream extends InputStream
         return false;
     }
 
-    private synchronized boolean waitForReadPieces()
-    {
+    private synchronized boolean waitForReadPieces() {
         while (!Thread.currentThread().isInterrupted() && !stopped) {
             try {
                 if (readSession != null && readSession.countLatch <= 0)
@@ -166,35 +156,31 @@ public class TorrentInputStream extends InputStream
      * Calculate global file offset to local offset inside piece
      */
 
-    private int filePosToPiecePos(int piece, long pos)
-    {
+    private int filePosToPiecePos(int piece, long pos) {
         int pieceLocalIndex = piece - stream.firstFilePiece;
         int pieceSize = (piece == stream.lastFilePiece ?
-                         stream.lastFilePieceSize :
-                         stream.pieceLength);
-        long pieceEnd = (long)pieceLocalIndex * stream.pieceLength + pieceSize;
+                stream.lastFilePieceSize :
+                stream.pieceLength);
+        long pieceEnd = (long) pieceLocalIndex * stream.pieceLength + pieceSize;
 
-        return pieceSize - (int)(pieceEnd - pos);
+        return pieceSize - (int) (pieceEnd - pos);
     }
 
-    private void readFromCache(Piece piece, byte[] b)
-    {
+    private void readFromCache(Piece piece, byte[] b) {
         System.arraycopy(cacheBuf, piece.readOffset, b,
-                         piece.bufIndex, piece.readLength);
+                piece.bufIndex, piece.readLength);
     }
 
     /*
      * Returns byte as an int in the range 0 to 255
      */
 
-    private int toUnsignedByte(byte b)
-    {
-        return 0x00 << 24 | b & 0xff;
+    private int toUnsignedByte(byte b) {
+        return b & 0xff;
     }
 
     @Override
-    public int read() throws IOException
-    {
+    public int read() throws IOException {
         lock.lock();
 
         try {
@@ -254,8 +240,7 @@ public class TorrentInputStream extends InputStream
     }
 
     @Override
-    public int read(@NonNull byte[] b, int off, int len) throws IOException
-    {
+    public int read(@NonNull byte[] b, int off, int len) throws IOException {
         lock.lock();
 
         try {
@@ -277,7 +262,7 @@ public class TorrentInputStream extends InputStream
                 return EOF;
             }
             if (filePos + len > eof)
-                len = (int)(eof - filePos);
+                len = (int) (eof - filePos);
 
 
             /* Pieces definition that need to be read */
@@ -352,14 +337,12 @@ public class TorrentInputStream extends InputStream
     }
 
     @Override
-    public int read(@NonNull byte[] b) throws IOException
-    {
+    public int read(@NonNull byte[] b) throws IOException {
         return read(b, 0, b.length);
     }
 
     @Override
-    public void close() throws IOException
-    {
+    public void close() throws IOException {
         synchronized (this) {
             stopped = true;
             if (session != null)
@@ -372,8 +355,7 @@ public class TorrentInputStream extends InputStream
     }
 
     @Override
-    public long skip(long n)
-    {
+    public long skip(long n) {
         lock.lock();
 
         try {
@@ -384,7 +366,7 @@ public class TorrentInputStream extends InputStream
             if (filePos == eof)
                 return 0;
             if (filePos + n > eof)
-                n = (int)(eof - filePos);
+                n = (int) (eof - filePos);
 
             filePos += n;
 
@@ -401,17 +383,9 @@ public class TorrentInputStream extends InputStream
         }
     }
 
-    @Override
-    public boolean markSupported()
-    {
-        return false;
-    }
-
-    private TorrentEngineListener listener = new TorrentEngineListener()
-    {
+    private final TorrentEngineListener listener = new TorrentEngineListener() {
         @Override
-        public void onReadPiece(@NonNull String id, ReadPieceInfo info)
-        {
+        public void onReadPiece(@NonNull String id, ReadPieceInfo info) {
             if (!stream.torrentId.equals(id))
                 return;
 
@@ -419,8 +393,7 @@ public class TorrentInputStream extends InputStream
         }
 
         @Override
-        public void onPieceFinished(@NonNull String id, int piece)
-        {
+        public void onPieceFinished(@NonNull String id, int piece) {
             if (!stream.torrentId.equals(id))
                 return;
 
@@ -428,13 +401,11 @@ public class TorrentInputStream extends InputStream
         }
     };
 
-    private synchronized void pieceFinished()
-    {
+    private synchronized void pieceFinished() {
         notifyAll();
     }
 
-    private synchronized void readPiece(ReadPieceInfo info)
-    {
+    private synchronized void readPiece(ReadPieceInfo info) {
         if (readSession == null)
             return;
 
