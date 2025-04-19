@@ -24,5 +24,6 @@
         app:elevation="0dp"
         app:hoveredFocusedTranslationZ="0dp"
         app:pressedTranslationZ="0dp"
+        android:stateListAnimator="@null"
         app:srcCompat="@drawable/add_to_close_anim" />
 </LinearLayout>
