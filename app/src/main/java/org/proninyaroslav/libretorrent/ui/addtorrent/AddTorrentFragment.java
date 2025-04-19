@@ -58,7 +58,7 @@ import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentBinding;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 /*
  * The dialog for adding torrent. The parent window.

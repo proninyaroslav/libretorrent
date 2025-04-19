@@ -31,8 +31,8 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.TorrentTagInfo;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public abstract class TorrentDao {

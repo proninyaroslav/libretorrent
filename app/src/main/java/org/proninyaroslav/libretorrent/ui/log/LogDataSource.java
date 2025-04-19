@@ -21,15 +21,16 @@ package org.proninyaroslav.libretorrent.ui.log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.paging.PagingSource;
 import androidx.paging.PagingState;
-import androidx.paging.rxjava2.RxPagingSource;
+import androidx.paging.rxjava3.RxPagingSource;
 
 import org.proninyaroslav.libretorrent.core.logger.LogEntry;
 import org.proninyaroslav.libretorrent.core.logger.Logger;
 
 import java.util.Collections;
 
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 
 class LogDataSource extends RxPagingSource<Integer, LogEntry> {
     private final Logger logger;
@@ -47,7 +48,7 @@ class LogDataSource extends RxPagingSource<Integer, LogEntry> {
 
     @NonNull
     @Override
-    public Single<LoadResult<Integer, LogEntry>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
+    public Single<PagingSource.LoadResult<Integer, LogEntry>> loadSingle(@NonNull PagingSource.LoadParams<Integer> loadParams) {
         return Single.fromCallable(() -> {
             boolean paused = false;
             if (!logger.isPaused()) {

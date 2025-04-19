@@ -52,7 +52,7 @@ import org.proninyaroslav.libretorrent.databinding.DialogAddFeedChannelBinding;
 import org.proninyaroslav.libretorrent.ui.ClipboardDialog;
 import org.proninyaroslav.libretorrent.ui.feeds.DeleteFeedDialog;
 
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class AddFeedDialog extends DialogFragment {
     private static final String TAG = AddFeedDialog.class.getSimpleName();

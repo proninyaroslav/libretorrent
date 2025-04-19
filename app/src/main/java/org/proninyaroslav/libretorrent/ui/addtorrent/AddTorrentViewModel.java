@@ -66,12 +66,12 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
-import io.reactivex.Completable;
-import io.reactivex.Single;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.subjects.BehaviorSubject;
 
 public class AddTorrentViewModel extends AndroidViewModel {
     private static final String TAG = AddTorrentViewModel.class.getSimpleName();
@@ -146,7 +146,7 @@ public class AddTorrentViewModel extends AndroidViewModel {
         return tags;
     }
 
-    public io.reactivex.Observable<List<TagInfo>> observeTags() {
+    public io.reactivex.rxjava3.core.Observable<List<TagInfo>> observeTags() {
         return tagsSubject;
     }
 

@@ -68,7 +68,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 /*
  * The simple dialog for navigation and select directory.

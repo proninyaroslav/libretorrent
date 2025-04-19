@@ -21,7 +21,7 @@ package org.proninyaroslav.libretorrent.core.settings;
 
 import org.proninyaroslav.libretorrent.core.model.data.preferences.PrefTheme;
 
-import io.reactivex.Flowable;
+import io.reactivex.rxjava3.core.Flowable;
 
 public interface SettingsRepository
 {

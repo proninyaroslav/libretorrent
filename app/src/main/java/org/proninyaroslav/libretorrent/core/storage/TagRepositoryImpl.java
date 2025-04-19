@@ -25,8 +25,8 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public class TagRepositoryImpl implements TagRepository {
     private final @NonNull AppDatabase db;

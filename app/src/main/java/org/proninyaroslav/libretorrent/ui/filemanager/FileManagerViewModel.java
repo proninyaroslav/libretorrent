@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.rxjava3.subjects.BehaviorSubject;
 
 public class FileManagerViewModel extends AndroidViewModel {
     private static final String TAG = FileManagerViewModel.class.getSimpleName();

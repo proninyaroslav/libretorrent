@@ -21,6 +21,6 @@ package org.proninyaroslav.libretorrent.core.filter;
 
 import org.proninyaroslav.libretorrent.core.model.data.TorrentInfo;
 
-import io.reactivex.functions.Predicate;
+import io.reactivex.rxjava3.functions.Predicate;
 
 public interface TorrentFilter extends Predicate<TorrentInfo> {}

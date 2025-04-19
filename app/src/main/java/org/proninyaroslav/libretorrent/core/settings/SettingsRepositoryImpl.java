@@ -40,9 +40,9 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.IOException;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.disposables.Disposables;
+import io.reactivex.rxjava3.core.BackpressureStrategy;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class SettingsRepositoryImpl implements SettingsRepository {
     private static final String TAG = SettingsRepositoryImpl.class.getSimpleName();
@@ -217,7 +217,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
 
             if (!emitter.isCancelled()) {
                 pref.registerOnSharedPreferenceChangeListener(listener);
-                emitter.setDisposable(Disposables.fromAction(() ->
+                emitter.setDisposable(Disposable.fromAction(() ->
                         pref.unregisterOnSharedPreferenceChangeListener(listener)));
             }
 

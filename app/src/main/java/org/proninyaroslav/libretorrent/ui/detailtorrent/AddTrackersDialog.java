@@ -47,7 +47,7 @@ import org.proninyaroslav.libretorrent.databinding.DialogMultilineTextInputBindi
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 public class AddTrackersDialog extends DialogFragment {
     public static final String KEY_RESULT_URL_LIST = "url_list";

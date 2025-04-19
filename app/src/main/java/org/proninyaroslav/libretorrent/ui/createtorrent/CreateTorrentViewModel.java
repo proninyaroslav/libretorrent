@@ -48,9 +48,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import io.reactivex.Completable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CreateTorrentViewModel extends AndroidViewModel {
     private static final String TAG = CreateTorrentViewModel.class.getSimpleName();

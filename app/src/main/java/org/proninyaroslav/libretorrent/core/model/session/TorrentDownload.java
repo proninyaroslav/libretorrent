@@ -34,7 +34,7 @@ import org.proninyaroslav.libretorrent.core.model.stream.TorrentStream;
 import java.util.List;
 import java.util.Set;
 
-import io.reactivex.Completable;
+import io.reactivex.rxjava3.core.Completable;
 
 /*
  * An interface that represents one stream with running torrent.

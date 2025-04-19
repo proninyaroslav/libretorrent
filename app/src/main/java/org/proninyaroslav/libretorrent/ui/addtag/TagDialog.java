@@ -45,9 +45,9 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.databinding.DialogTagBinding;
 import org.proninyaroslav.libretorrent.ui.colorpicker.ColorPickerDialog;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class TagDialog extends DialogFragment {
     private static final String TAG = TagDialog.class.getSimpleName();

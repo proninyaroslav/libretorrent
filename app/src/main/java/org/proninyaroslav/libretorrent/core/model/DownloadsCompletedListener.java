@@ -25,8 +25,8 @@ import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 
 import java.util.ArrayList;
 
-import io.reactivex.Completable;
-import io.reactivex.disposables.Disposables;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /*
  * Emits an event if all torrents have switched from the download state to
@@ -79,7 +79,7 @@ class DownloadsCompletedListener
 
             if (!emitter.isDisposed()) {
                 engine.addListener(listener);
-                emitter.setDisposable(Disposables.fromAction(() ->
+                emitter.setDisposable(Disposable.fromAction(() ->
                         engine.removeListener(listener)));
             }
         });

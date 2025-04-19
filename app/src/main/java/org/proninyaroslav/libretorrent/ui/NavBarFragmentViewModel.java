@@ -29,7 +29,7 @@ import org.proninyaroslav.libretorrent.core.storage.FeedRepository;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
+import io.reactivex.rxjava3.core.Flowable;
 
 public class NavBarFragmentViewModel extends AndroidViewModel {
     private final FeedRepository feedRepo;

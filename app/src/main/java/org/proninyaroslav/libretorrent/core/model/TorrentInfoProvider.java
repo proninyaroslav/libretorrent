@@ -41,14 +41,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
-import io.reactivex.functions.Consumer;
+import io.reactivex.rxjava3.core.BackpressureStrategy;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
 
 /*
  * Provides runtime information about torrent, which isn't saved to the database.
@@ -159,7 +158,7 @@ public class TorrentInfoProvider {
                     try {
                         handleEvent.accept(torrentId);
 
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         if (!emitter.isCancelled())
                             emitter.onError(e);
                     }
@@ -170,7 +169,7 @@ public class TorrentInfoProvider {
                     try {
                         handleEvent.accept(torrentId);
 
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         if (!emitter.isCancelled())
                             emitter.onError(e);
                     }
@@ -181,7 +180,7 @@ public class TorrentInfoProvider {
                     try {
                         handleEvent.accept(torrentId);
 
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         if (!emitter.isCancelled())
                             emitter.onError(e);
                     }
@@ -192,7 +191,7 @@ public class TorrentInfoProvider {
                     try {
                         handleEvent.accept(torrentId);
 
-                    } catch (Exception ex) {
+                    } catch (Throwable ex) {
                         if (!emitter.isCancelled())
                             emitter.onError(ex);
                     }
@@ -203,7 +202,7 @@ public class TorrentInfoProvider {
                     try {
                         handleEvent.accept(id);
 
-                    } catch (Exception ex) {
+                    } catch (Throwable ex) {
                         if (!emitter.isCancelled())
                             emitter.onError(ex);
                     }
@@ -220,7 +219,7 @@ public class TorrentInfoProvider {
                             emitter.onNext(s);
                         engine.addListener(listener);
                         CompositeDisposable disposables = new CompositeDisposable();
-                        disposables.add(Disposables.fromAction(() ->
+                        disposables.add(Disposable.fromAction(() ->
                                 engine.removeListener(listener))
                         );
                         disposables.add(tagRepo.observeByTorrentId(id)
@@ -302,7 +301,7 @@ public class TorrentInfoProvider {
                         emitter.onNext(new TorrentListState.Loaded(infoList.stream().toList()));
                         engine.addListener(listener);
                         CompositeDisposable disposables = new CompositeDisposable();
-                        disposables.add(Disposables.fromAction(() ->
+                        disposables.add(Disposable.fromAction(() ->
                                 engine.removeListener(listener))
                         );
                         disposables.add(tagRepo.observeAll()
@@ -476,7 +475,7 @@ public class TorrentInfoProvider {
 
             if (!emitter.isCancelled()) {
                 engine.addListener(listener);
-                emitter.setDisposable(Disposables.fromAction(() ->
+                emitter.setDisposable(Disposable.fromAction(() ->
                         engine.removeListener(listener)));
             }
 
@@ -501,7 +500,7 @@ public class TorrentInfoProvider {
 
             if (!emitter.isCancelled()) {
                 engine.addListener(listener);
-                emitter.setDisposable(Disposables.fromAction(() ->
+                emitter.setDisposable(Disposable.fromAction(() ->
                         engine.removeListener(listener)));
             }
 
@@ -522,7 +521,7 @@ public class TorrentInfoProvider {
 
                 if (!emitter.isDisposed()) {
                     engine.addListener(listener);
-                    emitter.setDisposable(Disposables.fromAction(() ->
+                    emitter.setDisposable(Disposable.fromAction(() ->
                             engine.removeListener(listener)));
                 }
             }

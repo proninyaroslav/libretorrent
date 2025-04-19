@@ -29,7 +29,7 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.TagInfo;
 import org.proninyaroslav.libretorrent.core.storage.TagRepository;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
-import io.reactivex.Completable;
+import io.reactivex.rxjava3.core.Completable;
 
 public class AddTagViewModel extends AndroidViewModel {
     private final TagRepository tagRepo;

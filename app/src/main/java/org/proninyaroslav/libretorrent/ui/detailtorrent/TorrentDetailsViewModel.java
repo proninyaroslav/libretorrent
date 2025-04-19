@@ -72,14 +72,14 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.subjects.BehaviorSubject;
+import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class TorrentDetailsViewModel extends ViewModel {
     private static final String TAG = TorrentDetailsViewModel.class.getSimpleName();
@@ -159,11 +159,11 @@ public class TorrentDetailsViewModel extends ViewModel {
         return Completable.fromRunnable(() -> repo.deleteTag(torrentId, info));
     }
 
-    public io.reactivex.Observable<Boolean> observeFreeSpaceError() {
+    public io.reactivex.rxjava3.core.Observable<Boolean> observeFreeSpaceError() {
         return freeSpaceError;
     }
 
-    public io.reactivex.Observable<List<TorrentContentFileTree>> getDirChildren() {
+    public io.reactivex.rxjava3.core.Observable<List<TorrentContentFileTree>> getDirChildren() {
         return children;
     }
 
@@ -331,7 +331,7 @@ public class TorrentDetailsViewModel extends ViewModel {
 
     public void applyPriority(@NonNull List<String> fileNames,
                               @NonNull FilePriority priority) {
-        disposable.add(io.reactivex.Observable.fromIterable(fileNames)
+        disposable.add(io.reactivex.rxjava3.core.Observable.fromIterable(fileNames)
                 .map((fileName) -> curDir.getChild(fileName))
                 .filter(Objects::nonNull)
                 .subscribe((file) -> {

@@ -31,8 +31,8 @@ import org.proninyaroslav.libretorrent.core.model.data.entity.FeedUnreadCount;
 import java.io.IOException;
 import java.util.List;
 
-import io.reactivex.Flowable;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public interface FeedRepository {
     String getSerializeFileFormat();

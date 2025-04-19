@@ -82,17 +82,16 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.BackpressureStrategy;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleEmitter;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class TorrentEngine {
     private static final String TAG = TorrentEngine.class.getSimpleName();
@@ -222,7 +221,7 @@ public class TorrentEngine {
             if (!emitter.isCancelled()) {
                 emitter.onNext(isRunning());
                 addListener(listener);
-                emitter.setDisposable(Disposables.fromAction(() -> removeListener(listener)));
+                emitter.setDisposable(Disposable.fromAction(() -> removeListener(listener)));
             }
 
         }, BackpressureStrategy.LATEST);
@@ -437,7 +436,7 @@ public class TorrentEngine {
                 byte[] bencode = session.getLoadedMagnet(targetHash);
                 if (bencode == null) {
                     session.addListener(listener);
-                    emitter.setDisposable(Disposables.fromAction(() ->
+                    emitter.setDisposable(Disposable.fromAction(() ->
                             session.removeListener(listener)));
                 } else {
                     sendInfoToEmitter(emitter, bencode);
@@ -600,7 +599,7 @@ public class TorrentEngine {
                     emitter.onNext(info);
 
                 session.addListener(listener);
-                emitter.setDisposable(Disposables.fromAction(() ->
+                emitter.setDisposable(Disposable.fromAction(() ->
                         session.removeListener(listener)));
             }
         }, BackpressureStrategy.LATEST);

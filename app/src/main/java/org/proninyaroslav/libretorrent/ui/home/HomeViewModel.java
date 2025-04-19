@@ -55,11 +55,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class HomeViewModel extends AndroidViewModel {
     private static final String TAG = HomeViewModel.class.getSimpleName();
@@ -151,7 +151,7 @@ public class HomeViewModel extends AndroidViewModel {
                     .map((filter) -> {
                         try {
                             return filter.test(state);
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                             return false;
                         }
                     })
@@ -160,7 +160,7 @@ public class HomeViewModel extends AndroidViewModel {
                     .map((filter) -> {
                         try {
                             return filter.test(state);
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                             return false;
                         }
                     })

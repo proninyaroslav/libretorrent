@@ -33,10 +33,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.functions.Predicate;
-import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.functions.Predicate;
+import io.reactivex.rxjava3.subjects.BehaviorSubject;
 
 public class TorrentBuilder {
     private final Context context;
@@ -154,7 +154,7 @@ public class TorrentBuilder {
                 try {
                     return fileNameFilter == null || fileNameFilter.test(filename);
 
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     return false;
                 }
             }
