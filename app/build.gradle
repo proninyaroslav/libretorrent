@@ -123,7 +123,7 @@ tasks.withType(Test).configureEach {
 
 def ROOM_VERSION = '2.7.2'
 def LIFECYCLE_VERSION = '2.9.1'
-def NAV_VERSION = "2.9.1"
+def NAV_VERSION = "2.8.9" // TODO: https://issuetracker.google.com/issues/188860458#comment10
 def MOSHI_VERSION = "1.15.2"
 def PAGING_VERSION = "3.3.6";
 
