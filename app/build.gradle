@@ -125,7 +125,7 @@ def ROOM_VERSION = '2.7.2'
 def LIFECYCLE_VERSION = '2.9.1'
 def NAV_VERSION = "2.8.9" // TODO: https://issuetracker.google.com/issues/188860458#comment10
 def MOSHI_VERSION = "1.15.2"
-def PAGING_VERSION = "3.3.6";
+def PAGING_VERSION = "3.3.6"
 
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
@@ -159,7 +159,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     implementation 'androidx.preference:preference:1.2.1'
     // Fix for WorkManager https://github.com/google/ExoPlayer/issues/7993
-    implementation 'com.google.guava:guava:33.4.0-jre'
+    implementation 'com.google.guava:guava:33.4.8-jre'
     implementation "androidx.navigation:navigation-fragment:$NAV_VERSION"
     implementation "androidx.navigation:navigation-ui:$NAV_VERSION"
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
@@ -189,7 +189,7 @@ dependencies {
     //noinspection NewerVersionAvailable,GradleDependency
     implementation 'commons-io:commons-io:2.5'
     implementation 'org.apache.commons:commons-text:1.13.1'
-    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'com.google.code.gson:gson:2.13.1'
     implementation 'net.java.dev.jna:jna:5.17.0@aar'
     implementation "com.squareup.moshi:moshi:$MOSHI_VERSION"
     implementation "com.squareup.moshi:moshi-adapters:$MOSHI_VERSION"
