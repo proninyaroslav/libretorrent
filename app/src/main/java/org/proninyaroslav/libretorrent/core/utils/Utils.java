@@ -93,9 +93,12 @@ import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSort;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerSortDirection;
 import org.proninyaroslav.libretorrent.ui.home.drawer.model.DrawerStatusFilter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
@@ -405,68 +408,34 @@ public class Utils {
 
     public static byte[] fetchHttpUrl(@NonNull Context context,
                                       @NonNull String url) throws FetchLinkException {
-        byte[][] response = new byte[1][];
-
-        if (!Utils.checkConnectivity(context))
+        if (!Utils.checkConnectivity(context)) {
             throw new FetchLinkException("No network connection");
+        }
 
-        final ArrayList<Throwable> errorArray = new ArrayList<>(1);
-        HttpConnection connection;
         try {
-            connection = new HttpConnection(url);
-        } catch (Exception e) {
+            var urlObj = new URL(url);
+            var connection = (HttpURLConnection) urlObj.openConnection();
+
+            connection.setInstanceFollowRedirects(true);
+            connection.setRequestMethod("GET");
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                try (InputStream inputStream = connection.getInputStream();
+                     var byteArrayOutputStream = new ByteArrayOutputStream()) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        byteArrayOutputStream.write(buffer, 0, bytesRead);
+                    }
+                    return byteArrayOutputStream.toByteArray();
+                }
+            } else {
+                throw new FetchLinkException("Error while downloading file: " + responseCode);
+            }
+        } catch (IOException e) {
             throw new FetchLinkException(e);
         }
-
-        connection.setListener(new HttpConnection.Listener() {
-            @Override
-            public void onConnectionCreated(HttpURLConnection conn) {
-                /* Nothing */
-            }
-
-            @Override
-            public void onResponseHandle(HttpURLConnection conn, int code, String message) {
-                if (code == HttpURLConnection.HTTP_OK) {
-                    try (InputStream is = conn.getInputStream()) {
-                        response[0] = IOUtils.toByteArray(is);
-
-                    } catch (IOException e) {
-                        errorArray.add(e);
-                    }
-                } else {
-                    errorArray.add(new FetchLinkException("Failed to fetch link, response code: " + code));
-                }
-            }
-
-            @Override
-            public void onMovedPermanently(String newUrl) {
-                /* Nothing */
-            }
-
-            @Override
-            public void onIOException(IOException e) {
-                errorArray.add(e);
-            }
-
-            @Override
-            public void onTooManyRedirects() {
-                errorArray.add(new FetchLinkException("Too many redirects"));
-            }
-        });
-        connection.run();
-
-        if (!errorArray.isEmpty()) {
-            StringBuilder s = new StringBuilder();
-            for (Throwable e : errorArray) {
-                String msg = e.getMessage();
-                if (msg != null)
-                    s.append(msg.concat("\n"));
-            }
-
-            throw new FetchLinkException(s.toString());
-        }
-
-        return response[0];
     }
 
     /*
