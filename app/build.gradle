@@ -121,9 +121,9 @@ tasks.withType(Test).configureEach {
     }
 }
 
-def ROOM_VERSION = '2.7.0'
-def LIFECYCLE_VERSION = '2.8.7'
-def NAV_VERSION = "2.8.9"
+def ROOM_VERSION = '2.7.2'
+def LIFECYCLE_VERSION = '2.9.1'
+def NAV_VERSION = "2.9.1"
 def MOSHI_VERSION = "1.15.2"
 def PAGING_VERSION = "3.3.6";
 
@@ -138,8 +138,8 @@ dependencies {
     testAnnotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 
     /* AndroidX libraries */
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.fragment:fragment:1.8.6'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.fragment:fragment:1.8.8'
     implementation 'androidx.activity:activity:1.10.1'
     implementation "androidx.lifecycle:lifecycle-livedata-core:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
@@ -147,12 +147,12 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$PAGING_VERSION"
     implementation "androidx.paging:paging-rxjava3:$PAGING_VERSION"
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
-    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview-selection:1.2.0'
     implementation "androidx.room:room-rxjava3:$ROOM_VERSION"
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'androidx.work:work-runtime:2.10.0'
+    implementation 'androidx.work:work-runtime:2.10.2'
     implementation 'com.google.android.material:material:1.13.0-alpha12'
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
@@ -165,7 +165,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
     /* ReactiveX */
-    implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.11'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
     /* ACRA */
@@ -186,11 +186,11 @@ dependencies {
     implementation 'com.github.skydoves:colorpickerview:2.3.0'
     implementation 'com.github.anthonynsimon:jurl:v0.4.2'
     /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
-    //noinspection GradleDependency
+    //noinspection NewerVersionAvailable,GradleDependency
     implementation 'commons-io:commons-io:2.5'
-    implementation 'org.apache.commons:commons-text:1.13.0'
+    implementation 'org.apache.commons:commons-text:1.13.1'
     implementation 'com.google.code.gson:gson:2.11.0'
-    implementation 'net.java.dev.jna:jna:5.16.0@aar'
+    implementation 'net.java.dev.jna:jna:5.17.0@aar'
     implementation "com.squareup.moshi:moshi:$MOSHI_VERSION"
     implementation "com.squareup.moshi:moshi-adapters:$MOSHI_VERSION"
 
