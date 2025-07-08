@@ -50,7 +50,8 @@ android {
         def SESSION_LOGGING = 'SESSION_LOGGING'
 
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             buildConfigField('boolean', SESSION_LOGGING, 'false')

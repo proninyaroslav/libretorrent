@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-dontobfuscate
+-keep class org.libtorrent4j.swig.libtorrent_jni {*;}
+-keep class org.proninyaroslav.libretorrent.** {*;}
+-keep class org.nanohttpd.** {*;}
