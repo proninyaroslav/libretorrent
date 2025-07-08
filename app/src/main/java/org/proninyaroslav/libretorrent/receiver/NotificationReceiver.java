@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.proninyaroslav.libretorrent.MainActivity;
+import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.service.TorrentService;
 
 /*
@@ -55,7 +56,7 @@ public class NotificationReceiver extends BroadcastReceiver
 
                 serviceIntent = new Intent(context.getApplicationContext(), TorrentService.class);
                 serviceIntent.setAction(NOTIFY_ACTION_SHUTDOWN_APP);
-                context.startService(serviceIntent);
+                Utils.startServiceBackground(context, serviceIntent);
                 break;
             case NOTIFY_ACTION_ADD_TORRENT:
                 mainIntent = new Intent(context.getApplicationContext(), MainActivity.class);
@@ -66,17 +67,17 @@ public class NotificationReceiver extends BroadcastReceiver
             case NOTIFY_ACTION_PAUSE_ALL:
                 serviceIntent = new Intent(context.getApplicationContext(), TorrentService.class);
                 serviceIntent.setAction(NOTIFY_ACTION_PAUSE_ALL);
-                context.startService(serviceIntent);
+                Utils.startServiceBackground(context, serviceIntent);
                 break;
             case NOTIFY_ACTION_RESUME_ALL:
                 serviceIntent = new Intent(context.getApplicationContext(), TorrentService.class);
                 serviceIntent.setAction(NOTIFY_ACTION_RESUME_ALL);
-                context.startService(serviceIntent);
+                Utils.startServiceBackground(context, serviceIntent);
                 break;
             case NOTIFY_ACTION_PAUSE_RESUME_ALL:
                 serviceIntent = new Intent(context.getApplicationContext(), TorrentService.class);
                 serviceIntent.setAction(NOTIFY_ACTION_PAUSE_RESUME_ALL);
-                context.startService(serviceIntent);
+                Utils.startServiceBackground(context, serviceIntent);
                 break;
         }
     }

@@ -15,7 +15,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" android:maxSdkVersion='33'  />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -130,7 +131,11 @@
 
         <service
             android:name=".service.TorrentService"
-            android:foregroundServiceType="dataSync" />
+            android:foregroundServiceType="dataSync|specialUse">
+
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="This service implements the BitTorrent protocol, which allows you to download and share files to other people. BitTorrent was created to share files with people over a network and requires listening to the network interface for a time that the user chooses. Since BitTorrent sharing files over the network from a device is a continuous process and cannot be limited to 6 hours a day, special permission is required so that the user can get the best experience with the application."/>
+        </service>
 
         <receiver
             android:name=".receiver.NotificationReceiver"

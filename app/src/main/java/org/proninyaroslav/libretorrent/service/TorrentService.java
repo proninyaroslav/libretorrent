@@ -25,6 +25,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.text.format.DateUtils;
@@ -385,7 +387,7 @@ public class TorrentService extends Service {
         foregroundNotify.setCategory(Notification.CATEGORY_SERVICE);
 
         /* Disallow killing the service process by system */
-        startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
+        startForegroundNotification(foregroundNotify.build());
     }
 
     private void updateForegroundNotify(List<TorrentInfo> stateList, @Nullable SessionStats sessionStats) {
@@ -410,7 +412,17 @@ public class TorrentService extends Service {
             makeDetailNotifyInboxStyle(stateList, sessionStats);
         }
         /* Disallow killing the service process by system */
-        startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
+        startForegroundNotification(foregroundNotify.build());
+    }
+
+    private void startForegroundNotification(Notification notification) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startForeground(SERVICE_STARTED_NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(SERVICE_STARTED_NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+        } else {
+            startForeground(SERVICE_STARTED_NOTIFICATION_ID, notification);
+        }
     }
 
     private void makeDetailNotifyInboxStyle(List<TorrentInfo> stateList, @Nullable SessionStats sessionStats) {
@@ -538,7 +550,7 @@ public class TorrentService extends Service {
 
     void updateForegroundNotifyActions(boolean combinedPauseButton) {
         setForegroundNotifyActions(combinedPauseButton);
-        startForeground(SERVICE_STARTED_NOTIFICATION_ID, foregroundNotify.build());
+        startForegroundNotification(foregroundNotify.build());
     }
 
     private void initPendingIntents() {

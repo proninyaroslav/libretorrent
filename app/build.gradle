@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId 'org.proninyaroslav.libretorrent'
         minSdkVersion 24
-        targetSdkVersion 34
+        targetSdkVersion 35
         compileSdk 35
         // Version code format: 0000xx0
         // xx - version code
