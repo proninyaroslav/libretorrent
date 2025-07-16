@@ -453,7 +453,7 @@
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_range_start_title">Algus</string>
     <string name="pref_ip_filtering_file_title">Filtrifaili asukoht (.dat, .p2p)</string>
-    <string name="pref_validate_https_trackers_title">Valideeri HTTPS jälitajate sertifikaate</string>
+    <string name="pref_validate_https_trackers_title">Valideeri sertifikaadid HTTPS jälitajatel</string>
     <string name="pref_proxy_type_entries_1">SOCKS4</string>
     <string name="pref_streaming_enable_title">Striimimine</string>
     <string name="pref_feed_remove_duplicates_title">Ilma dubleeringuta</string>
@@ -494,4 +494,10 @@
     <string name="pref_seeding_outgoing_connections_title">Väljaminevaid ühendusi jagamiseks</string>
     <string name="pref_feed_auto_refresh_summary">Värskenda kanaleid perioodiliselt tagaplaanil.</string>
     <string name="pref_enable_scheduling_start_summary">Käivita äpp kindlal ajal. Torrentid käivitatakse vastavalt nagu on nende olek, enne kui viimane suletakse.</string>
+    <string name="apply_settings_after_reboot">Muudatused rakendatakse peale äppi taaskäivitamist.</string>
+    <string name="torrent_version">Torrenti versiooni</string>
+    <string name="torrent_version_entries_hybrid">Hübriid</string>
+    <string name="torrent_version_entries_v1_only">V1 ainult</string>
+    <string name="torrent_version_entries_v2_only">V2 ainult</string>
+    <string name="go_to_folder">Mine kausta</string>
 </resources>

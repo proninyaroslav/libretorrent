@@ -19,7 +19,7 @@
 \n2. Käytetään magnet-linkkien noutamisessa.</string>
     <string name="pref_default_trackers_list_title">Oletustrackerit</string>
     <string name="pref_custom_battery_control_dialog_summary">Haluatko varmasti asettaa akku %% seurantaan? (Lisää virrankulutusta tallennettaessa.)</string>
-    <string name="pref_custom_battery_control_summary">Asettaa akkuprosentin %% pysäyttämään tallennusket. (Ohittaa oletuksen %1$d%%.)</string>
+    <string name="pref_custom_battery_control_summary">Aseta akun varaustila %% keskeyttämään lataukset. (Ohittaa oletusarvon %1$d %%.)</string>
     <string name="pref_custom_battery_control_value_title">Virranhallinnan prosentti</string>
     <string name="pref_auto_manage_title">Hallitse automaattisesti</string>
     <string name="pref_dir_to_watch_title">Hakemisto, jota seurataan</string>
@@ -28,18 +28,17 @@
     <string name="share_stream_url">Jaa suoratoistolinkki…</string>
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="torrent_peers_template">%1$d (%2$d)</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nSaatavuus: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d %% •\nSaatavuus: %5$s</string>
     <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
     <string name="free_space">%1$s vapaana</string>
     <string name="peers_template">%1$d/%2$d</string>
-    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d %% %4$s</string>
     <string name="download_upload_speed_template">↓ %1$s/s | ↑ %2$s/s</string>
-    <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>
+    <string name="download_counter_template">%1$s/%2$s (%3$d %%)</string>
     <string name="torrent_count_notify_template">%1$d ⬇ of %2$d</string>
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
-    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
+    <string name="downloading_torrent_notify_template">%1$d %% • %2$s • ↓ %3$s/s • %4$s</string>
     <string name="drawer_sorting_progress">Edistyminen</string>
     <string name="drawer_sorting_size">Koko</string>
     <string name="drawer_sorting_date_added">Päivämäärä lisätty</string>
@@ -67,11 +66,11 @@
     <string name="pref_feed_start_torrents_title">Käynnistä automaattisesti torrentit</string>
     <string name="pref_feed_keep_items_time_title">Pidä artikkelit</string>
     <string name="pref_feed_auto_refresh_enable_roaming_title">Verkkovierailu</string>
-    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Päivitä vain yhteydet, joissa ei ole kiintiötä (esim. Wi-Fi ja Ethernet).</string>
+    <string name="pref_feed_auto_refresh_unmetered_connections_only_summary">Virkistä vain yhteydet, joissa ei ole kiintiötä (esim. Wi-Fi ja Ethernet).</string>
     <string name="pref_feed_auto_refresh_unmetered_connections_only_title">Vain rajoittamattoman kulutuksen verkossa</string>
-    <string name="pref_feed_refresh_interval_title">Päivitysväli</string>
-    <string name="pref_feed_auto_refresh_summary">Päivitä kanavat ajoittain taustalla.</string>
-    <string name="pref_feed_auto_refresh_title">Päivitä kanavat automaattisesti</string>
+    <string name="pref_feed_refresh_interval_title">Virkistysväli</string>
+    <string name="pref_feed_auto_refresh_summary">Virkistä kanavat ajoittain taustalla.</string>
+    <string name="pref_feed_auto_refresh_title">Virkistä kanavat automaattisesti</string>
     <string name="pref_scheduling_switch_wifi_summary">Kytke Wi-Fi käyttöön kun käynnistetään ajoitetusti ja pois kun pysäytetään ajoitetusti.</string>
     <string name="pref_scheduling_switch_wifi_title">Vaihda Wi-Fiin</string>
     <string name="pref_scheduling_run_only_once_title">Suorita vain kerran</string>
@@ -104,7 +103,7 @@
     <string name="pref_use_random_port_summarty">Asettaa aloitusportin sattumanvaraisesti väliltä [%1$d, %2$d] ja lopetusportin kuten ensimmäinen + 10.</string>
     <string name="pref_use_random_port_title">Käytä satunnaista porttia</string>
     <string name="about_changelog">Muutosloki</string>
-    <string name="pref_battery_control_summary">Pysäyttää kaikki torrentit, jos akun taso alittaa %1$d%%. (Rajoitus ei päde verkkovirrassa.)</string>
+    <string name="pref_battery_control_summary">Keskeyttää kaikki torrentit, jos akun varaustaso laskee alle %1$d %%. (Rajaa ei sovelleta latauksen aikana.)</string>
     <string name="pref_custom_battery_control_title">Mukautettu akkuprosentti</string>
     <string name="pref_battery_control_title">Virransäätö</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Yhtään tiedostoja ei siirretä, ellei laite ole verkkovirrassa. (Pysäyttää kaikki torrentit, kun ei ole yhdistettynä laturiin.)</string>
@@ -334,7 +333,7 @@
     <string name="file">Tiedosto</string>
     <string name="menu">Valikko</string>
     <string name="edit">Muokkaa</string>
-    <string name="refresh">Päivitä</string>
+    <string name="refresh">Virkistä</string>
     <string name="filter">Suodata</string>
     <string name="link">Linkki</string>
     <string name="def">Oletus</string>
@@ -520,4 +519,9 @@
     <string name="apply_settings_after_reboot">Muutokset tulevat käyttöön sovelluksen käynnistyttyä uudelleen.</string>
     <string name="pref_posix_disk_io_title">POSIX-levy I/O</string>
     <string name="pref_posix_disk_io_summary">Huomioi: Tämä asetus on tarkoitettu erityistilanteisiin, kuten joidenkin SD-korttien tiedostojärjestelmien tukemiseen. Mahdollistaa yksinkertaisen POSIX-levy I/O:n, jota käytetään järjestelmissä, joissa ei ole 64-bittistä virtuaalista osoiteavaruutta tai jotka eivät tue muistikartoitettuja tiedostoja.</string>
+    <string name="torrent_version_entries_v1_only">Vain V1</string>
+    <string name="torrent_version_entries_v2_only">Vain V2</string>
+    <string name="torrent_version_entries_hybrid">Hybridi</string>
+    <string name="go_to_folder">Siirry kansioon</string>
+    <string name="torrent_version">Torrent-versio</string>
 </resources>
