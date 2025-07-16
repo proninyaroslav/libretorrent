@@ -350,8 +350,8 @@
     <string name="folder_is_empty">Выбранная папка пуста или все файлы исключены фильтром.</string>
     <string name="error_create_torrent">Не удалось создать торрент</string>
     <string name="skip_files">Пропустить файлы</string>
-    <string name="skip_files_hint">Введите имена файлов, разделённые символом \"|\".</string>
-    <string name="select_folder_to_save">Выберите папку для сохранения.</string>
+    <string name="skip_files_hint">Введите имена файлов, разделённые символом \"|\"</string>
+    <string name="select_folder_to_save">Выберите папку для сохранения</string>
     <string name="torrent_saved_to">Торрент сохранён в %1$s</string>
     <string name="unable_to_open_file">Не удалось открыть выбранный файл</string>
     <string name="unable_to_create_file">Не удалось создать файл</string>
@@ -588,4 +588,36 @@
     <string name="torrent_version_entries_v1_only">Только V1</string>
     <string name="torrent_version_entries_v2_only">Только V2</string>
     <string name="go_to_folder">Перейти к папке</string>
+    <string name="error_open_ip_filter_file">Невозможно открыть файл IP-фильтра</string>
+    <string name="error_select_folder">Невозможно открыть выбранную папку</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">Не удалось получить метаданные</string>
+    <string name="feed_download_immediately">Скачать немедленно</string>
+    <string name="pref_enable_auto_manage_title">Включить автоматическое управление</string>
+    <string name="pref_theme_dynamic_colors_title">Динамические цвета</string>
+    <string name="pref_theme_dynamic_colors_summary">Цвета темы подстраиваются на основе настроек вашей системы, обоев или выбранного цвета</string>
+    <string name="pref_theme_entries_3">Системная</string>
+    <string name="pref_use_anonymous_mode">Использовать анонимный режим</string>
+    <string name="pref_enable_feed_auto_refresh">Включить автообновление</string>
+    <string name="pref_enable_streaming">Включить потоковую передачу</string>
+    <string name="torrents">Торренты</string>
+    <string name="ascending_sort">Сортировка по возрастанию</string>
+    <string name="descending_sort">Сортировка по убыванию</string>
+    <string name="current_storage">Текущее хранилище</string>
+    <string name="select">Выбрать</string>
+    <string name="create">Создать</string>
+    <string name="color_picker">Выбор цвета</string>
+    <string name="load_message">Загрузка, пожалуйста, подождите…</string>
+    <string name="reset_filter">Сбросить фильтр</string>
+    <string name="feed_articles">Статьи</string>
+    <string name="enable_journal">Включить журнал</string>
+    <string name="scroll_up">Прокрутить вверх</string>
+    <string name="scroll_down">Прокрутить вниз</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d файл</item>
+        <item quantity="few">%1$s • %2$d файла</item>
+        <item quantity="many">%1$s • %2$d файлов</item>
+        <item quantity="other">%1$s • %2$d файлов</item>
+    </plurals>
 </resources>
