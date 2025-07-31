@@ -108,9 +108,9 @@
     <string name="without_tags">குறிச்சொற்கள் இல்லாமல்</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d %% • %2$s •  %3$s/s • %4 $ s</string>
+    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s • த்தி 2 $ s/s • %3$s</string>
+    <string name="seeding_torrent_notify_template">%1$s • ↑ %2$s/s • %3$s</string>
     <!-- status • name -->
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="torrent_count_notify_template">பதிவிறக்குகிறது: %1$d ⬇ இல் %2$d</string>
@@ -139,7 +139,7 @@
     <!-- ↓ download speed | ↑ upload speed -->
     <string name="download_upload_speed_template">1 %1$s/s | 2 %2$s/s</string>
     <!-- downloaded/total • percent • ETA -->
-    <string name="download_counter_ETA_template">%1$s/%2$s •%3$d %%%4 $ s</string>
+    <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <!-- connected/total -->
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_downloading">பதிவிறக்குகிறது…</string>
@@ -250,7 +250,7 @@
     <string name="peer_relevance">பொருத்தம்:%1$.1f</string>
     <string name="peer_connection_type">இணைப்பு:%1$s</string>
     <!-- ↓ total download • ↑ total upload -->
-    <string name="peer_total_download_upload">1 %1$s • த்தி 2 $ s</string>
+    <string name="peer_total_download_upload">↓ %1$s • ↑ %2$s</string>
     <string name="peer_client">கிளையண்ட்:%1$s</string>
     <string name="peer_connection_type_bittorrent">பிடி</string>
     <string name="peer_connection_type_web">வலை</string>
@@ -349,8 +349,8 @@
     <string name="folder_is_empty">தேர்ந்தெடுக்கப்பட்ட கோப்புறை காலியாக உள்ளது அல்லது அதன் அனைத்து கோப்புகளும் வடிகட்டியால் விலக்கப்படுகின்றன.</string>
     <string name="error_create_torrent">டொரெண்டை உருவாக்க முடியவில்லை</string>
     <string name="skip_files">கோப்புகளை தவிர்</string>
-    <string name="skip_files_hint">\"|\" ஆல் பிரிக்கப்பட்ட கோப்பு பெயர்களை உள்ளிடவும்.</string>
-    <string name="select_folder_to_save">சேமிக்க ஒரு கோப்புறையைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="skip_files_hint">\"|\" ஆல் பிரிக்கப்பட்ட கோப்பு பெயர்களை உள்ளிடவும்</string>
+    <string name="select_folder_to_save">சேமிக்க ஒரு கோப்புறையைத் தேர்ந்தெடுக்கவும்</string>
     <string name="torrent_saved_to">%1$s இல் டொரண்ட் சேமிக்கப்பட்டது</string>
     <string name="unable_to_open_file">தேர்ந்தெடுக்கப்பட்ட கோப்பைத் திறக்க முடியவில்லை</string>
     <string name="unable_to_create_file">கோப்பை உருவாக்க முடியவில்லை</string>
@@ -415,7 +415,7 @@
     <string name="pref_theme_entries_2">பிளாக்</string>
     <string name="pref_notification_category">அறிவிப்பு அமைப்புகள்</string>
     <string name="pref_torrent_finish_notify_title">டொரண்ட் முடிப்பு அறிவிப்பு</string>
-    <string name="pref_torrent_finish_notify_summary">ஒரு டாரண்ட் பதிவிறக்கி முடிந்ததும் அறிவிப்பைக் காட்டு</string>
+    <string name="pref_torrent_finish_notify_summary">ஒரு டாரண்ட் பதிவிறக்கி முடிந்ததும் அறிவிப்பைக் காட்டு.</string>
     <string name="pref_play_sound_notify_title">ஒலி விளையாட</string>
     <string name="pref_notify_sound_title">அறிவிப்பு ஒலி</string>
     <string name="pref_led_indicator_notify_title">LED காட்டி</string>
@@ -453,7 +453,7 @@
     <string name="pref_enable_utp_title">μtp</string>
     <string name="pref_enable_utp_summary">டி.சி.பி மீது வழக்கமான பிட்டோரண்டில் காணப்படும் மோசமான நேரந்தவறுகை மற்றும் பிற நெரிசல் கட்டுப்பாட்டு சிக்கல்களைத் தணிக்கும் நோக்கம் கொண்டது, அதே நேரத்தில் நம்பகமான, உத்தரவிடப்பட்ட விநியோகத்தை வழங்கும்.</string>
     <string name="pref_enable_upnp_title">யுபிஎன்பி</string>
-    <string name="pref_enable_natpmp_title">நாட்-பி.எம்.பி.</string>
+    <string name="pref_enable_natpmp_title">நாட்-பிஎம்பி</string>
     <string name="pref_port_settings_category">துறைமுக அமைப்புகள்</string>
     <string name="pref_use_random_port_title">சீரற்ற போர்ட் பயன்படுத்தவும்</string>
     <string name="pref_use_random_port_summarty">தொடக்க போர்ட்டை தோராயமாக [ %1$d, %2$d] மற்றும் இறுதி துறைமுகத்தை முதல் + 10 ஆக அமைக்கிறது.</string>
@@ -539,7 +539,7 @@
     <string name="pref_streaming_error">பிசியாக அல்லது தவறாக இல்லாத ச்ட்ரீமிங்கிற்கு ஒரு துறைமுகம் அல்லது ஓச்ட்பெயரைத் தேர்ந்தெடுக்கவும்.</string>
     <!-- About dialog -->
     <string name="about_title">பற்றி</string>
-    <string name="about_description">மேலும் செய்தி மற்றும் திட்டத்திற்கு எவ்வாறு உதவுவது: &lt;a href = https: //gitlab.com/pronininearoslav/libretorrent&gt; https://gitlab.com/pronininearoslav/libretorrent &lt;/a&gt; &lt;br&gt; &lt;br&gt; நூலகம் libre (&lt;a href = https: //www.gnu.org/copileft/gpl.html&gt; gplv3+&lt;/a&gt;) ஆண்ட்ராய்டு 4+ க்கான டொரண்ட் வாங்கி, லிப்டோரெண்டின் அடிப்படையில் (சாவா ரேப்பர் &lt;a href = https: // github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
+    <string name="about_description">மேலும் செய்தி மற்றும் திட்டத்திற்கு எவ்வாறு உதவுவது: &lt;a href = https: //gitlab.com/pronininearoslav/libretorrent&gt; https://gitlab.com/pronininearoslav/libretorrent &lt;/a&gt;&lt;br&gt;&lt;br&gt; நூலகம் libre (&lt;a href = https: //www.gnu.org/copileft/gpl.html&gt; gplv3+&lt;/a&gt;) ஆண்ட்ராய்டு 4+ க்கான டொரண்ட் வாங்கி, லிப்டோரெண்டின் அடிப்படையில் (சாவா ரேப்பர் &lt;a href = https: // github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">சேஞ்ச்</string>
     <string name="error_open_torrent">Torrent ஐ திறக்க முடியவில்லை</string>
     <string name="pref_watch_dir_delete_file_title">சேர்த்தபின் . torrent கோப்பை நீக்கு</string>
@@ -571,17 +571,47 @@
     <string name="exact_alarm_permission_warning">திட்டமிடுபவர் வேலை செய்ய, நீங்கள் ஒரு சிறப்பு கணினி உரையாடலில் இசைவு பெற வேண்டும். தொடரவா?</string>
     <string name="perm_denied_warning_android_r">அனைத்து கோப்புகளையும் அணுகவும் டொரண்ட்ச் மற்றும் அணுகலை அணுக அனுமதித்தல் தேவை. டோரண்ட் கோப்புகளை தன்னிச்சையான கோப்புறைகளில். இந்த அனுமதியின்றி, லிப்ரெட்டோரண்டிற்கு ஒரு குறிப்பிட்ட எண்ணிக்கையிலான கோப்புறைகளுக்கு மட்டுமே அணுகல் இருக்கும். இந்த அனுமதியை நீங்கள் மறுக்க விரும்புகிறீர்களா?</string>
     <string name="torrent_version">டொரண்ட் பதிப்பு</string>
-    <string name="pref_posix_disk_io_title">POSIX வட்டு I/O.</string>
+    <string name="pref_posix_disk_io_title">POSIX வட்டு உ/வெ</string>
     <string name="pref_posix_disk_io_summary">குறிப்பு: சில எச்டி அட்டை கோப்பு முறைமைகளுக்கான உதவி போன்ற குறிப்பிட்ட சூழ்நிலைகளில் மட்டுமே பயன்படுத்த இந்த விருப்பம். 64-பிட் மெய்நிகர் முகவரி இடம் இல்லாத அல்லது நினைவக மேப் செய்யப்பட்ட கோப்புகளை ஆதரிக்காத அமைப்புகளுக்குப் பயன்படுத்தப்படும் எளிய POSIX வட்டு I/O ஐ இயக்குகிறது.</string>
     <string name="torrent_version_entries_hybrid">கலப்பினம்</string>
     <string name="torrent_version_entries_v1_only">வி 1 மட்டும்</string>
     <string name="torrent_version_entries_v2_only">வி 2 மட்டும்</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">இரண்டு பொத்தான்களை ஒருங்கிணைக்கிறது: அனைத்தையும் இடைநிறுத்தி, அனைத்தையும் மீண்டும் தொடங்குங்கள். பொத்தான் ஒரு ச்விட்சர் போல வேலை செய்யும். எச்சரிக்கை: டொரண்டின் கையேடு இடைநிறுத்தம்/விண்ணப்பம் மூலம் பொத்தான் நிலை பாதிக்கப்படாது.</string>
-    <string name="manage_all_files_warning_dialog_description">\'பதிவிறக்கங்கள்\' தவிர வேறு கோப்புறைகளில் டோரண்டுகளை சேமிக்க விரும்பினால், லிப்ரெட்டோரண்டின் கூகிள் பிளே பதிப்பைப் பயன்படுத்த வேண்டாம்.\n திட்ட பக்கத்தில் பிற ஆதாரங்கள் உள்ளன.</string>
+    <string name="manage_all_files_warning_dialog_description">\'பதிவிறக்கங்கள்\' தவிர வேறு கோப்புறைகளில் டோரண்டுகளை சேமிக்க விரும்பினால், லிப்ரெட்டோரண்டின் கூகிள் பிளே பதிப்பைப் பயன்படுத்த வேண்டாம். \nதிட்ட பக்கத்தில் பிற ஆதாரங்கள் உள்ளன.</string>
     <string name="pref_validate_https_trackers_title">HTTPS டிராக்கர்களின் சான்றிதழ்களை சரிபார்க்கவும்</string>
     <string name="pref_default_trackers_list_summary">டிராக்கர்ச் பட்டியல், பின்வரும் நிகழ்வுகளில் பயன்படுத்தப்படுகிறது:\n 1. ஒரு நீரோட்டத்தைச் சேர்க்கும்போது, இயல்புநிலை பட்டியல் தானாக டொரண்ட் பட்டியலில் சேர்க்கப்படும்.\n 2. காந்த இணைப்புகளைப் பெற பயன்படுகிறது.</string>
     <string name="go_to_folder">கோப்புறைக்குச் செல்லுங்கள்</string>
     <string name="apply_settings_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு மாற்றங்கள் பயன்படுத்தப்படும்.</string>
     <string name="torrent_speed_limit_dialog">KIB/s இல் வேகத்தை அமைக்கவும். ஒரு நீரோட்டத்திற்கு அதிக வரம்பை நிர்ணயிப்பது பின்னர் உலக வரம்பு உலக வரம்பை மீறாது என்பதை நினைவில் கொள்க.</string>
     <string name="pref_validate_https_trackers_summary">கணினி சான்றிதழ் கடையில் HTTPS டிராக்கர்கள் மற்றும் HTTPS வலை விதைகளின் சான்றிதழ் சரிபார்க்கப்படும்.</string>
+    <string name="error_open_ip_filter_file">ஐபி வடிகட்டி கோப்பைத் திறக்க முடியாது</string>
+    <string name="error_select_folder">தேர்ந்தெடுக்கப்பட்ட கோப்புறையைத் திறக்க முடியாது</string>
+    <string name="single_downloading_torrent_notify_template">%1$d %% • %2$s •  %3$s/s</string>
+    <string name="foreground_notify_template">1 %1$s/s | 2 %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">மேனிலை தரவு பெற முடியவில்லை</string>
+    <string name="feed_download_immediately">உடனடியாக பதிவிறக்கவும்</string>
+    <string name="pref_enable_auto_manage_title">ஆட்டோ-மேனேசை இயக்கவும்</string>
+    <string name="pref_theme_dynamic_colors_title">மாறும் வண்ணங்கள்</string>
+    <string name="pref_theme_dynamic_colors_summary">உங்கள் கணினி அமைப்புகள், வால்பேப்பர்கள் அல்லது தேர்ந்தெடுக்கப்பட்ட வண்ணத்தின் அடிப்படையில் கருப்பொருள் வண்ணங்கள் சரிசெய்யப்படுகின்றன</string>
+    <string name="pref_theme_entries_3">மண்டலம்</string>
+    <string name="pref_use_anonymous_mode">அநாமதேய பயன்முறையைப் பயன்படுத்தவும்</string>
+    <string name="pref_enable_feed_auto_refresh">ஆட்டோ-ரீஃப்ரெசை இயக்கவும்</string>
+    <string name="pref_enable_streaming">ச்ட்ரீமிங்கை இயக்கவும்</string>
+    <string name="torrents">டொரண்ட்ச்</string>
+    <string name="ascending_sort">ஏறுவரிசை வரிசை</string>
+    <string name="descending_sort">இறங்கு வரிசை</string>
+    <string name="current_storage">தற்போதைய சேமிப்பு</string>
+    <string name="select">தேர்ந்தெடு</string>
+    <string name="create">உருவாக்கு</string>
+    <string name="color_picker">வண்ண தேர்வாளர்</string>
+    <string name="load_message">ஏற்றவும், தயவுசெய்து காத்திருங்கள்…</string>
+    <string name="reset_filter">வடிகட்டியை மீட்டமை</string>
+    <string name="feed_articles">கட்டுரைகள்</string>
+    <string name="enable_journal">பத்திரிகையை இயக்கு</string>
+    <string name="scroll_up">மேலே உருட்டவும்</string>
+    <string name="scroll_down">கீழே உருட்டவும்</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d கோப்பு</item>
+        <item quantity="other">%1$s • %2$d கோப்புகள்</item>
+    </plurals>
 </resources>

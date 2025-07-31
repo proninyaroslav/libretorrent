@@ -349,8 +349,8 @@
     <string name="folder_is_empty">选中文件夹为空或筛选器排除了其所有的文件。</string>
     <string name="error_create_torrent">无法创建种子</string>
     <string name="skip_files">跳过文件</string>
-    <string name="skip_files_hint">输入文件名，多个名称中间用 “|” 隔开。</string>
-    <string name="select_folder_to_save">选择一个文件夹来保存下载项。</string>
+    <string name="skip_files_hint">输入文件名，多个名称中间用 “|” 隔开</string>
+    <string name="select_folder_to_save">选择保存文件夹</string>
     <string name="torrent_saved_to">torrent 保存至 %1$s</string>
     <string name="unable_to_open_file">无法打开所选文件</string>
     <string name="unable_to_create_file">无法创建文件</string>
@@ -587,4 +587,33 @@
     <string name="torrent_version">Torrent 版本</string>
     <string name="torrent_version_entries_hybrid">混合</string>
     <string name="go_to_folder">转到文件夹</string>
+    <string name="error_open_ip_filter_file">无法打开 IP 筛选器文件</string>
+    <string name="error_select_folder">无法打开所选文件夹</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/秒</string>
+    <string name="foreground_notify_template">↓ %1$s/秒 | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">无法取得元数据</string>
+    <string name="feed_download_immediately">立即下载</string>
+    <string name="pref_enable_auto_manage_title">启用自动管理</string>
+    <string name="pref_theme_dynamic_colors_title">动态颜色</string>
+    <string name="pref_theme_dynamic_colors_summary">主题色根据系统设置、壁纸或所选颜色调整</string>
+    <string name="pref_theme_entries_3">系统</string>
+    <string name="pref_use_anonymous_mode">使用匿名模式</string>
+    <string name="pref_enable_feed_auto_refresh">启用自动刷新</string>
+    <string name="pref_enable_streaming">启用串流</string>
+    <string name="torrents">种子</string>
+    <string name="ascending_sort">升序排列</string>
+    <string name="descending_sort">降序排列</string>
+    <string name="current_storage">当前存储</string>
+    <string name="select">选择</string>
+    <string name="create">创建</string>
+    <string name="color_picker">颜色选择器</string>
+    <string name="load_message">加载，请等待…</string>
+    <string name="reset_filter">重置过滤器</string>
+    <string name="feed_articles">文章</string>
+    <string name="enable_journal">启用日志</string>
+    <string name="scroll_up">向上滚动</string>
+    <string name="scroll_down">向下滚动</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="other">%1$s • %2$d 个文件</item>
+    </plurals>
 </resources>

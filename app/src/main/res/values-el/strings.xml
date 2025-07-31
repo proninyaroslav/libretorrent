@@ -349,8 +349,8 @@
     <string name="folder_is_empty">Ο επιλεγμένος φάκελος είναι άδειος ή όλα τα αρχεία εξαιρούνται από το φίλτρο.</string>
     <string name="error_create_torrent">Δεν ήταν δυνατή η δημιουργία torrent</string>
     <string name="skip_files">Παράλειψη αρχείων</string>
-    <string name="skip_files_hint">Εισαγάγετε ονόματα αρχείων διαχωρισμένα με \"|\".</string>
-    <string name="select_folder_to_save">Επιλέξτε ένα φάκελο για αποθήκευση.</string>
+    <string name="skip_files_hint">Εισάγετε ονόματα αρχείων διαχωρισμένα με \"|\"</string>
+    <string name="select_folder_to_save">Επιλέξτε ένα φάκελο για αποθήκευση</string>
     <string name="torrent_saved_to">Το torrent αποθηκεύεται στο %1$s</string>
     <string name="unable_to_open_file">Το επιλεγμένο αρχείο δεν μπορεί να ανοίξει</string>
     <string name="unable_to_create_file">Δεν ήταν δυνατή η δημιουργία αρχείου</string>
@@ -587,4 +587,34 @@
     <string name="torrent_version_entries_v2_only">Μόνο V2</string>
     <string name="torrent_version">Έκδοση torrent</string>
     <string name="go_to_folder">Μετάβαση σε φάκελο</string>
+    <string name="error_open_ip_filter_file">Δεν είναι δυνατό το άνοιγμα του αρχείου φίλτρου IP</string>
+    <string name="error_select_folder">Δεν είναι δυνατό το άνοιγμα του επιλεγμένου φακέλου</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">Δεν ήταν δυνατή η ανάκτηση μεταδεδομένων</string>
+    <string name="feed_download_immediately">Άμεση λήψη</string>
+    <string name="pref_enable_auto_manage_title">Ενεργοποίηση αυτόματης διαχείρισης</string>
+    <string name="pref_theme_dynamic_colors_title">Δυναμικά χρώματα</string>
+    <string name="pref_theme_dynamic_colors_summary">Τα χρώματα του θέματος προσαρμόζονται με βάση τις ρυθμίσεις του συστήματος σας, τις ταπετσαρίες ή το επιλεγμένο χρώμα</string>
+    <string name="pref_theme_entries_3">Σύστημα</string>
+    <string name="pref_use_anonymous_mode">Χρήση ανώνυμης λειτουργίας</string>
+    <string name="pref_enable_feed_auto_refresh">Ενεργοποίηση αυτόματης ανανέωσης</string>
+    <string name="pref_enable_streaming">Ενεργοποίηση ροής</string>
+    <string name="torrents">Torrents</string>
+    <string name="ascending_sort">Αύξουσα ταξινόμηση</string>
+    <string name="descending_sort">Φθίνουσα ταξινόμηση</string>
+    <string name="current_storage">Τρέχουσα αποθήκευση</string>
+    <string name="select">Επιλογή</string>
+    <string name="create">Δημιουργία</string>
+    <string name="color_picker">Επιλογέας χρώματος</string>
+    <string name="load_message">Φόρτωση, παρακαλώ περιμένετε…</string>
+    <string name="reset_filter">Επαναφορά φίλτρου</string>
+    <string name="feed_articles">Άρθρα</string>
+    <string name="enable_journal">Ενεργοποίηση ημερολογίου</string>
+    <string name="scroll_up">Κύλιση προς τα πάνω</string>
+    <string name="scroll_down">Κύλιση προς τα κάτω</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d αρχείο</item>
+        <item quantity="other">%1$s • %2$d αρχεία</item>
+    </plurals>
 </resources>

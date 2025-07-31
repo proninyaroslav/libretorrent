@@ -348,8 +348,8 @@
     <string name="folder_is_empty">Wybrany folder jest pusty albo wszystkie jego pliki są wykluczone przez filtr.</string>
     <string name="error_create_torrent">Nie udało się utworzyć torrenta</string>
     <string name="skip_files">Pomiń pliki</string>
-    <string name="skip_files_hint">Wprowadź nazwy plików oddzielone znakiem „|”.</string>
-    <string name="select_folder_to_save">Wybierz folder do zapisania.</string>
+    <string name="skip_files_hint">Wprowadź nazwy plików oddzielone znakiem „|”</string>
+    <string name="select_folder_to_save">Wybierz folder do zapisania</string>
     <string name="torrent_saved_to">Torrent zapisany w %1$s</string>
     <string name="unable_to_open_file">Nie udało się otworzyć wybranego pliku</string>
     <string name="unable_to_create_file">Nie udało się utworzyć pliku</string>
@@ -586,4 +586,36 @@
     <string name="torrent_version_entries_hybrid">Hybrydowa</string>
     <string name="torrent_version_entries_v2_only">Tylko V2</string>
     <string name="go_to_folder">Przejdź do folderu</string>
+    <string name="error_open_ip_filter_file">Nie udało się otworzyć pliku z filtrami IP</string>
+    <string name="error_select_folder">Nie udało się otworzyć wybranego folderu</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">Nie udało się pobrać metadanych</string>
+    <string name="feed_download_immediately">Pobierz natychmiast</string>
+    <string name="pref_enable_auto_manage_title">Włącz automatyczne zarządzanie</string>
+    <string name="pref_theme_dynamic_colors_title">Dynamiczne kolory</string>
+    <string name="pref_theme_dynamic_colors_summary">Kolory motywu są dostosowywane na podstawie Twoich ustawień systemowych, tapet lub wybranego koloru</string>
+    <string name="pref_theme_entries_3">Systemowy</string>
+    <string name="pref_use_anonymous_mode">Używaj trybu anonimowego</string>
+    <string name="pref_enable_feed_auto_refresh">Włącz automatyczne odświeżanie</string>
+    <string name="pref_enable_streaming">Włącz strumieniowanie</string>
+    <string name="torrents">Torrenty</string>
+    <string name="ascending_sort">Sortowanie rosnące</string>
+    <string name="descending_sort">Sortowanie malejące</string>
+    <string name="select">Wybierz</string>
+    <string name="create">Utwórz</string>
+    <string name="color_picker">Selektor kolorów</string>
+    <string name="current_storage">Aktualna pamięć</string>
+    <string name="load_message">Ładownie, proszę czekać…</string>
+    <string name="reset_filter">Zresetuj filtr</string>
+    <string name="feed_articles">Artykuły</string>
+    <string name="enable_journal">Włącz dziennik</string>
+    <string name="scroll_up">Przewiń w górę</string>
+    <string name="scroll_down">Przewiń w dół</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d plik</item>
+        <item quantity="few">%1$s • %2$d pliki</item>
+        <item quantity="many">%1$s • %2$d plików</item>
+        <item quantity="other">%1$s • %2$d plików</item>
+    </plurals>
 </resources>
