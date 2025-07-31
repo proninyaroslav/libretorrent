@@ -393,7 +393,7 @@ class TorrentDownloadImpl implements TorrentDownload {
                 return;
             }
 
-            TorrentMetaInfo info = new TorrentMetaInfo(ti);
+            TorrentMetaInfo info = new TorrentMetaInfo(ti, th.swig().get_resume_data());
 
             /* Skip if default name is changed */
             String name = this.name.get();
@@ -1131,7 +1131,7 @@ class TorrentDownloadImpl implements TorrentDownload {
         TorrentInfo ti = th.torrentFile();
         TorrentMetaInfo info;
         if (ti != null) {
-            info = new TorrentMetaInfo(ti);
+            info = new TorrentMetaInfo(ti, th.swig().get_resume_data());
         } else {
             String hash = getInfoHash();
             String name = getTorrentName();

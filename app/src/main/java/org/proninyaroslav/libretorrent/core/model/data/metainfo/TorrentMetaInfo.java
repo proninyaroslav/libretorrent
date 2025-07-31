@@ -25,11 +25,15 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import org.apache.commons.io.IOUtils;
+import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.TorrentInfo;
+import org.libtorrent4j.swig.add_torrent_params;
+import org.libtorrent4j.swig.libtorrent_jni;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 
 import java.io.FileInputStream;
+import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -61,16 +65,21 @@ public class TorrentMetaInfo implements Parcelable {
 
     public TorrentMetaInfo(@NonNull byte[] data) throws DecodeException {
         try {
-            getMetaInfo(TorrentInfo.bdecode(data));
+            var buffer = ByteBuffer.allocateDirect(data.length);
+            long ptr = libtorrent_jni.directBufferAddress(buffer);
+            long size = libtorrent_jni.directBufferCapacity(buffer);
+            add_torrent_params params = add_torrent_params.load_torrent_buffer(ptr, (int) size);
+
+            getMetaInfo(TorrentInfo.bdecode(data), params);
 
         } catch (Exception e) {
             throw new DecodeException(e);
         }
     }
 
-    public TorrentMetaInfo(TorrentInfo info) throws DecodeException {
+    public TorrentMetaInfo(TorrentInfo info, add_torrent_params params) throws DecodeException {
         try {
-            getMetaInfo(info);
+            getMetaInfo(info, params);
 
         } catch (Exception e) {
             throw new DecodeException(e);
@@ -81,8 +90,11 @@ public class TorrentMetaInfo implements Parcelable {
         FileChannel chan = null;
         try {
             chan = is.getChannel();
-            getMetaInfo(new TorrentInfo(chan
-                    .map(FileChannel.MapMode.READ_ONLY, 0, chan.size())));
+            var buffer = chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size());
+            long ptr = libtorrent_jni.directBufferAddress(buffer);
+            long size = libtorrent_jni.directBufferCapacity(buffer);
+            add_torrent_params params = add_torrent_params.load_torrent_buffer(ptr, (int) size);
+            getMetaInfo(new TorrentInfo(buffer), params);
 
         } catch (Exception e) {
             throw new DecodeException(e);
@@ -91,16 +103,16 @@ public class TorrentMetaInfo implements Parcelable {
         }
     }
 
-    private void getMetaInfo(TorrentInfo info) {
+    private void getMetaInfo(TorrentInfo info, add_torrent_params params) {
         torrentName = info.name();
         sha1Hash = info.infoHash().toHex();
-        comment = info.comment();
-        createdBy = info.creator();
+        comment = params.getComment();
+        createdBy = params.getCreated_by();
         /* Correct convert UNIX time (time_t) */
-        creationDate = info.creationDate() * 1000L;
+        creationDate = params.getCreation_date() * 1000L;
         torrentSize = info.totalSize();
         fileCount = info.numFiles();
-        fileList = Utils.getFileList(info.origFiles());
+        fileList = Utils.getFileList(info.files());
         pieceLength = info.pieceLength();
         numPieces = info.numPieces();
     }
