@@ -15,7 +15,7 @@
     <string name="select_all">Seleccionar todo</string>
     <string name="save">Guardar</string>
     <string name="search">Buscar</string>
-    <string name="not_available">N/D</string>
+    <string name="not_available">¿?</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
     <!-- 1 h. 1 m. 1 s -->
@@ -48,14 +48,14 @@
     <string name="switch_off">Desactivado</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Borrar incluyendo archivos descargados</string>
-    <string name="delete_selected_torrent">¿Borrar torrent seleccionado? (No se puede deshacer.)</string>
-    <string name="delete_selected_torrents">¿Borrar torrents seleccionados? (No se puede deshacer.)</string>
+    <string name="delete_selected_torrent">¿Borrar el torrent seleccionado? (No se puede deshacer.)</string>
+    <string name="delete_selected_torrents">¿Borrar los torrents seleccionados? (No se puede deshacer.)</string>
     <string name="force_recheck_torrent">Forzar recomprobación</string>
     <string name="force_announce_torrent">Forzar anuncio</string>
     <string name="add_link">Añadir enlace</string>
     <string name="dialog_add_link_title">Pon el valor infohash, enlace «magnet» o enlace HTTP/S</string>
     <string name="torrent_list_empty">No hay torrents</string>
-    <string name="select_or_add_torrent">Seleccionar o añadir un torrent</string>
+    <string name="select_or_add_torrent">Elige o añade un torrent</string>
     <string name="error_empty_link">Pon el enlace</string>
     <string name="error_invalid_link">Enlace incorrecto</string>
     <string name="error_open_torrent_file">No se pudo abrir el archivo .torrent</string>
@@ -79,16 +79,16 @@
     <string name="drawer_status_downloading_metadata">Descargando metadatos…</string>
     <string name="drawer_status_error">Error</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">Clasificación</string>
-    <string name="drawer_sorting_name">Nombre</string>
+    <string name="drawer_sorting">Ordenar</string>
+    <string name="drawer_sorting_name">Por nombre</string>
     <string name="drawer_sorting_date_added">Por fecha</string>
-    <string name="drawer_sorting_size">Tamaño</string>
-    <string name="drawer_sorting_progress">Progreso</string>
-    <string name="drawer_sorting_ETA">Tiempo estimado</string>
-    <string name="drawer_sorting_peers">Popularidad</string>
-    <string name="drawer_sorting_no_sorting">Sin clasificación</string>
+    <string name="drawer_sorting_size">Por tamaño</string>
+    <string name="drawer_sorting_progress">Por progreso</string>
+    <string name="drawer_sorting_ETA">Por tiempo restante</string>
+    <string name="drawer_sorting_peers">Por popularidad</string>
+    <string name="drawer_sorting_no_sorting">Sin ordenar</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Por fecha</string>
+    <string name="drawer_date_added">Antigüedad</string>
     <string name="drawer_date_added_today">Hoy</string>
     <string name="drawer_date_added_yesterday">Ayer</string>
     <string name="drawer_date_added_week">Semana</string>
@@ -273,7 +273,7 @@
     <string name="torrent_availability">Disponibilidad</string>
     <string name="share_stream_url">Compartir URL de retransmisión…</string>
     <string name="magnet_include_file_priorities">¿Incluir las prioridades de archivos?</string>
-    <string name="magnet_more_about_bep53">Más información en: https://www.bittorrent.org/beps/bep_0053.html</string>
+    <string name="magnet_more_about_bep53">Para más información lee: https://www.bittorrent.org/beps/bep_0053.html</string>
     <string name="tracker_list_empty">No hay rastreadores</string>
     <string name="edit_torrent_name">Editar nombre del torrent</string>
     <!-- Send text to clipboard -->
@@ -281,14 +281,14 @@
     <string name="text_copied_to_clipboard">Copiado al portapapeles</string>
     <!-- Error report -->
     <string name="app_error_occurred">Se produjo un error en la aplicación. Puedes informar de ello a los desarrolladores.</string>
-    <string name="error_comment_prompt">Añadir información extra y comentarios aquí:</string>
+    <string name="error_comment_prompt">A continuación puedes añadir información complementaria y poner un comentario:</string>
     <!-- Feeds -->
     <string name="feed">Canales RSS</string>
     <string name="feed_channel_list_empty">No hay canales</string>
     <string name="select_or_add_feed_channel">Elige o añade un canal RSS o Atom</string>
     <string name="add_feed_channel">Añadir canal</string>
     <string name="feed_name">Nombre (opcional)</string>
-    <string name="feed_filter_prompt">Ingresa las palabras (separadas por \"|\"), una de las cuales debe estar en el nombre, o ingresa una expresión regular. Los torrents solo se añadirán si este filtro coincide con el nombre del torrent.</string>
+    <string name="feed_filter_prompt">Escribe palabras (separadas por «|») en la que al menos una de ellas tiene que aparecer en el nombre, o utiliza una expresión regular. Los torrents solo se añadirán si este filtro coincide con el nombre del torrent.</string>
     <string name="feed_filter_prompt_one_per_line">Escribe un filtro por línea.</string>
     <string name="feed_auto_download">Descarga automática de torrents</string>
     <string name="feed_use_regex">Use expresión regular</string>
@@ -300,8 +300,8 @@
     <string name="error_cannot_edit_channel">No se pudo editar el canal</string>
     <string name="error_cannot_delete_channel">No se pudo borrar el canal</string>
     <string name="copy_link">Copiar enlace</string>
-    <string name="delete_selected_channel">¿Borrar canal seleccionado?</string>
-    <string name="delete_selected_channels">¿Borrar canales seleccionados?</string>
+    <string name="delete_selected_channel">¿Borrar el canal seleccionado?</string>
+    <string name="delete_selected_channels">¿Borrar los canales seleccionados?</string>
     <string name="edit_feed_channel">Editar canal</string>
     <string name="link_copied_to_clipboard">Copiado al portapapeles</string>
     <string name="mark_as_read">Marcar como leído</string>
@@ -309,8 +309,8 @@
     <string name="feed_item_list_empty">No hay artículos</string>
     <string name="backup_feeds_successfully">Canales guardados</string>
     <string name="restore_feeds_backup_successfully">Canales restaurados</string>
-    <string name="error_backup_feeds">No se pudo guardar los canales</string>
-    <string name="error_restore_feeds_backup">No se pudo restaurar los canales</string>
+    <string name="error_backup_feeds">Los canales no se pudieron guardar</string>
+    <string name="error_restore_feeds_backup">Los canales no se pudieron restaurar</string>
     <string name="feed_item_open_article_url">Abrir artículo</string>
     <string name="feeds_backup_selection_dialog_title">Seleccionar archivo de respaldo</string>
     <string name="error_import_invalid_format">Formato no válido</string>
@@ -318,7 +318,7 @@
     <string name="feed_item_url_not_found">URL no encontrada</string>
     <!-- Create torrent dialog -->
     <string name="create_torrent">Crear torrent</string>
-    <string name="creating_torrent_progress">Por favor, espera mientras se crea el torrent…</string>
+    <string name="creating_torrent_progress">Espera un momento mientras se crea el torrent…</string>
     <string name="file_or_folder_for_seeding">Archivo o carpeta para sembrar</string>
     <string name="error_please_select_file_or_folder_for_seeding_first">Primero selecciona el archivo o carpeta para sembrar.</string>
     <string name="tracker_urls">URLs de rastreadores</string>
@@ -349,8 +349,8 @@
     <string name="folder_is_empty">La carpeta seleccionada está vacía o todos los archivos están excluidos por filtro.</string>
     <string name="error_create_torrent">No se pudo crear el torrent</string>
     <string name="skip_files">Omitir archivos</string>
-    <string name="skip_files_hint">Escribe los nombres de los archivos separados por «|».</string>
-    <string name="select_folder_to_save">Selecciona una carpeta para guardar.</string>
+    <string name="skip_files_hint">Escribe los nombres de los archivos separados por «|»</string>
+    <string name="select_folder_to_save">Selecciona una carpeta para guardar</string>
     <string name="torrent_saved_to">Torrent guardado en %1$s</string>
     <string name="unable_to_open_file">No se pudo abrir el archivo seleccionado</string>
     <string name="unable_to_create_file">No se pudo crear el archivo</string>
@@ -406,8 +406,8 @@
     <string name="pref_auto_manage_summary">El torrent puede reanudarse o pausarse automáticamente en cualquier punto. (Puede ralentizar la pausa/reanudación.)</string>
     <string name="pref_max_active_uploads_downloads_dialog_msg">-1 significa ilimitado</string>
     <!-- Appearance settings -->
-    <string name="pref_theme_category">Ajustes de tema</string>
-    <string name="pref_theme_title">Tema</string>
+    <string name="pref_theme_category">Ajustes de color</string>
+    <string name="pref_theme_title">Esquema de colores</string>
     <!-- pref_theme_entries -->
     <string name="pref_theme_entries_0">Claro</string>
     <string name="pref_theme_entries_1">Oscuro</string>
@@ -584,4 +584,34 @@
     <string name="torrent_version">Versión torrent</string>
     <string name="torrent_version_entries_hybrid">Híbridas</string>
     <string name="go_to_folder">Ir a la carpeta</string>
+    <string name="error_open_ip_filter_file">No se pudo abrir el archivo de filtrado de direcciones IP</string>
+    <string name="error_select_folder">No se pudo abrir la carpeta elegida</string>
+    <string name="error_fetch_torrent_metadata">No se pudieron obtener los metadatos</string>
+    <string name="feed_download_immediately">Descargar inmediatamente</string>
+    <string name="pref_theme_dynamic_colors_title">Colores dinámicos</string>
+    <string name="pref_theme_entries_3">Del sistema</string>
+    <string name="pref_use_anonymous_mode">Descargar de forma anónima</string>
+    <string name="pref_enable_feed_auto_refresh">Activar recarga automática</string>
+    <string name="pref_enable_streaming">Permitir retransmitir el contenido local</string>
+    <string name="ascending_sort">Sentido ascendente</string>
+    <string name="descending_sort">Sentido descendente</string>
+    <string name="current_storage">Almacenamiento actual</string>
+    <string name="select">Elegir</string>
+    <string name="create">Crear</string>
+    <string name="color_picker">Selector de colores</string>
+    <string name="load_message">Cargando, un momento…</string>
+    <string name="reset_filter">Restablecer filtrado</string>
+    <string name="feed_articles">Artículos</string>
+    <string name="enable_journal">Activar registro</string>
+    <string name="scroll_up">Desplazar hacia arriba</string>
+    <string name="scroll_down">Desplazar hacia abajo</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d archivo</item>
+        <item quantity="many">%1$s • %2$d archivos</item>
+        <item quantity="other">%1$s • %2$d archivos</item>
+    </plurals>
+    <string name="pref_enable_auto_manage_title">Activa el modo especial para que la descarga sea autónoma</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="torrents">Torrents</string>
+    <string name="pref_theme_dynamic_colors_summary">El esquema de colores de la interfaz cambia de acuerdo a los colores del sistema, fondos o ajustes elegidos</string>
 </resources>

@@ -233,7 +233,7 @@
     <string name="feed_last_update_never">לעולם לא</string>
     <string name="error_cannot_edit_channel">לא ניתן לערוך ערוץ</string>
     <string name="piece_size_entries_8">2 MiB</string>
-    <string name="journal_list_empty">אין רישומים</string>
+    <string name="journal_list_empty">אין רשומות</string>
     <string name="journal_filter_torrent_log">לוג טורנט</string>
     <string name="pref_journal_max_stored_entries">מקסימום ארועי יומן מאוחסנים</string>
     <string name="pref_foreground_notification_category">הגדרות התראה בחזית</string>
@@ -271,7 +271,7 @@
     <string name="pref_enable_dht_summary">מאפשר מציאת אחרים ללא טראקר. (מגדיל את השימוש בסוללה.)</string>
     <string name="peer_connection_type_web">Web</string>
     <string name="error_cannot_delete_channel">לא ניתן למחוק ערוץ</string>
-    <string name="skip_files_hint">הזן שמות קבצים מופרדים על ידי \"|\".</string>
+    <string name="skip_files_hint">נא למלא שמות קבצים להפריד ביניהם ב־„|”</string>
     <string name="pref_auto_manage_title">ניהול אוטומטי</string>
     <string name="pref_torrent_finish_notify_title">התראות סיום טורנט</string>
     <string name="piece_size">גודל חתיכה</string>
@@ -310,12 +310,12 @@
     <string name="piece_size_entries_3">64 KiB</string>
     <string name="piece_size_entries_5">256 KiB</string>
     <string name="web_seed_urls_hint">(אופציונלי) אחד בכל שורה</string>
-    <string name="torrent_saved_to">טורנט נשמר ב- %1$s</string>
+    <string name="torrent_saved_to">הטורנט נשמר אל %1$s</string>
     <string name="journal_filter_portmap_log">UPnP/NAT-PMP לוג</string>
     <string name="pref_cpu_do_not_sleep_title">השאר את המכשיר ער</string>
     <string name="nat_error_title">שגיאת NAT</string>
     <string name="piece_size_entries_7">1 MiB</string>
-    <string name="select_folder_to_save">בחר תיקיה לשמירה.</string>
+    <string name="select_folder_to_save">בחירת תיקייה לשמירה</string>
     <string name="pref_save_torrents_in_title">שמור טורנט ב…</string>
     <string name="pref_max_connections_per_torrent_summary">(מינימום 2 חיבורים.)</string>
     <string name="error_save_torrent_file">לא ניתן לשמור קובץ טורנט</string>
@@ -324,7 +324,7 @@
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="error_create_torrent">לא ניתן ליצור טורנט</string>
     <string name="unable_to_create_file">לא ניתן ליצור את הקובץ</string>
-    <string name="journal_start_recording">התחל תיעוד</string>
+    <string name="journal_start_recording">התחלת תיעוד</string>
     <string name="pref_autostart_title">התחלה אוטומטית</string>
     <string name="pref_keep_alive_title">השאר פועל</string>
     <string name="pref_port_settings_category">הגדרות פורט</string>
@@ -364,7 +364,7 @@
     <string name="option_start_seeding">התחל שיתוף</string>
     <string name="pref_max_active_torrents_title">מקסימום טורנטים פעילים</string>
     <string name="pref_foreground_notify_sorting_entries_5">גודל (הכי גדול ראשון)</string>
-    <string name="journal_stop_recording">הפסק תיעוד</string>
+    <string name="journal_stop_recording">הפסקת תיעוד</string>
     <string name="pref_led_indicator_notify_title">חיווי לד</string>
     <string name="pref_foreground_notify_status_filter">מצב מסנן</string>
     <string name="feed_do_not_download_immediately">לא להוריד מיד</string>
@@ -525,4 +525,35 @@
     <string name="torrent_version_entries_hybrid">משולב</string>
     <string name="torrent_version">גרסת טורנט</string>
     <string name="torrent_version_entries_v1_only">גרסה 1 בלבד</string>
+    <string name="error_open_ip_filter_file">לא ניתן לפתוח את קובץ סינון ה־IP</string>
+    <string name="error_select_folder">לא ניתן לפתוח את התיקייה הנבחרת</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">לא ניתן למשוך את נתוני העל</string>
+    <string name="feed_download_immediately">להוריד מיידית</string>
+    <string name="pref_enable_auto_manage_title">הפעלת ניהול אוטומטי</string>
+    <string name="pref_theme_dynamic_colors_title">צבעים דינמיים</string>
+    <string name="pref_theme_dynamic_colors_summary">צבעי הערכת העיצוב מותאמים לפי הגדרות המערכת, תמונות הרקע או הצבע הנבחר שלך</string>
+    <string name="pref_theme_entries_3">מערכת</string>
+    <string name="pref_use_anonymous_mode">להשתמש במצב אלמוני</string>
+    <string name="pref_enable_feed_auto_refresh">הפעלת ריענון אוטומטי</string>
+    <string name="pref_enable_streaming">הפעלת הזרמה</string>
+    <string name="torrents">טורנטים</string>
+    <string name="ascending_sort">מיון בסדר עולה</string>
+    <string name="descending_sort">מיון בסדר יורד</string>
+    <string name="current_storage">אחסון נוכחי</string>
+    <string name="select">בחירה</string>
+    <string name="create">יצירה</string>
+    <string name="color_picker">בורר צבעים</string>
+    <string name="load_message">בטעינה, נא להמתין…</string>
+    <string name="reset_filter">איפוס מסנן</string>
+    <string name="feed_articles">כתבות</string>
+    <string name="enable_journal">הפעלת יומן</string>
+    <string name="scroll_up">גלילה למעלה</string>
+    <string name="scroll_down">גלילה למטה</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • קובץ</item>
+        <item quantity="two">%1$s • שני קבצים</item>
+        <item quantity="other">%1$s • %2$d קבצים</item>
+    </plurals>
 </resources>

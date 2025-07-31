@@ -345,7 +345,7 @@
     <string name="error_create_torrent">無法建立 Torrent</string>
     <string name="skip_files">略過檔案</string>
     <string name="skip_files_hint">輸入檔名並以豎線「|」分隔。</string>
-    <string name="select_folder_to_save">選取儲存位置。</string>
+    <string name="select_folder_to_save">選取儲存位置</string>
     <string name="unable_to_open_file">無法開啟所選的檔案</string>
     <string name="unable_to_create_file">無法建立檔案</string>
     <!-- Log -->

@@ -48,16 +48,16 @@
     <string name="switch_off">Itzali</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Ezabatu deskargatutako fitxategiekin</string>
-    <string name="delete_selected_torrent">Ezabatu aukeratutako torrent-a? Eragiketa hau ezin da desegin</string>
-    <string name="delete_selected_torrents">Ezabatu aukeratutako torrent-ak? Eragiketa hau ezin da desegin</string>
+    <string name="delete_selected_torrent">Ezabatu aukeratutako torrent-a? (Ezin da desegin.)</string>
+    <string name="delete_selected_torrents">Ezabatu aukeratutako torrent-ak? (Ezin da desegin.)</string>
     <string name="force_recheck_torrent">Behartu berrikustea</string>
     <string name="add_link">Gehitu lotura</string>
-    <string name="dialog_add_link_title">Sartu infohash balioa, magnet lotura edo HTTP/HTTPS lotura</string>
+    <string name="dialog_add_link_title">Sartu infohash balioa, magnet lotura edo HTTP/S lotura</string>
     <string name="torrent_list_empty">Torren-tik ez</string>
     <string name="select_or_add_torrent">Aukeratu edo gehitu torrent-a</string>
-    <string name="error_empty_link">Mesedez sartu lotura</string>
+    <string name="error_empty_link">Esteka sartu</string>
     <string name="error_invalid_link">Lotura baliogabea</string>
-    <string name="error_open_torrent_file">Ezin da torrent fitxategia ireki</string>
+    <string name="error_open_torrent_file">Ezin da .torrent fitxategia ireki</string>
     <string name="open_file">Ireki fitxategia</string>
     <string name="settings">Ezarpenak</string>
     <string name="ip_filter_add_error">Ezin izan da IP iragazkia gehitu (%1$d errorea). Baliteke fitxategia hondatuta egotea edo formatu okerra izatea</string>
@@ -506,4 +506,6 @@
     <string name="about_title">LibreTorrent-i buruz</string>
     <string name="about_description">More information and also to help the project: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent is a Free as in Freedom torrent client for Android 4+, based on libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent is free software, released under the terms of the &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Aldaketa erregistroa</string>
+    <string name="error_open_ip_filter_file">Ezin da IP filtroen fitxategia ireki</string>
+    <string name="error_select_folder">Ezin da aukeratutako karpeta ireki</string>
 </resources>

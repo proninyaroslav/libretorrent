@@ -349,8 +349,8 @@
     <string name="folder_is_empty">A kiválasztott mappa üres vagy a szűrő minden fájlt kizárt.</string>
     <string name="error_create_torrent">Nem lehet létrehozni a torrentet</string>
     <string name="skip_files">Fájlok kihagyása</string>
-    <string name="skip_files_hint">Adja meg a fájlneveket, „|” karakterrel elválasztva.</string>
-    <string name="select_folder_to_save">Válassza ki a mappát a mentéshez.</string>
+    <string name="skip_files_hint">Adja meg a fájlneveket „|” karakterrel elválasztva.</string>
+    <string name="select_folder_to_save">Válasszon ki egy mappát a mentéshez.</string>
     <string name="torrent_saved_to">A torrent mentve ide: %1$s</string>
     <string name="unable_to_open_file">A kiválasztott fájl nem nyitható meg</string>
     <string name="unable_to_create_file">Nem lehet létrehozni a fájlt</string>
@@ -585,4 +585,34 @@
     <string name="torrent_version_entries_v2_only">Csak V2</string>
     <string name="torrent_version_entries_hybrid">Hibrid</string>
     <string name="go_to_folder">Tovább a mappához</string>
+    <string name="error_open_ip_filter_file">Nem lehet megnyitni az IP szűrőfájlt</string>
+    <string name="error_select_folder">Nem lehet megnyitni a kiválasztott mappát</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">Nem sikerült lekérni a metaadatokat</string>
+    <string name="feed_download_immediately">Azonnali letöltés</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d fájl</item>
+        <item quantity="other">%1$s • %2$d fájl</item>
+    </plurals>
+    <string name="pref_enable_auto_manage_title">Automatikus kezelés engedélyezése</string>
+    <string name="pref_theme_dynamic_colors_title">Dinamikus színek</string>
+    <string name="pref_theme_dynamic_colors_summary">A téma színei a rendszerbeállítások, háttérképek vagy a kiválasztott szín alapján kerülnek beállításra.</string>
+    <string name="pref_theme_entries_3">Rendszer</string>
+    <string name="pref_use_anonymous_mode">Névtelen (inkognitó) üzemmód használata</string>
+    <string name="pref_enable_feed_auto_refresh">Automatikus frissítés engedélyezése</string>
+    <string name="pref_enable_streaming">Közvetítés engedélyezése</string>
+    <string name="torrents">Torrentek</string>
+    <string name="ascending_sort">Növekvő sorrendben</string>
+    <string name="descending_sort">Csökkenő sorrendben</string>
+    <string name="current_storage">Jelenlegi tároló</string>
+    <string name="select">Kiválaszt</string>
+    <string name="create">Létrehoz</string>
+    <string name="color_picker">Színválasztó</string>
+    <string name="load_message">Betöltés, várjon…</string>
+    <string name="reset_filter">Szűrő alaphelyzetbe állítása</string>
+    <string name="feed_articles">Cikkek</string>
+    <string name="enable_journal">Napló engedélyezése</string>
+    <string name="scroll_up">Felfelé görget</string>
+    <string name="scroll_down">Lefelé görget</string>
 </resources>
