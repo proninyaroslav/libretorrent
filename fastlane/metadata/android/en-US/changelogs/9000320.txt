@@ -1,0 +1,7 @@
+* Material 3 (Material You) design
+* Android 15 support
+* App size optimizing
+* Disable validate HTTPS tracker by default
+* Minor fixes and improvements
+* Updating translations
+* libtorren4j version is 2.1.0-37

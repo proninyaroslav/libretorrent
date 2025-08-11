@@ -1,3 +1,13 @@
+### Version 4.0 (2025-08-11)
+
+* Material 3 (Material You) design
+* Android 15 support
+* App size optimizing
+* Disable validate HTTPS tracker by default
+* Minor fixes and improvements
+* Updating translations
+* libtorren4j version is 2.1.0-36
+
 ### Version 3.6 (2025-01-25)
 
 * Merging trackers when adding torrent duplicate works again
