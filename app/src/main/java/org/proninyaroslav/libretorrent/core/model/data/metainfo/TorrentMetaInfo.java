@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.core.model.data.metainfo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -28,6 +29,7 @@ import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.AddTorrentParams;
 import org.libtorrent4j.TorrentInfo;
 import org.libtorrent4j.swig.add_torrent_params;
+import org.libtorrent4j.swig.error_code;
 import org.libtorrent4j.swig.libtorrent_jni;
 import org.proninyaroslav.libretorrent.core.exception.DecodeException;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
@@ -71,8 +73,11 @@ public class TorrentMetaInfo implements Parcelable {
             buffer.reset();
             long ptr = libtorrent_jni.directBufferAddress(buffer);
             long size = libtorrent_jni.directBufferCapacity(buffer);
-            add_torrent_params params = add_torrent_params.load_torrent_buffer(ptr, (int) size);
-
+            var ec = new error_code();
+            add_torrent_params params = add_torrent_params.load_torrent_native_buffer(ptr, (int) size, ec);
+            if (ec.value() != 0) {
+                Log.e("TorrentMetaInfo", "Unable to decode torrent params: " + ec.message() + ", code: " + ec.value());
+            }
             getMetaInfo(TorrentInfo.bdecode(data), params);
 
         } catch (Exception e) {
@@ -96,7 +101,11 @@ public class TorrentMetaInfo implements Parcelable {
             var buffer = chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size());
             long ptr = libtorrent_jni.directBufferAddress(buffer);
             long size = libtorrent_jni.directBufferCapacity(buffer);
-            add_torrent_params params = add_torrent_params.load_torrent_buffer(ptr, (int) size);
+            var ec = new error_code();
+            add_torrent_params params = add_torrent_params.load_torrent_native_buffer(ptr, (int) size, ec);
+            if (ec.value() != 0) {
+                Log.e("TorrentMetaInfo", "Unable to decode torrent params: " + ec.message() + ", code: " + ec.value());
+            }
             getMetaInfo(new TorrentInfo(buffer), params);
 
         } catch (Exception e) {
