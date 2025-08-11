@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="8dp"
         android:layout_marginVertical="12dp"
         android:minHeight="@dimen/list_item_three_lines_height">
 
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="12dp"
             android:checkable="true"
             android:contentDescription="@string/pause_torrent"
             android:padding="12dp"
