@@ -462,6 +462,9 @@ public class TorrentSessionImpl extends SessionManager
 
                     if (TextUtils.isEmpty(p.getName()))
                         p.setName(strHash);
+
+                    p.setSave_path(File.createTempFile("libretorrent-magnets", strHash).getAbsolutePath());
+
                     torrent_flags_t flags = p.getFlags();
                     flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
                     flags = flags.or_(TorrentFlags.UPLOAD_MODE);
