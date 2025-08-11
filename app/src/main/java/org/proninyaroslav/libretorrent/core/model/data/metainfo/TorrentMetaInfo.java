@@ -66,6 +66,9 @@ public class TorrentMetaInfo implements Parcelable {
     public TorrentMetaInfo(@NonNull byte[] data) throws DecodeException {
         try {
             var buffer = ByteBuffer.allocateDirect(data.length);
+            buffer.mark();
+            buffer.put(data);
+            buffer.reset();
             long ptr = libtorrent_jni.directBufferAddress(buffer);
             long size = libtorrent_jni.directBufferCapacity(buffer);
             add_torrent_params params = add_torrent_params.load_torrent_buffer(ptr, (int) size);
