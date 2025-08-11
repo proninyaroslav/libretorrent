@@ -63,7 +63,7 @@
     <string name="settings">Nastavení</string>
     <string name="ip_filter_add_error">Nepodařilo se přidat IP filtr (%1$d se nezdařilo). Možná je soubor poškozen nebo má nesprávný formát?</string>
     <string name="ip_filter_add_success">IP filtr byl přidán</string>
-    <string name="proxy_settings_applied">Používání nastavení nového proxy serveru.</string>
+    <string name="proxy_settings_applied">Nyní je použito nové nastavení proxy serveru.</string>
     <string name="proxy_settings_apply_after_reboot">Restart aplikace pro použití nového nastavení proxy.</string>
     <string name="theme_settings_apply_after_reboot">Restart aplikace pro použití nového motivu.</string>
     <string name="about">O aplikaci</string>
@@ -348,8 +348,8 @@
     <string name="folder_is_empty">Vybraná složka je prázdná nebo všechny její soubory jsou vyloučeny filtrem.</string>
     <string name="error_create_torrent">Nelze vytvořit torrent</string>
     <string name="skip_files">Přeskočit soubory</string>
-    <string name="skip_files_hint">Zadejte názvy souborů oddělené \"|\".</string>
-    <string name="select_folder_to_save">Vyberte složku pro uložení.</string>
+    <string name="skip_files_hint">Zadejte názvy souborů oddělené \"|\"</string>
+    <string name="select_folder_to_save">Vyberte složku pro uložení</string>
     <string name="torrent_saved_to">Torrent uložen do %1$s</string>
     <string name="unable_to_open_file">Vybraný soubor nelze otevřít</string>
     <string name="unable_to_create_file">Soubor nelze vytvořit</string>
@@ -551,7 +551,7 @@
     <string name="pref_foreground_notify_sorting_entries_10">Popularita (od nejnižší)</string>
     <string name="pref_foreground_notify_sorting_entries_11">Popularita (od nejvyšší)</string>
     <string name="pref_foreground_notify_status_filter_entries_4">Chyba</string>
-    <string name="pref_foreground_notify_sorting">Třídění</string>
+    <string name="pref_foreground_notify_sorting">Řazení</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Kombinuje dvě tlačítka: pozastavit vše a obnovit vše. Tohle tlačítko funguje jako přepínač. Varování: stav tlačítka není ovlivněn ručním pozastavením/obnovením torrentu.</string>
     <string name="pref_foreground_notify_sorting_entries_9">ETA (od největší)</string>
     <string name="pref_default_trackers_list_summary">Seznam trackerů použitých v následujících případech:
@@ -561,7 +561,7 @@
     <string name="perm_denied_warning_android_r">Oprávnění k přístupu ke všem souborům je potřeba ke stažení torrentů a přístupu k .torrent souborům ve všech složkách. Bez tohoto oprávnění bude mít LibreTorrent pouze přístup k omezenému počtu složek. Opravdu chcete toto oprávnění zrušit?</string>
     <string name="exact_alarm_permission_warning">Aby mohl plánovač fungovat, musíte udělit oprávnění ve speciálním dialogu systému. Pokračovat?</string>
     <string name="pref_foreground_notify_sorting_entries_0">Jméno (A - Z)</string>
-    <string name="pref_foreground_notify_sorting_entries_12">Žádné třídění</string>
+    <string name="pref_foreground_notify_sorting_entries_12">Žádné řazení</string>
     <string name="pref_foreground_notify_status_filter_entries_0">Vše</string>
     <string name="pref_foreground_notify_status_filter_entries_1">Stahuji…</string>
     <string name="pref_foreground_notify_status_filter_entries_2">Staženo</string>
@@ -587,4 +587,35 @@
     <string name="torrent_version_entries_hybrid">Hybridní</string>
     <string name="torrent_version_entries_v1_only">Pouze V1</string>
     <string name="torrent_version_entries_v2_only">Pouze V2</string>
+    <string name="error_open_ip_filter_file">Nelze otevřít soubor filtru IP adres</string>
+    <string name="error_select_folder">Nelze otevřít vybranou složku</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="error_fetch_torrent_metadata">Nelze načíst metadata</string>
+    <string name="feed_download_immediately">Stáhnout nyní</string>
+    <string name="pref_enable_auto_manage_title">Povolit automatické spravování</string>
+    <string name="pref_theme_dynamic_colors_title">Proměnlivé barvy</string>
+    <string name="pref_theme_dynamic_colors_summary">Barvy vizuální kompozice jsou upravováný podle nastavení vašeho systému, pozadí nebo vybrané barvy</string>
+    <string name="pref_theme_entries_3">Systém</string>
+    <string name="pref_use_anonymous_mode">Běžět v anonymním režimu</string>
+    <string name="pref_enable_feed_auto_refresh">Povolit automatické obnovení</string>
+    <string name="pref_enable_streaming">Povolit streamování</string>
+    <string name="torrents">Torrenty</string>
+    <string name="ascending_sort">Vzestupné řazení</string>
+    <string name="descending_sort">Sestupné řazení</string>
+    <string name="current_storage">Aktuální uložiště</string>
+    <string name="select">Vybrat</string>
+    <string name="create">Vytvořit</string>
+    <string name="color_picker">Výběr barvy</string>
+    <string name="load_message">Načítání, prosím vyčkejte…</string>
+    <string name="reset_filter">Resetovat filtr</string>
+    <string name="feed_articles">Články</string>
+    <string name="enable_journal">Povolit technický zápis</string>
+    <string name="scroll_up">Přejděte nahoru</string>
+    <string name="scroll_down">Přejděte dolů</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d file</item>
+        <item quantity="few">%1$s • %2$d files</item>
+        <item quantity="other">%1$s • %2$d files</item>
+    </plurals>
 </resources>

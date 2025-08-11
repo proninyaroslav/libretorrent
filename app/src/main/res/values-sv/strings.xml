@@ -242,8 +242,8 @@
     <string name="piece_size_entries_12">32 MiB</string>
     <string name="folder_is_empty">Den valda mappen är tom eller så exkluderas dess filer av filtret.</string>
     <string name="error_create_torrent">Det gick inte att skapa torrent</string>
-    <string name="skip_files_hint">Ange filnamn separerade med \"|\".</string>
-    <string name="select_folder_to_save">Välj en mapp att spara.</string>
+    <string name="skip_files_hint">Ange filnamn separerade med \"|\"</string>
+    <string name="select_folder_to_save">Välj en mapp att spara</string>
     <string name="unable_to_open_file">Kunde inte öppna den valda filen</string>
     <string name="unable_to_create_file">Kunde inte skapa fil</string>
     <!-- Log -->
@@ -588,4 +588,34 @@
     <string name="torrent_version_entries_hybrid">Hybrid</string>
     <string name="torrent_version_entries_v1_only">V1 endast</string>
     <string name="go_to_folder">Gå till mapp</string>
+    <string name="error_open_ip_filter_file">Det går inte att öppna IP-filterfilen</string>
+    <string name="error_select_folder">Det går inte att öppna den valda mappen</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">Det gick inte att hämta metadata</string>
+    <string name="feed_download_immediately">Hämta omedelbart</string>
+    <string name="pref_enable_auto_manage_title">Aktivera automatisk hantering</string>
+    <string name="pref_theme_dynamic_colors_title">Dynamiska färger</string>
+    <string name="pref_theme_dynamic_colors_summary">Temafärgerna justeras baserat på dina systeminställningar, bakgrundsbilder eller vald färg</string>
+    <string name="pref_theme_entries_3">System</string>
+    <string name="pref_use_anonymous_mode">Använd anonymt läge</string>
+    <string name="pref_enable_feed_auto_refresh">Aktivera automatisk uppdatering</string>
+    <string name="pref_enable_streaming">Aktivera strömning</string>
+    <string name="torrents">Torrenter</string>
+    <string name="ascending_sort">Stigande sortering</string>
+    <string name="descending_sort">Fallande sortering</string>
+    <string name="current_storage">Aktuell lagring</string>
+    <string name="select">Välj</string>
+    <string name="create">Skapa</string>
+    <string name="color_picker">Färgväljare</string>
+    <string name="load_message">Ladda, vänta…</string>
+    <string name="reset_filter">Återställ filtret</string>
+    <string name="feed_articles">Artiklar</string>
+    <string name="enable_journal">Aktivera journal</string>
+    <string name="scroll_up">Bläddra upp</string>
+    <string name="scroll_down">Bläddra ner</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d fil</item>
+        <item quantity="other">%1$s • %2$d filer</item>
+    </plurals>
 </resources>
