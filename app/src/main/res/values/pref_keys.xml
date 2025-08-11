@@ -51,7 +51,7 @@
     <string name="pref_key_auto_manage" translatable="false">pref_key_auto_manage</string>
     <!-- Behavior and appearance settings -->
     <string name="pref_key_autostart" translatable="false">pref_key_autostart</string>
-    <string name="pref_key_theme" translatable="false">pref_key_theme</string>
+    <string name="pref_key_theme" translatable="false">pref_key_theme_v2</string>
     <string name="pref_key_theme_dynamic_colors" translatable="false">pref_key_theme_dynamic_colors</string>
     <string name="pref_key_torrent_finish_notify" translatable="false">pref_key_torrent_finish_notify</string>
     <string name="pref_key_play_sound_notify" translatable="false">pref_key_play_sound_notify</string>
