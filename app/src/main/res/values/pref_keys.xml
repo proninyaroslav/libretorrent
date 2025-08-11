@@ -65,7 +65,7 @@
     <string name="pref_key_download_and_upload_only_when_charging" translatable="false">pref_key_download_and_upload_only_when_charging</string>
     <string name="pref_key_battery_control" translatable="false">pref_key_battery_control</string>
     <string name="pref_key_custom_battery_control" translatable="false">pref_key_custom_battery_control</string>
-    <string name="pref_key_custom_battery_control_value" translatable="false">pref_key_custom_battery_control_value</string>
+    <string name="pref_key_custom_battery_control_value" translatable="false">pref_key_custom_battery_control_value_v2</string>
     <string name="pref_key_unmetered_connections_only" translatable="false">pref_key_wifi_only</string>
     <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
     <string name="pref_key_default_trackers_list" translatable="false">pref_key_default_trackers_list</string>
