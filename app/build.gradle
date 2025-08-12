@@ -15,9 +15,9 @@ android {
         // Version code format: 0000xx0
         // xx - version code
         // trailing zero - auto increment for split ABI
-        versionCode 9000320
+        versionCode 9000330
         // Version format: major.minor.[revision][-some_info]
-        versionName '4.0'
+        versionName '4.0.1'
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
 

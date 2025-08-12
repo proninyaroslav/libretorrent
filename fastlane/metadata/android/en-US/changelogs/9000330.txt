@@ -1,0 +1,1 @@
+Fix crash on startup and on the settings page

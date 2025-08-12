@@ -1,3 +1,7 @@
+### Version 4.0.1 (2025-08-12)
+
+Fix crash on startup and on the settings page
+
 ### Version 4.0 (2025-08-11)
 
 * Material 3 (Material You) design
