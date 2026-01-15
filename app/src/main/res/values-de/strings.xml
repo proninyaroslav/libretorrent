@@ -549,7 +549,7 @@
     <string name="pref_foreground_notify_status_filter">Statusfilter</string>
     <string name="pref_foreground_notify_sorting_entries_6">Fortschritt (kleinster zuerst)</string>
     <string name="pref_foreground_notify_sorting_entries_0">Name (A-Z)</string>
-    <string name="pref_foreground_notify_sorting_entries_7">Fortdchritt (größter zuerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Fortschritt (größter zuerst)</string>
     <string name="pref_foreground_notify_sorting_entries_10">Beliebtheit (niedrigste zuerst)</string>
     <string name="pref_default_trackers_list_title">Standard-Tracker</string>
     <string name="pref_foreground_notify_sorting_entries_2">Hinzugefügt (neueste zuerst)</string>
