@@ -12,6 +12,7 @@
 [<img alt="Get it on Aptoide" height="80" src="https://raw.githubusercontent.com/proninyaroslav/TachibanaGeneralLaboratories.github.io/master/images/badges/Aptoide/get-it-on-aptoide.png">](https://libretorrent.en.aptoide.com/app)
 [<img alt="Direct APK Download" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Direct%20Download/direct-apk-download.png">](https://proninyaroslav.ru/mirror/libretorrent)
 
+> For direct download, you can verify the app with the SHA-256 fingerprint certificate: `B0:88:D4:72:A9:80:18:64:5C:DE:EF:8E:93:33:8D:58:B3:F2:38:92:18:7F:DF:63:F7:39:58:38:1E:27:E5:83`
 
 [![Hosted Weblate](https://hosted.weblate.org/widgets/libretorrent/-/svg-badge.svg)](https://hosted.weblate.org/engage/libretorrent/)
 [![Matrix Room](https://img.shields.io/matrix/libretorrent:matrix.org?label=Matrix%20Room)](https://matrix.to/#libretorrent:matrix.org)
