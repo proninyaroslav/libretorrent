@@ -19,6 +19,7 @@
 
 package org.proninyaroslav.libretorrent;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -153,6 +154,30 @@ public class MainActivity extends ThemeActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (intent.getAction() != null
+                && intent.getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
+            finish();
+            return;
+        }
+
+        setIntent(intent);
+
+        var navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
+        if (navHostFragment != null) {
+            for (var fragment : navHostFragment.getChildFragmentManager().getFragments()) {
+                if (fragment instanceof NavBarFragment navBarFragment) {
+                    navBarFragment.handleImplicitIntent();
+                    break;
+                }
+            }
+        }
     }
 
     @Override

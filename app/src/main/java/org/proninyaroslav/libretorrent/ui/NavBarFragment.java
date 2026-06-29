@@ -164,7 +164,7 @@ public class NavBarFragment extends Fragment {
         handleImplicitIntent();
     }
 
-    private void handleImplicitIntent() {
+    public void handleImplicitIntent() {
         var i = activity.getIntent();
         Uri uri = null;
         // Implicit intent with path to torrent file, http, magnet link or RSS/Atom feed
