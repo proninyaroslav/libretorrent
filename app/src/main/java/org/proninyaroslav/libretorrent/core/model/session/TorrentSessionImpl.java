@@ -26,6 +26,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.libtorrent4j.AlertListener;
 import org.libtorrent4j.AnnounceEntry;
 import org.libtorrent4j.BDecodeNode;
@@ -87,7 +88,6 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -345,9 +345,7 @@ public class TorrentSessionImpl extends SessionManager
             try (FileDescriptorWrapper w = fs.getFD(Uri.parse(params.source))) {
                 FileDescriptor fd = w.open("r");
                 try (FileInputStream fin = new FileInputStream(fd)) {
-                    FileChannel chan = fin.getChannel();
-
-                    download(new TorrentInfo(chan.map(FileChannel.MapMode.READ_ONLY, 0, chan.size())),
+                    download(IOUtils.toByteArray(fin),
                             saveDir,
                             params.filePriorities,
                             params.sequentialDownload,
@@ -1438,8 +1436,73 @@ public class TorrentSessionImpl extends SessionManager
     private void download(byte[] bencode, File saveDir,
                           Priority[] priorities, boolean sequentialDownload,
                           boolean paused) {
-        download((bencode == null ? null : new TorrentInfo(bencode)),
-                saveDir, priorities, sequentialDownload, paused);
+        if (operationNotAllowed())
+            return;
+
+        if (bencode == null)
+            throw new IllegalArgumentException("Torrent data is null");
+
+        /*
+         * load_torrent_parsed fully populates add_torrent_params from the torrent file,
+         * including trackers, tracker_tiers, url_seeds, comment, created_by,
+         * creation_date, and ti. In libtorrent 2.x these fields live in
+         * add_torrent_params, not in torrent_info, so using set_ti() alone loses them.
+         */
+        bdecode_node n = BDecodeNode.bdecode(bencode).swig();
+        error_code ec = new error_code();
+        add_torrent_params p = add_torrent_params.load_torrent_parsed(n, ec);
+        if (ec.value() != 0)
+            throw new IllegalArgumentException("Can't load torrent: " + ec.message());
+
+        sha1_hash infoHash = p.getInfo_hashes().get_best();
+        if (infoHash != null) {
+            torrent_handle existing = swig().find_torrent(infoHash);
+            if (existing != null && existing.is_valid())
+                return; /* Found a download with the same hash */
+        }
+
+        if (saveDir != null)
+            p.setSave_path(saveDir.getAbsolutePath());
+
+        if (priorities != null) {
+            TorrentInfo ti = TorrentInfo.bdecode(bencode);
+            if (ti.files().numFiles() != priorities.length)
+                throw new IllegalArgumentException("Priorities count should be equals to the number of files");
+
+            byte_vector v = new byte_vector();
+            for (Priority priority : priorities) {
+                if (priority == null)
+                    v.add(org.libtorrent4j.Priority.IGNORE.swig());
+                else
+                    v.add(PriorityConverter.convert(priority).swig());
+            }
+            p.set_file_priorities(v);
+        }
+
+        torrent_flags_t flags = p.getFlags();
+        /* Force saving resume data */
+        flags = flags.or_(TorrentFlags.NEED_SAVE_RESUME);
+
+        if (settings.autoManaged)
+            flags = flags.or_(TorrentFlags.AUTO_MANAGED);
+        else
+            flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+
+        if (sequentialDownload)
+            flags = flags.or_(TorrentFlags.SEQUENTIAL_DOWNLOAD);
+        else
+            flags = flags.and_(TorrentFlags.SEQUENTIAL_DOWNLOAD.inv());
+
+        if (paused)
+            flags = flags.or_(TorrentFlags.PAUSED);
+        else
+            flags = flags.and_(TorrentFlags.PAUSED.inv());
+
+        p.setFlags(flags);
+
+        addDefaultTrackers(p);
+
+        swig().async_add_torrent(p);
     }
 
     private void download(TorrentInfo ti, File saveDir,
