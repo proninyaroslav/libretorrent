@@ -982,6 +982,10 @@ public class HomeFragment extends AbstractListDetailFragment {
 
     private void applyTagFilter() {
         var checkedIds = drawerBinding.drawerTagsChipGroup.getCheckedChipIds();
+        if (checkedIds.contains(R.id.tag_no_tags_item)) {
+            viewModel.setTagFilter(TorrentFilterCollection.noTags(), true);
+            return;
+        }
         var checkedTags = getTagsByChipId(checkedIds);
         if (checkedTags.isEmpty()) {
             viewModel.setTagFilter(TorrentFilterCollection.all(), true);
