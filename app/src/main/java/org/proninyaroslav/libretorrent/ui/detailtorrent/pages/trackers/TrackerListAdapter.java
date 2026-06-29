@@ -21,6 +21,7 @@ package org.proninyaroslav.libretorrent.ui.detailtorrent.pages.trackers;
 
 import android.content.res.ColorStateList;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -162,9 +163,19 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
             }
 
             if (item.status == TrackerInfo.Status.WORKING) {
-                binding.status.setTextColor(MaterialColors.getColor(binding.status, R.attr.colorOk));
+                TypedValue typedValue = new TypedValue();
+                if (context.getTheme().resolveAttribute(R.attr.colorOk, typedValue, true)) {
+                    binding.status.setTextColor(typedValue.data);
+                } else {
+                    binding.status.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.colorOk));
+                }
             } else if (item.status == TrackerInfo.Status.NOT_WORKING) {
-                binding.status.setTextColor(MaterialColors.getColor(binding.status, R.attr.colorError));
+                TypedValue typedValue = new TypedValue();
+                if (context.getTheme().resolveAttribute(R.attr.colorError, typedValue, true)) {
+                    binding.status.setTextColor(typedValue.data);
+                } else {
+                    binding.status.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.design_default_color_error));
+                }
             } else {
                 binding.status.setTextColor(statusTextColor);
             }
