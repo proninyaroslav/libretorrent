@@ -587,4 +587,5 @@
     <string name="torrent_version_entries_hybrid">混合</string>
     <string name="torrent_version_entries_v1_only">僅 V1</string>
     <string name="torrent_version_entries_v2_only">僅 V2</string>
+    <string name="pref_locale_title">語言</string>
 </resources>

@@ -588,4 +588,5 @@
     <string name="torrent_version_entries_v1_only">Somente a versão V1</string>
     <string name="torrent_version">Versão do torrent</string>
     <string name="go_to_folder">Ir para a pasta</string>
+    <string name="pref_locale_title">Idioma</string>
 </resources>

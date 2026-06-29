@@ -614,4 +614,5 @@
         <item quantity="one">%1$s • %2$d கோப்பு</item>
         <item quantity="other">%1$s • %2$d கோப்புகள்</item>
     </plurals>
+    <string name="pref_locale_title">மொழி</string>
 </resources>

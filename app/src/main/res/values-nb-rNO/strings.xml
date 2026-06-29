@@ -587,4 +587,5 @@
     <string name="go_to_folder">Gå til mappe</string>
     <string name="torrent_version">Torrent-versjon</string>
     <string name="torrent_version_entries_v2_only">Kun V2</string>
+    <string name="pref_locale_title">Språk</string>
 </resources>

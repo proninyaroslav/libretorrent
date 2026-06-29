@@ -136,4 +136,5 @@
     <string name="add_torrent_title">زیادکردنی تۆرێنت</string>
     <string name="error_decode_torrent">نەتواندرا کۆدی پەڕگەی تۆرێنتەکە هەڵبوەشێندرێتەوە. لەوانەیە زیانی پێگەیشتبێت یان لە شێوازێکی هەڵەدا بێت؟</string>
     <string name="error_invalid_link_or_path">بەستەر یان ڕێچکەی نادروستی تۆرێنت</string>
+    <string name="pref_locale_title">زمان</string>
 </resources>

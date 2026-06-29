@@ -1,5 +1,6 @@
 package org.proninyaroslav.libretorrent.ui.base;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -16,11 +17,20 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.preferences.PrefTheme;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.utils.LocaleHelper;
 
 
 public abstract class ThemeActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private SettingsRepository pref;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(base);
+        String locale = pref.locale();
+        Context context = LocaleHelper.wrapContext(base, locale);
+        super.attachBaseContext(context);
+    }
 
     private boolean isNightModeActive() {
         int currentMode = Configuration.UI_MODE_NIGHT_MASK & getResources().getConfiguration().uiMode;
@@ -74,6 +84,8 @@ public abstract class ThemeActivity extends AppCompatActivity implements SharedP
         }
         if (key.equals(getString(R.string.pref_key_theme))) {
             onThemeChange();
+        } else if (key.equals(getString(R.string.pref_key_locale))) {
+            onLocaleChange();
         } else if (key.equals(getString(R.string.pref_key_theme_dynamic_colors))) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 recreate();
@@ -94,5 +106,10 @@ public abstract class ThemeActivity extends AppCompatActivity implements SharedP
             mode = AppCompatDelegate.MODE_NIGHT_YES;
         }
         AppCompatDelegate.setDefaultNightMode(mode);
+    }
+
+    private void onLocaleChange() {
+        LocaleHelper.setLocale(pref.locale());
+        recreate();
     }
 }

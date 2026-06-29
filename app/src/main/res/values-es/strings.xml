@@ -614,4 +614,5 @@
     <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
     <string name="torrents">Torrents</string>
     <string name="pref_theme_dynamic_colors_summary">El esquema de colores de la interfaz cambia de acuerdo a los colores del sistema, fondos o ajustes elegidos</string>
+    <string name="pref_locale_title">Idioma</string>
 </resources>

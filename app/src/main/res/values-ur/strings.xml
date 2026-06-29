@@ -26,4 +26,5 @@
     <string name="no">نہیں</string>
     <string name="delete">حذف</string>
     <string name="elapsed_time_format_h_mm_ss">%1$dگھنٹہ. %2$dمنٹ. %3$d لمحہ</string>
+    <string name="pref_locale_title">زبان</string>
 </resources>

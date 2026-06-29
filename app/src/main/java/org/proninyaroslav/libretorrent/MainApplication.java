@@ -20,6 +20,7 @@
 package org.proninyaroslav.libretorrent;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.database.CursorWindow;
 import android.util.Log;
 
@@ -30,12 +31,23 @@ import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.DialogConfigurationBuilder;
 import org.acra.config.MailSenderConfigurationBuilder;
 import org.acra.data.StringFormat;
+import org.proninyaroslav.libretorrent.core.RepositoryHelper;
+import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.utils.LocaleHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
 public class MainApplication extends MultiDexApplication {
     public static final String TAG = MainApplication.class.getSimpleName();
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(base);
+        String locale = pref.locale();
+        Context context = LocaleHelper.wrapContext(base, locale);
+        super.attachBaseContext(context);
+    }
 
     @Override
     public void onCreate() {
@@ -63,6 +75,9 @@ public class MainApplication extends MultiDexApplication {
         increaseCursorWindowSize();
 
         TorrentNotifier.getInstance(this).makeNotifyChans();
+
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(this);
+        LocaleHelper.setLocale(pref.locale());
 
         Utils.applyNightMode(this);
     }

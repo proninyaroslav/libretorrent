@@ -13,6 +13,13 @@
             app:singleLineTitle="false"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            android:key="@string/pref_key_locale"
+            android:persistent="false"
+            android:title="@string/pref_locale_title"
+            android:summary="@string/pref_locale_summary"
+            app:singleLineTitle="false" />
+
         <SwitchPreferenceCompat
             android:key="@string/pref_key_theme_black_backgrounds"
             android:persistent="false"

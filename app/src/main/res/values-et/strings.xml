@@ -500,4 +500,5 @@
     <string name="torrent_version_entries_v1_only">V1 ainult</string>
     <string name="torrent_version_entries_v2_only">V2 ainult</string>
     <string name="go_to_folder">Mine kausta</string>
+    <string name="pref_locale_title">Keel</string>
 </resources>

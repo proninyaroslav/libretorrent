@@ -582,4 +582,5 @@
     <string name="share_tracker_url">Comparteix l\'URL…</string>
     <string name="restore_feed_channels_backup">Restaura la còpia de seguretat</string>
     <string name="save_torrent_file">Desa el fitxer torrent</string>
+    <string name="pref_locale_title">Idioma</string>
 </resources>

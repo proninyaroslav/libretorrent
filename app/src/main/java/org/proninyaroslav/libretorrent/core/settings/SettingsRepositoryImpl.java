@@ -55,6 +55,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         static final boolean ledIndicatorNotify = true;
         static final boolean vibrationNotify = true;
         static final PrefTheme theme = new PrefTheme.System();
+        static final String locale = "system";
         static final boolean dynamicColors = true;
 
         static int ledIndicatorColorNotify(@NonNull Context context) {
@@ -359,6 +360,19 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         var json = moshi.adapter(PrefTheme.class).toJson(val);
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_theme), json)
+                .apply();
+    }
+
+    @Override
+    public String locale() {
+        return pref.getString(appContext.getString(R.string.pref_key_locale),
+                Default.locale);
+    }
+
+    @Override
+    public void locale(String val) {
+        pref.edit()
+                .putString(appContext.getString(R.string.pref_key_locale), val)
                 .apply();
     }
 

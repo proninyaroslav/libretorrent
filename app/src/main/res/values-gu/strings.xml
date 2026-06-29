@@ -16,4 +16,5 @@
     <string name="def">ડિફૉલ્ટ</string>
     <string name="cancel">રદ કરો</string>
     <string name="yes">હા</string>
+    <string name="pref_locale_title">ભાષા</string>
 </resources>

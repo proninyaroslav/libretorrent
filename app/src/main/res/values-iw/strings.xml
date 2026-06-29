@@ -556,4 +556,5 @@
         <item quantity="two">%1$s • שני קבצים</item>
         <item quantity="other">%1$s • %2$d קבצים</item>
     </plurals>
+    <string name="pref_locale_title">שפה</string>
 </resources>
