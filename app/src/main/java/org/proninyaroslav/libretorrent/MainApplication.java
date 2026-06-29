@@ -23,7 +23,7 @@ import android.annotation.SuppressLint;
 import android.database.CursorWindow;
 import android.util.Log;
 
-import androidx.multidex.MultiDexApplication;
+import android.app.Application;
 
 import org.acra.ACRA;
 import org.acra.config.CoreConfigurationBuilder;
@@ -34,7 +34,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.TorrentNotifier;
 import org.proninyaroslav.libretorrent.ui.errorreport.ErrorReportActivity;
 
-public class MainApplication extends MultiDexApplication {
+public class MainApplication extends Application {
     public static final String TAG = MainApplication.class.getSimpleName();
 
     @Override

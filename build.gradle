@@ -4,12 +4,12 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
+        maven { url = "https://jitpack.io" }
     }
 
     dependencies {
         def NAV_VERSION = "2.9.6"
-        classpath 'com.android.tools.build:gradle:8.13.1'
+        classpath 'com.android.tools.build:gradle:9.2.1'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$NAV_VERSION"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -21,7 +21,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
+        maven { url = "https://jitpack.io" }
     }
 }
 

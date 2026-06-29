@@ -1,12 +1,10 @@
-import com.android.build.OutputFile
-
 plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
 }
 
 android {
-    namespace 'org.proninyaroslav.libretorrent'
+    namespace = 'org.proninyaroslav.libretorrent'
     defaultConfig {
         applicationId 'org.proninyaroslav.libretorrent'
         minSdkVersion 24
@@ -18,8 +16,7 @@ android {
         versionCode 9000330
         // Version format: major.minor.[revision][-some_info]
         versionName '4.0.1'
-        vectorDrawables.useSupportLibrary true
-        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
@@ -51,11 +48,11 @@ android {
 
         release {
             minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             buildConfigField('boolean', SESSION_LOGGING, 'false')
-            signingConfig signingConfigs.debug
+            signingConfig = signingConfigs.debug
         }
 
         debug {
@@ -64,8 +61,8 @@ android {
             debuggable true
 
             buildConfigField('boolean', SESSION_LOGGING, 'true')
-            enableUnitTestCoverage true
-            enableAndroidTestCoverage true
+            enableUnitTestCoverage = true
+            enableAndroidTestCoverage = true
         }
     }
 
@@ -73,46 +70,50 @@ android {
     def isBuildingBundle = gradle.startParameter.taskNames.any { it.toLowerCase().contains("bundle") }
     splits {
         abi {
-            enable !isBuildingBundle
+            enable = !isBuildingBundle
             reset()
             include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-            universalApk true
-        }
-    }
-
-    project.ext.versionCodes = ['armeabi-v7a': 1, 'arm64-v8a': 2, 'x86': 3, 'x86_64': 4]
-    applicationVariants.configureEach { variant ->
-        outputs.configureEach { output ->
-            versionCodeOverride =
-                    project.ext.versionCodes.get(output.getFilter(OutputFile.ABI), 0) + versionCode
+            universalApk = true
         }
     }
 
     compileOptions {
-        encoding 'UTF-8'
-        coreLibraryDesugaringEnabled true
+        encoding = 'UTF-8'
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
 
     lint {
-        abortOnError false
+        abortOnError = false
     }
 
     buildFeatures {
-        viewBinding true
-        dataBinding true
-        buildConfig true
+        viewBinding = true
+        dataBinding = true
+        buildConfig = true
+        resValues = true
     }
 
     testOptions {
         unitTests {
-            includeAndroidResources true
+            includeAndroidResources = true
         }
     }
 
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+}
+
+project.ext.versionCodes = ['armeabi-v7a': 1, 'arm64-v8a': 2, 'x86': 3, 'x86_64': 4]
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        variant.outputs.each { output ->
+            def filter = output.filters.find { it.filterType.name() == 'ABI' }
+            def abiCode = filter ? (project.ext.versionCodes[filter.identifier] ?: 0) : 0
+            output.versionCode.set(abiCode + (output.versionCode.get() ?: 0))
+        }
     }
 }
 
@@ -146,7 +147,6 @@ dependencies {
     implementation 'androidx.activity:activity:1.11.0'
     implementation "androidx.lifecycle:lifecycle-livedata-core:$LIFECYCLE_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$LIFECYCLE_VERSION"
-    implementation 'androidx.multidex:multidex:2.0.1'
     implementation "androidx.paging:paging-runtime:$PAGING_VERSION"
     implementation "androidx.paging:paging-rxjava3:$PAGING_VERSION"
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
