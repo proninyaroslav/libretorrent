@@ -115,7 +115,7 @@ public class SliderPreference extends Preference {
         @Override
         public void onStopTrackingTouch(@NonNull Slider slider) {
             mTrackingTouch = false;
-            if (slider.getValue() != mSliderValue) {
+            if (slider.getValue() + mMin != mSliderValue) {
                 syncValueInternal(slider);
             }
         }
@@ -235,7 +235,7 @@ public class SliderPreference extends Preference {
         }
         mSlider.setLabelBehavior(labelBehavior);
 
-        mSlider.setValue(snapToStep(mSliderValue));
+        mSlider.setValue(mSliderValue - mMin);
         mSlider.setEnabled(isEnabled());
     }
 
@@ -430,22 +430,14 @@ public class SliderPreference extends Preference {
      */
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     void syncValueInternal(@NonNull Slider slider) {
-        float sliderValue = slider.getValue();
+        float sliderValue = mMin + slider.getValue();
         if (sliderValue != mSliderValue) {
             if (callChangeListener(sliderValue)) {
                 setValueInternal(sliderValue, false);
             } else {
-                slider.setValue(snapToStep(mSliderValue));
+                slider.setValue(mSliderValue - mMin);
             }
         }
-    }
-
-    private float snapToStep(float value) {
-        if (mSliderStep <= 0) {
-            return Math.max(mMin, Math.min(mMax, value));
-        }
-        float snapped = Math.round((value - mMin) / mSliderStep) * mSliderStep + mMin;
-        return Math.max(mMin, Math.min(mMax, snapped));
     }
 
     @Nullable

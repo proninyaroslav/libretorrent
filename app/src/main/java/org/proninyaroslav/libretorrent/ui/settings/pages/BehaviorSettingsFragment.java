@@ -125,9 +125,9 @@ public class BehaviorSettingsFragment extends CustomPreferenceFragment
         String keyCustomBatteryControlValue = getString(R.string.pref_key_custom_battery_control_value);
         SliderPreference customBatteryControlValue = findPreference(keyCustomBatteryControlValue);
         if (customBatteryControlValue != null) {
+            customBatteryControlValue.setValue((float) pref.customBatteryControlValue());
             customBatteryControlValue.setMin(5f);
             customBatteryControlValue.setMax(90f);
-            customBatteryControlValue.setValue((float) pref.customBatteryControlValue());
             bindOnPreferenceChangeListener(customBatteryControlValue);
         }
 
