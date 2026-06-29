@@ -124,7 +124,10 @@ public class TrackerInfo extends AbstractInfoParcel<TrackerInfo> {
             return new Result(Status.UPDATING, "");
         } else if (numWorking != null && numWorking > 0) {
             return new Result(Status.WORKING, firstTrackerMessage);
-        } else if (numNotWorking != null && numNotWorking.equals(numEndpoints)) {
+        } else if (numNotWorking != null && numNotWorking > 0) {
+            // NOT_WORKING takes priority over NOT_CONTACTED. For v1-only or v2-only torrents
+            // the unused infohash endpoints appear as NOT_CONTACTED, so requiring ALL endpoints
+            // to be NOT_WORKING would incorrectly fall through to UNKNOWN.
             return new Result(
                     Status.NOT_WORKING,
                     TextUtils.isEmpty(firstTrackerMessage)
