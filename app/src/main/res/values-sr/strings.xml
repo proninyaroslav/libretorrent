@@ -588,4 +588,5 @@
 \n2. Користи се за преузимање магнетних линкова.</string>
     <string name="pref_validate_https_trackers_title">Валидација сертификата HTTPS тракера</string>
     <string name="perm_denied_warning_android_r">Дозвола за приступ свим фајловима је потребна за преузимање торената и приступ .торрент фајловима у произвољним фасциклама. Без ове дозволе, LibreTorrent ће имати приступ само ограниченом броју фасцикли. Да ли сте сигурни да желите да ускратите ову дозволу?</string>
+    <string name="pref_locale_title">Језик</string>
 </resources>

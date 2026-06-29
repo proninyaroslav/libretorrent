@@ -618,4 +618,5 @@
         <item quantity="many">%1$s • %2$d plików</item>
         <item quantity="other">%1$s • %2$d plików</item>
     </plurals>
+    <string name="pref_locale_title">Język</string>
 </resources>

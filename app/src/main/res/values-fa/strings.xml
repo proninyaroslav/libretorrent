@@ -545,4 +545,5 @@
     <string name="new_tag">برچسب جدید</string>
     <string name="without_tags">بدون برچسب</string>
     <string name="apply_settings_after_reboot">تغییرات بعد از ریستارت کردن برنامه اعمال میشود.</string>
+    <string name="pref_locale_title">زبان</string>
 </resources>

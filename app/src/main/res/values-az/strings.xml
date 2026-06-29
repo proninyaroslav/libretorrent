@@ -541,4 +541,5 @@
     <string name="new_tag">Yeni etiket</string>
     <string name="select_tag">Etiketi seç</string>
     <string name="edit_tag">Etiketə düzəliş et</string>
+    <string name="pref_locale_title">Dil</string>
 </resources>

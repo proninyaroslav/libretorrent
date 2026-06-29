@@ -581,4 +581,5 @@
     <string name="torrent_version_entries_hybrid">Hybrid</string>
     <string name="torrent_version_entries_v1_only">Nur V1</string>
     <string name="torrent_version_entries_v2_only">Nur V2</string>
+    <string name="pref_locale_title">Sprache</string>
 </resources>

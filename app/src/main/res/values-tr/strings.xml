@@ -588,4 +588,5 @@
     <string name="torrent_version_entries_hybrid">Karma</string>
     <string name="torrent_version_entries_v1_only">Yalnızca sürüm 1</string>
     <string name="go_to_folder">Klasöre git</string>
+    <string name="pref_locale_title">Dil</string>
 </resources>

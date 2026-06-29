@@ -618,4 +618,5 @@
         <item quantity="one">%1$s • %2$d fil</item>
         <item quantity="other">%1$s • %2$d filer</item>
     </plurals>
+    <string name="pref_locale_title">Språk</string>
 </resources>

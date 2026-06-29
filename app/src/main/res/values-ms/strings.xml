@@ -447,4 +447,5 @@
     <plurals name="torrent_info_size_template_plural">
         <item quantity="other">%1$s, %2$dfail</item>
     </plurals>
+    <string name="pref_locale_title">Bahasa</string>
 </resources>

@@ -44,6 +44,7 @@ import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.RepositoryHelper;
 import org.proninyaroslav.libretorrent.core.model.data.preferences.PrefTheme;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.utils.LocaleHelper;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.ui.settings.CustomPreferenceFragment;
 import org.proninyaroslav.libretorrent.ui.settings.customprefs.ColorPickerPreference;
@@ -85,6 +86,13 @@ public class AppearanceSettingsFragment extends CustomPreferenceFragment
             var themeVal = pref.theme();
             theme.setValueIndex(themeVal.getId());
             bindOnPreferenceChangeListener(theme);
+        }
+
+        String keyLocale = getString(R.string.pref_key_locale);
+        ListPreference locale = findPreference(keyLocale);
+        if (locale != null) {
+            initLocalePreference(locale);
+            bindOnPreferenceChangeListener(locale);
         }
 
         String keyBlackBackground = getString(R.string.pref_key_theme_black_backgrounds);
@@ -205,6 +213,29 @@ public class AppearanceSettingsFragment extends CustomPreferenceFragment
         }
     }
 
+    private void initLocalePreference(ListPreference locale) {
+        var locales = LocaleHelper.getAvailableLocales(activity.getApplicationContext());
+        String[] entries = new String[locales.size()];
+        String[] entryValues = new String[locales.size()];
+        
+        for (int i = 0; i < locales.size(); i++) {
+            var item = locales.get(i);
+            entries[i] = item.displayName;
+            entryValues[i] = item.code;
+        }
+        
+        locale.setEntries(entries);
+        locale.setEntryValues(entryValues);
+        
+        String currentLocale = pref.locale();
+        locale.setValue(currentLocale);
+        // Set summary to show current selection
+        int index = locale.findIndexOfValue(currentLocale);
+        if (index >= 0) {
+            locale.setSummary(entries[index]);
+        }
+    }
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.pref_appearance, rootKey);
@@ -240,6 +271,24 @@ public class AppearanceSettingsFragment extends CustomPreferenceFragment
         if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
             int id = Integer.parseInt((String) newValue);
             pref.theme(PrefTheme.fromId(id));
+        } else if (preference.getKey().equals(getString(R.string.pref_key_locale))) {
+            String localeCode = (String) newValue;
+            pref.locale(localeCode);
+            // Update summary to show new selection
+            ListPreference localePref = (ListPreference) preference;
+            int index = localePref.findIndexOfValue(localeCode);
+            if (index >= 0) {
+                localePref.setSummary(localePref.getEntries()[index]);
+            }
+        } else if (preference.getKey().equals(getString(R.string.pref_key_locale))) {
+            String localeCode = (String) newValue;
+            pref.locale(localeCode);
+            // Update summary to show new selection
+            ListPreference localePref = (ListPreference) preference;
+            int index = localePref.findIndexOfValue(localeCode);
+            if (index >= 0) {
+                localePref.setSummary(localePref.getEntries()[index]);
+            }
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_theme_dynamic_colors))) {
             pref.dynamicColors((boolean) newValue);

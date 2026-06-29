@@ -520,4 +520,5 @@
     <string name="piece_size_entries_9">4 MiB</string>
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="piece_size_entries_12">32 MiB</string>
+    <string name="pref_locale_title">Ngôn ngữ</string>
 </resources>

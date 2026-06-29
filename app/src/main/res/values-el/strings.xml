@@ -617,4 +617,5 @@
         <item quantity="one">%1$s • %2$d αρχείο</item>
         <item quantity="other">%1$s • %2$d αρχεία</item>
     </plurals>
+    <string name="pref_locale_title">Γλώσσα</string>
 </resources>

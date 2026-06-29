@@ -399,4 +399,5 @@
     <string name="pref_enable_scheduling_shutdown_title">Nedlukningstid</string>
     <string name="pref_foreground_notify_sorting_entries_11">Popularitet (største først)</string>
     <string name="drawer_sorting_ETA">Forventet færdig</string>
+    <string name="pref_locale_title">Sprog</string>
 </resources>

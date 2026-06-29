@@ -52,6 +52,7 @@
     <!-- Behavior and appearance settings -->
     <string name="pref_key_autostart" translatable="false">pref_key_autostart</string>
     <string name="pref_key_theme" translatable="false">pref_key_theme_v2</string>
+    <string name="pref_key_locale" translatable="false">pref_key_locale</string>
     <string name="pref_key_theme_dynamic_colors" translatable="false">pref_key_theme_dynamic_colors</string>
     <string name="pref_key_theme_black_backgrounds" translatable="false">theme_black_backgrounds</string>
     <string name="pref_key_torrent_finish_notify" translatable="false">pref_key_torrent_finish_notify</string>

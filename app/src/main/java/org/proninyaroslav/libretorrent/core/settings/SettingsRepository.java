@@ -63,6 +63,10 @@ public interface SettingsRepository
 
     void theme(PrefTheme val);
 
+    String locale();
+
+    void locale(String val);
+
     boolean dynamicColors();
 
     void dynamicColors(boolean val);

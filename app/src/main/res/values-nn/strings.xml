@@ -281,4 +281,5 @@
     <string name="tag_name">Etikettnamn</string>
     <string name="tag_color">Etikettfarge</string>
     <string name="new_tag">Ny etikett</string>
+    <string name="pref_locale_title">Språk</string>
 </resources>
