@@ -96,8 +96,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
@@ -405,6 +407,12 @@ public class Utils {
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
     }
 
+    /*
+     * Maximum number of redirects to follow when fetching a remote URL. Each hop
+     * is re-validated against SSRF_DISALLOWED_ADDRESS rules before being followed.
+     */
+    private static final int FETCH_MAX_REDIRECTS = 5;
+
     public static byte[] fetchHttpUrl(@NonNull Context context,
                                       @NonNull String url) throws FetchLinkException {
         if (!Utils.checkConnectivity(context)) {
@@ -412,29 +420,143 @@ public class Utils {
         }
 
         try {
-            var urlObj = new URL(url);
-            var connection = (HttpURLConnection) urlObj.openConnection();
-
-            connection.setInstanceFollowRedirects(true);
-            connection.setRequestMethod("GET");
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                try (InputStream inputStream = connection.getInputStream();
-                     var byteArrayOutputStream = new ByteArrayOutputStream()) {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        byteArrayOutputStream.write(buffer, 0, bytesRead);
-                    }
-                    return byteArrayOutputStream.toByteArray();
+            String currentUrl = url;
+            for (int redirects = 0; ; redirects++) {
+                if (redirects > FETCH_MAX_REDIRECTS) {
+                    throw new FetchLinkException("Too many redirects while fetching " + url);
                 }
-            } else {
-                throw new FetchLinkException("Error while downloading file: " + responseCode);
+
+                URL urlObj = validatePublicHttpUrl(currentUrl);
+                var connection = (HttpURLConnection) urlObj.openConnection();
+
+                /*
+                 * Redirects are handled manually so that every redirect target is
+                 * validated against SSRF rules before being followed (CWE-918).
+                 */
+                connection.setInstanceFollowRedirects(false);
+                connection.setRequestMethod("GET");
+
+                int responseCode = connection.getResponseCode();
+                if (isRedirect(responseCode)) {
+                    String location = connection.getHeaderField("Location");
+                    connection.disconnect();
+                    if (TextUtils.isEmpty(location)) {
+                        throw new FetchLinkException("Redirect response without Location header");
+                    }
+                    currentUrl = new URL(urlObj, location).toString();
+                    continue;
+                }
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    try (InputStream inputStream = connection.getInputStream();
+                         var byteArrayOutputStream = new ByteArrayOutputStream()) {
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            byteArrayOutputStream.write(buffer, 0, bytesRead);
+                        }
+                        return byteArrayOutputStream.toByteArray();
+                    }
+                } else {
+                    throw new FetchLinkException("Error while downloading file: " + responseCode);
+                }
             }
         } catch (IOException e) {
             throw new FetchLinkException(e);
         }
+    }
+
+    private static boolean isRedirect(int responseCode) {
+        return responseCode == HttpURLConnection.HTTP_MOVED_PERM
+                || responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+                || responseCode == HttpURLConnection.HTTP_SEE_OTHER
+                || responseCode == 307 /* Temporary Redirect */
+                || responseCode == 308 /* Permanent Redirect */;
+    }
+
+    /*
+     * Parses and validates a URL before it is fetched over the network, to prevent
+     * SSRF (CWE-918): only plain HTTP(S) URLs are allowed, and every address the
+     * host resolves to must be a public, non-reserved address. Without this check
+     * a malicious RSS/Atom feed item (or torrent URL) could make the app issue
+     * requests to localhost, LAN or other internal/reserved addresses.
+     */
+    private static URL validatePublicHttpUrl(@NonNull String url) throws FetchLinkException {
+        URL urlObj;
+        try {
+            urlObj = new URL(url);
+        } catch (MalformedURLException e) {
+            throw new FetchLinkException("Malformed URL: " + url);
+        }
+
+        String protocol = urlObj.getProtocol();
+        if (!HTTP_PREFIX.equalsIgnoreCase(protocol) && !HTTPS_PREFIX.equalsIgnoreCase(protocol)) {
+            throw new FetchLinkException("Disallowed URL scheme: " + protocol);
+        }
+
+        String host = urlObj.getHost();
+        if (TextUtils.isEmpty(host)) {
+            throw new FetchLinkException("Missing host in URL: " + url);
+        }
+
+        InetAddress[] addresses;
+        try {
+            addresses = InetAddress.getAllByName(host);
+        } catch (UnknownHostException e) {
+            throw new FetchLinkException("Unable to resolve host: " + host);
+        }
+        if (addresses.length == 0) {
+            throw new FetchLinkException("Unable to resolve host: " + host);
+        }
+        for (InetAddress address : addresses) {
+            if (isDisallowedAddress(address)) {
+                throw new FetchLinkException(
+                        "URL resolves to a disallowed address: " + address.getHostAddress());
+            }
+        }
+
+        return urlObj;
+    }
+
+    /*
+     * Rejects loopback, link-local, site-local (private), multicast and other
+     * reserved/non-public IP ranges that should never be reachable from a feed
+     * or torrent URL fetched over the internet.
+     */
+    private static boolean isDisallowedAddress(@NonNull InetAddress address) {
+        if (address.isAnyLocalAddress()
+                || address.isLoopbackAddress()
+                || address.isLinkLocalAddress()
+                || address.isSiteLocalAddress()
+                || address.isMulticastAddress()) {
+            return true;
+        }
+
+        byte[] bytes = address.getAddress();
+        if (bytes.length == 4) {
+            int b0 = bytes[0] & 0xFF;
+            int b1 = bytes[1] & 0xFF;
+            int b2 = bytes[2] & 0xFF;
+
+            /* "This network", 0.0.0.0/8 */
+            if (b0 == 0) {
+                return true;
+            }
+            /* Carrier-grade NAT, 100.64.0.0/10 */
+            if (b0 == 100 && (b1 & 0xC0) == 64) {
+                return true;
+            }
+            /* IETF protocol assignments, 192.0.0.0/24 */
+            if (b0 == 192 && b1 == 0 && b2 == 0) {
+                return true;
+            }
+            /* Benchmarking, 198.18.0.0/15 */
+            if (b0 == 198 && (b1 == 18 || b1 == 19)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /*
