@@ -119,6 +119,7 @@ public class HomeFragment extends AbstractListDetailFragment {
 
     private static final String TAG_TORRENT_LIST_STATE = "torrent_list_state";
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
+    private static final String SEARCH_SELECTION_TRACKER_ID = "selection_tracker_1";
     private static final String KEY_FILE_MANAGER_DIALOG_REQUEST = TAG + "_file_manager_dialog";
     private static final String KEY_DELETE_TORRENT_DIALOG_REQUEST = TAG + "_delete_torrent_dialog";
 
@@ -129,6 +130,9 @@ public class HomeFragment extends AbstractListDetailFragment {
     /* Save state scrolling */
     private Parcelable torrentListState;
     private SelectionTracker<TorrentListItem> selectionTracker;
+    private SelectionTracker<TorrentListItem> searchSelectionTracker;
+    /* Whichever tracker currently owns the contextual selection mode */
+    private SelectionTracker<TorrentListItem> activeSelectionTracker;
     private FragmentHomeBinding binding;
     private HomeDrawerContentBinding drawerBinding;
     private MainNavRailHeaderBinding navRailHeaderBinding = null;
@@ -274,49 +278,7 @@ public class HomeFragment extends AbstractListDetailFragment {
         binding.torrentList.addItemDecoration(Utils.buildListDivider(activity));
         binding.torrentList.setAdapter(adapter);
 
-        selectionTracker = new SelectionTracker.Builder<>(
-                SELECTION_TRACKER_ID,
-                binding.torrentList,
-                new TorrentListAdapter.KeyProvider(adapter),
-                new TorrentListAdapter.ItemLookup(binding.torrentList),
-                StorageStrategy.createParcelableStorage(TorrentListItem.class))
-                .withSelectionPredicate(SelectionPredicates.createSelectAnything())
-                .build();
-
-        selectionTracker.addObserver(new SelectionTracker.SelectionObserver<>() {
-            @Override
-            public void onSelectionChanged() {
-                super.onSelectionChanged();
-
-                var addTorrentFab = getAddTorrentFab();
-                if (selectionTracker.hasSelection()) {
-                    startContextualMode();
-                    setContextualAppBarTitle(selectionTracker.getSelection().size());
-                } else if (!selectionTracker.hasSelection()) {
-                    finishContextualMode();
-                    addTorrentFab.show();
-                } else {
-                    addTorrentFab.hide();
-                    setContextualAppBarTitle(selectionTracker.getSelection().size());
-                }
-            }
-
-            @Override
-            public void onSelectionRestored() {
-                super.onSelectionRestored();
-
-                var addTorrentFab = getAddTorrentFab();
-                startContextualMode();
-                var size = selectionTracker.getSelection().size();
-                setContextualAppBarTitle(size);
-                if (size > 0) {
-                    addTorrentFab.hide();
-                } else {
-                    addTorrentFab.show();
-                }
-            }
-        });
-
+        selectionTracker = createSelectionTracker(SELECTION_TRACKER_ID, binding.torrentList, adapter);
         if (savedInstanceState != null) {
             selectionTracker.onRestoreInstanceState(savedInstanceState);
         }
@@ -348,7 +310,7 @@ public class HomeFragment extends AbstractListDetailFragment {
         }
 
         initDrawer();
-        initSearch();
+        initSearch(savedInstanceState);
 
         setNavigationIconListener((v) -> {
             var navBarFragment = activity.findNavBarFragment(this);
@@ -392,7 +354,7 @@ public class HomeFragment extends AbstractListDetailFragment {
         NavHostFragment.findNavController(this).navigate(action);
     }
 
-    private void initSearch() {
+    private void initSearch(@Nullable Bundle savedInstanceState) {
         searchAdapter = new TorrentListAdapter(torrentClickListener);
         /*
          * A RecyclerView by default creates another copy of the ViewHolder in order to
@@ -412,6 +374,13 @@ public class HomeFragment extends AbstractListDetailFragment {
         binding.searchTorrentList.addItemDecoration(Utils.buildListDivider(activity));
         binding.searchTorrentList.setAdapter(searchAdapter);
 
+        searchSelectionTracker = createSelectionTracker(
+                SEARCH_SELECTION_TRACKER_ID, binding.searchTorrentList, searchAdapter);
+        if (savedInstanceState != null) {
+            searchSelectionTracker.onRestoreInstanceState(savedInstanceState);
+        }
+        searchAdapter.setSelectionTracker(searchSelectionTracker);
+
         binding.searchView.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -428,6 +397,71 @@ public class HomeFragment extends AbstractListDetailFragment {
         });
 
         viewModel.resetSearch();
+    }
+
+    private SelectionTracker<TorrentListItem> createSelectionTracker(
+            String id,
+            RecyclerView recyclerView,
+            TorrentListAdapter adapter
+    ) {
+        var tracker = new SelectionTracker.Builder<>(
+                id,
+                recyclerView,
+                new TorrentListAdapter.KeyProvider(adapter),
+                new TorrentListAdapter.ItemLookup(recyclerView),
+                StorageStrategy.createParcelableStorage(TorrentListItem.class))
+                .withSelectionPredicate(SelectionPredicates.createSelectAnything())
+                .build();
+
+        tracker.addObserver(new SelectionTracker.SelectionObserver<TorrentListItem>() {
+            @Override
+            public void onSelectionChanged() {
+                super.onSelectionChanged();
+                onSelectionUpdated(tracker);
+            }
+
+            @Override
+            public void onSelectionRestored() {
+                super.onSelectionRestored();
+                onSelectionUpdated(tracker);
+            }
+        });
+
+        return tracker;
+    }
+
+    /*
+     * Both the main list and the search results list have their own SelectionTracker,
+     * since they're backed by separate adapters/RecyclerViews. Only one of them drives
+     * the contextual app bar at a time - whichever most recently gained a selection.
+     */
+    private void onSelectionUpdated(SelectionTracker<TorrentListItem> tracker) {
+        var addTorrentFab = getAddTorrentFab();
+        if (tracker.hasSelection()) {
+            activeSelectionTracker = tracker;
+            if (tracker == searchSelectionTracker) {
+                // The search view is drawn (and receives touches) on top of the
+                // contextual app bar, so it must be brought to front to be visible over it.
+                binding.contextualAppBarContainer.bringToFront();
+            }
+            startContextualMode();
+            setContextualAppBarTitle(tracker.getSelection().size());
+            addTorrentFab.hide();
+        } else if (tracker == activeSelectionTracker) {
+            var other = tracker == selectionTracker ? searchSelectionTracker : selectionTracker;
+            if (other != null && other.hasSelection()) {
+                activeSelectionTracker = other;
+                setContextualAppBarTitle(other.getSelection().size());
+            } else {
+                activeSelectionTracker = null;
+                collapseContextualAppBar();
+                addTorrentFab.show();
+            }
+        }
+    }
+
+    private SelectionTracker<TorrentListItem> currentSelectionTracker() {
+        return activeSelectionTracker != null ? activeSelectionTracker : selectionTracker;
     }
 
     SearchView.TransitionListener searchViewListener = (searchView, previousState, newState) -> {
@@ -515,6 +549,9 @@ public class HomeFragment extends AbstractListDetailFragment {
         }
         if (selectionTracker != null) {
             selectionTracker.onSaveInstanceState(outState);
+        }
+        if (searchSelectionTracker != null) {
+            searchSelectionTracker.onSaveInstanceState(outState);
         }
 
         super.onSaveInstanceState(outState);
@@ -1245,9 +1282,15 @@ public class HomeFragment extends AbstractListDetailFragment {
         binding.searchBar.expand(binding.contextualAppBarContainer, binding.appBarLayout);
     }
 
-    private void finishContextualMode() {
+    private void collapseContextualAppBar() {
         binding.searchBar.collapse(binding.contextualAppBarContainer, binding.appBarLayout);
+    }
+
+    private void finishContextualMode() {
         selectionTracker.clearSelection();
+        if (searchSelectionTracker != null) {
+            searchSelectionTracker.clearSelection();
+        }
     }
 
     boolean onContextualMenuItemClickListener(MenuItem item) {
@@ -1273,7 +1316,7 @@ public class HomeFragment extends AbstractListDetailFragment {
         }
 
         var action = HomeFragmentDirections.actionDeleteTorrentDialog(
-                selectionTracker.getSelection().size(),
+                currentSelectionTracker().getSelection().size(),
                 KEY_DELETE_TORRENT_DIALOG_REQUEST
         );
         NavHostFragment.findNavController(this).navigate(action);
@@ -1302,7 +1345,7 @@ public class HomeFragment extends AbstractListDetailFragment {
 
     private void deleteTorrents(boolean withFiles) {
         MutableSelection<TorrentListItem> selections = new MutableSelection<>();
-        selectionTracker.copySelection(selections);
+        currentSelectionTracker().copySelection(selections);
 
         disposables.add(Observable.fromIterable(selections)
                 .map((selection -> selection.torrentId))
@@ -1314,16 +1357,20 @@ public class HomeFragment extends AbstractListDetailFragment {
 
     @SuppressLint("RestrictedApi")
     private void selectAllTorrents() {
-        int n = adapter.getItemCount();
+        boolean isSearch = activeSelectionTracker == searchSelectionTracker;
+        var targetAdapter = isSearch ? searchAdapter : adapter;
+        var targetTracker = isSearch ? searchSelectionTracker : selectionTracker;
+
+        int n = targetAdapter.getItemCount();
         if (n > 0) {
-            selectionTracker.startRange(0);
-            selectionTracker.extendRange(adapter.getItemCount() - 1);
+            targetTracker.startRange(0);
+            targetTracker.extendRange(n - 1);
         }
     }
 
     private void forceRecheckTorrents() {
         MutableSelection<TorrentListItem> selections = new MutableSelection<>();
-        selectionTracker.copySelection(selections);
+        currentSelectionTracker().copySelection(selections);
 
         disposables.add(Observable.fromIterable(selections)
                 .map((selection -> selection.torrentId))
@@ -1333,7 +1380,7 @@ public class HomeFragment extends AbstractListDetailFragment {
 
     private void forceAnnounceTorrents() {
         MutableSelection<TorrentListItem> selections = new MutableSelection<>();
-        selectionTracker.copySelection(selections);
+        currentSelectionTracker().copySelection(selections);
 
         disposables.add(Observable.fromIterable(selections)
                 .map((selection -> selection.torrentId))
