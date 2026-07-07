@@ -21,11 +21,13 @@ package org.proninyaroslav.libretorrent.ui.home;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -43,6 +45,7 @@ public class DeleteTorrentDialog extends DialogFragment {
 
     private DialogDeleteTorrentBinding binding;
     private String requestKey;
+    private SharedPreferences pref;
 
     @NonNull
     @Override
@@ -50,6 +53,13 @@ public class DeleteTorrentDialog extends DialogFragment {
         var args = DeleteTorrentDialogArgs.fromBundle(getArguments());
         requestKey = args.getFragmentRequestKey();
         binding = DialogDeleteTorrentBinding.inflate(getLayoutInflater(), null, false);
+        pref = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        binding.deleteWithDownloadedFiles.setChecked(
+                pref.getBoolean(
+                        getString(R.string.delete_torrent_dialog_delete_with_downloaded_files),
+                        false
+                )
+        );
 
         var builder = new MaterialAlertDialogBuilder(requireActivity())
                 .setIcon(R.drawable.ic_delete_24px)
@@ -65,6 +75,13 @@ public class DeleteTorrentDialog extends DialogFragment {
     }
 
     private void onClick(DialogInterface dialog, int which) {
+        pref.edit()
+                .putBoolean(
+                        getString(R.string.delete_torrent_dialog_delete_with_downloaded_files),
+                        binding.deleteWithDownloadedFiles.isChecked()
+                )
+                .apply();
+
         var bundle = new Bundle();
         switch (which) {
             case Dialog.BUTTON_POSITIVE -> bundle.putSerializable(
