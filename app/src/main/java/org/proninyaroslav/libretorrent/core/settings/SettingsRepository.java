@@ -307,6 +307,10 @@ public interface SettingsRepository
 
     void proxyPeersToo(boolean val);
 
+    boolean proxyRequireAllConnections();
+
+    void proxyRequireAllConnections(boolean val);
+
     boolean proxyRequiresAuth();
 
     void proxyRequiresAuth(boolean val);

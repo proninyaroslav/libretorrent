@@ -136,6 +136,14 @@ public class ProxySettingsFragment extends CustomPreferenceFragment
                 bindOnPreferenceChangeListener(proxyPeersToo);
             }
 
+            String keyProxyRequireAllConnections = getString(R.string.pref_key_proxy_require_all_connections);
+            SwitchPreferenceCompat proxyRequireAllConnections = findPreference(keyProxyRequireAllConnections);
+            if (proxyRequireAllConnections != null) {
+                proxyRequireAllConnections.setEnabled(enableAdvancedSettings);
+                proxyRequireAllConnections.setChecked(pref.proxyRequireAllConnections());
+                bindOnPreferenceChangeListener(proxyRequireAllConnections);
+            }
+
             String keyRequiresAuth = getString(R.string.pref_key_proxy_requires_auth);
             SwitchPreferenceCompat requiresAuth = findPreference(keyRequiresAuth);
             if (requiresAuth != null) {
@@ -190,6 +198,11 @@ public class ProxySettingsFragment extends CustomPreferenceFragment
         if (proxyPeersToo != null)
             proxyPeersToo.setEnabled(enable);
 
+        String keyProxyRequireAllConnections = getString(R.string.pref_key_proxy_require_all_connections);
+        SwitchPreferenceCompat proxyRequireAllConnections = findPreference(keyProxyRequireAllConnections);
+        if (proxyRequireAllConnections != null)
+            proxyRequireAllConnections.setEnabled(enable);
+
         String keyRequiresAuth = getString(R.string.pref_key_proxy_requires_auth);
         SwitchPreferenceCompat requiresAuth = findPreference(keyRequiresAuth);
         if (requiresAuth != null)
@@ -228,6 +241,9 @@ public class ProxySettingsFragment extends CustomPreferenceFragment
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_peers_too))) {
             pref.proxyPeersToo((boolean) newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_require_all_connections))) {
+            pref.proxyRequireAllConnections((boolean) newValue);
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_proxy_requires_auth))) {
             pref.proxyRequiresAuth((boolean) newValue);

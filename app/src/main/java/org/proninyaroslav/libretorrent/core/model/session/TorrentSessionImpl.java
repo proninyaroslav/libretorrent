@@ -1186,12 +1186,19 @@ public class TorrentSessionImpl extends SessionManager
         sp.listenInterfaces(getIface(settings.inetAddress, settings.portRangeFirst));
         sp.setInteger(settings_pack.int_types.max_retry_port_bind.swigValue(),
                 settings.portRangeSecond - settings.portRangeFirst);
-        sp.setEnableDht(settings.dhtEnabled);
-        sp.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), settings.lsdEnabled);
+        /*
+         * DHT, LSD, UPnP and NAT-PMP can't be routed through a proxy, so they're forced
+         * off when the user requires all connections to go through the proxy, to avoid
+         * leaking the real IP address and DNS queries.
+         */
+        boolean proxyKillSwitch = settings.proxyType != SessionSettings.ProxyType.NONE
+                && settings.proxyRequireAllConnections;
+        sp.setEnableDht(settings.dhtEnabled && !proxyKillSwitch);
+        sp.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), settings.lsdEnabled && !proxyKillSwitch);
         sp.setBoolean(settings_pack.bool_types.enable_incoming_utp.swigValue(), settings.utpEnabled);
         sp.setBoolean(settings_pack.bool_types.enable_outgoing_utp.swigValue(), settings.utpEnabled);
-        sp.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), settings.upnpEnabled);
-        sp.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), settings.natPmpEnabled);
+        sp.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), settings.upnpEnabled && !proxyKillSwitch);
+        sp.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), settings.natPmpEnabled && !proxyKillSwitch);
         var encryptModeOutcoming = convertEncryptMode(settings.encryptModeOutcoming);
         var encryptModeIncoming = convertEncryptMode(settings.encryptModeIncoming);
         var encLevel = getAllowedEncryptLevel(settings.encryptModeOutcoming, settings.encryptModeIncoming);
@@ -1218,7 +1225,8 @@ public class TorrentSessionImpl extends SessionManager
                 sp.setString(settings_pack.string_types.proxy_username.swigValue(), settings.proxyLogin);
                 sp.setString(settings_pack.string_types.proxy_password.swigValue(), settings.proxyPassword);
             }
-            sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(), settings.proxyPeersToo);
+            sp.setBoolean(settings_pack.bool_types.proxy_peer_connections.swigValue(),
+                    settings.proxyPeersToo || settings.proxyRequireAllConnections);
             sp.setBoolean(settings_pack.bool_types.proxy_tracker_connections.swigValue(), true);
             sp.setBoolean(settings_pack.bool_types.proxy_hostnames.swigValue(), true);
         }

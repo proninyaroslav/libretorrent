@@ -1086,6 +1086,7 @@ public class TorrentEngine {
         s.proxyAddress = pref.proxyAddress();
         s.proxyPort = pref.proxyPort();
         s.proxyPeersToo = pref.proxyPeersToo();
+        s.proxyRequireAllConnections = pref.proxyRequireAllConnections();
         s.proxyRequiresAuth = pref.proxyRequiresAuth();
         s.proxyLogin = pref.proxyLogin();
         s.proxyPassword = pref.proxyPassword();

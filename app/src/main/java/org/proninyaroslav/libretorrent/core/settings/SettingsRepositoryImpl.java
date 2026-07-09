@@ -148,6 +148,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         static final String proxyAddress = SessionSettings.DEFAULT_PROXY_ADDRESS;
         static final int proxyPort = SessionSettings.DEFAULT_PROXY_PORT;
         static final boolean proxyPeersToo = SessionSettings.DEFAULT_PROXY_PEERS_TOO;
+        static final boolean proxyRequireAllConnections = SessionSettings.DEFAULT_PROXY_REQUIRE_ALL_CONNECTIONS;
         static final boolean proxyRequiresAuth = SessionSettings.DEFAULT_PROXY_REQUIRES_AUTH;
         static final String proxyLogin = SessionSettings.DEFAULT_PROXY_LOGIN;
         static final String proxyPassword = SessionSettings.DEFAULT_PROXY_PASSWORD;
@@ -259,6 +260,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         settings.proxyAddress = proxyAddress();
         settings.proxyPort = proxyPort();
         settings.proxyPeersToo = proxyPeersToo();
+        settings.proxyRequireAllConnections = proxyRequireAllConnections();
         settings.proxyRequiresAuth = proxyRequiresAuth();
         settings.proxyLogin = proxyLogin();
         settings.proxyPassword = proxyPassword();
@@ -1103,6 +1105,19 @@ public class SettingsRepositoryImpl implements SettingsRepository {
     public void proxyPeersToo(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_proxy_peers_too), val)
+                .apply();
+    }
+
+    @Override
+    public boolean proxyRequireAllConnections() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_proxy_require_all_connections),
+                Default.proxyRequireAllConnections);
+    }
+
+    @Override
+    public void proxyRequireAllConnections(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_proxy_require_all_connections), val)
                 .apply();
     }
 

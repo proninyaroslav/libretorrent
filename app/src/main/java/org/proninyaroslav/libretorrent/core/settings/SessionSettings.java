@@ -54,6 +54,7 @@ public class SessionSettings
     public static final String DEFAULT_PROXY_ADDRESS = "";
     public static final int DEFAULT_PROXY_PORT = 8080;
     public static final boolean DEFAULT_PROXY_PEERS_TOO = true;
+    public static final boolean DEFAULT_PROXY_REQUIRE_ALL_CONNECTIONS = false;
     public static final boolean DEFAULT_PROXY_REQUIRES_AUTH = false;
     public static final String DEFAULT_PROXY_LOGIN = "";
     public static final String DEFAULT_PROXY_PASSWORD = "";
@@ -96,6 +97,7 @@ public class SessionSettings
     public String proxyAddress = DEFAULT_PROXY_ADDRESS;
     public int proxyPort = DEFAULT_PROXY_PORT;
     public boolean proxyPeersToo = DEFAULT_PROXY_PEERS_TOO;
+    public boolean proxyRequireAllConnections = DEFAULT_PROXY_REQUIRE_ALL_CONNECTIONS;
     public boolean proxyRequiresAuth = DEFAULT_PROXY_REQUIRES_AUTH;
     public String proxyLogin = DEFAULT_PROXY_LOGIN;
     public String proxyPassword = DEFAULT_PROXY_PASSWORD;
@@ -143,6 +145,7 @@ public class SessionSettings
         this.proxyAddress = other.proxyAddress;
         this.proxyPort = other.proxyPort;
         this.proxyPeersToo = other.proxyPeersToo;
+        this.proxyRequireAllConnections = other.proxyRequireAllConnections;
         this.proxyRequiresAuth = other.proxyRequiresAuth;
         this.proxyLogin = other.proxyLogin;
         this.proxyPassword = other.proxyPassword;

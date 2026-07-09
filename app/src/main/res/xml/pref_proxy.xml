@@ -33,6 +33,13 @@
         app:singleLineTitle="false" />
 
     <SwitchPreferenceCompat
+        android:key="@string/pref_key_proxy_require_all_connections"
+        android:persistent="false"
+        android:summary="@string/pref_proxy_require_all_connections_summary"
+        android:title="@string/pref_proxy_require_all_connections_title"
+        app:singleLineTitle="false" />
+
+    <SwitchPreferenceCompat
         android:key="@string/pref_key_proxy_requires_auth"
         android:persistent="false"
         android:summary="@string/pref_proxy_requires_auth_summary"

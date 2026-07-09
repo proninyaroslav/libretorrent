@@ -554,6 +554,8 @@
     <string name="pref_proxy_port_title">Port</string>
     <string name="pref_proxy_peers_too_title">Also use for connections</string>
     <string name="pref_proxy_peers_too_summary">Connections to trackers, others and web-seeds are proxied. Does not affect DHT.</string>
+    <string name="pref_proxy_require_all_connections_title">Require proxy for all connections</string>
+    <string name="pref_proxy_require_all_connections_summary">Disables DHT, Local Service Discovery, UPnP and NAT-PMP while the proxy is active. These features cannot be routed through a proxy and would otherwise expose your real IP address and DNS queries even with a proxy configured.</string>
     <string name="pref_proxy_requires_auth_title">Requires authorization</string>
     <string name="pref_proxy_requires_auth_summary">Warning: The password is saved as a regular file.</string>
     <string name="pref_proxy_login_title">Username</string>
