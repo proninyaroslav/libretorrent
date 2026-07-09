@@ -39,10 +39,22 @@
                 style="@style/App.Components.ListItem.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:ellipsize="middle"
                 android:singleLine="true"
                 tools:text="File" />
+
+            <TextView
+                android:id="@+id/path"
+                style="@style/App.Components.ListItem.SupportingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:visibility="gone"
+                tools:text="Season 1/Extras/"
+                tools:visibility="visible" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progress"

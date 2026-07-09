@@ -52,22 +52,28 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
 import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileTree;
 import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.core.model.stream.TorrentStreamServer;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
+import org.proninyaroslav.libretorrent.core.sorting.FileTreeSorting;
 import org.proninyaroslav.libretorrent.core.storage.TagRepository;
 import org.proninyaroslav.libretorrent.core.storage.TorrentRepository;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.TorrentContentFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.ui.FileListState;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
@@ -103,9 +109,12 @@ public class TorrentDetailsViewModel extends ViewModel {
     private final ReentrantLock syncBuildFileTree = new ReentrantLock();
     public TorrentContentFileTree fileTree;
     private TorrentContentFileTree[] treeLeaves;
-    private final BehaviorSubject<List<TorrentContentFileTree>> children = BehaviorSubject.create();
+    private final BehaviorSubject<FileListState<TorrentContentFileTree>> children = BehaviorSubject.create();
     /* Current directory */
     private TorrentContentFileTree curDir;
+    private String searchQuery = "";
+    private FileTreeSorting.SortingColumns sortColumn = FileTreeSorting.SortingColumns.name;
+    private BaseSorting.Direction sortDirection = BaseSorting.Direction.ASC;
 
     static final ViewModelInitializer<TorrentDetailsViewModel> initializer = new ViewModelInitializer<>(
             TorrentDetailsViewModel.class,
@@ -163,8 +172,35 @@ public class TorrentDetailsViewModel extends ViewModel {
         return freeSpaceError;
     }
 
-    public io.reactivex.rxjava3.core.Observable<List<TorrentContentFileTree>> getDirChildren() {
+    public io.reactivex.rxjava3.core.Observable<FileListState<TorrentContentFileTree>> getDirChildren() {
         return children;
+    }
+
+    public void setSearchQuery(String query) {
+        searchQuery = query == null ? "" : query.trim();
+        updateChildren();
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public boolean isSearchActive() {
+        return !searchQuery.isEmpty();
+    }
+
+    public void setSort(@NonNull FileTreeSorting.SortingColumns column, @NonNull BaseSorting.Direction direction) {
+        sortColumn = column;
+        sortDirection = direction;
+        updateChildren();
+    }
+
+    public FileTreeSorting.SortingColumns getSortColumn() {
+        return sortColumn;
+    }
+
+    public BaseSorting.Direction getSortDirection() {
+        return sortDirection;
     }
 
     public Flowable<TorrentInfo> observeTorrentInfo() {
@@ -230,19 +266,41 @@ public class TorrentDetailsViewModel extends ViewModel {
         updateCurDir(curDir.getParent());
     }
 
-    public List<TorrentContentFileTree> getChildren(TorrentContentFileTree node) {
+    public FileListState<TorrentContentFileTree> getChildren(TorrentContentFileTree node) {
+        if (isSearchActive()) {
+            List<TorrentContentFileTree> matches = new ArrayList<>();
+            if (treeLeaves != null) {
+                String query = searchQuery.toLowerCase(Locale.ROOT);
+                for (TorrentContentFileTree leaf : treeLeaves) {
+                    if (leaf != null && leaf.getName().toLowerCase(Locale.ROOT).contains(query))
+                        matches.add(leaf);
+                }
+            }
+            matches.sort(childComparator());
+
+            return new FileListState<>(matches, true);
+        }
+
         List<TorrentContentFileTree> children = new ArrayList<>();
         if (node == null || node.isFile())
-            return children;
+            return new FileListState<>(children, false);
+
+        children.addAll(node.getChildren());
+        children.sort(childComparator());
 
         /* Adding parent dir for navigation */
         if (curDir != fileTree && curDir.getParent() != null)
             children.add(0, new TorrentContentFileTree(TorrentContentFileTree.PARENT_DIR, 0L,
                     FileNode.Type.DIR, curDir.getParent()));
 
-        children.addAll(curDir.getChildren());
+        return new FileListState<>(children, false);
+    }
 
-        return children;
+    private Comparator<TorrentContentFileTree> childComparator() {
+        Comparator<TorrentContentFileTree> directoryFirst = Comparator.comparing(FileTree::isFile);
+        Comparator<TorrentContentFileTree> byColumn = (a, b) -> sortColumn.compare(a, b, sortDirection);
+
+        return directoryFirst.thenComparing(byColumn);
     }
 
     public void chooseDirectory(@NonNull String name) {
@@ -256,18 +314,19 @@ public class TorrentDetailsViewModel extends ViewModel {
         updateCurDir(node);
     }
 
-    public boolean isFile(@NonNull String name) {
-        TorrentContentFileTree node = curDir.getChild(name);
-
-        return node != null && node.isFile();
+    public Single<Uri> getFilePath(@NonNull String name) {
+        return getFilePath(curDir.getChild(name));
     }
 
-    public Single<Uri> getFilePath(@NonNull String name) {
-        Context context = application.getApplicationContext();
-        TorrentContentFileTree node = curDir.getChild(name);
+    public Single<Uri> getFilePathByIndex(int index) {
+        return getFilePath(leafByIndex(index));
+    }
+
+    private Single<Uri> getFilePath(TorrentContentFileTree node) {
         if (node == null)
             return Single.error(new NullPointerException("node is null"));
 
+        Context context = application.getApplicationContext();
         String relativePath = node.getPath();
 
         Torrent torrent = info.getTorrent();
@@ -288,6 +347,10 @@ public class TorrentDetailsViewModel extends ViewModel {
         });
     }
 
+    private TorrentContentFileTree leafByIndex(int index) {
+        return (treeLeaves != null && index >= 0 && index < treeLeaves.length) ? treeLeaves[index] : null;
+    }
+
     /*
      * Compare the array with randomly selected priority.
      * If some elements not equals with this priority,
@@ -296,12 +359,35 @@ public class TorrentDetailsViewModel extends ViewModel {
 
     @NonNull
     public FilePriority getFilesPriority(@NonNull List<String> fileNames) {
-        List<FilePriority> priorities = new ArrayList<>();
+        List<TorrentContentFileTree> files = new ArrayList<>();
         for (String name : fileNames) {
             TorrentContentFileTree file = curDir.getChild(name);
             if (file != null) {
-                priorities.add(file.getFilePriority());
+                files.add(file);
             }
+        }
+
+        return getFilesPriorityFromNodes(files);
+    }
+
+    @NonNull
+    public FilePriority getFilesPriorityByIndex(@NonNull List<Integer> indexes) {
+        List<TorrentContentFileTree> files = new ArrayList<>();
+        for (int index : indexes) {
+            TorrentContentFileTree file = leafByIndex(index);
+            if (file != null) {
+                files.add(file);
+            }
+        }
+
+        return getFilesPriorityFromNodes(files);
+    }
+
+    @NonNull
+    private FilePriority getFilesPriorityFromNodes(@NonNull List<TorrentContentFileTree> files) {
+        List<FilePriority> priorities = new ArrayList<>();
+        for (TorrentContentFileTree file : files) {
+            priorities.add(file.getFilePriority());
         }
         if (priorities.isEmpty()) {
             return new FilePriority(FilePriority.Type.MIXED);
@@ -331,8 +417,19 @@ public class TorrentDetailsViewModel extends ViewModel {
 
     public void applyPriority(@NonNull List<String> fileNames,
                               @NonNull FilePriority priority) {
-        disposable.add(io.reactivex.rxjava3.core.Observable.fromIterable(fileNames)
-                .map((fileName) -> curDir.getChild(fileName))
+        applyPriority(io.reactivex.rxjava3.core.Observable.fromIterable(fileNames)
+                .map((fileName) -> curDir.getChild(fileName)), priority);
+    }
+
+    public void applyPriorityByIndex(@NonNull List<Integer> indexes,
+                                     @NonNull FilePriority priority) {
+        applyPriority(io.reactivex.rxjava3.core.Observable.fromIterable(indexes)
+                .map(this::leafByIndex), priority);
+    }
+
+    private void applyPriority(io.reactivex.rxjava3.core.Observable<TorrentContentFileTree> files,
+                               @NonNull FilePriority priority) {
+        disposable.add(files
                 .filter(Objects::nonNull)
                 .subscribe((file) -> {
                     file.setPriority(priority, true);

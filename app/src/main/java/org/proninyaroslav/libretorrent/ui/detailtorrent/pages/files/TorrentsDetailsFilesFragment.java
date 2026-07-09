@@ -24,6 +24,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,6 +56,8 @@ import com.google.android.material.snackbar.Snackbar;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
+import org.proninyaroslav.libretorrent.core.sorting.FileTreeSorting;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentTorrentDetailsFilesBinding;
@@ -61,12 +66,15 @@ import org.proninyaroslav.libretorrent.ui.detailtorrent.TorrentDetailsViewModel;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.subjects.PublishSubject;
 
 /*
  * The fragment for list files of torrent. Part of TorrentDetailsFragment.
@@ -79,6 +87,7 @@ public class TorrentsDetailsFilesFragment extends Fragment
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
     private static final String KEY_CHANGE_PRIORITY_DIALOG_REQUEST = TAG + "_change_priority_dialog";
+    private static final long SEARCH_DEBOUNCE_MS = 200;
 
     private AppCompatActivity activity;
     private FragmentTorrentDetailsFilesBinding binding;
@@ -90,6 +99,7 @@ public class TorrentsDetailsFilesFragment extends Fragment
     /* Save state scrolling */
     private Parcelable listFilesState;
     private final CompositeDisposable disposables = new CompositeDisposable();
+    private final PublishSubject<String> searchQueryChanges = PublishSubject.create();
 
     public static TorrentsDetailsFilesFragment newInstance() {
         var fragment = new TorrentsDetailsFilesFragment();
@@ -165,14 +175,22 @@ public class TorrentsDetailsFilesFragment extends Fragment
         super.onStart();
 
         subscribeAdapter();
+        subscribeSearch();
+    }
+
+    private void subscribeSearch() {
+        disposables.add(searchQueryChanges
+                .debounce(SEARCH_DEBOUNCE_MS, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(viewModel::setSearchQuery));
     }
 
     private void subscribeAdapter() {
         disposables.add(viewModel.getDirChildren()
                 .subscribeOn(Schedulers.computation())
-                .flatMapSingle((children) ->
-                        Flowable.fromIterable(children)
-                                .map(TorrentContentFileItem::new)
+                .flatMapSingle((state) ->
+                        Flowable.fromIterable(state.items())
+                                .map((tree) -> new TorrentContentFileItem(tree, state.searchActive()))
                                 .toList()
                 )
                 .observeOn(AndroidSchedulers.mainThread())
@@ -274,6 +292,77 @@ public class TorrentsDetailsFilesFragment extends Fragment
             selectionTracker.onRestoreInstanceState(savedInstanceState);
         }
         adapter.setSelectionTracker(selectionTracker);
+
+        initSearchAndSort();
+    }
+
+    private void initSearchAndSort() {
+        var query = viewModel.getSearchQuery();
+        if (!query.isEmpty()) {
+            binding.searchEditText.setText(query);
+            setSearchExpanded(true);
+        }
+        binding.searchToggleButton.setOnClickListener((v) ->
+                setSearchExpanded(binding.searchInputLayout.getVisibility() != View.VISIBLE));
+        binding.filterToggleButton.setOnClickListener((v) ->
+                binding.sortRow.setVisibility(binding.sortRow.getVisibility() == View.VISIBLE
+                        ? View.GONE : View.VISIBLE));
+        binding.searchInputLayout.setStartIconOnClickListener((v) -> {
+            binding.searchEditText.setText("");
+            setSearchExpanded(false);
+        });
+        binding.searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchQueryChanges.onNext(s.toString());
+            }
+        });
+
+        switch (viewModel.getSortColumn()) {
+            case name -> binding.sortByName.setChecked(true);
+            case size -> binding.sortBySize.setChecked(true);
+        }
+        switch (viewModel.getSortDirection()) {
+            case ASC -> binding.sortDirectionToggleButton.check(R.id.sort_asc_button);
+            case DESC -> binding.sortDirectionToggleButton.check(R.id.sort_desc_button);
+        }
+
+        binding.sortAscButton.setOnClickListener((v) ->
+                viewModel.setSort(viewModel.getSortColumn(), BaseSorting.Direction.ASC));
+        binding.sortDescButton.setOnClickListener((v) ->
+                viewModel.setSort(viewModel.getSortColumn(), BaseSorting.Direction.DESC));
+
+        binding.sortChipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            var column = checkedIds.contains(R.id.sort_by_size)
+                    ? FileTreeSorting.SortingColumns.size
+                    : FileTreeSorting.SortingColumns.name;
+            viewModel.setSort(column, viewModel.getSortDirection());
+        });
+    }
+
+    private void setSearchExpanded(boolean expanded) {
+        var imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if (expanded) {
+            binding.searchInputLayout.setVisibility(View.VISIBLE);
+            binding.searchEditText.requestFocus();
+            if (imm != null) {
+                imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        } else {
+            binding.searchInputLayout.setVisibility(View.GONE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(binding.searchEditText.getWindowToken(), 0);
+            }
+        }
     }
 
     private void updateFileSize() {
@@ -321,25 +410,26 @@ public class TorrentsDetailsFilesFragment extends Fragment
 
     @Override
     public void onItemClicked(@NonNull TorrentContentFileItem item) {
-        if (item.name.equals(BencodeFileTree.PARENT_DIR)) {
+        if (item.path != null) {
+            /* Flattened search result: always a file */
+            openFile(item);
+        } else if (item.name.equals(BencodeFileTree.PARENT_DIR)) {
             viewModel.upToParentDirectory();
         } else if (!item.isFile) {
             viewModel.chooseDirectory(item.name);
         } else {
-            disposables.add(viewModel.getFilePath(item.name)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            (path) -> openFile(item.name, path),
-                            this::handleOpenFileError
-                    ));
+            openFile(item);
         }
     }
 
     @Override
     public void onItemCheckedChanged(@NonNull TorrentContentFileItem item, boolean selected) {
-        viewModel.applyPriority(Collections.singletonList(item.name),
-                new FilePriority(selected ? FilePriority.Type.NORMAL : FilePriority.Type.IGNORE));
+        var priority = new FilePriority(selected ? FilePriority.Type.NORMAL : FilePriority.Type.IGNORE);
+        if (item.path != null) {
+            viewModel.applyPriorityByIndex(Collections.singletonList(item.index), priority);
+        } else {
+            viewModel.applyPriority(Collections.singletonList(item.name), priority);
+        }
         updateFileSize();
     }
 
@@ -358,7 +448,7 @@ public class TorrentsDetailsFilesFragment extends Fragment
                 return true;
             }
             Iterator<TorrentContentFileItem> it = selection.iterator();
-            if (it.hasNext() && !viewModel.isFile(it.next().name)) {
+            if (it.hasNext() && !it.next().isFile) {
                 return true;
             }
 
@@ -400,12 +490,14 @@ public class TorrentsDetailsFilesFragment extends Fragment
         }
         var selections = new MutableSelection<TorrentContentFileItem>();
         selectionTracker.copySelection(selections);
+        boolean searchMode = viewModel.isSearchActive();
 
         disposables.add(Observable.fromIterable(selections)
-                .map((selection -> selection.name))
                 .toList()
-                .subscribe((fileNames) -> {
-                    var priority = viewModel.getFilesPriority(fileNames);
+                .subscribe((items) -> {
+                    var priority = searchMode
+                            ? viewModel.getFilesPriorityByIndex(indexesOf(items))
+                            : viewModel.getFilesPriority(namesOf(items));
                     var action = TorrentDetailsFragmentDirections.actionOpenChangePriorityDialog(
                             KEY_CHANGE_PRIORITY_DIALOG_REQUEST,
                             priority
@@ -419,15 +511,29 @@ public class TorrentsDetailsFilesFragment extends Fragment
         var priority = new FilePriority(priorityType);
         MutableSelection<TorrentContentFileItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
+        boolean searchMode = viewModel.isSearchActive();
 
         disposables.add(Observable.fromIterable(selections)
-                .map((selection -> selection.name))
                 .toList()
-                .subscribe((fileNames) -> viewModel.applyPriority(fileNames, priority)));
+                .subscribe((items) -> {
+                    if (searchMode) {
+                        viewModel.applyPriorityByIndex(indexesOf(items), priority);
+                    } else {
+                        viewModel.applyPriority(namesOf(items), priority);
+                    }
+                }));
 
         if (actionMode != null) {
             actionMode.finish();
         }
+    }
+
+    private List<String> namesOf(List<TorrentContentFileItem> items) {
+        return items.stream().map((item) -> item.name).toList();
+    }
+
+    private List<Integer> indexesOf(List<TorrentContentFileItem> items) {
+        return items.stream().map((item) -> item.index).toList();
     }
 
     private void shareStreamUrl() {
@@ -446,6 +552,20 @@ public class TorrentsDetailsFilesFragment extends Fragment
         sharingIntent.putExtra(Intent.EXTRA_TEXT, viewModel.getStreamUrl(fileIndex));
 
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+    }
+
+    private void openFile(TorrentContentFileItem item) {
+        var pathSingle = item.path != null
+                ? viewModel.getFilePathByIndex(item.index)
+                : viewModel.getFilePath(item.name);
+
+        disposables.add(pathSingle
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        (path) -> openFile(item.name, path),
+                        this::handleOpenFileError
+                ));
     }
 
     private void openFile(String fileName, Uri path) {

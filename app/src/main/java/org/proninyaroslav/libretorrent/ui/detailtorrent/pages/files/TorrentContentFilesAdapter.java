@@ -138,6 +138,13 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
 
             binding.name.setText(item.name);
 
+            if (item.path == null || item.path.isEmpty()) {
+                binding.path.setVisibility(View.GONE);
+            } else {
+                binding.path.setVisibility(View.VISIBLE);
+                binding.path.setText(item.path);
+            }
+
             if (item.isFile) {
                 binding.icon.setImageResource(R.drawable.ic_file_24px);
                 binding.icon.setContentDescription(context.getString(R.string.file));

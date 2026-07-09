@@ -48,19 +48,25 @@ import org.proninyaroslav.libretorrent.core.model.data.metainfo.BencodeFileItem;
 import org.proninyaroslav.libretorrent.core.model.data.metainfo.TorrentMetaInfo;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.core.model.filetree.FileNode;
+import org.proninyaroslav.libretorrent.core.model.filetree.FileTree;
 import org.proninyaroslav.libretorrent.core.settings.SettingsRepository;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
+import org.proninyaroslav.libretorrent.core.sorting.FileTreeSorting;
 import org.proninyaroslav.libretorrent.core.system.FileSystemFacade;
 import org.proninyaroslav.libretorrent.core.system.SystemFacadeHelper;
 import org.proninyaroslav.libretorrent.core.utils.BencodeFileTreeUtils;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
+import org.proninyaroslav.libretorrent.ui.FileListState;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -89,9 +95,12 @@ public class AddTorrentViewModel extends AndroidViewModel {
 
     public BencodeFileTree fileTree;
     private BencodeFileTree[] treeLeaves;
-    public BehaviorSubject<List<BencodeFileTree>> children = BehaviorSubject.create();
+    public BehaviorSubject<FileListState<BencodeFileTree>> children = BehaviorSubject.create();
     /* Current directory */
     private BencodeFileTree curDir;
+    private String searchQuery = "";
+    private FileTreeSorting.SortingColumns sortColumn = FileTreeSorting.SortingColumns.name;
+    private BaseSorting.Direction sortDirection = BaseSorting.Direction.ASC;
 
     private final ArrayList<TagInfo> tags = new ArrayList<>();
     private final BehaviorSubject<List<TagInfo>> tagsSubject = BehaviorSubject.createDefault(tags);
@@ -382,20 +391,69 @@ public class AddTorrentViewModel extends AndroidViewModel {
         updateCurDir(curDir.getParent());
     }
 
-    public List<BencodeFileTree> getChildren(BencodeFileTree node) {
+    public FileListState<BencodeFileTree> getChildren(BencodeFileTree node) {
+        if (isSearchActive()) {
+            List<BencodeFileTree> matches = new ArrayList<>();
+            if (treeLeaves != null) {
+                String query = searchQuery.toLowerCase(Locale.ROOT);
+                for (BencodeFileTree leaf : treeLeaves) {
+                    if (leaf != null && leaf.getName().toLowerCase(Locale.ROOT).contains(query))
+                        matches.add(leaf);
+                }
+            }
+            matches.sort(childComparator());
+
+            return new FileListState<>(matches, true);
+        }
+
         List<BencodeFileTree> children = new ArrayList<>();
         if (node == null || node.isFile()) {
-            return children;
+            return new FileListState<>(children, false);
         }
+
+        children.addAll(node.getChildren());
+        children.sort(childComparator());
 
         /* Adding parent dir for navigation */
         if (curDir != fileTree && curDir.getParent() != null) {
             children.add(0, new BencodeFileTree(BencodeFileTree.PARENT_DIR, 0L, FileNode.Type.DIR, curDir.getParent()));
         }
 
-        children.addAll(curDir.getChildren());
+        return new FileListState<>(children, false);
+    }
 
-        return children;
+    private Comparator<BencodeFileTree> childComparator() {
+        Comparator<BencodeFileTree> directoryFirst = Comparator.comparing(FileTree::isFile);
+        Comparator<BencodeFileTree> byColumn = (a, b) -> sortColumn.compare(a, b, sortDirection);
+
+        return directoryFirst.thenComparing(byColumn);
+    }
+
+    public void setSearchQuery(String query) {
+        searchQuery = query == null ? "" : query.trim();
+        updateChildren();
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public boolean isSearchActive() {
+        return !searchQuery.isEmpty();
+    }
+
+    public void setSort(@NonNull FileTreeSorting.SortingColumns column, @NonNull BaseSorting.Direction direction) {
+        sortColumn = column;
+        sortDirection = direction;
+        updateChildren();
+    }
+
+    public FileTreeSorting.SortingColumns getSortColumn() {
+        return sortColumn;
+    }
+
+    public BaseSorting.Direction getSortDirection() {
+        return sortDirection;
     }
 
     public void chooseDirectory(@NonNull String name) {
@@ -412,13 +470,24 @@ public class AddTorrentViewModel extends AndroidViewModel {
     }
 
     public void selectFile(@NonNull String name, boolean selected) {
-        BencodeFileTree node = curDir.getChild(name);
+        selectFile(curDir.getChild(name), selected);
+    }
+
+    public void selectFileByIndex(int index, boolean selected) {
+        selectFile(leafByIndex(index), selected);
+    }
+
+    private void selectFile(BencodeFileTree node, boolean selected) {
         if (node == null) {
             return;
         }
 
         node.select(selected, true);
         updateChildren();
+    }
+
+    private BencodeFileTree leafByIndex(int index) {
+        return (treeLeaves != null && index >= 0 && index < treeLeaves.length) ? treeLeaves[index] : null;
     }
 
     private void updateCurDir(BencodeFileTree node) {

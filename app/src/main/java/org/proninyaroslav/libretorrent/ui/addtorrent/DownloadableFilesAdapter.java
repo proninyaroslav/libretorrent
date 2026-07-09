@@ -65,7 +65,7 @@ public class DownloadableFilesAdapter extends ListAdapter<DownloadableFileItem, 
         @Override
         public boolean areContentsTheSame(@NonNull DownloadableFileItem oldItem,
                                           @NonNull DownloadableFileItem newItem) {
-            return oldItem.equals(newItem);
+            return oldItem.equalsContent(newItem);
         }
 
         @Override
@@ -103,6 +103,13 @@ public class DownloadableFilesAdapter extends ListAdapter<DownloadableFileItem, 
             });
 
             binding.name.setText(item.name);
+
+            if (item.path == null || item.path.isEmpty()) {
+                binding.path.setVisibility(View.GONE);
+            } else {
+                binding.path.setVisibility(View.VISIBLE);
+                binding.path.setText(item.path);
+            }
 
             boolean isParentDir = item.name.equals(BencodeFileTree.PARENT_DIR);
 

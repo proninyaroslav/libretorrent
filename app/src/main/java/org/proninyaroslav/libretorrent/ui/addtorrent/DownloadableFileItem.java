@@ -22,17 +22,21 @@ package org.proninyaroslav.libretorrent.ui.addtorrent;
 import android.os.Parcel;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.ui.FileItem;
 
+import java.util.Objects;
+
 public class DownloadableFileItem extends FileItem {
     public boolean selected;
 
-    public DownloadableFileItem(@NonNull BencodeFileTree tree) {
+    public DownloadableFileItem(@NonNull BencodeFileTree tree, boolean showPath) {
         super(tree.getIndex(), tree.getName(), tree.isFile(), tree.size());
 
         selected = tree.isSelected();
+        path = (showPath && tree.getParent() != null) ? tree.getParent().getPath() : null;
     }
 
     public DownloadableFileItem(Parcel source) {
@@ -60,6 +64,16 @@ public class DownloadableFileItem extends FileItem {
                     return new DownloadableFileItem[size];
                 }
             };
+
+    public boolean equalsContent(@Nullable Object o) {
+        if (!equals(o))
+            return false;
+
+        DownloadableFileItem item = (DownloadableFileItem) o;
+
+        return selected == item.selected &&
+                Objects.equals(path, item.path);
+    }
 
     @NonNull
     @Override

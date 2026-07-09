@@ -29,17 +29,20 @@ import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
 import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.ui.FileItem;
 
+import java.util.Objects;
+
 public class TorrentContentFileItem extends FileItem {
     public FilePriority priority;
     public long receivedBytes;
     public double availability;
 
-    public TorrentContentFileItem(@NonNull TorrentContentFileTree tree) {
+    public TorrentContentFileItem(@NonNull TorrentContentFileTree tree, boolean showPath) {
         super(tree.getIndex(), tree.getName(), tree.isFile(), tree.size());
 
         priority = tree.getFilePriority();
         receivedBytes = tree.getReceivedBytes();
         availability = tree.getAvailability();
+        path = (showPath && tree.getParent() != null) ? tree.getParent().getPath() : null;
     }
 
     public TorrentContentFileItem(Parcel source) {
@@ -80,7 +83,8 @@ public class TorrentContentFileItem extends FileItem {
 
         return priority.equals(item.priority) &&
                 receivedBytes == item.receivedBytes &&
-                availability == item.availability;
+                availability == item.availability &&
+                Objects.equals(path, item.path);
     }
 
     @NonNull

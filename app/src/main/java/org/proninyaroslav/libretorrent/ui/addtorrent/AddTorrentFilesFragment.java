@@ -22,10 +22,13 @@ package org.proninyaroslav.libretorrent.ui.addtorrent;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,12 +40,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
+import org.proninyaroslav.libretorrent.core.sorting.BaseSorting;
+import org.proninyaroslav.libretorrent.core.sorting.FileTreeSorting;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentFilesBinding;
+
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.subjects.PublishSubject;
 
 /*
  * The fragment for list files of torrent. Part of AddTorrentFragment.
@@ -50,6 +58,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AddTorrentFilesFragment extends Fragment implements DownloadableFilesAdapter.ClickListener {
     private static final String TAG_LIST_FILES_STATE = "list_files_state";
+    private static final long SEARCH_DEBOUNCE_MS = 200;
 
     private AppCompatActivity activity;
     private FragmentAddTorrentFilesBinding binding;
@@ -59,6 +68,7 @@ public class AddTorrentFilesFragment extends Fragment implements DownloadableFil
     /* Save state scrolling */
     private Parcelable listFilesState;
     private final CompositeDisposable disposable = new CompositeDisposable();
+    private final PublishSubject<String> searchQueryChanges = PublishSubject.create();
 
     public static AddTorrentFilesFragment newInstance() {
         AddTorrentFilesFragment fragment = new AddTorrentFilesFragment();
@@ -97,14 +107,22 @@ public class AddTorrentFilesFragment extends Fragment implements DownloadableFil
         super.onStart();
 
         subscribeAdapter();
+        subscribeSearch();
+    }
+
+    private void subscribeSearch() {
+        disposable.add(searchQueryChanges
+                .debounce(SEARCH_DEBOUNCE_MS, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(viewModel::setSearchQuery));
     }
 
     private void subscribeAdapter() {
         disposable.add(viewModel.children
                 .subscribeOn(Schedulers.computation())
-                .flatMapSingle((children) ->
-                        Flowable.fromIterable(children)
-                                .map(DownloadableFileItem::new)
+                .flatMapSingle((state) ->
+                        Flowable.fromIterable(state.items())
+                                .map((tree) -> new DownloadableFileItem(tree, state.searchActive()))
                                 .toList()
                 )
                 .observeOn(AndroidSchedulers.mainThread())
@@ -129,6 +147,77 @@ public class AddTorrentFilesFragment extends Fragment implements DownloadableFil
         binding.fileList.setLayoutManager(layoutManager);
         adapter = new DownloadableFilesAdapter(this);
         binding.fileList.setAdapter(adapter);
+
+        initSearchAndSort();
+    }
+
+    private void initSearchAndSort() {
+        var query = viewModel.getSearchQuery();
+        if (!query.isEmpty()) {
+            binding.searchEditText.setText(query);
+            setSearchExpanded(true);
+        }
+        binding.searchToggleButton.setOnClickListener((v) ->
+                setSearchExpanded(binding.searchInputLayout.getVisibility() != View.VISIBLE));
+        binding.filterToggleButton.setOnClickListener((v) ->
+                binding.sortRow.setVisibility(binding.sortRow.getVisibility() == View.VISIBLE
+                        ? View.GONE : View.VISIBLE));
+        binding.searchInputLayout.setStartIconOnClickListener((v) -> {
+            binding.searchEditText.setText("");
+            setSearchExpanded(false);
+        });
+        binding.searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchQueryChanges.onNext(s.toString());
+            }
+        });
+
+        switch (viewModel.getSortColumn()) {
+            case name -> binding.sortByName.setChecked(true);
+            case size -> binding.sortBySize.setChecked(true);
+        }
+        switch (viewModel.getSortDirection()) {
+            case ASC -> binding.sortDirectionToggleButton.check(R.id.sort_asc_button);
+            case DESC -> binding.sortDirectionToggleButton.check(R.id.sort_desc_button);
+        }
+
+        binding.sortAscButton.setOnClickListener((v) ->
+                viewModel.setSort(viewModel.getSortColumn(), BaseSorting.Direction.ASC));
+        binding.sortDescButton.setOnClickListener((v) ->
+                viewModel.setSort(viewModel.getSortColumn(), BaseSorting.Direction.DESC));
+
+        binding.sortChipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            var column = checkedIds.contains(R.id.sort_by_size)
+                    ? FileTreeSorting.SortingColumns.size
+                    : FileTreeSorting.SortingColumns.name;
+            viewModel.setSort(column, viewModel.getSortDirection());
+        });
+    }
+
+    private void setSearchExpanded(boolean expanded) {
+        var imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if (expanded) {
+            binding.searchInputLayout.setVisibility(View.VISIBLE);
+            binding.searchEditText.requestFocus();
+            if (imm != null) {
+                imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        } else {
+            binding.searchInputLayout.setVisibility(View.GONE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(binding.searchEditText.getWindowToken(), 0);
+            }
+        }
     }
 
     private void updateFileSize() {
@@ -182,7 +271,11 @@ public class AddTorrentFilesFragment extends Fragment implements DownloadableFil
 
     @Override
     public void onItemCheckedChanged(@NonNull DownloadableFileItem item, boolean selected) {
-        viewModel.selectFile(item.name, selected);
+        if (item.path != null) {
+            viewModel.selectFileByIndex(item.index, selected);
+        } else {
+            viewModel.selectFile(item.name, selected);
+        }
         updateFileSize();
     }
 }

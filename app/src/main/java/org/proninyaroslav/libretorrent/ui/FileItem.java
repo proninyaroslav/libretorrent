@@ -35,6 +35,8 @@ public class FileItem implements Parcelable, Comparable<FileItem>
     public String name;
     public boolean isFile;
     public long size;
+    /* Relative parent folder path, set only for flattened search results; null during normal browsing */
+    public String path;
 
     public FileItem(int index, String name, boolean isFile, long size)
     {
@@ -50,6 +52,7 @@ public class FileItem implements Parcelable, Comparable<FileItem>
         name = source.readString();
         isFile = source.readByte() != 0;
         size = source.readLong();
+        path = source.readString();
     }
 
     @Override
@@ -65,6 +68,7 @@ public class FileItem implements Parcelable, Comparable<FileItem>
         dest.writeString(name);
         dest.writeByte((byte)(isFile ? 1 : 0));
         dest.writeLong(size);
+        dest.writeString(path);
     }
 
     public static final Creator<FileItem> CREATOR =
