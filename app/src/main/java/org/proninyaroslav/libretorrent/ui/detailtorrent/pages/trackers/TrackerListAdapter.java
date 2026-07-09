@@ -70,7 +70,7 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         var item = getItem(position);
         if (selectionTracker != null) {
-            holder.setSelected(selectionTracker.isSelected(item));
+            holder.setSelected(selectionTracker.isSelected(item), selectionTracker.hasSelection());
         }
 
         holder.bind(item);
@@ -122,6 +122,7 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
         /* For selection support */
         private TrackerItem selectionKey;
         private boolean isSelected;
+        private boolean hasSelection;
         private final ColorStateList statusTextColor;
 
         public ViewHolder(ItemTrackersListBinding binding) {
@@ -135,6 +136,12 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
             var context = itemView.getContext();
             selectionKey = item;
 
+            /*
+             * Only expose the card's checked state to accessibility while a
+             * multi-selection is actually in progress, otherwise every item
+             * is announced as "not selected" even outside of selection mode.
+             */
+            binding.card.setCheckable(hasSelection);
             binding.card.setChecked(isSelected);
             binding.url.setText(item.url);
 
@@ -181,8 +188,9 @@ public class TrackerListAdapter extends ListAdapter<TrackerItem, TrackerListAdap
             }
         }
 
-        private void setSelected(boolean isSelected) {
+        private void setSelected(boolean isSelected, boolean hasSelection) {
             this.isSelected = isSelected;
+            this.hasSelection = hasSelection;
         }
 
         @Override

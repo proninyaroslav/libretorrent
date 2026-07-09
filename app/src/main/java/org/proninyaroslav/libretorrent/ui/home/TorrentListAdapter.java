@@ -29,6 +29,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.selection.ItemKeyProvider;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -81,7 +84,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         var item = getItem(position);
 
         if (selectionTracker != null) {
-            holder.setSelected(selectionTracker.isSelected(item));
+            holder.setSelected(selectionTracker.isSelected(item), selectionTracker.hasSelection());
         }
 
         boolean isOpened = false;
@@ -143,6 +146,7 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         /* For selection support */
         private TorrentListItem selectionKey;
         private boolean isSelected;
+        private boolean hasSelection;
 
         ViewHolder(ItemTorrentListBinding binding) {
             super(binding.getRoot());
@@ -151,12 +155,32 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             pauseButtonBackground = binding.pauseButton.getBackgroundTintList();
             cardBackground = binding.card.getCardBackgroundColor();
             progressTrackColor = binding.progress.getTrackColor();
+
+            /*
+             * The pause/resume icon relies on the button being checkable, but that
+             * also makes TalkBack announce it as "checked"/"not checked" instead of
+             * reading the (state-dependent) contentDescription. Hide the checkable
+             * state from accessibility while keeping it for the icon animation.
+             */
+            ViewCompat.setAccessibilityDelegate(binding.pauseButton, new AccessibilityDelegateCompat() {
+                @Override
+                public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
+                    super.onInitializeAccessibilityNodeInfo(host, info);
+                    info.setCheckable(false);
+                }
+            });
         }
 
         void bind(TorrentListItem item, boolean isOpened, ClickListener listener) {
             var context = itemView.getContext();
             selectionKey = item;
 
+            /*
+             * Only expose the card's checked state to accessibility while a
+             * multi-selection is actually in progress, otherwise every item
+             * is announced as "not selected" even outside of selection mode.
+             */
+            binding.card.setCheckable(hasSelection);
             binding.card.setChecked(isSelected);
             binding.card.setOnClickListener((v) -> {
                 /* Skip selecting and deselecting */
@@ -170,7 +194,11 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             });
 
             var pauseButton = (MaterialButton) binding.pauseButton;
-            pauseButton.setChecked(item.stateCode != TorrentStateCode.PAUSED);
+            boolean isPaused = item.stateCode == TorrentStateCode.PAUSED;
+            pauseButton.setChecked(!isPaused);
+            pauseButton.setContentDescription(context.getString(
+                    isPaused ? R.string.resume_torrent : R.string.pause_torrent
+            ));
             pauseButton.setOnClickListener((v) -> {
                 if (listener != null) {
                     listener.onItemPauseClicked(item);
@@ -256,8 +284,9 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             }
         }
 
-        private void setSelected(boolean isSelected) {
+        private void setSelected(boolean isSelected, boolean hasSelection) {
             this.isSelected = isSelected;
+            this.hasSelection = hasSelection;
         }
 
         @Override

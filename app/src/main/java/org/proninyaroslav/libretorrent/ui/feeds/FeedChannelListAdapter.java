@@ -86,7 +86,7 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
 
         FeedChannelItem item = getItem(position);
         if (selectionTracker != null) {
-            holder.setSelected(selectionTracker.isSelected(item));
+            holder.setSelected(selectionTracker.isSelected(item), selectionTracker.hasSelection());
         }
 
         boolean isOpened = false;
@@ -172,6 +172,7 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
         /* For selection support */
         private FeedChannelItem selectionKey;
         private boolean isSelected;
+        private boolean hasSelection;
         private final ColorStateList cardBackground;
         private final Typeface nameTypeface;
         private final Typeface nameTypefaceBold;
@@ -192,6 +193,12 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
             var context = itemView.getContext();
             selectionKey = item;
 
+            /*
+             * Only expose the card's checked state to accessibility while a
+             * multi-selection is actually in progress, otherwise every item
+             * is announced as "not selected" even outside of selection mode.
+             */
+            binding.card.setCheckable(hasSelection);
             binding.card.setChecked(isSelected);
             binding.card.setOnClickListener((v) -> {
                 /* Skip selecting and deselecting */
@@ -256,8 +263,9 @@ public class FeedChannelListAdapter extends ListAdapter<FeedChannelItem, FeedCha
             });
         }
 
-        private void setSelected(boolean isSelected) {
+        private void setSelected(boolean isSelected, boolean hasSelection) {
             this.isSelected = isSelected;
+            this.hasSelection = hasSelection;
         }
 
         @Override

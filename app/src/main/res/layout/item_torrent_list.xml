@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="4dp"
-    android:checkable="true"
     android:clickable="true"
     android:focusable="true">
 
@@ -26,7 +25,6 @@
             android:layout_gravity="center"
             android:layout_marginEnd="12dp"
             android:checkable="true"
-            android:contentDescription="@string/pause_torrent"
             android:padding="12dp"
             app:icon="@drawable/pause_button_selector" />
 

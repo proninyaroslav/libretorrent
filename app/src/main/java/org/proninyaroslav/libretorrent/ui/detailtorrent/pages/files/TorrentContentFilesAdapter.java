@@ -71,7 +71,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TorrentContentFileItem item = getItem(position);
         if (selectionTracker != null)
-            holder.setSelected(selectionTracker.isSelected(item));
+            holder.setSelected(selectionTracker.isSelected(item), selectionTracker.hasSelection());
 
         holder.bind(item, listener);
     }
@@ -112,6 +112,7 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
         /* For selection support */
         private TorrentContentFileItem selectionKey;
         private boolean isSelected;
+        private boolean hasSelection;
 
         public ViewHolder(ItemTorrentContentFileBinding binding) {
             super(binding.getRoot());
@@ -124,6 +125,13 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
             var context = itemView.getContext();
             var isParentDir = item.name.equals(TorrentContentFileTree.PARENT_DIR);
 
+            /*
+             * Only expose the card's checked state to accessibility while a
+             * multi-selection is actually in progress, otherwise every row is
+             * announced as "not selected" even though it's unrelated to the
+             * actual download-priority checkbox next to it.
+             */
+            binding.card.setCheckable(hasSelection);
             binding.card.setChecked(isSelected);
             itemView.setOnClickListener((v) -> {
                 if (!isSelected && listener != null) {
@@ -188,6 +196,8 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
                 }
 
                 binding.priority.setChecked(item.priority.getType() != FilePriority.Type.IGNORE);
+                /* Identify which row this checkbox belongs to when focused directly */
+                binding.priority.setContentDescription(item.name);
                 binding.progress.setVisibility(progress == 100 ? View.GONE : View.VISIBLE);
                 binding.progress.setProgress(progress);
 
@@ -200,8 +210,9 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
             }
         }
 
-        private void setSelected(boolean isSelected) {
+        private void setSelected(boolean isSelected, boolean hasSelection) {
             this.isSelected = isSelected;
+            this.hasSelection = hasSelection;
         }
 
         @Override
