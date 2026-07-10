@@ -151,13 +151,17 @@ public class TorrentService extends Service {
     }
 
     private void shutdown() {
+        /* Guard against duplicate/concurrent shutdown requests racing engine.doStop() */
+        if (shuttingDown.getAndSet(true)) {
+            return;
+        }
+
         disposables.add(Completable.fromRunnable(this::stopEngine)
                 .subscribeOn(Schedulers.computation())
                 .subscribe());
     }
 
     private void stopEngine() {
-        shuttingDown.set(true);
         forceClearForeground();
         engine.doStop();
     }
@@ -198,7 +202,17 @@ public class TorrentService extends Service {
     private int handleShutdownActions(String action) {
         return switch (action) {
             case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP, ACTION_SHUTDOWN -> {
-                shutdown();
+                if (isAlreadyRunning.get()) {
+                    shutdown();
+                } else {
+                    /*
+                     * The engine was never started in this service instance (init() hasn't run,
+                     * so engineListener isn't registered), so onSessionStopped will never fire.
+                     * There's nothing to stop, so terminate immediately instead of waiting forever.
+                     */
+                    stopForeground(true);
+                    stopSelf();
+                }
                 yield START_NOT_STICKY;
             }
             case ACTION_RESTART_FOREGROUND_NOTIFICATION -> {
