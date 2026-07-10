@@ -187,13 +187,4 @@ dependencies {
     implementation libs.jna
     implementation libs.moshi
     implementation libs.moshi.adapters
-
-    constraints {
-        implementation(libs.kotlin.stdlib.jdk7) {
-            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
-        }
-        implementation(libs.kotlin.stdlib.jdk8) {
-            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
-        }
-    }
 }
