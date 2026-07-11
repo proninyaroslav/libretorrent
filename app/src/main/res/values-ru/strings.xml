@@ -621,4 +621,6 @@
         <item quantity="other">%1$s • %2$d файлов</item>
     </plurals>
     <string name="pref_locale_title">Язык</string>
+    <string name="pref_theme_black_backgrounds_summary">Использовать черный фон в темной теме</string>
+    <string name="pref_black_backgrounds">Черный фон</string>
 </resources>

@@ -615,4 +615,7 @@
     <string name="torrents">Torrents</string>
     <string name="pref_theme_dynamic_colors_summary">El esquema de colores de la interfaz cambia de acuerdo a los colores del sistema, fondos o ajustes elegidos</string>
     <string name="pref_locale_title">Idioma</string>
+    <string name="pref_black_backgrounds">Fondos negros</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="pref_theme_black_backgrounds_summary">Utilizar fondos de un negro puro en modo oscuro</string>
 </resources>

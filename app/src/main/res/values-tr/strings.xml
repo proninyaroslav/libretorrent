@@ -350,8 +350,8 @@
     <string name="folder_is_empty">Seçili klasör boş veya tüm dosyaları filtre tarafından hariç tutuldu.</string>
     <string name="error_create_torrent">Torrent oluşturulamadı</string>
     <string name="skip_files">Dosyaları atla</string>
-    <string name="skip_files_hint">\"|\" ile ayrılmış dosya adlarını girin.</string>
-    <string name="select_folder_to_save">Kaydedilecek bir klasör seçin.</string>
+    <string name="skip_files_hint">\"|\" ile ayrılmış dosya adlarını girin</string>
+    <string name="select_folder_to_save">Kaydedilecek bir klasör seçin</string>
     <string name="torrent_saved_to">Torrent şuraya kaydedildi: %1$s</string>
     <string name="unable_to_open_file">Seçili dosya açılamadı</string>
     <string name="unable_to_create_file">Dosya oluşturulamadı</string>
@@ -589,4 +589,36 @@
     <string name="torrent_version_entries_v1_only">Yalnızca sürüm 1</string>
     <string name="go_to_folder">Klasöre git</string>
     <string name="pref_locale_title">Dil</string>
+    <string name="error_open_ip_filter_file">IP filtre dosyası açılamıyor</string>
+    <string name="error_select_folder">Seçilen klasör açılamıyor</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">Üst veri alınamadı</string>
+    <string name="feed_download_immediately">Şimdi indir</string>
+    <string name="pref_enable_auto_manage_title">Otomatik yönetimi etkinleştir</string>
+    <string name="pref_theme_dynamic_colors_title">Dinamik renkler</string>
+    <string name="pref_theme_dynamic_colors_summary">Tema renkleri sistem ayarlarınıza, duvar kağıtlarınıza veya seçili renge göre ayarlanır</string>
+    <string name="pref_theme_entries_3">Sistem</string>
+    <string name="pref_use_anonymous_mode">Anonim modunu kullan</string>
+    <string name="pref_enable_feed_auto_refresh">Otomatik yenilemeyi etkinleştir</string>
+    <string name="pref_enable_streaming">Akışı etkinleştir</string>
+    <string name="torrents">Torrentler</string>
+    <string name="ascending_sort">Artan sıralama</string>
+    <string name="descending_sort">Azalan sıralama</string>
+    <string name="current_storage">Mevcut depolama</string>
+    <string name="select">Seç</string>
+    <string name="create">Oluştur</string>
+    <string name="color_picker">Renk seç</string>
+    <string name="load_message">Yükleniyor, lütfen bekleyin…</string>
+    <string name="reset_filter">Filtreyi sıfırla</string>
+    <string name="feed_articles">Makaleler</string>
+    <string name="enable_journal">Geçmişi etkinleştir</string>
+    <string name="scroll_up">Yukarı kaydır</string>
+    <string name="scroll_down">Aşağı kaydır</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d dosya</item>
+        <item quantity="other">%1$s • %2$d dosyalar</item>
+    </plurals>
+    <string name="pref_theme_black_backgrounds_summary">Koyu temada siyah arka plan kullanın</string>
+    <string name="pref_black_backgrounds">Siyah arka plan</string>
 </resources>

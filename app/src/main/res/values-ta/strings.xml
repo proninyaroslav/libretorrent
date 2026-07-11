@@ -339,12 +339,12 @@
     <string name="piece_size_entries_4">128 சிஐபி</string>
     <string name="piece_size_entries_5">256 குளிர்காலம்</string>
     <string name="piece_size_entries_6">512 சிஐபி</string>
-    <string name="piece_size_entries_7">1 MIB</string>
-    <string name="piece_size_entries_8">2 MIB</string>
-    <string name="piece_size_entries_9">4 MIB</string>
-    <string name="piece_size_entries_10">8 MIB</string>
-    <string name="piece_size_entries_11">16 MIB</string>
-    <string name="piece_size_entries_12">32 MIB</string>
+    <string name="piece_size_entries_7">1 மெபை</string>
+    <string name="piece_size_entries_8">2 மெபை</string>
+    <string name="piece_size_entries_9">4 மெபை</string>
+    <string name="piece_size_entries_10">8 மெபை</string>
+    <string name="piece_size_entries_11">16 மெபை</string>
+    <string name="piece_size_entries_12">32 மெபை</string>
     <string name="invalid_url">தவறான URL: %1$s</string>
     <string name="folder_is_empty">தேர்ந்தெடுக்கப்பட்ட கோப்புறை காலியாக உள்ளது அல்லது அதன் அனைத்து கோப்புகளும் வடிகட்டியால் விலக்கப்படுகின்றன.</string>
     <string name="error_create_torrent">டொரெண்டை உருவாக்க முடியவில்லை</string>
@@ -582,7 +582,7 @@
     <string name="pref_default_trackers_list_summary">டிராக்கர்ச் பட்டியல், பின்வரும் நிகழ்வுகளில் பயன்படுத்தப்படுகிறது:\n 1. ஒரு நீரோட்டத்தைச் சேர்க்கும்போது, இயல்புநிலை பட்டியல் தானாக டொரண்ட் பட்டியலில் சேர்க்கப்படும்.\n 2. காந்த இணைப்புகளைப் பெற பயன்படுகிறது.</string>
     <string name="go_to_folder">கோப்புறைக்குச் செல்லுங்கள்</string>
     <string name="apply_settings_after_reboot">பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு மாற்றங்கள் பயன்படுத்தப்படும்.</string>
-    <string name="torrent_speed_limit_dialog">KIB/s இல் வேகத்தை அமைக்கவும். ஒரு நீரோட்டத்திற்கு அதிக வரம்பை நிர்ணயிப்பது பின்னர் உலக வரம்பு உலக வரம்பை மீறாது என்பதை நினைவில் கொள்க.</string>
+    <string name="torrent_speed_limit_dialog">கிபை/நொ இல் வேகத்தை அமைக்கவும். ஒரு நீரோட்டத்திற்கு அதிக வரம்பை நிர்ணயிப்பது பின்னர் உலக வரம்பு உலக வரம்பை மீறாது என்பதை நினைவில் கொள்க.</string>
     <string name="pref_validate_https_trackers_summary">கணினி சான்றிதழ் கடையில் HTTPS டிராக்கர்கள் மற்றும் HTTPS வலை விதைகளின் சான்றிதழ் சரிபார்க்கப்படும்.</string>
     <string name="error_open_ip_filter_file">ஐபி வடிகட்டி கோப்பைத் திறக்க முடியாது</string>
     <string name="error_select_folder">தேர்ந்தெடுக்கப்பட்ட கோப்புறையைத் திறக்க முடியாது</string>
@@ -615,4 +615,6 @@
         <item quantity="other">%1$s • %2$d கோப்புகள்</item>
     </plurals>
     <string name="pref_locale_title">மொழி</string>
+    <string name="pref_theme_black_backgrounds_summary">இருண்ட தீமில் கருப்பு பின்னணியைப் பயன்படுத்தவும்</string>
+    <string name="pref_black_backgrounds">கருப்பு பின்னணி</string>
 </resources>

@@ -616,4 +616,6 @@
     <string name="scroll_up">Felfelé görget</string>
     <string name="scroll_down">Lefelé görget</string>
     <string name="pref_locale_title">Nyelv</string>
+    <string name="pref_theme_black_backgrounds_summary">Fekete hátterek használata a sötét témában</string>
+    <string name="pref_black_backgrounds">Fekete háttérképek</string>
 </resources>

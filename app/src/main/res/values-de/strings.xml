@@ -341,8 +341,8 @@
     <string name="folder_is_empty">Der ausgewählte Ordner ist leer oder alle Dateien sind vom Filter ausgeschlossen.</string>
     <string name="error_create_torrent">Torrent konnte nicht erstellt werden</string>
     <string name="skip_files">Dateien überspringen</string>
-    <string name="skip_files_hint">Geben Sie durch \"|\" getrennte Dateinamen ein.</string>
-    <string name="select_folder_to_save">Wähle einen Ordner zum Speichern aus.</string>
+    <string name="skip_files_hint">Geben Sie durch „|“ getrennte Dateinamen ein</string>
+    <string name="select_folder_to_save">Wähle einen Ordner zum Speichern aus</string>
     <string name="torrent_saved_to">Torrent gespeichert in %1$s</string>
     <string name="unable_to_open_file">Ausgewählte Datei konnte nicht geöffnet werden</string>
     <string name="unable_to_create_file">Datei konnte nicht erstellt werden</string>
@@ -415,11 +415,11 @@
     <string name="pref_enable_roaming_summary">Nur herunterladen, falls kein Roaming stattfindet.</string>
     <string name="pref_power_management_category">Energieverwaltung</string>
     <string name="pref_keep_alive_title">Weiterlaufen lassen</string>
-    <string name="pref_keep_alive_summary">Lässt die Anwendung im Hintergrund laufen. (Berücksichtigt trotzdem, die Anwendung zu schließen, wenn alle Downloads abgeschlossen sind.)</string>
+    <string name="pref_keep_alive_summary">Lässt die App im Hintergrund weiterlaufen. (Beachtet weiterhin das Schließen der App, sobald alle Downloads abgeschlossen sind.)</string>
     <string name="pref_shutdown_downloads_complete_title">Beende nach Abschluss aller Downloads</string>
     <string name="pref_shutdown_downloads_complete_summary">Beendet die App, wenn alles heruntergeladen ist.</string>
     <string name="pref_cpu_do_not_sleep_title">Gerät wach halten</string>
-    <string name="pref_cpu_do_not_sleep_summary">Wenn dies aktiviert wird, erhöht sich der Akkuverbrauch. Verwende diese Option, wenn sich die Download-Geschwindigkeit beim Ausschalten des Bildschirms verringert.</string>
+    <string name="pref_cpu_do_not_sleep_summary">Verwenden Sie diese Funktion, wenn die Downloadgeschwindigkeit bei ausgeschaltetem Bildschirm abnimmt. (Erhöht den Akkuverbrauch.)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Nur beim Aufladen herunterladen und hochladen.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Es werden keine Dateien übertragen, solange das Gerät nicht aufgeladen wird. (Hält alle Torrents an, wenn das Gerät nicht an ein Ladegerät angeschlossen ist).</string>
     <string name="pref_battery_control_title">Akkukontrolle</string>
@@ -430,7 +430,7 @@
     <string name="pref_proxy_settings_title">Proxy Einstellungen</string>
     <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_lsd_title">LSD</string>
-    <string name="pref_enable_lsd_summary">Es soll die Entdeckung von lokalen BitTorrent-Peers erleichtern, um den Traffic zu minimieren</string>
+    <string name="pref_enable_lsd_summary">Entwickelt, um die lokale Suche zu unterstützen und den Datenverkehr zu minimieren.</string>
     <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">Es soll die schlechten Latenzzeiten und andere Staukontrollprobleme abmildern, die bei herkömmlichem BitTorrent über TCP auftreten, und gleichzeitig eine zuverlässige, geordnete Übertragung ermöglichen.</string>
     <string name="pref_enable_upnp_title">UPnP</string>
@@ -549,7 +549,7 @@
     <string name="pref_foreground_notify_status_filter">Statusfilter</string>
     <string name="pref_foreground_notify_sorting_entries_6">Fortschritt (kleinster zuerst)</string>
     <string name="pref_foreground_notify_sorting_entries_0">Name (A-Z)</string>
-    <string name="pref_foreground_notify_sorting_entries_7">Fortdchritt (größter zuerst)</string>
+    <string name="pref_foreground_notify_sorting_entries_7">Fortschritt (größter zuerst)</string>
     <string name="pref_foreground_notify_sorting_entries_10">Beliebtheit (niedrigste zuerst)</string>
     <string name="pref_default_trackers_list_title">Standard-Tracker</string>
     <string name="pref_foreground_notify_sorting_entries_2">Hinzugefügt (neueste zuerst)</string>
@@ -566,7 +566,7 @@
     <string name="pref_foreground_notify_sorting_entries_11">Beliebtheit (höchste zuerst)</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinierte Pause-Schaltfläche</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Kombiniert zwei Knöpfe: pausiere alles und setze alles fort. Der Knopf funktioniert wie ein Schalter. Warnung: Der Zustand des Knopfes wird durch das manuelle Stoppen/Fortsetzen des Torrents nicht beeinflusst.</string>
-    <string name="pref_validate_https_trackers_title">Überprüfung des HTTPS Tracker-Zertifikats</string>
+    <string name="pref_validate_https_trackers_title">Überprüfen Sie die Zertifikate der HTTPS-Tracker</string>
     <string name="pref_foreground_notification_category">Vordergrundbenachrichtigungseinstellungen</string>
     <string name="torrent_speed_limit_dialog">Setze eine Geschwindigkeit in KiB/s. Das Setzen eines höheren Limits als die globale Beschränkung wird diese nicht überschreiben.</string>
     <string name="exact_alarm_permission_warning">Damit der Planer funktioniert, müssen Sie in einem speziellen Systemdialog die Erlaubnis einholen. Fortfahren?</string>
@@ -582,4 +582,42 @@
     <string name="torrent_version_entries_v1_only">Nur V1</string>
     <string name="torrent_version_entries_v2_only">Nur V2</string>
     <string name="pref_locale_title">Sprache</string>
+    <string name="error_open_ip_filter_file">Die IP-Filterdatei kann nicht geöffnet werden</string>
+    <string name="error_select_folder">Der ausgewählte Ordner kann nicht geöffnet werden</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">Metadaten konnten nicht abgerufen werden</string>
+    <string name="pref_theme_dynamic_colors_title">Dynamische Farben</string>
+    <string name="feed_download_immediately">Sofort herunterladen</string>
+    <string name="pref_enable_auto_manage_title">Automatische Verwaltung aktivieren</string>
+    <string name="pref_theme_dynamic_colors_summary">Die Designfarben werden basierend auf Ihren Systemeinstellungen, Hintergrundbildern oder der ausgewählten Farbe angepasst</string>
+    <string name="pref_theme_black_backgrounds_summary">Verwenden Sie schwarze Hintergründe im dunklen Design</string>
+    <string name="pref_black_backgrounds">Schwarze Hintergründe</string>
+    <string name="pref_theme_entries_3">System</string>
+    <string name="pref_custom_battery_control_summary">Legen Sie einen Akkustand in %% fest, bei dem Downloads pausiert werden sollen. (Der Standardwert %1$d%% wird ignoriert.)</string>
+    <string name="pref_custom_battery_control_dialog_summary">Sollte man wirklich einen bestimmten Akkustand in %% festlegen, auf den man achten sollte? (Erhöht den Akkuverbrauch während des Herunterladens.)</string>
+    <string name="pref_enable_dht_summary">Ermöglicht das Auffinden anderer Personen ohne Tracker. (Erhöht den Akkuverbrauch.)</string>
+    <string name="pref_use_anonymous_mode">Anonymen Modus verwenden</string>
+    <string name="pref_seeding_outgoing_connections_summary">Ermöglicht es, ausgehende Verbindungen für Seed-Torrents herzustellen. (Kann kostspielig sein.)</string>
+    <string name="pref_enable_streaming">Streaming aktivieren</string>
+    <string name="torrents">Torrents</string>
+    <string name="ascending_sort">Aufsteigende Sortierung</string>
+    <string name="descending_sort">Absteigende Sortierung</string>
+    <string name="select">Auswählen</string>
+    <string name="create">Erstellen</string>
+    <string name="color_picker">Farbauswahl</string>
+    <string name="load_message">Laden, bitte warten…</string>
+    <string name="reset_filter">Filter zurücksetzen</string>
+    <string name="feed_articles">Artikel</string>
+    <string name="enable_journal">Journal aktivieren</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d Datei</item>
+        <item quantity="other">%1$s • %2$d Dateien</item>
+    </plurals>
+    <string name="pref_proxy_peers_too_summary">Verbindungen zu Trackern, anderen Knoten und Web-Seeds werden über einen Proxy geleitet. Dies hat keine Auswirkungen auf DHT.</string>
+    <string name="pref_enable_feed_auto_refresh">Automatische Aktualisierung aktivieren</string>
+    <string name="current_storage">Aktueller Speicher</string>
+    <string name="scroll_up">Nach oben Scrollen</string>
+    <string name="scroll_down">Nach unten scrollen</string>
+    <string name="about_description">Mehr Informationen und wie Sie das Projekt unterstützen können: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent ist ein unter der Copyleft-Lizenz stehender freier (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) Torrent-Client für Android 4+, basierend auf der libtorrent-Bibliothek (Java-Wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
 </resources>

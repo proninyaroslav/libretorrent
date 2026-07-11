@@ -447,7 +447,7 @@
     <!-- Network settings -->
     <string name="pref_proxy_settings_title">代理设置</string>
     <string name="pref_enable_dht_title">DHT</string>
-    <string name="pref_enable_dht_summary">允许 BT 客户端无需使用 Tracker 便能找到彼此。（启用此选项将增加电池使用量。）</string>
+    <string name="pref_enable_dht_summary">允许 BT 客户端不使用 Tracker 便能找到彼此。（启用此选项将增加电池使用量。）</string>
     <string name="pref_enable_lsd_title">LSD</string>
     <string name="pref_enable_lsd_summary">支持本地发现，旨在最大限度减少流量。</string>
     <string name="pref_enable_utp_title">μTP</string>
@@ -617,4 +617,6 @@
         <item quantity="other">%1$s • %2$d 个文件</item>
     </plurals>
     <string name="pref_locale_title">语言</string>
+    <string name="pref_theme_black_backgrounds_summary">在深色主题下使用黑色背景</string>
+    <string name="pref_black_backgrounds">黑色背景</string>
 </resources>

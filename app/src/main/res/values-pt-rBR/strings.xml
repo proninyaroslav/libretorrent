@@ -176,7 +176,7 @@
     <string name="upload_torrent_into">Enviar para…</string>
     <string name="torrent_size">Tamanho</string>
     <string name="torrent_file_count">Contagem de arquivos</string>
-    <string name="torrent_hash_sum">Checksum</string>
+    <string name="torrent_hash_sum">Soma de verificação</string>
     <string name="torrent_comment">Comentário</string>
     <string name="torrent_create_date">Criado</string>
     <string name="torrent_created_in_program">Criado no programa</string>
@@ -341,8 +341,8 @@
     <string name="folder_is_empty">A pasta selecionada está vazia ou todos os seus arquivos foram excluídos pelo filtro.</string>
     <string name="error_create_torrent">Não foi possível criar o torrent</string>
     <string name="skip_files">Ignorar arquivos</string>
-    <string name="skip_files_hint">Digite os nomes dos arquivos separados por \"|\".</string>
-    <string name="select_folder_to_save">Selecione uma pasta para salvar.</string>
+    <string name="skip_files_hint">Digite os nomes dos arquivos separados por \"|\"</string>
+    <string name="select_folder_to_save">Selecione uma pasta para salvar</string>
     <string name="torrent_saved_to">Torrent salvo em %1$s</string>
     <string name="unable_to_open_file">Não foi possível abrir o arquivo selecionado</string>
     <string name="unable_to_create_file">Não foi possível criar o arquivo</string>
@@ -538,7 +538,7 @@
     <string name="torrent_seeds">Compartilhadores</string>
     <string name="external_storage_name" formatted="false">Armazenamento externo %1$d</string>
     <string name="internal_storage_name">Armazenamento interno</string>
-    <string name="without_tags">Sem tags</string>
+    <string name="without_tags">Sem etiquetas</string>
     <string name="new_tag">Nova tag</string>
     <string name="select_tag">Selecionar tag</string>
     <string name="edit_tag">Editar tag</string>
@@ -589,4 +589,37 @@
     <string name="torrent_version">Versão do torrent</string>
     <string name="go_to_folder">Ir para a pasta</string>
     <string name="pref_locale_title">Idioma</string>
+    <string name="pref_theme_entries_3">Sistema</string>
+    <string name="create">Criar</string>
+    <string name="feed_articles">Artigos</string>
+    <string name="feed_download_immediately">Baixar imediatamente</string>
+    <string name="pref_enable_auto_manage_title">Habilitar a gestão automática</string>
+    <string name="pref_theme_dynamic_colors_title">Cores dinâmicas</string>
+    <string name="error_open_ip_filter_file">Não é possível abrir o arquivo de filtro IP</string>
+    <string name="error_select_folder">Não é possível abrir a pasta selecionada</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">Não foi possível recuperar os metadados</string>
+    <string name="pref_theme_dynamic_colors_summary">As cores do tema são ajustadas com base nas configurações do seu sistema, papéis de parede ou cor selecionada</string>
+    <string name="pref_use_anonymous_mode">Usar modo anônimo</string>
+    <string name="pref_enable_feed_auto_refresh">Habilitar atualização automática</string>
+    <string name="pref_enable_streaming">Habilitar streaming</string>
+    <string name="torrents">Torrents</string>
+    <string name="ascending_sort">Ascendente</string>
+    <string name="descending_sort">Descendente</string>
+    <string name="current_storage">Armazenamento atual</string>
+    <string name="select">Selecionar</string>
+    <string name="color_picker">Seletor de cores</string>
+    <string name="load_message">Carregando, por favor aguarde…</string>
+    <string name="reset_filter">Resetar filtro</string>
+    <string name="enable_journal">Habilitar registro</string>
+    <string name="scroll_up">Rolar para cima</string>
+    <string name="scroll_down">Rolar para baixo</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d arquivo</item>
+        <item quantity="many">%1$s • %2$d arquivos</item>
+        <item quantity="other">%1$s • %2$d arquivos</item>
+    </plurals>
+    <string name="pref_theme_black_backgrounds_summary">Use fundos pretos no tema escuro</string>
+    <string name="pref_black_backgrounds">Fundos pretos</string>
 </resources>

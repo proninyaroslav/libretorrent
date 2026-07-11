@@ -578,7 +578,7 @@
     <string name="pref_validate_https_trackers_title">Επικύρωση πιστοποιητικών των HTTPS ιχνηλατών</string>
     <string name="pref_validate_https_trackers_summary">Το πιστοποιητικό των HTTPS ιχνηλατών και των HTTPS διαμοιραστών ιστού θα επικυρωθεί στο χώρο αποθήκευσης πιστοποιητικών συστήματος.</string>
     <string name="download_first_last_pieces">Λήψη πρώτα του πρώτου και τελευταίου κομματιού</string>
-    <string name="torrent_speed_limit_dialog">Ορισμός ταχύτητας σε KB/s. Σημειωτέον ότι αν ορίσετε μεγαλύτερο όριο σε ένα torrent από το γενικό όριο, αυτό δε θα υπερβεί το γενικό όριο.</string>
+    <string name="torrent_speed_limit_dialog">Ορισμός ταχύτητας σε KiB/s. Σημειωτέον ότι αν ορίσετε μεγαλύτερο όριο σε ένα torrent από το γενικό όριο, αυτό δε θα υπερβεί το γενικό όριο.</string>
     <string name="apply_settings_after_reboot">Οι αλλαγές θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής.</string>
     <string name="pref_posix_disk_io_summary">Σημείωση: αυτή η επιλογή χρησιμοποιείται μόνο σε συγκεκριμένες καταστάσεις, όπως υποστήριξη για ορισμένα συστήματα αρχείων κάρτας SD. Ενεργοποιεί μια απλή είσοδο/έξοδο δίσκου POSIX, που χρησιμοποιείται για συστήματα που δεν διαθέτουν χώρο εικονικής διεύθυνσης 64-bit ή δεν υποστηρίζουν αρχεία αντιστοιχισμένα στη μνήμη.</string>
     <string name="pref_posix_disk_io_title">Είσοδος/έξοδος δίσκου POSIX</string>
@@ -618,4 +618,6 @@
         <item quantity="other">%1$s • %2$d αρχεία</item>
     </plurals>
     <string name="pref_locale_title">Γλώσσα</string>
+    <string name="pref_theme_black_backgrounds_summary">Χρήση μαύρου φόντου σε σκούρο θέμα</string>
+    <string name="pref_black_backgrounds">Μαύρα φόντα</string>
 </resources>

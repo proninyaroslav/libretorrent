@@ -364,7 +364,7 @@
     <string name="journal_filter_dht_log">Журнал DHT</string>
     <string name="journal_filter_peer_log">Журнал з’єднань</string>
     <string name="journal_filter_portmap_log">Журнал UPnP/NAT-PMP</string>
-    <string name="journal_filter_torrent_log">Журнал торрента</string>
+    <string name="journal_filter_torrent_log">Журнал торента</string>
     <string name="journal_save_log_failed">Не вдалося зберегти журнал</string>
     <string name="journal_save_log_success">Журнал збережено: %1$s</string>
     <string name="pref_journal_save_log_to">Зберегти журнал в…</string>
@@ -617,4 +617,6 @@
         <item quantity="other">%1$s • %2$d файлів</item>
     </plurals>
     <string name="pref_locale_title">Мова</string>
+    <string name="pref_theme_black_backgrounds_summary">Використовуйте чорний фон у темній темі</string>
+    <string name="pref_black_backgrounds">Чорний фон</string>
 </resources>

@@ -244,7 +244,7 @@
     <string name="create_torrent_options">Valikud</string>
     <string name="invalid_url">Sobimatu URL: %1$s</string>
     <string name="error_create_torrent">Ei saanud luua torrentit</string>
-    <string name="select_folder_to_save">Vali kaust kuhu salvestada.</string>
+    <string name="select_folder_to_save">Vali kaust salvestamiseks</string>
     <string name="unable_to_create_file">Ei saanud luua faili</string>
     <string name="unable_to_open_file">Ei saanud avada valitud faili</string>
     <string name="journal_filter_dht_log">DHT logi</string>
@@ -281,7 +281,7 @@
     <string name="pref_proxy_address_title">Aadress</string>
     <string name="pref_enable_scheduling_shutdown_summary">Käivitada ainult korra</string>
     <string name="drawer_status_error">Viga</string>
-    <string name="force_recheck_torrent">Sunni ülekontrolli</string>
+    <string name="force_recheck_torrent">Tee sundkorras korduskontroll</string>
     <string name="no_tags">Ilma siltideta</string>
     <string name="torrent_error_notify_title">Torrenti viga</string>
     <string name="torrent_status_finished">Lõpetatud</string>
@@ -339,7 +339,7 @@
     <string name="piece_size_entries_12">32 MiB</string>
     <string name="skip_files">Jäta failid vahele</string>
     <string name="folder_is_empty">Valitud kaust on tühi või kõik failid on filtris välistatud.</string>
-    <string name="skip_files_hint">Sisesta failinimed, eraldatud märgiga \"|\".</string>
+    <string name="skip_files_hint">Sisesta failinimed, eraldatud märgiga „|“</string>
     <string name="torrent_saved_to">Torrent salvestatud asukohta %1$s</string>
     <string name="journal_start_recording">Alusta jäädvustamisega</string>
     <string name="journal_stop_recording">Lõpeta jäädvustamine</string>
@@ -501,4 +501,10 @@
     <string name="torrent_version_entries_v2_only">V2 ainult</string>
     <string name="go_to_folder">Mine kausta</string>
     <string name="pref_locale_title">Keel</string>
+    <string name="not_available">pole teada</string>
+    <string name="force_announce_torrent">Tee sundkorras teavitus</string>
+    <string name="error_open_ip_filter_file">IP-aadresside filtrifaili avamine ei õnnestu</string>
+    <string name="error_select_folder">Valitud kausta avamine ei õnnestu</string>
+    <string name="session_stats_dht_nodes">DHT-sõlmesid: %1$d</string>
+    <string name="session_stats_listen_port">Kuulan liiklust pordis %1$s</string>
 </resources>

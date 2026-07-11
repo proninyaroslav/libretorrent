@@ -11,7 +11,7 @@
 * Lập kế hoạch.
 * Tự động tải xuống, với trình quản lý Atom/RSS.
 * Tạo torrent với nhiều tệp lớn.
-* HTTP\S và liên kết nam châm.
+* HTTP\S và magnet.
 * DHT, PeX, mã hóa, LSD, UPnP, NAT*PMP, µTP.
 * Lọc IP (eMule dat và PeerGuardian).
 * Hỗ trợ proxy cho người theo dõi và đồng nghiệp.

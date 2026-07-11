@@ -3,7 +3,7 @@
 * Välj vilka filer som ska hämtas.
 * Flytta filer under hämtningen.
 * Automatiskt flytta nedladdade filer till en annan mapp eller extern enhet.
-* Strömma filer med sekventiell hämtning.
+* Strömma filer, med sekventiella hämtningar.
 * Android TV.
 * Materialdesign, mörkt och svart tema och surfplattans användargränssnitt.
 * Anpassningsbara inställningar för nätverk, batteri och användargränssnitt etc.

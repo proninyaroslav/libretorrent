@@ -409,7 +409,7 @@
     <string name="torrent_seeding_time">Tid för distribution</string>
     <string name="torrent_leechers">Hämtare</string>
     <string name="drawer_date_added">Datum tillagd</string>
-    <string name="drawer_sorting_date_added">Datum tillagd</string>
+    <string name="drawer_sorting_date_added">Datum tillagt</string>
     <string name="pref_feed_refresh_interval_title">Uppdateringsintervall</string>
     <string name="pref_scheduling_run_only_once_title">Kör endast en gång</string>
     <string name="pref_enable_scheduling_shutdown_summary">Avsluta appen vid en specifik tid</string>
@@ -418,17 +418,17 @@
     <string name="pref_proxy_requires_auth_title">Kräver autentisering</string>
     <string name="pref_proxy_peers_too_title">Använd också för anslutningar</string>
     <string name="pref_show_nat_errors">Visa NAT-fel</string>
-    <string name="pref_ip_filtering_file_title">Genväg till filtreringsfil (.dat, .p2p)</string>
+    <string name="pref_ip_filtering_file_title">Sökväg till filtreringsfil (.dat, .p2p)</string>
     <string name="pref_ip_filtering_category">IP-filtrering</string>
     <string name="pref_enc_out_connections_title">Utgående anslutningar</string>
     <string name="pref_enc_in_connections_title">Inkommande anslutningar</string>
     <string name="pref_encryption_category">Kryptering</string>
     <string name="pref_port_range_title">Portintervall</string>
-    <string name="pref_use_random_port_title">Använd anpassad port</string>
-    <string name="pref_port_settings_category">Port-inställningar</string>
+    <string name="pref_use_random_port_title">Använd slumpmässig port</string>
+    <string name="pref_port_settings_category">Portinställningar</string>
     <string name="pref_proxy_settings_title">Proxyinställningar</string>
     <string name="pref_cpu_do_not_sleep_title">Håll enheten vaken</string>
-    <string name="pref_keep_alive_title">Hålla igång</string>
+    <string name="pref_keep_alive_title">Fortsätt köra</string>
     <string name="pref_power_management_category">Strömhantering</string>
     <string name="pref_vibration_notify_title">Vibrering</string>
     <string name="pref_led_indicator_color_notify_title">Färg på LED-indikator</string>
@@ -619,4 +619,6 @@
         <item quantity="other">%1$s • %2$d filer</item>
     </plurals>
     <string name="pref_locale_title">Språk</string>
+    <string name="pref_theme_black_backgrounds_summary">Använd svart bakgrund i mörkt tema</string>
+    <string name="pref_black_backgrounds">Svarta bakgrunder</string>
 </resources>

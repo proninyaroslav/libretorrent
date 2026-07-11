@@ -249,8 +249,8 @@
     <string name="piece_size_entries_12">32 MiB</string>
     <string name="folder_is_empty">La carpeta seleccionada està buida o tots els seus fitxers queden exclosos pel filtre.</string>
     <string name="error_create_torrent">No s’ha pogut crear el torrent</string>
-    <string name="skip_files_hint">Introduïu els noms dels fitxers separats per «|».</string>
-    <string name="select_folder_to_save">Seleccioneu una carpeta a desar.</string>
+    <string name="skip_files_hint">Introduïu els noms dels fitxers separats per «|»</string>
+    <string name="select_folder_to_save">Seleccioneu una carpeta a desar</string>
     <string name="unable_to_open_file">No s’ha pogut obrir el fitxer seleccionat</string>
     <string name="unable_to_create_file">No s’ha pogut crear el fitxer</string>
     <!-- Log -->
@@ -476,11 +476,11 @@
     <string name="feeds_backup_selection_dialog_title">Seleccioneu el fitxer de còpia de seguretat</string>
     <string name="feed_do_not_download_immediately">No baixis immediatament</string>
     <string name="piece_size">Mida de la part</string>
-    <string name="log_journal">Diari</string>
+    <string name="log_journal">Registre</string>
     <string name="pref_header_behavior">Comportament</string>
     <string name="journal_list_empty">No hi ha cap entrada</string>
     <string name="journal_started_recording">S\'ha iniciat l\'enregistrament</string>
-    <string name="pref_journal_max_stored_entries">Nombre màxim d\'entrades emmagatzemades al diari</string>
+    <string name="pref_journal_max_stored_entries">Nombre màxim d\'entrades emmagatzemades al registre</string>
     <string name="pref_header_scheduling">Programació</string>
     <string name="pref_header_streaming">Streaming</string>
     <string name="pref_save_torrent_files_title">Desa els fitxers .torrent</string>
@@ -583,4 +583,42 @@
     <string name="restore_feed_channels_backup">Restaura la còpia de seguretat</string>
     <string name="save_torrent_file">Desa el fitxer torrent</string>
     <string name="pref_locale_title">Idioma</string>
+    <string name="error_open_ip_filter_file">No es pot obrir el fitxer de filtre d\'IP</string>
+    <string name="error_select_folder">No es pot obrir la carpeta seleccionada</string>
+    <string name="single_downloading_torrent_notify_template">%1$d%% %2$s ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="error_fetch_torrent_metadata">No s\'han pogut obtenir les metadades</string>
+    <string name="go_to_folder">Anar a la carpeta</string>
+    <string name="feed_download_immediately">Baixar immediatament</string>
+    <string name="torrent_version">Versió torrent</string>
+    <string name="torrent_version_entries_hybrid">Híbrid</string>
+    <string name="torrent_version_entries_v1_only">Només V1</string>
+    <string name="torrent_version_entries_v2_only">Només V2</string>
+    <string name="pref_enable_auto_manage_title">Activeu la gestió automàtica</string>
+    <string name="pref_theme_dynamic_colors_title">Colors dinàmics</string>
+    <string name="pref_theme_dynamic_colors_summary">Els colors del tema s\'ajusten en funció de la configuració del sistema, els fons de pantalla o el color seleccionat</string>
+    <string name="pref_theme_black_backgrounds_summary">Usa fons negres en el tema fosc</string>
+    <string name="pref_black_backgrounds">Fons negres</string>
+    <string name="pref_theme_entries_3">Sistema</string>
+    <string name="pref_use_anonymous_mode">Utilitzeu el mode anònim</string>
+    <string name="pref_enable_feed_auto_refresh">Activeu l\'actualització automàtica</string>
+    <string name="pref_enable_streaming">Activeu l\'streaming</string>
+    <string name="torrents">Torrents</string>
+    <string name="ascending_sort">Ordre ascendent</string>
+    <string name="descending_sort">Ordre descendent</string>
+    <string name="current_storage">Emmagatzematge actual</string>
+    <string name="select">Seleccionar</string>
+    <string name="create">Crear</string>
+    <string name="color_picker">Selector de color</string>
+    <string name="load_message">Carregant, espereu si us plau…</string>
+    <string name="reset_filter">Restablir el filtre</string>
+    <string name="feed_articles">Articles</string>
+    <string name="enable_journal">Habilitar el diari</string>
+    <string name="scroll_up">Lliscar amunt</string>
+    <string name="scroll_down">Lliscar avall</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s %2$d fitxer</item>
+        <item quantity="many">%1$s %2$d fitxers</item>
+        <item quantity="other">%1$s %2$d fitxers</item>
+    </plurals>
 </resources>

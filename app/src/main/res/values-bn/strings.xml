@@ -11,7 +11,7 @@
     <string name="replace">প্রতিস্থাপন</string>
     <string name="add">যোগ</string>
     <string name="delete">মুছে ফেলুন</string>
-    <string name="deleting">মুছা হচ্ছে…</string>
+    <string name="deleting">মোছা হচ্ছে…</string>
     <string name="select_all">সব নির্বাচন করুন</string>
     <string name="save">সংরক্ষণ করুন</string>
     <string name="search">অনুসন্ধান</string>
@@ -27,7 +27,7 @@
     <string name="def">পূর্ব-নির্ধারিত</string>
     <string name="foreground_notification">সামনের নোটিফিকেশন</string>
     <string name="link">সংযোগ</string>
-    <string name="filter">ফিল্টার</string>
+    <string name="filter">বাছাই</string>
     <string name="refresh">রিফ্রেশ</string>
     <string name="edit">সম্পাদনা</string>
     <string name="menu">তালিকা</string>
@@ -36,7 +36,7 @@
     <string name="file">ফাইল</string>
     <string name="folder">ফোল্ডার</string>
     <string name="finished">সমাপ্ত</string>
-    <string name="pause_all">সব বিরতি দিন</string>
+    <string name="pause_all">সবকিছু বিরতি</string>
     <string name="resume_all">সব শুরু করুন</string>
     <string name="all">সব</string>
     <string name="details">বিস্তারিত</string>
@@ -53,7 +53,7 @@
     <string name="force_recheck_torrent">আবার দেখুন</string>
     <string name="force_announce_torrent">আবার ঘোষণা</string>
     <string name="add_link">লিংক যোগ করুন</string>
-    <string name="dialog_add_link_title">ইনফোহ্যাশ মান, চুম্বক সংযোগ, বা এইচটিটিপি/এস সংযোগ প্রবেশ করুন</string>
+    <string name="dialog_add_link_title">Infohash মান, magnet link, বা HTTP/S link প্রবেশ করুন</string>
     <string name="torrent_list_empty">কোন টরেন্ট নেই</string>
     <string name="select_or_add_torrent">টরেন্ট নির্বাচন বা যোগ করুন</string>
     <string name="error_empty_link">লিঙ্ক প্রদান করুন</string>
@@ -61,7 +61,7 @@
     <string name="error_open_torrent_file">টরেন্ট নথি(.torrent) খুলতে ব্যর্থ</string>
     <string name="open_file">ফাইল খুলুন</string>
     <string name="settings">সেটিংস</string>
-    <string name="ip_filter_add_error">আইপি ফিল্টার যুক্ত করা যায়নি (%1$d ব্যর্থ হয়েছে)। হয়তো নথিটি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে?</string>
+    <string name="ip_filter_add_error">IP filter যুক্ত করা যায়নি (%1$d ব্যর্থ হয়েছে)। হয়তো ফাইল টি ত্রুটিপূর্ণ বা একটি ভুল ফরম্যাটে আছে?</string>
     <string name="ip_filter_add_success">আইপি ফিল্টার যুক্ত হয়েছে</string>
     <string name="proxy_settings_applied">প্রক্সি সার্ভার সেটিংস প্রয়োগকৃত হয়েছে</string>
     <string name="proxy_settings_apply_after_reboot">নতুন প্রক্সি সেটিংস ব্যবহার করতে অ্যাপ্লিকেশনটি আবার চালু করুন</string>
@@ -583,4 +583,12 @@
 \n২. ম্যাগনেট সংযোগ আনার জন্য ব্যবহৃত হয়।</string>
     <string name="pref_posix_disk_io_summary">মনে রেখো: এই পছন্দটি নির্দিষ্ট কিছু অবস্থাতেই শুধু কাজ করে, যেমন এসডি কার্ড নথিব্যবস্থায়। একটি সহজ পোজিক্স ডিস্ক ইন/আউ, ব্যবহৃত হয় সেই ব্যবস্থাগুলোর জন্য যেগুলো ৬৪-বিট কৃত্রিম ঠিকানা ব্যবহার করতে অপারগ বা মেমরি ম্যাপকৃত নথি সমর্থন করে না।</string>
     <string name="pref_locale_title">ভাষা</string>
+    <string name="error_select_folder">বাছাই করা ফোল্ডারটি খোলা যাচ্ছেনা</string>
+    <string name="error_fetch_torrent_metadata">মেটাডাটা খুজতে অক্ষম</string>
+    <string name="go_to_folder">ফোল্ডার এ যাও</string>
+    <string name="feed_download_immediately">এক্ষুন্নি ডাউনলোড কর</string>
+    <string name="torrent_version">টরেন্ট ভার্সন</string>
+    <string name="torrent_version_entries_hybrid">হাইব্রিড</string>
+    <string name="torrent_version_entries_v1_only">কেবল v1</string>
+    <string name="torrent_version_entries_v2_only">কেবল V2</string>
 </resources>

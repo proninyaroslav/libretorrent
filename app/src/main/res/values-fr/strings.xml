@@ -60,17 +60,17 @@
     <string name="error_open_torrent_file">Impossible d\'ouvrir le fichier .torrent</string>
     <string name="open_file">Ouvrir un fichier</string>
     <string name="settings">Paramètres</string>
-    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Le fichier est peut-être endommagé ou à un format incorrect ?</string>
-    <string name="ip_filter_add_success">Le filtre IP a été ajouté avec succès</string>
+    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Le fichier est peut-être endommagé ou à un format incorrect ?</string>
+    <string name="ip_filter_add_success">Le filtre IP a été ajouté</string>
     <string name="proxy_settings_applied">Utilisation des nouveaux paramètres du serveur proxy.</string>
     <string name="proxy_settings_apply_after_reboot">Redémarrez l\'application pour utiliser les nouveaux paramètres du proxy.</string>
     <string name="theme_settings_apply_after_reboot">Redémarrez l\'application pour utiliser le nouveau thème.</string>
     <string name="about">À propos</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">Nœuds DHT : %1$d</string>
+    <string name="session_stats_dht_nodes">Nœuds DHT : %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s • %2$s/s</string>
-    <string name="session_stats_listen_port">Écoute du port : %1$s</string>
+    <string name="session_stats_listen_port">Écoute du port : %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Statut</string>
     <string name="drawer_status_downloading">Téléchargement en cours…</string>
@@ -78,7 +78,7 @@
     <string name="drawer_status_downloading_metadata">Téléchargement des métadonnées en cours…</string>
     <string name="drawer_status_error">Erreur</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">Triage</string>
+    <string name="drawer_sorting">Trier par</string>
     <string name="drawer_sorting_name">Nom</string>
     <string name="drawer_sorting_date_added">Date ajoutée</string>
     <string name="drawer_sorting_size">Taille</string>
@@ -199,7 +199,7 @@
     <string name="save_file">Enregistrer le fichier</string>
     <string name="file_name">Nom de fichier</string>
     <string name="error_file_exists">Le fichier existe déjà</string>
-    <string name="file_name_is_empty">Veuillez entrez un nom de fichier</string>
+    <string name="file_name_is_empty">Veuillez entrer un nom de fichier</string>
     <string name="replace_file">Remplacer le fichier</string>
     <string name="parent_folder">Dossier parent</string>
     <!-- Error dialog -->
@@ -347,8 +347,8 @@
     <string name="folder_is_empty">Le dossier sélectionné est vide ou tous les fichiers sont exclus par le filtre.</string>
     <string name="error_create_torrent">Impossible de créer le torrent</string>
     <string name="skip_files">Ignorer les fichiers</string>
-    <string name="skip_files_hint">Entrez les noms de fichiers séparés par \"|\".</string>
-    <string name="select_folder_to_save">Sélectionnez le dossier à sauvegarder.</string>
+    <string name="skip_files_hint">Entrez les noms de fichiers séparés par \"|\"</string>
+    <string name="select_folder_to_save">Sélectionnez le dossier à sauvegarder</string>
     <string name="torrent_saved_to">Torrent enregistré dans %1$s</string>
     <string name="unable_to_open_file">Impossible d\'ouvrir le fichier sélectionné</string>
     <string name="unable_to_create_file">Impossible de créer le fichier</string>
@@ -381,13 +381,13 @@
     <string name="pref_save_torrent_files_title">Sauvegarder les fichiers .torrent</string>
     <string name="pref_save_torrent_files_summary">Sauvegarder les fichiers .torrent après le démarrage du téléchargement.</string>
     <string name="pref_save_torrent_files_in_title">Sauvegarder les fichiers .torrent vers…</string>
-    <string name="pref_watch_dir_title">Dossier à surveillé</string>
+    <string name="pref_watch_dir_title">Dossier à surveiller</string>
     <string name="pref_watch_dir_summary">Les fichiers .torrent présents dans ce dossier seront automatiquement ajoutés puis supprimés.</string>
     <string name="pref_dir_to_watch_title">Dossier à regarder</string>
     <!-- Limitations settings -->
     <string name="pref_speed_category">Vitesse</string>
     <string name="pref_max_download_speed_title">Vitesse de téléchargement maximale</string>
-    <string name="pref_max_upload_speed_title">Vitesse d’envois maximale</string>
+    <string name="pref_max_upload_speed_title">Vitesse d’envoi maximale</string>
     <string name="pref_max_connections_title">Nombre maximum de connexions</string>
     <string name="pref_max_connections_summary">(Minimum 2 connexions)</string>
     <string name="pref_torrent_queueing_category">Torrent en file d\'attente</string>
@@ -580,7 +580,7 @@
     <string name="download_first_last_pieces">Télécharger d\'abord les premières et dernières pièces</string>
     <string name="torrent_speed_limit_dialog">Définissez la vitesse en KiB/s. Notez que la définition d\'une limite plus élevée sur un torrent que la limite globale ne remplacera pas la limite globale.</string>
     <string name="pref_posix_disk_io_title">E/S Disque POSIX</string>
-    <string name="apply_settings_after_reboot">Les changements seront appliqué après le redémarrage de l\'application.</string>
+    <string name="apply_settings_after_reboot">Les changements seront appliqués après le redémarrage de l\'application.</string>
     <string name="pref_posix_disk_io_summary">Note : option à utiliser que dans des situations particulières, comme la prise en charge de certains systèmes de fichier de carte SD. Active une simple E/S de disque POSIX, utilisée par les systèmes ne possédant pas d\'espace d\'adressage virtuel 64-bits ou ne supportant pas les fichiers mappés en mémoire.</string>
     <string name="torrent_version_entries_v1_only">V1 seulement</string>
     <string name="torrent_version_entries_v2_only">V2 seulement</string>
@@ -588,4 +588,32 @@
     <string name="torrent_version">Version torrent</string>
     <string name="torrent_version_entries_hybrid">Hybride</string>
     <string name="pref_locale_title">Langue</string>
+    <string name="error_open_ip_filter_file">Impossible d\'ouvrir le fichier du filtre IP</string>
+    <string name="error_select_folder">Impossible d\'ouvrir le dossier sélectionné</string>
+    <string name="feed_download_immediately">Télécharger immédiatement</string>
+    <string name="error_fetch_torrent_metadata">Impossible de récupérer les métadonnées</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">%1$s • %2$d fichier</item>
+        <item quantity="many">%1$s • %2$d fichiers</item>
+        <item quantity="other">%1$s • %2$d fichiers</item>
+    </plurals>
+    <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
+    <string name="foreground_notify_template">↓ %1$s/s | ↑ %2$s/s • %3$s</string>
+    <string name="pref_enable_auto_manage_title">Activer la gestion automatique</string>
+    <string name="pref_theme_dynamic_colors_title">Couleurs dynamiques</string>
+    <string name="pref_theme_dynamic_colors_summary">Les couleurs du thème sont ajustées en fonction de vos paramètres système, fond d\'écran ou couleur sélectionnée</string>
+    <string name="pref_theme_black_backgrounds_summary">Utiliser un arrière plan noir avec le thème sombre</string>
+    <string name="pref_black_backgrounds">Arrière plan noir</string>
+    <string name="pref_theme_entries_3">Système</string>
+    <string name="pref_use_anonymous_mode">Utiliser le mode anonyme</string>
+    <string name="pref_enable_feed_auto_refresh">Activer le rafraîchissement automatique</string>
+    <string name="pref_enable_streaming">Activer le streaming</string>
+    <string name="torrents">Torrents</string>
+    <string name="ascending_sort">Tri ascendant</string>
+    <string name="descending_sort">Tri descendant</string>
+    <string name="load_message">Chargement, veuillez patienter…</string>
+    <string name="reset_filter">Réinitialiser le filtre</string>
+    <string name="enable_journal">Activer la journalisation</string>
+    <string name="scroll_up">Défiler en haut</string>
+    <string name="scroll_down">Défiler en bas</string>
 </resources>

@@ -525,4 +525,31 @@
     <string name="go_to_folder">Siirry kansioon</string>
     <string name="torrent_version">Torrent-versio</string>
     <string name="pref_locale_title">Kieli</string>
+    <string name="error_fetch_torrent_metadata">Metadata ei saatavilla</string>
+    <string name="feed_download_immediately">Lataa heti</string>
+    <string name="pref_enable_auto_manage_title">Auto-manage päälle</string>
+    <string name="pref_theme_dynamic_colors_title">Dynaamiset värit</string>
+    <string name="pref_theme_dynamic_colors_summary">Teeman värit perustuu käyttöjärjestelmäsicasetuksiin, taustakuviin tai valittuun väriib</string>
+    <string name="pref_theme_black_backgrounds_summary">Käytä mustia taustakuvia tummassa teemassa</string>
+    <string name="pref_black_backgrounds">Mustat taustat</string>
+    <string name="pref_theme_entries_3">Järjestelmä</string>
+    <string name="pref_use_anonymous_mode">Käytä anonyymiä tilaa</string>
+    <string name="pref_enable_feed_auto_refresh">Automattinen päivitys päälle</string>
+    <string name="pref_enable_streaming">Streamaus päälle</string>
+    <string name="torrents">Torrentit</string>
+    <string name="ascending_sort">Järjestä koon mukaan suurimpaan</string>
+    <string name="descending_sort">Järjestä koon mukaan pienimpään</string>
+    <string name="current_storage">Tämänhetkinen tallennustila</string>
+    <string name="select">Valitse</string>
+    <string name="create">Luo</string>
+    <string name="color_picker">Värin valitsin</string>
+    <string name="load_message">Ladataan, odota hetki…</string>
+    <string name="reset_filter">Resetoi filtteri</string>
+    <string name="feed_articles">Artikkelit</string>
+    <string name="scroll_up">Scrollaa ylös</string>
+    <string name="scroll_down">Scrollaa alas</string>
+    <plurals name="torrent_info_size_template_plural">
+        <item quantity="one">Koko %1$s • %2$d tiedosto</item>
+        <item quantity="other">Koko %1$s • %2$d tiedostoa</item>
+    </plurals>
 </resources>

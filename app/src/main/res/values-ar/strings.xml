@@ -590,4 +590,6 @@
     <string name="torrent_version_entries_v2_only">V2 فقط</string>
     <string name="go_to_folder">الذهاب إلى الملف</string>
     <string name="pref_locale_title">اللغة</string>
+    <string name="error_select_folder">لا يمكن فتح المجلد المختار</string>
+    <string name="error_open_ip_filter_file">لا يمكن فتح مبلغ علمنا تصفية IP</string>
 </resources>
