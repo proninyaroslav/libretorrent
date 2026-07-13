@@ -618,4 +618,8 @@
     <string name="pref_locale_title">Nyelv</string>
     <string name="pref_theme_black_backgrounds_summary">Fekete hátterek használata a sötét témában</string>
     <string name="pref_black_backgrounds">Fekete háttérképek</string>
+    <string name="pref_locale_summary">Az alkalmazás nyelvének nódosítása</string>
+    <string name="pref_locale_system_default">A rendszer alapértelmezett nyelve</string>
+    <string name="pref_proxy_require_all_connections_title">Minden kapcsolathoz proxy szükséges</string>
+    <string name="pref_proxy_require_all_connections_summary">A proxy aktív állapotában letiltja a DHT-t, a helyi szolgáltatásfelismerést, az UPnP-t és a NAT-PMP-t. Ezek a funkciók nem irányíthatók át a proxyn keresztül, és ellenkező esetben – még beállított proxy mellett is – felfednék a felhasználó valódi IP-címét és DNS-lekérdezéseit.</string>
 </resources>

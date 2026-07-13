@@ -619,4 +619,8 @@
     <string name="pref_locale_title">语言</string>
     <string name="pref_theme_black_backgrounds_summary">在深色主题下使用黑色背景</string>
     <string name="pref_black_backgrounds">黑色背景</string>
+    <string name="pref_locale_summary">更改应用语言</string>
+    <string name="pref_locale_system_default">系统默认</string>
+    <string name="pref_proxy_require_all_connections_title">要求所有连接均使用代理</string>
+    <string name="pref_proxy_require_all_connections_summary">使用代理时禁用 DHT、本地服务发现、UPnP 和 NAT−PMP。这些功能无法通过代理进行路由，否则即使配置了代理，也会暴露真实 IP 地址和 DNS 查询。</string>
 </resources>

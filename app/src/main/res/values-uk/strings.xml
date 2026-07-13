@@ -619,4 +619,8 @@
     <string name="pref_locale_title">Мова</string>
     <string name="pref_theme_black_backgrounds_summary">Використовуйте чорний фон у темній темі</string>
     <string name="pref_black_backgrounds">Чорний фон</string>
+    <string name="pref_locale_summary">Змінити мову застосунку</string>
+    <string name="pref_locale_system_default">Як у системі</string>
+    <string name="pref_proxy_require_all_connections_title">Вимагати проксі для всіх з’єднань</string>
+    <string name="pref_proxy_require_all_connections_summary">Вимикає DHT, Local Service Discovery, UPnP та NAT-PMP, поки проксі-сервер активний. Ці функції неможливо маршрутизувати через проксі, тому вони можуть розкрити вашу справжню IP-адресу та DNS-запити навіть за наявності налаштованого проксі.</string>
 </resources>
