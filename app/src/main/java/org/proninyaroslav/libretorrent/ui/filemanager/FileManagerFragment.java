@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -38,6 +39,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.WindowInsetsCompat;
@@ -108,6 +111,8 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
      */
     private int storageMenuPos = -1;
     private String requestKey;
+    private FileManagerConfig pendingConfig;
+    private ActivityResultLauncher<String[]> openDocumentLauncher;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -121,6 +126,11 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        openDocumentLauncher = registerForActivityResult(
+                new ActivityResultContracts.OpenDocument(),
+                this::onSystemFileChosen
+        );
 
         var fm = getParentFragmentManager();
         fm.setFragmentResultListener(
@@ -179,6 +189,14 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
 
         var args = FileManagerFragmentArgs.fromBundle(getArguments());
         requestKey = args.getFragmentRequestKey();
+        var config = args.getConfig();
+
+        if (shouldUseSystemFilePicker(config)) {
+            pendingConfig = config;
+            openDocumentLauncher.launch(new String[]{"*/*"});
+            return;
+        }
+
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(activity.getApplicationContext());
         pref = PreferenceManager.getDefaultSharedPreferences(activity);
 
@@ -188,7 +206,7 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
                 ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY,
                 activity.getApplication()
         );
-        extras.set(FileManagerViewModel.KEY_CONFIG, args.getConfig());
+        extras.set(FileManagerViewModel.KEY_CONFIG, config);
         extras.set(FileManagerViewModel.KEY_START_DIR, startDir);
         viewModel = new ViewModelProvider(
                 getViewModelStore(),
@@ -332,6 +350,12 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
     public void onStart() {
         super.onStart();
 
+        /* viewModel is null when onViewCreated deferred to the system file picker
+         * instead of setting up the in-app browser (see shouldUseSystemFilePicker). */
+        if (viewModel == null) {
+            return;
+        }
+
         subscribeAdapter();
         viewModel.curDir.addOnPropertyChangedCallback(currentDirCallback);
     }
@@ -381,6 +405,36 @@ public class FileManagerFragment extends Fragment implements FileManagerAdapter.
                         R.string.permission_denied,
                         Snackbar.LENGTH_SHORT)
                 .show();
+    }
+
+    /*
+     * Without MANAGE_EXTERNAL_STORAGE (e.g. the Play flavor), the in-app browser can only
+     * see the directory structure of public folders like Downloads on Android 10+, not the
+     * files inside them (scoped storage). The system document picker doesn't have this
+     * limitation, so it's used instead for picking a file to open/read.
+     */
+
+    private boolean shouldUseSystemFilePicker(FileManagerConfig config) {
+        return config.showMode == FileManagerConfig.Mode.FILE_CHOOSER
+                && config.allowSaf
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+                && !Utils.hasManageExternalStoragePermission(activity.getApplicationContext());
+    }
+
+    private void onSystemFileChosen(@Nullable Uri uri) {
+        if (uri != null) {
+            try {
+                activity.getContentResolver().takePersistableUriPermission(
+                        uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            } catch (SecurityException e) {
+                Log.w(TAG, Log.getStackTraceString(e));
+            }
+        }
+
+        var bundle = new Bundle();
+        bundle.putParcelable(KEY_RESULT, new Result(uri, pendingConfig));
+        getParentFragmentManager().setFragmentResult(requestKey, bundle);
+        activity.getOnBackPressedDispatcher().onBackPressed();
     }
 
     @Override

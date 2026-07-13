@@ -45,6 +45,13 @@ public class FileManagerConfig implements Parcelable {
     public Mode showMode;
     public boolean canReplace;
     public String mimeType;
+    /* Whether, in FILE_CHOOSER mode, the system document picker (SAF) may be used
+     * instead of the in-app browser when the app can't otherwise see files in public
+     * folders (e.g. the Play flavor without MANAGE_EXTERNAL_STORAGE). Must be false
+     * for pickers whose result is read directly by libtorrent's native code (it needs
+     * a real filesystem path, not a SAF content:// Uri), e.g. picking a file to hash
+     * when creating a torrent. */
+    public boolean allowSaf = true;
 
     public FileManagerConfig(String path, String title, Mode mode) {
         this.path = path;
@@ -61,6 +68,7 @@ public class FileManagerConfig implements Parcelable {
         fileName = source.readString();
         canReplace = source.readByte() != 0;
         mimeType = source.readString();
+        allowSaf = source.readByte() != 0;
     }
 
     public FileManagerConfig setFileName(String name) {
@@ -83,6 +91,7 @@ public class FileManagerConfig implements Parcelable {
         dest.writeString(fileName);
         dest.writeByte((byte) (canReplace ? 1 : 0));
         dest.writeString(mimeType);
+        dest.writeByte((byte) (allowSaf ? 1 : 0));
     }
 
     public static final Creator<FileManagerConfig> CREATOR =

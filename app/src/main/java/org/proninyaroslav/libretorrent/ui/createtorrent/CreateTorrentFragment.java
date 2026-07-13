@@ -211,6 +211,9 @@ public class CreateTorrentFragment extends Fragment {
                     null,
                     null,
                     FileManagerConfig.Mode.FILE_CHOOSER);
+            // The picked file is hashed by libtorrent's native torrent creation, which
+            // only accepts a real filesystem path, not a SAF content:// Uri.
+            config.allowSaf = false;
             var action = CreateTorrentFragmentDirections
                     .actionFileManagerDialog(config, KEY_FILE_MANAGER_DIALOG_REQUEST);
             NavHostFragment.findNavController(this).navigate(action);
