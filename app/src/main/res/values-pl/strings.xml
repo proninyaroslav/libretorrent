@@ -448,7 +448,7 @@
     <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_enable_dht_summary">Umożliwia znajdowanie innych bez trackera. Zwiększy to zużycie baterii.</string>
     <string name="pref_enable_lsd_title">LSD</string>
-    <string name="pref_enable_lsd_summary">Zaprojektowany do wspierania lokalnego odkrywania, mając na celu zminimalizowanie ruchu.</string>
+    <string name="pref_enable_lsd_summary">Zaprojektowany do obsługi lokalnego odkrywania, mając na celu zminimalizowanie ruchu.</string>
     <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_enable_utp_summary">Zaprojektowany w celu złagodzenia dużych opóźnień i innych problemów przeciążeń istniejących w tradydycjnym BitTorrent po TCP, zapewniając jednocześnie niezawodne, uporządkowane działanie.</string>
     <string name="pref_enable_upnp_title">UPnP</string>
@@ -621,4 +621,8 @@
     <string name="pref_locale_title">Język</string>
     <string name="pref_theme_black_backgrounds_summary">Używaj czarnego tła w ciemnym motywie</string>
     <string name="pref_black_backgrounds">Czarne tło</string>
+    <string name="pref_locale_summary">Zmień język aplikacji</string>
+    <string name="pref_locale_system_default">Domyślny systemowy</string>
+    <string name="pref_proxy_require_all_connections_title">Wymagaj proxy dla wszystkich połączeń</string>
+    <string name="pref_proxy_require_all_connections_summary">Wyłącza DHT, Local Service Discovery, UPnP i NAT-PMP, gdy proxy jest aktywne. Funkcje te nie mogą być przekierowywane przez proxy i w przeciwnym razie ujawniłyby Twój rzeczywisty adres IP i zapytania DNS, nawet mając skonfigurowane proxy.</string>
 </resources>

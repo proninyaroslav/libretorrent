@@ -621,4 +621,8 @@
     </plurals>
     <string name="pref_theme_black_backgrounds_summary">Koyu temada siyah arka plan kullanın</string>
     <string name="pref_black_backgrounds">Siyah arka plan</string>
+    <string name="pref_locale_summary">Uygulamanın dilini değiştir</string>
+    <string name="pref_locale_system_default">Sistem öntanımlı</string>
+    <string name="pref_proxy_require_all_connections_title">Tüm bağlantılar için vekil sunucuyu zorunlu kıl</string>
+    <string name="pref_proxy_require_all_connections_summary">Vekil sunucu etkinken DHT, Yerel Hizmet Keşfi, UPnP ve NAT-PMP özelliklerini devre dışı bırakır. Bu özellikler bir vekil sunucu üzerinden yönlendirilemez ve aksi takdirde, vekil sunucu yapılandırılsa bile gerçek IP adresiniz ve DNS sorgularınız açığa çıkabilir.</string>
 </resources>

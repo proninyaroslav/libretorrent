@@ -620,4 +620,8 @@
     <string name="pref_locale_title">Γλώσσα</string>
     <string name="pref_theme_black_backgrounds_summary">Χρήση μαύρου φόντου σε σκούρο θέμα</string>
     <string name="pref_black_backgrounds">Μαύρα φόντα</string>
+    <string name="pref_locale_summary">Αλλαγή γλώσσας</string>
+    <string name="pref_locale_system_default">Συστήματος</string>
+    <string name="pref_proxy_require_all_connections_title">Απαίτηση διακομιστή μεσολάβησης για όλες τις συνδέσεις</string>
+    <string name="pref_proxy_require_all_connections_summary">Απενεργοποιεί το DHT, την τοπική ανακάλυψη υπηρεσιών, το UPnP και το NAT-PMP όσο ο διακομιστής μεσολάβησης είναι ενεργός. Αυτές οι λειτουργίες δεν μπορούν να δρομολογηθούν μέσω διακομιστή μεσολάβησης και διαφορετικά θα εξέθεταν την πραγματική σας διεύθυνση IP και τα ερωτήματα DNS, ακόμη και με διαμορφωμένο διακομιστή μεσολάβησης.</string>
 </resources>
