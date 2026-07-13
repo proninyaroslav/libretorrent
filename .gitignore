@@ -68,6 +68,10 @@ captures/
 
 # Keystore files
 *.jks
+*.keystore
+
+# Release signing config (see key.properties.example)
+key.properties
 
 # Android NDK build stuff
 .externalNativeBuild

@@ -1,0 +1,11 @@
+## Copy this file to "key.properties" (in the project root) and fill in your
+## own values to produce a signed release build.
+##
+## If "key.properties" is absent, `assembleRelease`/`bundleRelease` still work,
+## but the output APK/AAB will be unsigned (this is how F-Droid builds it).
+
+storePassword=your_keystore_password
+keyPassword=your_key_password
+keyAlias=your_key_alias
+## Path to the keystore file, relative to the project root (or an absolute path)
+storeFile=keystore.jks
