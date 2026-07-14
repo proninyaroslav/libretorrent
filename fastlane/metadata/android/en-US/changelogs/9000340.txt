@@ -1,0 +1,22 @@
+* Added:
+    - Language selection setting, independent of the system language
+    - Torrent content files search, filtering and sorting
+    - "Require proxy for all connections" kill switch option
+    - Improved theme switching
+    - Accessibility improvements
+    - Delete torrent dialog now remembers the checkbox state across restarts
+* Bugfixes:
+    - Fixed SSRF (CWE-918) in torrent/feed URL fetching
+    - Fixed invisible files in public folders on Play flavor's file picker
+    - Fixed shutdown getting stuck or double-triggered
+    - Fixed layout jitter on tablets
+    - Fixed files list items ellipsize
+    - Fixed selecting multiple torrents when searching
+    - Fixed crash with non-standard system default battery percentage in settings
+    - Fixed "without tags" filter
+    - Fixed tracker status check condition
+    - Fixed opening torrent files from the system dialog
+    - Fixed crash getting a custom attribute in Dynamic Theme
+    - Restore trackers and metadata when adding torrents in libtorrent 2.x
+* Updated translations
+* Upgraded dependencies and AGP
