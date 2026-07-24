@@ -1,3 +1,7 @@
+### Version 4.1.1 (2026-07-24)
+
+Temporarily downgrade libtorrent4j to maintain support for Android 8.1 and below
+
 ### Version 4.1 (2026-07-13)
 
 * Added:
