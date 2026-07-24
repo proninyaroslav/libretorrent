@@ -325,18 +325,18 @@
     <string name="option_private_torrent">Torrent privado</string>
     <!-- piece_size_entries -->
     <string name="piece_size_entries_0">Automático</string>
-    <string name="piece_size_entries_1">16 KB</string>
-    <string name="piece_size_entries_2">32 KB</string>
-    <string name="piece_size_entries_3">64 KB</string>
-    <string name="piece_size_entries_4">128 KB</string>
-    <string name="piece_size_entries_5">256 KB</string>
-    <string name="piece_size_entries_6">512 KB</string>
-    <string name="piece_size_entries_7">1 MB</string>
-    <string name="piece_size_entries_8">2 MB</string>
-    <string name="piece_size_entries_9">4 MB</string>
-    <string name="piece_size_entries_10">8 MB</string>
-    <string name="piece_size_entries_11">16 MB</string>
-    <string name="piece_size_entries_12">32 MB</string>
+    <string name="piece_size_entries_1">16 KiB</string>
+    <string name="piece_size_entries_2">32 KiB</string>
+    <string name="piece_size_entries_3">64 KiB</string>
+    <string name="piece_size_entries_4">128 KiB</string>
+    <string name="piece_size_entries_5">256 KiB</string>
+    <string name="piece_size_entries_6">512 KiB</string>
+    <string name="piece_size_entries_7">1 MiB</string>
+    <string name="piece_size_entries_8">2 MiB</string>
+    <string name="piece_size_entries_9">4 MiB</string>
+    <string name="piece_size_entries_10">8 MiB</string>
+    <string name="piece_size_entries_11">16 MiB</string>
+    <string name="piece_size_entries_12">32 MiB</string>
     <string name="invalid_url">URL inválida: %1$s</string>
     <string name="folder_is_empty">A pasta selecionada está vazia ou todos os seus arquivos foram excluídos pelo filtro.</string>
     <string name="error_create_torrent">Não foi possível criar o torrent</string>
@@ -426,7 +426,7 @@
     <string name="pref_keep_alive_summary">Deixa o aplicativo em execução em segundo plano. (Ainda assim, é recomendável fechar o aplicativo quando todos os downloads forem concluídos)</string>
     <string name="pref_shutdown_downloads_complete_title">Fechar ao terminar todos os downloads</string>
     <string name="pref_shutdown_downloads_complete_summary">Desativar o aplicativo quando todos os downloads forem concluídos.</string>
-    <string name="pref_cpu_do_not_sleep_title">Manter CPU ativa</string>
+    <string name="pref_cpu_do_not_sleep_title">Manter dispositivo ativo</string>
     <string name="pref_cpu_do_not_sleep_summary">Use se a velocidade de download for reduzida quando a tela for desligada. (Aumenta o uso da bateria)</string>
     <string name="pref_download_and_upload_only_when_charging_title">Fazer download e enviar apenas durante o carregamento.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">Nenhum arquivo será transferido exceto se o dispositivo estiver carregando. (Pausa todos os torrents quando não conectado ao carregador.)</string>
@@ -579,7 +579,7 @@
     <string name="pref_validate_https_trackers_summary">O certificado de rastreadores HTTPS e sementes da web HTTPS serão validados no armazenamento de certificados do sistema.</string>
     <string name="download_first_last_pieces">Fazer download das primeiras e últimas peças primeiro</string>
     <string name="pref_validate_https_trackers_title">Validar certificados de rastreadores HTTPS</string>
-    <string name="torrent_speed_limit_dialog">Defina a velocidade em KB/s. Observe que definir um limite mais alto em um torrent do que o limite global não substituirá o limite global.</string>
+    <string name="torrent_speed_limit_dialog">Defina a velocidade em KiB/s. Observe que definir um limite mais alto em um torrent do que o limite global não substituirá o limite global.</string>
     <string name="apply_settings_after_reboot">As alterações serão aplicadas após a reinicialização do aplicativo.</string>
     <string name="pref_posix_disk_io_summary">Nota: esta opção deve ser usada apenas em situações específicas, como suporte para alguns sistemas de arquivos de cartão SD. Ativa uma E/S de disco POSIX simples, usada para sistemas que não possuem um espaço de endereço virtual de 64-bits ou não suportam arquivos mapeados na memória.</string>
     <string name="pref_posix_disk_io_title">E/S de Disco POSIX</string>
@@ -622,4 +622,8 @@
     </plurals>
     <string name="pref_theme_black_backgrounds_summary">Use fundos pretos no tema escuro</string>
     <string name="pref_black_backgrounds">Fundos pretos</string>
+    <string name="pref_locale_summary">Mudar o idioma do app</string>
+    <string name="pref_locale_system_default">Padrão do sistema</string>
+    <string name="pref_proxy_require_all_connections_title">Pedir proxy para todas as conexões</string>
+    <string name="pref_proxy_require_all_connections_summary">Desabilita DHT, Local Service Discovery, UPnP e NAT-PMP enquanto o proxy está ativo. Esses recursos não podem ser roteados por meio de um proxy e, caso contrário, exporiam seu endereço IP real e suas consultas de DNS, mesmo com um proxy configurado.</string>
 </resources>

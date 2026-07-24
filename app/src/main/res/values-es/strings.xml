@@ -618,4 +618,8 @@
     <string name="pref_black_backgrounds">Fondos negros</string>
     <string name="single_downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s</string>
     <string name="pref_theme_black_backgrounds_summary">Utilizar fondos de un negro puro en modo oscuro</string>
+    <string name="pref_locale_summary">Cambia el idioma de la aplicación</string>
+    <string name="pref_locale_system_default">Utilizar ajustes del sistema</string>
+    <string name="pref_proxy_require_all_connections_title">Conectarse siempre mediante proxy</string>
+    <string name="pref_proxy_require_all_connections_summary">Deshabilita DHT, Local Service Discovery, UPnP y NAT-PMP mientras el proxy siga activo. Estas funciones no se pueden enrutar a través de un proxy y, de lo contrario, expondrían tu dirección IP real y consultas DNS incluso con un proxy configurado.</string>
 </resources>

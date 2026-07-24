@@ -107,11 +107,11 @@
     <string name="without_tags">Fără etichete</string>
     <!-- Foreground notification -->
     <!-- percent • ETA • download speed • name -->
-    <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/s • %4$s</string>
+    <string name="downloading_torrent_notify_template">șablon de notificare pentru descărcarea torrentului</string>
     <!-- status • upload speed • name -->
-    <string name="seeding_torrent_notify_template">%1$s \\u2022 \\u2191 %2$s/s \\u2022 %3$s</string>
+    <string name="seeding_torrent_notify_template">șablon de notificare pentru torrentele distribuite</string>
     <!-- status • name -->
-    <string name="other_torrent_notify_template">%1$s \\u2022 %2$s</string>
+    <string name="other_torrent_notify_template">șablon de notificare pentru alte fișiere torrent</string>
     <string name="torrent_count_notify_template">%1$d ⬇ din %2$d</string>
     <string name="app_running_in_the_background">Rulează în fundal…</string>
     <string name="network_online">Status rețea: Online</string>
@@ -614,4 +614,5 @@
     <string name="enable_journal">Activează jurnal</string>
     <string name="scroll_up">Scroll sus</string>
     <string name="scroll_down">Scroll jos</string>
+    <string name="foreground_notify_template">șablon de notificare în prim-plan</string>
 </resources>
