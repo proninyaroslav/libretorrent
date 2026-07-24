@@ -621,4 +621,8 @@
     <string name="pref_locale_title">Språk</string>
     <string name="pref_theme_black_backgrounds_summary">Använd svart bakgrund i mörkt tema</string>
     <string name="pref_black_backgrounds">Svarta bakgrunder</string>
+    <string name="pref_locale_summary">Ändra appens språk</string>
+    <string name="pref_locale_system_default">Systemstandard</string>
+    <string name="pref_proxy_require_all_connections_title">Kräv proxy för alla anslutningar</string>
+    <string name="pref_proxy_require_all_connections_summary">Inaktiverar DHT, Local Service Discovery, UPnP och NAT-PMP medan proxyn är aktiv. Dessa funktioner kan inte dirigeras via en proxy och skulle annars exponera din riktiga IP-adress och DNS-frågor även med en konfigurerad proxy.</string>
 </resources>
