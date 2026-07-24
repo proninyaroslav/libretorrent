@@ -620,4 +620,8 @@
     <string name="pref_locale_title">Taal</string>
     <string name="pref_theme_black_backgrounds_summary">Zwarte achtergrond gebruiken bij donker thema</string>
     <string name="pref_black_backgrounds">Zwarte achtergrond</string>
+    <string name="pref_locale_summary">App-taal wijzigen</string>
+    <string name="pref_locale_system_default">Systeemstandaard</string>
+    <string name="pref_proxy_require_all_connections_title">Proxy vereisen voor alle verbindingen</string>
+    <string name="pref_proxy_require_all_connections_summary">Schakelt DHT, Local Service Discovery, UPnP en NAT-PMP uit zolang de proxy actief is. Deze functies kunnen niet via een proxy worden gerouteerd en zouden anders uw echte IP-adres en DNS-verzoeken blootgeven, zelfs als er een proxy is geconfigureerd.</string>
 </resources>
