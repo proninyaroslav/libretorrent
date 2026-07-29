@@ -8,6 +8,12 @@
         app:singleLineTitle="false" />
 
     <Preference
+        android:key="@string/pref_key_i2p_settings"
+        android:persistent="false"
+        android:title="@string/pref_header_i2p"
+        app:singleLineTitle="false" />
+
+    <Preference
         android:key="@string/pref_key_anonymous_mode"
         android:persistent="false"
         android:title="@string/pref_anonymous_mode_title"

@@ -29,7 +29,8 @@ public class PeerItem extends PeerInfo
     {
         super(state.ip, state.client, state.totalDownload,
                 state.totalUpload, state.relevance, state.connectionType,
-                state.port, state.progress, state.downSpeed, state.upSpeed);
+                state.port, state.progress, state.downSpeed, state.upSpeed,
+                state.isI2p);
     }
 
     @Override

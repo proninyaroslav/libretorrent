@@ -55,7 +55,18 @@
             app:exitAnim="?attr/navExitAnim"
             app:popEnterAnim="?attr/navPopEnterAnim"
             app:popExitAnim="?attr/navPopExitAnim" />
+        <action
+            android:id="@+id/action_i2p_settings"
+            app:destination="@id/i2pSettingsFragment"
+            app:enterAnim="?attr/navEnterAnim"
+            app:exitAnim="?attr/navExitAnim"
+            app:popEnterAnim="?attr/navPopEnterAnim"
+            app:popExitAnim="?attr/navPopExitAnim" />
     </fragment>
+    <fragment
+        android:id="@+id/i2pSettingsFragment"
+        android:name="org.proninyaroslav.libretorrent.ui.settings.pages.I2PSettingsFragment"
+        android:label="I2PSettingsFragment" />
     <fragment
         android:id="@+id/proxySettingsFragment"
         android:name="org.proninyaroslav.libretorrent.ui.settings.pages.ProxySettingsFragment"

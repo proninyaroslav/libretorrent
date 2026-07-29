@@ -1079,6 +1079,23 @@ public class TorrentEngine {
                 .subscribe());
     }
 
+    private void applyI2pSettings() {
+        SessionSettings s = session.getSettings();
+
+        s.i2pEnabled = pref.i2pEnabled();
+        s.i2pHostname = pref.i2pHostname();
+        s.i2pPort = pref.i2pPort();
+        s.allowI2pMixed = pref.allowI2pMixed();
+        s.i2pInboundQuantity = pref.i2pInboundQuantity();
+        s.i2pOutboundQuantity = pref.i2pOutboundQuantity();
+        s.i2pInboundLength = pref.i2pInboundLength();
+        s.i2pOutboundLength = pref.i2pOutboundLength();
+        s.i2pInboundLengthVariance = pref.i2pInboundLengthVariance();
+        s.i2pOutboundLengthVariance = pref.i2pOutboundLengthVariance();
+
+        session.setSettings(s);
+    }
+
     private void setProxy() {
         SessionSettings s = session.getSettings();
 
@@ -1640,6 +1657,28 @@ public class TorrentEngine {
             SessionSettings s = session.getSettings();
             s.validateHttpsTrackers = pref.validateHttpsTrackers();
             session.setSettings(s);
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_apply_i2p))) {
+            if (pref.applyI2p()) {
+                pref.applyI2p(false);
+                applyI2pSettings();
+                Toast.makeText(appContext,
+                                R.string.i2p_settings_applied,
+                                Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+        } else if (key.equals(appContext.getString(R.string.pref_key_i2p_enabled)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_hostname)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_port)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_allow_mixed)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_inbound_quantity)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_outbound_quantity)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_inbound_length)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_outbound_length)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_inbound_length_variance)) ||
+                key.equals(appContext.getString(R.string.pref_key_i2p_outbound_length_variance))) {
+            applyI2pSettings();
         }
 
         if (reschedule)

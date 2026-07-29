@@ -32,6 +32,7 @@ public class AdvancedPeerInfo extends PeerInfo
     protected int port;
     protected PieceIndexBitfield pieces;
     protected boolean isUtp;
+    protected boolean isI2p;
 
     public AdvancedPeerInfo(peer_info p)
     {
@@ -40,6 +41,7 @@ public class AdvancedPeerInfo extends PeerInfo
         port = p.remote_endpoint().port();
         pieces = new PieceIndexBitfield(p.get_pieces());
         isUtp = p.getFlags().and_(peer_info.utp_socket).non_zero();
+        isI2p = p.getFlags().and_(peer_info.i2p_socket).non_zero();
     }
 
     public int port()
@@ -61,5 +63,10 @@ public class AdvancedPeerInfo extends PeerInfo
     public boolean isUtp()
     {
         return isUtp;
+    }
+
+    public boolean isI2p()
+    {
+        return isI2p;
     }
 }

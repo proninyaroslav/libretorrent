@@ -70,6 +70,16 @@ public class SessionSettings
     public static final boolean DEFAULT_USE_RANDOM_PORT = true;
     public static final boolean DEFAULT_VALIDATE_HTTPS_TRACKERS = true;
     public static final boolean DEFAULT_POSIX_DISK_IO = false;
+    // I2P defaults
+    public static final String DEFAULT_I2P_HOSTNAME = "127.0.0.1";
+    public static final int DEFAULT_I2P_PORT = 7656;
+    public static final boolean DEFAULT_ALLOW_I2P_MIXED = false;
+    public static final int DEFAULT_I2P_INBOUND_QUANTITY = 3;
+    public static final int DEFAULT_I2P_OUTBOUND_QUANTITY = 3;
+    public static final int DEFAULT_I2P_INBOUND_LENGTH = 3;
+    public static final int DEFAULT_I2P_OUTBOUND_LENGTH = 3;
+    public static final int DEFAULT_I2P_INBOUND_LENGTH_VARIANCE = 0;
+    public static final int DEFAULT_I2P_OUTBOUND_LENGTH_VARIANCE = 0;
 
     public int activeDownloads = DEFAULT_ACTIVE_DOWNLOADS;
     public int activeSeeds = DEFAULT_ACTIVE_SEEDS;
@@ -114,6 +124,18 @@ public class SessionSettings
     public String[] defaultTrackersList = new String[]{};
     public boolean validateHttpsTrackers = DEFAULT_VALIDATE_HTTPS_TRACKERS;
     public boolean posixDiskIo = DEFAULT_POSIX_DISK_IO;
+
+    // I2P settings
+    public boolean i2pEnabled = false;
+    public String i2pHostname = "127.0.0.1";
+    public int i2pPort = 7656;
+    public boolean allowI2pMixed = false;
+    public int i2pInboundQuantity = 3;
+    public int i2pOutboundQuantity = 3;
+    public int i2pInboundLength = 3;
+    public int i2pOutboundLength = 3;
+    public int i2pInboundLengthVariance = 0;
+    public int i2pOutboundLengthVariance = 0;
 
     public SessionSettings() {}
 
@@ -162,6 +184,17 @@ public class SessionSettings
         this.defaultTrackersList = other.defaultTrackersList;
         this.validateHttpsTrackers = other.validateHttpsTrackers;
         this.posixDiskIo = other.posixDiskIo;
+
+        this.i2pEnabled = other.i2pEnabled;
+        this.i2pHostname = other.i2pHostname;
+        this.i2pPort = other.i2pPort;
+        this.allowI2pMixed = other.allowI2pMixed;
+        this.i2pInboundQuantity = other.i2pInboundQuantity;
+        this.i2pOutboundQuantity = other.i2pOutboundQuantity;
+        this.i2pInboundLength = other.i2pInboundLength;
+        this.i2pOutboundLength = other.i2pOutboundLength;
+        this.i2pInboundLengthVariance = other.i2pInboundLengthVariance;
+        this.i2pOutboundLengthVariance = other.i2pOutboundLengthVariance;
     }
 
     public enum EncryptMode

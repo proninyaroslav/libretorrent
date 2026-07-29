@@ -43,6 +43,7 @@ import org.libtorrent4j.TorrentInfo;
 import org.libtorrent4j.Vectors;
 import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
+import org.libtorrent4j.alerts.I2pAlert;
 import org.libtorrent4j.alerts.ListenFailedAlert;
 import org.libtorrent4j.alerts.MetadataReceivedAlert;
 import org.libtorrent4j.alerts.PortmapErrorAlert;
@@ -126,6 +127,7 @@ public class TorrentSessionImpl extends SessionManager
             AlertType.TORRENT_LOG.swig(),
             AlertType.SESSION_STATS.swig(),
             AlertType.SAVE_RESUME_DATA.swig(),
+            AlertType.I2P.swig(),
     };
 
     /* Base unit in KiB. Used for create torrent */
@@ -1068,6 +1070,14 @@ public class TorrentSessionImpl extends SessionManager
                         listener.onNatError(msg);
                     break;
                 }
+                case I2P: {
+                    I2pAlert i2pAlert = (I2pAlert) alert;
+                    ErrorCode error = i2pAlert.getError();
+                    msg = "I2P error: " + error.getMessage();
+                    Log.e(TAG, msg);
+                    listener.onSessionError(msg);
+                    break;
+                }
             }
 
             if (msg != null)
@@ -1187,18 +1197,20 @@ public class TorrentSessionImpl extends SessionManager
         sp.setInteger(settings_pack.int_types.max_retry_port_bind.swigValue(),
                 settings.portRangeSecond - settings.portRangeFirst);
         /*
-         * DHT, LSD, UPnP and NAT-PMP can't be routed through a proxy, so they're forced
-         * off when the user requires all connections to go through the proxy, to avoid
-         * leaking the real IP address and DNS queries.
+         * DHT, LSD, UPnP and NAT-PMP can't be routed through a proxy or I2P, so they're forced
+         * off when the user requires all connections to go through the proxy or has I2P enabled,
+         * to avoid leaking the real IP address and DNS queries.
          */
         boolean proxyKillSwitch = settings.proxyType != SessionSettings.ProxyType.NONE
                 && settings.proxyRequireAllConnections;
-        sp.setEnableDht(settings.dhtEnabled && !proxyKillSwitch);
-        sp.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), settings.lsdEnabled && !proxyKillSwitch);
+        boolean i2pKillSwitch = settings.i2pEnabled && !settings.i2pHostname.isEmpty();
+        boolean killSwitch = proxyKillSwitch || i2pKillSwitch;
+        sp.setEnableDht(settings.dhtEnabled && !killSwitch);
+        sp.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), settings.lsdEnabled && !killSwitch);
         sp.setBoolean(settings_pack.bool_types.enable_incoming_utp.swigValue(), settings.utpEnabled);
         sp.setBoolean(settings_pack.bool_types.enable_outgoing_utp.swigValue(), settings.utpEnabled);
-        sp.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), settings.upnpEnabled && !proxyKillSwitch);
-        sp.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), settings.natPmpEnabled && !proxyKillSwitch);
+        sp.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), settings.upnpEnabled && !killSwitch);
+        sp.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), settings.natPmpEnabled && !killSwitch);
         var encryptModeOutcoming = convertEncryptMode(settings.encryptModeOutcoming);
         var encryptModeIncoming = convertEncryptMode(settings.encryptModeIncoming);
         var encLevel = getAllowedEncryptLevel(settings.encryptModeOutcoming, settings.encryptModeIncoming);
@@ -1212,7 +1224,31 @@ public class TorrentSessionImpl extends SessionManager
         sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), getAlertMask(settings).to_int());
         sp.setBoolean(settings_pack.bool_types.validate_https_trackers.swigValue(), settings.validateHttpsTrackers);
 
+        applyI2p(settings, sp);
         applyProxy(settings, sp);
+    }
+
+    private void applyI2p(SessionSettings settings, SettingsPack sp) {
+        if (settings.i2pEnabled && !settings.i2pHostname.isEmpty()) {
+            sp.setString(settings_pack.string_types.i2p_hostname.swigValue(),
+                    settings.i2pHostname);
+            sp.setInteger(settings_pack.int_types.i2p_port.swigValue(),
+                    settings.i2pPort);
+            sp.setBoolean(settings_pack.bool_types.allow_i2p_mixed.swigValue(),
+                    settings.allowI2pMixed);
+            sp.setInteger(settings_pack.int_types.i2p_inbound_quantity.swigValue(),
+                    settings.i2pInboundQuantity);
+            sp.setInteger(settings_pack.int_types.i2p_outbound_quantity.swigValue(),
+                    settings.i2pOutboundQuantity);
+            sp.setInteger(settings_pack.int_types.i2p_inbound_length.swigValue(),
+                    settings.i2pInboundLength);
+            sp.setInteger(settings_pack.int_types.i2p_outbound_length.swigValue(),
+                    settings.i2pOutboundLength);
+            sp.setInteger(settings_pack.int_types.i2p_inbound_length_variance.swigValue(),
+                    settings.i2pInboundLengthVariance);
+            sp.setInteger(settings_pack.int_types.i2p_outbound_length_variance.swigValue(),
+                    settings.i2pOutboundLengthVariance);
+        }
     }
 
     private void applyProxy(SessionSettings settings, SettingsPack sp) {
@@ -1506,6 +1542,14 @@ public class TorrentSessionImpl extends SessionManager
         else
             flags = flags.and_(TorrentFlags.PAUSED.inv());
 
+        /* Apply I2P torrent flag if the torrent has .i2p trackers */
+        if (settings.i2pEnabled) {
+            TorrentInfo tInfo = TorrentInfo.bdecode(bencode);
+            if (tInfo != null && tInfo.isI2p()) {
+                flags = flags.or_(TorrentFlags.I2P_TORRENT);
+            }
+        }
+
         p.setFlags(flags);
 
         addDefaultTrackers(p);
@@ -1569,6 +1613,11 @@ public class TorrentSessionImpl extends SessionManager
             flags = flags.or_(TorrentFlags.PAUSED);
         else
             flags = flags.and_(TorrentFlags.PAUSED.inv());
+
+        /* Apply I2P torrent flag if the torrent has .i2p trackers */
+        if (settings.i2pEnabled && ti.isI2p()) {
+            flags = flags.or_(TorrentFlags.I2P_TORRENT);
+        }
 
         p.setFlags(flags);
 
@@ -1673,6 +1722,10 @@ public class TorrentSessionImpl extends SessionManager
             flags = flags.or_(TorrentFlags.AUTO_MANAGED);
         else
             flags = flags.and_(TorrentFlags.AUTO_MANAGED.inv());
+
+        /* I2P flag is already persisted in fast resume data, but ensure
+         * it's set if I2P is enabled and the torrent has .i2p trackers.
+         * libtorrent handles this automatically when loading resume data. */
 
         p.setFlags(flags);
 

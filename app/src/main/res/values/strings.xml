@@ -635,4 +635,25 @@
         <item quantity="many">%1$s \u2022 %2$d files</item>
         <item quantity="other">%1$s \u2022 %2$d files</item>
     </plurals>
+<!-- I2P settings -->
+    <string name="pref_header_i2p">I2P</string>
+    <string name="pref_i2p_settings_title">I2P settings</string>
+    <string name="pref_i2p_enabled">Enable I2P</string>
+    <string name="pref_i2p_enabled_summary">Connect to the I2P network via a SAM bridge</string>
+    <string name="pref_i2p_hostname">SAM bridge hostname</string>
+    <string name="pref_i2p_hostname_summary">I2P SAM bridge address (default: 127.0.0.1)</string>
+    <string name="pref_i2p_port">SAM bridge port</string>
+    <string name="pref_i2p_port_summary">I2P SAM bridge port (default: 7656)</string>
+    <string name="pref_i2p_allow_mixed">Allow mixed swarms</string>
+    <string name="pref_i2p_allow_mixed_summary">Allow regular (non-I2P) peers in I2P torrent swarms</string>
+    <string name="pref_i2p_advanced_title">Advanced tunnel settings</string>
+    <string name="pref_i2p_inbound_quantity">Inbound tunnel quantity</string>
+    <string name="pref_i2p_outbound_quantity">Outbound tunnel quantity</string>
+    <string name="pref_i2p_inbound_length">Inbound tunnel length</string>
+    <string name="pref_i2p_outbound_length">Outbound tunnel length</string>
+    <string name="pref_i2p_inbound_length_variance">Inbound length variance</string>
+    <string name="pref_i2p_outbound_length_variance">Outbound length variance</string>
+    <string name="i2p_settings_applied">I2P settings applied</string>
+    <string name="i2p_settings_apply_after_reboot">I2P settings will be applied after restart</string>
+    <string name="peer_i2p">I2P peer</string>
 </resources>
