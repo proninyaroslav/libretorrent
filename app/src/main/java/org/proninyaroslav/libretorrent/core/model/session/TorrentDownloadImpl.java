@@ -763,7 +763,7 @@ class TorrentDownloadImpl implements TorrentDownload {
 
     @Override
     public long getReceivedBytes() {
-        return operationNotAllowed() ? 0 : th.status().totalDone();
+        return operationNotAllowed() ? 0 : th.status().totalWantedDone();
     }
 
     @Override
