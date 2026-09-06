@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2026 Andrey Makoldin <avlaaak@gmail.com>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,11 +24,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -43,6 +46,8 @@ import org.proninyaroslav.libretorrent.ui.NavBarFragment;
 import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
 import org.proninyaroslav.libretorrent.ui.PermissionDeniedDialog;
 import org.proninyaroslav.libretorrent.ui.PermissionManager;
+import org.proninyaroslav.libretorrent.ui.TvFocusHighlight;
+import org.proninyaroslav.libretorrent.ui.TvNavigation;
 import org.proninyaroslav.libretorrent.ui.base.ThemeActivity;
 import org.proninyaroslav.libretorrent.ui.home.HomeViewModel;
 
@@ -59,6 +64,7 @@ public class MainActivity extends ThemeActivity {
     private HomeViewModel viewModel;
     private PermissionManager permissionManager;
     private SettingsRepository pref;
+    private TvFocusHighlight tvFocusHighlight;
 
     @NonNull
     public NavController getRootNavController() {
@@ -127,7 +133,22 @@ public class MainActivity extends ThemeActivity {
         });
         pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
 
+        if (TvNavigation.isTelevision(this)) {
+            getSupportFragmentManager().registerFragmentLifecycleCallbacks(
+                    new FragmentManager.FragmentLifecycleCallbacks() {
+                        @Override
+                        public void onFragmentViewCreated(@NonNull FragmentManager fm,
+                                                          @NonNull Fragment fragment,
+                                                          @NonNull View view,
+                                                          @Nullable Bundle state) {
+                            TvNavigation.configureFocusContainers(view);
+                        }
+                    }, true);
+        }
         setContentView(R.layout.activity_main);
+        if (TvNavigation.isTelevision(this)) {
+            tvFocusHighlight = new TvFocusHighlight(getWindow().getDecorView());
+        }
 
         showManageAllFilesWarningDialog();
 
@@ -182,6 +203,9 @@ public class MainActivity extends ThemeActivity {
 
     @Override
     protected void onDestroy() {
+        if (tvFocusHighlight != null) {
+            tvFocusHighlight.dispose();
+        }
         if (viewModel != null) {
             viewModel.requestStopEngine();
         }
