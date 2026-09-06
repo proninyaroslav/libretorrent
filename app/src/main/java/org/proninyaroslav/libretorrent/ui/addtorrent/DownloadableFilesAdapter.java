@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2026 Andrey Makoldin <19638591+Avlaak@users.noreply.github.com>
  *
  * This file is part of LibreTorrent.
  *
@@ -32,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.proninyaroslav.libretorrent.R;
 import org.proninyaroslav.libretorrent.core.model.filetree.BencodeFileTree;
 import org.proninyaroslav.libretorrent.databinding.ItemTorrentDownloadableFileBinding;
+import org.proninyaroslav.libretorrent.ui.TvNavigation;
 
 /*
  * The adapter for directory or file chooser dialog.
@@ -82,6 +84,8 @@ public class DownloadableFilesAdapter extends ListAdapter<DownloadableFileItem, 
             super(binding.getRoot());
 
             this.binding = binding;
+            TvNavigation.linkRowAction(binding.card, binding.selected, false, false);
+            TvNavigation.configureFileName(binding.name);
         }
 
         void bind(DownloadableFileItem item, ClickListener listener) {

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2026 Andrey Makoldin <19638591+Avlaak@users.noreply.github.com>
  *
  * This file is part of LibreTorrent.
  *
@@ -39,6 +40,7 @@ import org.proninyaroslav.libretorrent.core.model.filetree.FilePriority;
 import org.proninyaroslav.libretorrent.core.model.filetree.TorrentContentFileTree;
 import org.proninyaroslav.libretorrent.databinding.ItemTorrentContentFileBinding;
 import org.proninyaroslav.libretorrent.ui.Selectable;
+import org.proninyaroslav.libretorrent.ui.TvNavigation;
 
 import java.util.Locale;
 
@@ -74,6 +76,11 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
             holder.setSelected(selectionTracker.isSelected(item), selectionTracker.hasSelection());
 
         holder.bind(item, listener);
+        TvNavigation.bindSelection(holder.itemView, selectionTracker, item, () -> {
+            if (listener != null) {
+                listener.onItemClicked(item);
+            }
+        });
     }
 
     @Override
@@ -118,6 +125,8 @@ public class TorrentContentFilesAdapter extends ListAdapter<TorrentContentFileIt
             super(binding.getRoot());
 
             this.binding = binding;
+            TvNavigation.linkRowAction(binding.card, binding.priority, false, false);
+            TvNavigation.configureFileName(binding.name);
         }
 
         void bind(TorrentContentFileItem item, ClickListener listener) {

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2026 Andrey Makoldin <19638591+Avlaak@users.noreply.github.com>
  *
  * This file is part of LibreTorrent.
  *
@@ -23,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +53,7 @@ import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.FragmentTorrentDetailsBinding;
 import org.proninyaroslav.libretorrent.ui.NavBarFragment;
 import org.proninyaroslav.libretorrent.ui.NavBarFragmentDirections;
+import org.proninyaroslav.libretorrent.ui.TvNavigation;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerConfig;
 import org.proninyaroslav.libretorrent.ui.filemanager.FileManagerFragment;
 import org.proninyaroslav.libretorrent.ui.home.DeleteTorrentDialog;
@@ -213,6 +216,8 @@ public class TorrentDetailsFragment extends Fragment {
 
         DetailPagerAdapter adapter = new DetailPagerAdapter(this);
         binding.viewPager.setAdapter(adapter);
+        TvNavigation.configurePager(binding.viewPager);
+        TvNavigation.keepAppBarVisible(binding.appBarLayout);
         binding.viewPager.registerOnPageChangeCallback(viewPagerListener);
         new TabLayoutMediator(binding.tabLayout, binding.viewPager,
                 (tab, position) -> {
@@ -228,6 +233,36 @@ public class TorrentDetailsFragment extends Fragment {
                 }
         ).attach();
         binding.viewPager.setCurrentItem(currentFragPos);
+        if (TvNavigation.isTelevision(requireContext())) {
+            binding.tabLayout.setFocusable(false);
+            for (int i = 0; i < binding.tabLayout.getTabCount(); i++) {
+                var tab = binding.tabLayout.getTabAt(i);
+                tab.view.setOnKeyListener((v, keyCode, event) -> {
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                            return TvNavigation.focusCurrentPage(binding.viewPager);
+                        }
+                        return true;
+                    }
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                            View pause = binding.appBar.findViewById(R.id.pause_resume_torrent_menu);
+                            return pause != null && pause.requestFocus();
+                        }
+                        return true;
+                    }
+                    return false;
+                });
+            }
+            binding.tabLayout.post(() -> {
+                if (getView() != null) {
+                    var selectedTab = binding.tabLayout.getTabAt(binding.viewPager.getCurrentItem());
+                    if (selectedTab != null) {
+                        selectedTab.view.requestFocus();
+                    }
+                }
+            });
+        }
 
         binding.appBar.setNavigationOnClickListener((v) ->
                 activity.getOnBackPressedDispatcher().onBackPressed());

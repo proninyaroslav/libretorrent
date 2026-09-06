@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2026 Andrey Makoldin <19638591+Avlaak@users.noreply.github.com>
  *
  * This file is part of LibreTorrent.
  *
@@ -54,6 +55,7 @@ import org.proninyaroslav.libretorrent.core.exception.TorrentAlreadyExistsExcept
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.core.utils.WindowInsetsSide;
 import org.proninyaroslav.libretorrent.databinding.FragmentAddTorrentBinding;
+import org.proninyaroslav.libretorrent.ui.TvNavigation;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -209,6 +211,7 @@ public class AddTorrentFragment extends Fragment {
 
         AddTorrentPagerAdapter adapter = new AddTorrentPagerAdapter(this);
         binding.viewPager.setAdapter(adapter);
+        TvNavigation.configurePager(binding.viewPager);
         binding.viewPager.setOffscreenPageLimit(AddTorrentPagerAdapter.NUM_FRAGMENTS);
 
         binding.infoButton.setOnClickListener((v) ->
