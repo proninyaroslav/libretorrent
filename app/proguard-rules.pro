@@ -16,6 +16,6 @@
 #   public *;
 #}
 -dontobfuscate
--keep class org.libtorrent4j.swig.libtorrent_jni {*;}
+-keep class org.libtorrent4j.** {*;}
 -keep class org.proninyaroslav.libretorrent.** {*;}
 -keep class org.nanohttpd.** {*;}
