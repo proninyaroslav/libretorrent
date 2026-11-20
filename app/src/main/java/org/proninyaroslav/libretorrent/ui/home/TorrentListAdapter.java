@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2025 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2026 Andrey Makoldin <avlaaak@gmail.com>
  *
  * This file is part of LibreTorrent.
  *
@@ -48,6 +49,7 @@ import org.proninyaroslav.libretorrent.core.model.data.TorrentStateCode;
 import org.proninyaroslav.libretorrent.core.utils.Utils;
 import org.proninyaroslav.libretorrent.databinding.ItemTorrentListBinding;
 import org.proninyaroslav.libretorrent.ui.Selectable;
+import org.proninyaroslav.libretorrent.ui.TvNavigation;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -94,6 +96,11 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
         }
 
         holder.bind(item, isOpened, listener);
+        TvNavigation.bindSelection(holder.itemView, selectionTracker, item, () -> {
+            if (listener != null) {
+                listener.onItemClicked(item);
+            }
+        });
 
         onBind = false;
     }
@@ -152,6 +159,8 @@ public class TorrentListAdapter extends ListAdapter<TorrentListItem, TorrentList
             super(binding.getRoot());
 
             this.binding = binding;
+            TvNavigation.linkRowAction(binding.card, binding.pauseButton, true, true);
+            TvNavigation.configureFileName(binding.name);
             pauseButtonBackground = binding.pauseButton.getBackgroundTintList();
             cardBackground = binding.card.getCardBackgroundColor();
             progressTrackColor = binding.progress.getTrackColor();
