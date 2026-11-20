@@ -1229,9 +1229,9 @@ public class TorrentSessionImpl extends SessionManager
     }
 
     private void applyI2p(SessionSettings settings, SettingsPack sp) {
+        sp.setString(settings_pack.string_types.i2p_hostname.swigValue(),
+                settings.i2pEnabled ? settings.i2pHostname : "");
         if (settings.i2pEnabled && !settings.i2pHostname.isEmpty()) {
-            sp.setString(settings_pack.string_types.i2p_hostname.swigValue(),
-                    settings.i2pHostname);
             sp.setInteger(settings_pack.int_types.i2p_port.swigValue(),
                     settings.i2pPort);
             sp.setBoolean(settings_pack.bool_types.allow_i2p_mixed.swigValue(),
