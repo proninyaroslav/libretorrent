@@ -143,6 +143,18 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         static final int maxActiveDownloads = SessionSettings.DEFAULT_ACTIVE_DOWNLOADS;
         static final int maxActiveTorrents = SessionSettings.DEFAULT_ACTIVE_LIMIT;
         static final boolean autoManage = false;
+        /* I2P settings */
+        static final boolean i2pEnabled = false;
+        static final String i2pHostname = SessionSettings.DEFAULT_I2P_HOSTNAME;
+        static final int i2pPort = SessionSettings.DEFAULT_I2P_PORT;
+        static final boolean allowI2pMixed = SessionSettings.DEFAULT_ALLOW_I2P_MIXED;
+        static final int i2pInboundQuantity = SessionSettings.DEFAULT_I2P_INBOUND_QUANTITY;
+        static final int i2pOutboundQuantity = SessionSettings.DEFAULT_I2P_OUTBOUND_QUANTITY;
+        static final int i2pInboundLength = SessionSettings.DEFAULT_I2P_INBOUND_LENGTH;
+        static final int i2pOutboundLength = SessionSettings.DEFAULT_I2P_OUTBOUND_LENGTH;
+        static final int i2pInboundLengthVariance = SessionSettings.DEFAULT_I2P_INBOUND_LENGTH_VARIANCE;
+        static final int i2pOutboundLengthVariance = SessionSettings.DEFAULT_I2P_OUTBOUND_LENGTH_VARIANCE;
+        static final boolean applyI2p = false;
         /* Proxy settings */
         static final int proxyType = SessionSettings.DEFAULT_PROXY_TYPE.value();
         static final String proxyAddress = SessionSettings.DEFAULT_PROXY_ADDRESS;
@@ -264,6 +276,17 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         settings.proxyRequiresAuth = proxyRequiresAuth();
         settings.proxyLogin = proxyLogin();
         settings.proxyPassword = proxyPassword();
+
+        settings.i2pEnabled = i2pEnabled();
+        settings.i2pHostname = i2pHostname();
+        settings.i2pPort = i2pPort();
+        settings.allowI2pMixed = allowI2pMixed();
+        settings.i2pInboundQuantity = i2pInboundQuantity();
+        settings.i2pOutboundQuantity = i2pOutboundQuantity();
+        settings.i2pInboundLength = i2pInboundLength();
+        settings.i2pOutboundLength = i2pOutboundLength();
+        settings.i2pInboundLengthVariance = i2pInboundLengthVariance();
+        settings.i2pOutboundLengthVariance = i2pOutboundLengthVariance();
 
         settings.logging = logging();
         settings.maxLogSize = maxLogSize();
@@ -767,6 +790,151 @@ public class SettingsRepositoryImpl implements SettingsRepository {
     public void showNatErrors(boolean val) {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_show_nat_errors), val)
+                .apply();
+    }
+
+    /* I2P settings */
+
+    @Override
+    public boolean i2pEnabled() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_i2p_enabled),
+                Default.i2pEnabled);
+    }
+
+    @Override
+    public void i2pEnabled(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_i2p_enabled), val)
+                .apply();
+    }
+
+    @Override
+    public String i2pHostname() {
+        return pref.getString(appContext.getString(R.string.pref_key_i2p_hostname),
+                Default.i2pHostname);
+    }
+
+    @Override
+    public void i2pHostname(String val) {
+        pref.edit()
+                .putString(appContext.getString(R.string.pref_key_i2p_hostname), val)
+                .apply();
+    }
+
+    @Override
+    public int i2pPort() {
+        return pref.getInt(appContext.getString(R.string.pref_key_i2p_port),
+                Default.i2pPort);
+    }
+
+    @Override
+    public void i2pPort(int val) {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_i2p_port), val)
+                .apply();
+    }
+
+    @Override
+    public boolean allowI2pMixed() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_i2p_allow_mixed),
+                Default.allowI2pMixed);
+    }
+
+    @Override
+    public void allowI2pMixed(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_i2p_allow_mixed), val)
+                .apply();
+    }
+
+    @Override
+    public int i2pInboundQuantity() {
+        return pref.getInt(appContext.getString(R.string.pref_key_i2p_inbound_quantity),
+                Default.i2pInboundQuantity);
+    }
+
+    @Override
+    public void i2pInboundQuantity(int val) {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_i2p_inbound_quantity), val)
+                .apply();
+    }
+
+    @Override
+    public int i2pOutboundQuantity() {
+        return pref.getInt(appContext.getString(R.string.pref_key_i2p_outbound_quantity),
+                Default.i2pOutboundQuantity);
+    }
+
+    @Override
+    public void i2pOutboundQuantity(int val) {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_i2p_outbound_quantity), val)
+                .apply();
+    }
+
+    @Override
+    public int i2pInboundLength() {
+        return pref.getInt(appContext.getString(R.string.pref_key_i2p_inbound_length),
+                Default.i2pInboundLength);
+    }
+
+    @Override
+    public void i2pInboundLength(int val) {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_i2p_inbound_length), val)
+                .apply();
+    }
+
+    @Override
+    public int i2pOutboundLength() {
+        return pref.getInt(appContext.getString(R.string.pref_key_i2p_outbound_length),
+                Default.i2pOutboundLength);
+    }
+
+    @Override
+    public void i2pOutboundLength(int val) {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_i2p_outbound_length), val)
+                .apply();
+    }
+
+    @Override
+    public int i2pInboundLengthVariance() {
+        return pref.getInt(appContext.getString(R.string.pref_key_i2p_inbound_length_variance),
+                Default.i2pInboundLengthVariance);
+    }
+
+    @Override
+    public void i2pInboundLengthVariance(int val) {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_i2p_inbound_length_variance), val)
+                .apply();
+    }
+
+    @Override
+    public int i2pOutboundLengthVariance() {
+        return pref.getInt(appContext.getString(R.string.pref_key_i2p_outbound_length_variance),
+                Default.i2pOutboundLengthVariance);
+    }
+
+    @Override
+    public void i2pOutboundLengthVariance(int val) {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_i2p_outbound_length_variance), val)
+                .apply();
+    }
+
+    @Override
+    public boolean applyI2p() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_apply_i2p),
+                Default.applyI2p);
+    }
+
+    @Override
+    public void applyI2p(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_apply_i2p), val)
                 .apply();
     }
 

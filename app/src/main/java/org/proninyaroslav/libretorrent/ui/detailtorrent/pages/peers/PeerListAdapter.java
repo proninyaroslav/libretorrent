@@ -122,9 +122,13 @@ public class PeerListAdapter extends ListAdapter<PeerItem, PeerListAdapter.ViewH
                 return listener.onItemLongClick(item);
             });
 
-            binding.ip.setText(item.ip);
+            if (item.isI2p) {
+                binding.ip.setText(context.getString(R.string.peer_i2p));
+            } else {
+                binding.ip.setText(item.ip);
+            }
             binding.progress.setProgress(item.progress);
-            binding.port.setText(context.getString(R.string.peer_port, item.port));
+            binding.port.setText(item.isI2p ? "" : context.getString(R.string.peer_port, item.port));
             binding.relevance.setText(context.getString(R.string.peer_relevance, item.relevance));
 
             String connectionType = switch (item.connectionType) {

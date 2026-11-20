@@ -5,6 +5,7 @@
     <string name="pref_key_behavior_settings" translatable="false">pref_key_behavior_settings</string>
     <string name="pref_key_network_settings" translatable="false">pref_key_network_settings</string>
     <string name="pref_key_network_proxy_settings" translatable="false">pref_key_network_proxy_settings</string>
+    <string name="pref_key_i2p_settings" translatable="false">pref_key_i2p_settings</string>
     <string name="pref_key_storage_settings" translatable="false">pref_key_storage_settings</string>
     <string name="pref_key_limitations_settings" translatable="false">pref_key_limitations_settings</string>
     <string name="pref_key_scheduling_settings" translatable="false">pref_key_scheduling_settings</string>
@@ -133,4 +134,16 @@
     <string name="pref_key_ask_manage_all_access_permission" translatable="false">pref_key_ask_manage_all_access_permission</string>
     <string name="pref_key_show_manage_all_files_warning_dialog" translatable="false">pref_key_show_manage_all_files_warning_dialog</string>
     <string name="pref_key_ask_notification_permission" translatable="false">pref_key_ask_notification_permission</string>
+<!-- I2P settings -->
+    <string name="pref_key_i2p_enabled" translatable="false">pref_key_i2p_enabled</string>
+    <string name="pref_key_i2p_hostname" translatable="false">pref_key_i2p_hostname</string>
+    <string name="pref_key_i2p_port" translatable="false">pref_key_i2p_port</string>
+    <string name="pref_key_i2p_allow_mixed" translatable="false">pref_key_i2p_allow_mixed</string>
+    <string name="pref_key_i2p_inbound_quantity" translatable="false">pref_key_i2p_inbound_quantity</string>
+    <string name="pref_key_i2p_outbound_quantity" translatable="false">pref_key_i2p_outbound_quantity</string>
+    <string name="pref_key_i2p_inbound_length" translatable="false">pref_key_i2p_inbound_length</string>
+    <string name="pref_key_i2p_outbound_length" translatable="false">pref_key_i2p_outbound_length</string>
+    <string name="pref_key_i2p_inbound_length_variance" translatable="false">pref_key_i2p_inbound_length_variance</string>
+    <string name="pref_key_i2p_outbound_length_variance" translatable="false">pref_key_i2p_outbound_length_variance</string>
+    <string name="pref_key_apply_i2p" translatable="false">pref_key_apply_i2p</string>
 </resources>

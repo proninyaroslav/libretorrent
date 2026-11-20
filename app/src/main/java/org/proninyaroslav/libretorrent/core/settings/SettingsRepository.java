@@ -199,6 +199,54 @@ public interface SettingsRepository
 
     void seedingOutgoingConnections(boolean val);
 
+    /*
+     * I2P settings
+     */
+
+    boolean i2pEnabled();
+
+    void i2pEnabled(boolean val);
+
+    String i2pHostname();
+
+    void i2pHostname(String val);
+
+    int i2pPort();
+
+    void i2pPort(int val);
+
+    boolean allowI2pMixed();
+
+    void allowI2pMixed(boolean val);
+
+    int i2pInboundQuantity();
+
+    void i2pInboundQuantity(int val);
+
+    int i2pOutboundQuantity();
+
+    void i2pOutboundQuantity(int val);
+
+    int i2pInboundLength();
+
+    void i2pInboundLength(int val);
+
+    int i2pOutboundLength();
+
+    void i2pOutboundLength(int val);
+
+    int i2pInboundLengthVariance();
+
+    void i2pInboundLengthVariance(int val);
+
+    int i2pOutboundLengthVariance();
+
+    void i2pOutboundLengthVariance(int val);
+
+    boolean applyI2p();
+
+    void applyI2p(boolean val);
+
     String defaultTrackersList();
 
     void defaultTrackersList(String val);

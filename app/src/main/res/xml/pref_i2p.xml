@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_i2p_enabled"
+        android:persistent="false"
+        android:title="@string/pref_i2p_enabled"
+        android:summary="@string/pref_i2p_enabled_summary"
+        app:singleLineTitle="false" />
+
+    <EditTextPreference
+        android:dependency="@string/pref_key_i2p_enabled"
+        android:inputType="text|textNoSuggestions"
+        android:key="@string/pref_key_i2p_hostname"
+        android:persistent="false"
+        android:title="@string/pref_i2p_hostname"
+        android:summary="@string/pref_i2p_hostname_summary"
+        app:singleLineTitle="false" />
+
+    <EditTextPreference
+        android:dependency="@string/pref_key_i2p_enabled"
+        android:inputType="numberDecimal"
+        android:key="@string/pref_key_i2p_port"
+        android:persistent="false"
+        android:title="@string/pref_i2p_port"
+        android:summary="@string/pref_i2p_port_summary"
+        app:singleLineTitle="false" />
+
+    <SwitchPreferenceCompat
+        android:dependency="@string/pref_key_i2p_enabled"
+        android:key="@string/pref_key_i2p_allow_mixed"
+        android:persistent="false"
+        android:title="@string/pref_i2p_allow_mixed"
+        android:summary="@string/pref_i2p_allow_mixed_summary"
+        app:singleLineTitle="false" />
+
+    <PreferenceCategory
+        android:dependency="@string/pref_key_i2p_enabled"
+        android:title="@string/pref_i2p_advanced_title">
+
+        <org.proninyaroslav.libretorrent.ui.settings.customprefs.SliderPreference
+            android:key="@string/pref_key_i2p_inbound_quantity"
+            android:persistent="false"
+            android:title="@string/pref_i2p_inbound_quantity"
+            app:sliderMin="1"
+            app:sliderMax="10"
+            app:sliderStep="1" />
+
+        <org.proninyaroslav.libretorrent.ui.settings.customprefs.SliderPreference
+            android:key="@string/pref_key_i2p_outbound_quantity"
+            android:persistent="false"
+            android:title="@string/pref_i2p_outbound_quantity"
+            app:sliderMin="1"
+            app:sliderMax="10"
+            app:sliderStep="1" />
+
+        <org.proninyaroslav.libretorrent.ui.settings.customprefs.SliderPreference
+            android:key="@string/pref_key_i2p_inbound_length"
+            android:persistent="false"
+            android:title="@string/pref_i2p_inbound_length"
+            app:sliderMin="1"
+            app:sliderMax="7"
+            app:sliderStep="1" />
+
+        <org.proninyaroslav.libretorrent.ui.settings.customprefs.SliderPreference
+            android:key="@string/pref_key_i2p_outbound_length"
+            android:persistent="false"
+            android:title="@string/pref_i2p_outbound_length"
+            app:sliderMin="1"
+            app:sliderMax="7"
+            app:sliderStep="1" />
+
+        <org.proninyaroslav.libretorrent.ui.settings.customprefs.SliderPreference
+            android:key="@string/pref_key_i2p_inbound_length_variance"
+            android:persistent="false"
+            android:title="@string/pref_i2p_inbound_length_variance"
+            app:sliderMin="0"
+            app:sliderMax="7"
+            app:sliderStep="1" />
+
+        <org.proninyaroslav.libretorrent.ui.settings.customprefs.SliderPreference
+            android:key="@string/pref_key_i2p_outbound_length_variance"
+            android:persistent="false"
+            android:title="@string/pref_i2p_outbound_length_variance"
+            app:sliderMin="0"
+            app:sliderMax="7"
+            app:sliderStep="1" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

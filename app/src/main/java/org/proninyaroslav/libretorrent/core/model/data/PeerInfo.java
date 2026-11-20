@@ -44,6 +44,7 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
     public int progress;
     public int downSpeed;
     public int upSpeed;
+    public boolean isI2p;
 
     public static class ConnectionType {
         public static final int BITTORRENT = 0;
@@ -64,6 +65,7 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
         progress = peer.progressPpm() / 10000;
         downSpeed = peer.downSpeed();
         upSpeed = peer.upSpeed();
+        isI2p = peer.isI2p();
     }
 
     public PeerInfo(String ip, String client,
@@ -71,6 +73,17 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
                     double relevance, int connectionType,
                     int port, int progress,
                     int downSpeed, int upSpeed) {
+        this(ip, client, totalDownload, totalUpload,
+                relevance, connectionType, port, progress,
+                downSpeed, upSpeed, false);
+    }
+
+    public PeerInfo(String ip, String client,
+                    long totalDownload, long totalUpload,
+                    double relevance, int connectionType,
+                    int port, int progress,
+                    int downSpeed, int upSpeed,
+                    boolean isI2p) {
         super(ip);
 
         this.ip = ip;
@@ -83,6 +96,7 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
         this.progress = progress;
         this.downSpeed = downSpeed;
         this.upSpeed = upSpeed;
+        this.isI2p = isI2p;
     }
 
     public PeerInfo(Parcel source) {
@@ -98,6 +112,7 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
         progress = source.readInt();
         downSpeed = source.readInt();
         upSpeed = source.readInt();
+        isI2p = source.readInt() == 1;
     }
 
     private int getConnectionType(AdvancedPeerInfo peer) {
@@ -149,6 +164,7 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
         dest.writeInt(progress);
         dest.writeInt(downSpeed);
         dest.writeInt(upSpeed);
+        dest.writeInt(isI2p ? 1 : 0);
     }
 
     public static final Parcelable.Creator<PeerInfo> CREATOR =
@@ -183,6 +199,7 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
         result = prime * result + progress;
         result = prime * result + downSpeed;
         result = prime * result + upSpeed;
+        result = prime * result + (isI2p ? 1 : 0);
 
         return result;
     }
@@ -206,7 +223,8 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
                 port == state.port &&
                 progress == state.progress &&
                 downSpeed == state.downSpeed &&
-                upSpeed == state.upSpeed;
+                upSpeed == state.upSpeed &&
+                isI2p == state.isI2p;
     }
 
     @NonNull
@@ -223,6 +241,7 @@ public class PeerInfo extends AbstractInfoParcel<PeerInfo> {
                 ", progress=" + progress +
                 ", downSpeed=" + downSpeed +
                 ", upSpeed=" + upSpeed +
+                ", isI2p=" + isI2p +
                 '}';
     }
 }
