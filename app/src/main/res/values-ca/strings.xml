@@ -447,8 +447,7 @@
     <string name="torrent_moving_title">Movent Torrent…</string>
     <string name="dialog_add_link_title">Entra l\'infohash, l\'enllaç magnet o l\'enllaç HTTP/S</string>
     <string name="notify_shutting_down">Apagant-se…</string>
-    <string name="manage_all_files_warning_dialog_description">No utilitzeu la versió de Google Play de LibreTorrent si voleu guardar els vostres Torrents a altres rutes a paty de \'Descàrregues\' o similar.
-\nHi ha altres fonts a la pàgina del projecte.</string>
+    <string name="manage_all_files_warning_dialog_description">No utilitzeu la versió de Google Play de LibreTorrent si voleu guardar els vostres Torrents a altres rutes a paty de \'Descàrregues\' o similar. \nHi ha altres fonts a la pàgina del projecte.</string>
     <string name="session_stats_listen_port">Port de comunicació: %1$s</string>
     <string name="session_stats_dht_nodes">Nodes DHT: %1$d</string>
     <string name="torrent_error_notify_title">Error de Torrent</string>
@@ -501,9 +500,7 @@
     <string name="pref_custom_battery_control_title">Percentatge de bateria personalitzat</string>
     <string name="pref_custom_battery_control_value_title">Percentatge de control de bateria</string>
     <string name="pref_default_trackers_list_title">Rastrejadors per defecte</string>
-    <string name="pref_default_trackers_list_summary">Llista de rastrejadors, que s\'utilitza en els casos següents:
-\n1. En afegir un torrent, la llista predeterminada s\'afegeix automàticament a la llista del torrent.
-\n2. S\'utilitza per obtenir enllaços magnètics.</string>
+    <string name="pref_default_trackers_list_summary">Llista de rastrejadors, que s\'utilitza en els casos següents: \n1. En afegir un torrent, la llista predeterminada s\'afegeix automàticament a la llista del torrent. \n2. S\'utilitza per obtenir enllaços magnètics.</string>
     <string name="pref_enable_scheduling_start_title">Hora d\'inici</string>
     <string name="pref_proxy_requires_auth_title">Requereix autorització</string>
     <string name="pref_enable_scheduling_shutdown_title">Hora d\'apagada</string>
@@ -526,8 +523,7 @@
     <string name="pref_foreground_notify_sorting_entries_12">Sense ordenació</string>
     <string name="pref_foreground_notify_status_filter_entries_2">Baixat</string>
     <string name="pref_torrent_finish_notify_title">Notificació de finalització del torrent</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nDisponibilitat: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nDisponibilitat: %5$s</string>
     <string name="pref_vibration_notify_title">Vibració</string>
     <string name="peer_relevance">Rellevància: %1$.1f</string>
     <string name="backup_feed_channels">Desa la còpia de seguretat</string>

@@ -208,8 +208,7 @@
     <string name="more_details">Více informací</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nDostupnost: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nDostupnost: %5$s</string>
     <string name="file_priority_normal">Normální</string>
     <string name="file_priority_low">Ignorovat</string>
     <string name="file_priority_high">Vysoká</string>
@@ -540,8 +539,7 @@
     <string name="about_title">O aplikaci</string>
     <string name="about_description">Další informace: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent je copylefted libre (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) torrent klient pro Android 4+, založený na libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Seznam změn</string>
-    <string name="manage_all_files_warning_dialog_description">Nepoužívejte verzi LibreTorrent z Google Play pokud chcete ukládat torrenty ve složkách jiných než \'Downloads\' a podobných.
-\nExistují i jiné zdroje na stránce projektu.</string>
+    <string name="manage_all_files_warning_dialog_description">Nepoužívejte verzi LibreTorrent z Google Play pokud chcete ukládat torrenty ve složkách jiných než \'Downloads\' a podobných. \nExistují i jiné zdroje na stránce projektu.</string>
     <string name="manage_all_files_warning_dialog_title">Varování</string>
     <string name="peer_relevance">Shoda: %1$.1f</string>
     <string name="error_open_torrent">Nelze otevřít torrent</string>
@@ -554,9 +552,7 @@
     <string name="pref_foreground_notify_sorting">Řazení</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Kombinuje dvě tlačítka: pozastavit vše a obnovit vše. Tohle tlačítko funguje jako přepínač. Varování: stav tlačítka není ovlivněn ručním pozastavením/obnovením torrentu.</string>
     <string name="pref_foreground_notify_sorting_entries_9">ETA (od největší)</string>
-    <string name="pref_default_trackers_list_summary">Seznam trackerů použitých v následujících případech:
-\n1. Při přidání torrentu je výchozí seznam přidán do seznamu torrentu.
-\n2. Použit pro získávání odkazů magnet.</string>
+    <string name="pref_default_trackers_list_summary">Seznam trackerů použitých v následujících případech: \n1. Při přidání torrentu je výchozí seznam přidán do seznamu torrentu. \n2. Použit pro získávání odkazů magnet.</string>
     <string name="pref_default_trackers_list_title">Výchozí trackery</string>
     <string name="perm_denied_warning_android_r">Oprávnění k přístupu ke všem souborům je potřeba ke stažení torrentů a přístupu k .torrent souborům ve všech složkách. Bez tohoto oprávnění bude mít LibreTorrent pouze přístup k omezenému počtu složek. Opravdu chcete toto oprávnění zrušit?</string>
     <string name="exact_alarm_permission_warning">Aby mohl plánovač fungovat, musíte udělit oprávnění ve speciálním dialogu systému. Pokračovat?</string>
@@ -616,6 +612,7 @@
     <plurals name="torrent_info_size_template_plural">
         <item quantity="one">%1$s • %2$d file</item>
         <item quantity="few">%1$s • %2$d files</item>
+        <item quantity="many">%1$s • %2$d files</item>
         <item quantity="other">%1$s • %2$d files</item>
     </plurals>
     <string name="pref_locale_title">Jazyk</string>

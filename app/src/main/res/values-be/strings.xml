@@ -52,8 +52,7 @@
     <string name="peers_template">%1$d/%2$d</string>
     <string name="torrent_status_checking">Праверка…</string>
     <string name="perm_denied_warning">Для спампоўкі торэнтаў і доступу да файлаў .torrent патрабуецца дазвол на захоўванне. Вы сапраўды хочаце адмовіць у гэтым дазволе?</string>
-    <string name="manage_all_files_warning_dialog_description">Не выкарыстоўвайце версію LibreTorrent з Google Play, калі вы хочаце захоўваць торэнты ў іншых папках, акрамя \"Спампоўкі\" і падобных.
-\nНа старонцы праекта ёсць і іншыя крыніцы для спампоўкі праграмы.</string>
+    <string name="manage_all_files_warning_dialog_description">Не выкарыстоўвайце версію LibreTorrent з Google Play, калі вы хочаце захоўваць торэнты ў іншых папках, акрамя \"Спампоўкі\" і падобных. \nНа старонцы праекта ёсць і іншыя крыніцы для спампоўкі праграмы.</string>
     <string name="error_decode_torrent">Не ўдалося расшыфраваць торэнт-файл. Можа быць, ён пашкоджаны або ў няправільным фармаце?</string>
     <string name="error_io_torrent">Не ўдалося прачытаць файл .torrent</string>
     <string name="error_invalid_link_or_path">Няправільная спасылка або шлях да торэнта</string>
@@ -78,8 +77,7 @@
     <string name="torrent_file_chooser_title">Выбар торэнта</string>
     <string name="dialog_new_folder_title">Новая папка</string>
     <string name="internal_storage_name">Унутранае сховішча</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nДаступна: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nДаступна: %5$s</string>
     <string name="permission_denied">Адмоўлена ў дазволе</string>
     <string name="change_priority_high">Высокі</string>
     <string name="parent_folder">Бацькоўская папка</string>
@@ -422,9 +420,7 @@
     <string name="pref_custom_battery_control_value_title">Працэнт кантролю акумулятара</string>
     <string name="pref_battery_control_summary">Торэнты будуць устаноўлены, калі ўзровень зарада акумулятара апусціцца ніжэй за %1$d%%. (Абмежаванне не дзейнічае падчас зарадкі.)</string>
     <string name="pref_custom_battery_control_summary">Устанаўлівае %% батарэі для ўстаноўкі загрузкі. (Ігнаруе значэнне па змаўчанні %1$d%%.)</string>
-    <string name="pref_default_trackers_list_summary">Спіс трэкераў, якія выкарыстоўваюцца ў наступных выпадках:
-\n1. Пры даданні торэнта, спіс па змаўчанні аўтаматычна дадаецца ў спіс торэнта.
-\n2. Выкарыстоўваецца для спампоўкі magnet-спасылак.</string>
+    <string name="pref_default_trackers_list_summary">Спіс трэкераў, якія выкарыстоўваюцца ў наступных выпадках: \n1. Пры даданні торэнта, спіс па змаўчанні аўтаматычна дадаецца ў спіс торэнта. \n2. Выкарыстоўваецца для спампоўкі magnet-спасылак.</string>
     <string name="pref_proxy_settings_title">Налады проксі-сервера</string>
     <string name="pref_enable_lsd_summary">Шукаць лакальныя BitTorrent-піры. Скарачае выдаткоўваны трафік.</string>
     <string name="pref_enable_utp_summary">Памяншае затрымку і праблему кіравання перагрузкамі ў параўнанні з TCP, забяспечваючы пры гэтым надзейную перадачу даных.</string>

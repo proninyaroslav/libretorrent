@@ -203,8 +203,7 @@
     <string name="more_details">Daha çox təfsilat</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nƏlçatan: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nƏlçatan: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Əhəmiyyət vermə</string>
     <string name="file_priority_high">Yüksək</string>

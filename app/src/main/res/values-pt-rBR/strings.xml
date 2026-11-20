@@ -203,8 +203,7 @@
     <string name="more_details">Mais detalhes</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nDisponibilidade: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nDisponibilidade: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorar</string>
     <string name="file_priority_high">Alta</string>
@@ -542,9 +541,7 @@
     <string name="new_tag">Nova tag</string>
     <string name="select_tag">Selecionar tag</string>
     <string name="edit_tag">Editar tag</string>
-    <string name="pref_default_trackers_list_summary">Lista de rastreadores, que são usados nos seguintes casos:
-\n1. Quando adicionar um torrent, a lista padrão é automaticamente adicionada à lista de torrents
-\n2. Usada para obter links magnet.</string>
+    <string name="pref_default_trackers_list_summary">Lista de rastreadores, que são usados nos seguintes casos: \n1. Quando adicionar um torrent, a lista padrão é automaticamente adicionada à lista de torrents \n2. Usada para obter links magnet.</string>
     <string name="pref_default_trackers_list_title">Rastreadores padrão</string>
     <string name="pref_watch_dir_delete_file_title">Excluir arquivo .torrent após adicioná-lo</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Botão de pausa combinado</string>
@@ -572,8 +569,7 @@
     <string name="pref_foreground_notify_sorting">Classificação</string>
     <string name="pref_foreground_notify_sorting_entries_2">Data de adição (mais recente primeiro)</string>
     <string name="manage_all_files_warning_dialog_title">Atenção</string>
-    <string name="manage_all_files_warning_dialog_description">Não use a versão do Google Play do LibreTorrent se quiser salvar torrents em pastas diferentes de \'Downloads\' e similares.
-\nExistem outras fontes na página do projeto.</string>
+    <string name="manage_all_files_warning_dialog_description">Não use a versão do Google Play do LibreTorrent se quiser salvar torrents em pastas diferentes de \'Downloads\' e similares. \nExistem outras fontes na página do projeto.</string>
     <string name="perm_denied_warning_android_r">A permissão de acesso a todos os arquivos é necessária para fazer o download dos torrents e acessar arquivos .torrent em pastas arbitrárias. Sem essa permissão, o LibreTorrent apenas terá acesso a um número limitado de pastas. Tem certeza de que deseja negar esta permissão?</string>
     <string name="exact_alarm_permission_warning">Para que o planejador funcione, você deve obter permissão em uma caixa de diálogo especial do sistema. Continuar?</string>
     <string name="pref_validate_https_trackers_summary">O certificado de rastreadores HTTPS e sementes da web HTTPS serão validados no armazenamento de certificados do sistema.</string>

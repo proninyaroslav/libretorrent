@@ -203,8 +203,7 @@
     <string name="more_details">المزيد من التفاصيل</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nمتوفر: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nمتوفر: %5$s</string>
     <string name="file_priority_normal">عادية</string>
     <string name="file_priority_low">تجاهل</string>
     <string name="file_priority_high">عالية</string>
@@ -467,9 +466,7 @@
     <string name="pref_use_random_port_title">استخدم منفذ عشوائي</string>
     <string name="pref_port_settings_category">إعدادات المنفذ</string>
     <string name="pref_proxy_settings_title">إعدادات الوكيل</string>
-    <string name="pref_default_trackers_list_summary">قائمة Trackers التي تستخدم في الحالات التالية:
-\n1. عند إضافة تورنت، تضاف القائمة الافتراضية تلقائيًا إلى قائمة التورنت.
-\n2. تستخدم لجلب روابط Magnet.</string>
+    <string name="pref_default_trackers_list_summary">قائمة Trackers التي تستخدم في الحالات التالية: \n1. عند إضافة تورنت، تضاف القائمة الافتراضية تلقائيًا إلى قائمة التورنت. \n2. تستخدم لجلب روابط Magnet.</string>
     <string name="pref_default_trackers_list_title">قائمة Trackers الافتراضية</string>
     <string name="pref_custom_battery_control_value_title">التحكم في نسبة البطارية</string>
     <string name="pref_custom_battery_control_title">النسبة المئوية للبطارية المخصصة</string>
@@ -575,8 +572,7 @@
     <string name="pref_foreground_notify_sorting">الفرز</string>
     <string name="pref_foreground_notify_sorting_entries_11">الشعبية (الأكبر أولاً)</string>
     <string name="exact_alarm_permission_warning">لكي يعمل المجدول، يجب الحصول على إذن في مربع حوار نظام خاص. سلك؟</string>
-    <string name="manage_all_files_warning_dialog_description">لا تستخدم إصدار Google Play من LibreTorrent إذا كنت ترغب في حفظ التورنت في مجلدات أخرى غير \"التنزيلات\" وما شابه ذلك.
-\nهناك مصادر أخرى لتحميل التطبيق على صفحة المشروع.</string>
+    <string name="manage_all_files_warning_dialog_description">لا تستخدم إصدار Google Play من LibreTorrent إذا كنت ترغب في حفظ التورنت في مجلدات أخرى غير \"التنزيلات\" وما شابه ذلك. \nهناك مصادر أخرى لتحميل التطبيق على صفحة المشروع.</string>
     <string name="pref_feed_refresh_interval_title">الفاصل الزمني للتحديث</string>
     <string name="pref_feed_keep_items_time_title">الاحتفاظ بالمقالات</string>
     <string name="perm_denied_warning_android_r">مطلوب إذن الوصول إلى جميع الملفات لتحميل السيول والوصول إلى الملفات .torrent في المجلدات التعسفية. وبدون هذا الإذن، لن يكون ل LibreTorrent سوى حق الوصول إلى عدد محدود من المجلدات. هل تريد بالتأكيد رفض هذا الإذن؟</string>

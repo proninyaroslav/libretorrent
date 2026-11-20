@@ -207,8 +207,7 @@
     <string name="more_details">Keterangan lebih lanjut</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nTersedia: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nTersedia: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Abaikan</string>
     <string name="file_priority_high">Tinggi</string>
@@ -540,9 +539,7 @@
     <string name="pref_header_streaming">streaming</string>
     <string name="torrent_peers">Peer</string>
     <string name="drawer_sorting_peers">Popularitas</string>
-    <string name="pref_default_trackers_list_summary">Daftar tracker yang digunakan pada kasus berikut:
-\n1. Ketika menambahkan torrent, daftar bawaan ditambahkan secara otomatis ke dalam daftar torrent.
-\n2. Digunakan untuk mengambil tautan magnet.</string>
+    <string name="pref_default_trackers_list_summary">Daftar tracker yang digunakan pada kasus berikut: \n1. Ketika menambahkan torrent, daftar bawaan ditambahkan secara otomatis ke dalam daftar torrent. \n2. Digunakan untuk mengambil tautan magnet.</string>
     <string name="pref_default_trackers_list_title">Tracker bawaan</string>
     <string name="pref_watch_dir_delete_file_title">Hapus berkas .torrent setelah menambah</string>
     <string name="torrent_leechers">Leecher</string>
@@ -570,8 +567,7 @@
     <string name="pref_foreground_notify_sorting_entries_12">Tidak ada penyortiran</string>
     <string name="error_open_torrent">Tidak dapat membuka torrent</string>
     <string name="pref_foreground_notify_status_filter_entries_3">Mengunduh Metadata…</string>
-    <string name="manage_all_files_warning_dialog_description">Jangan gunakan versi Google Play LibreTorrent jika anda ingin menyimpan torrents dalam folder selain \'download\' dan sejenisnya.
-\nAda sumber lain di halaman proyek.</string>
+    <string name="manage_all_files_warning_dialog_description">Jangan gunakan versi Google Play LibreTorrent jika anda ingin menyimpan torrents dalam folder selain \'download\' dan sejenisnya. \nAda sumber lain di halaman proyek.</string>
     <string name="perm_denied_warning_android_r">Akses semua file izin diperlukan untuk mengunduh torrent dan mengakses file .torrent di folder arbitrer. Tanpa izin ini, LibreTorrent hanya akan memiliki akses ke folder dalam jumlah terbatas. Apakah Anda yakin ingin menolak izin ini?</string>
     <string name="manage_all_files_warning_dialog_title">Peringatan</string>
     <string name="exact_alarm_permission_warning">Agar penjadwal berfungsi, Anda harus mendapatkan izin dalam dialog sistem khusus. Lanjutkan?</string>

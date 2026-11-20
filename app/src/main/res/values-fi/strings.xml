@@ -14,9 +14,7 @@
     <string name="pref_enable_dht_summary">Sallii löytää muita ilman trackeria. (Kasvattaa virran kulutusta.)</string>
     <string name="pref_enable_dht_title">DHT</string>
     <string name="pref_proxy_settings_title">Välityspalvelimen asetukset</string>
-    <string name="pref_default_trackers_list_summary">Tracker-lista, jota käytetään seuraaviin:
-\n1. Kun lisätään torrent, oletuslista on automaattisesti lisättynä torrent-listaan.
-\n2. Käytetään magnet-linkkien noutamisessa.</string>
+    <string name="pref_default_trackers_list_summary">Tracker-lista, jota käytetään seuraaviin: \n1. Kun lisätään torrent, oletuslista on automaattisesti lisättynä torrent-listaan. \n2. Käytetään magnet-linkkien noutamisessa.</string>
     <string name="pref_default_trackers_list_title">Oletustrackerit</string>
     <string name="pref_custom_battery_control_dialog_summary">Haluatko varmasti asettaa akku %% seurantaan? (Lisää virrankulutusta tallennettaessa.)</string>
     <string name="pref_custom_battery_control_summary">Aseta akun varaustila %% keskeyttämään lataukset. (Ohittaa oletusarvon %1$d %%.)</string>
@@ -508,8 +506,7 @@
     <string name="piece_size_entries_12">32 MiB</string>
     <string name="piece_size_entries_11">16 MiB</string>
     <string name="exact_alarm_permission_warning">Aikatauluttajan toiminta edellyttää käyttöoikeuden myöntöä erityisellä järjestelmävalinnalla. Jatketaanko?</string>
-    <string name="manage_all_files_warning_dialog_description">Älä käytä LibreTorrentin Google Play -versiota, jos haluat tallentaa torrenteja \'Downloads\' ja vastaavien kansioiden ulkopuolelle.
-\nMuita lähteitä on projektin sivulla.</string>
+    <string name="manage_all_files_warning_dialog_description">Älä käytä LibreTorrentin Google Play -versiota, jos haluat tallentaa torrenteja \'Downloads\' ja vastaavien kansioiden ulkopuolelle. \nMuita lähteitä on projektin sivulla.</string>
     <string name="manage_all_files_warning_dialog_title">Varoitus</string>
     <string name="perm_denied_warning_android_r">Torrentien lataus ja .torrent-tiedostojen avaus mistä tahansa kansiosta edellyttää kaikkien tiedostojen käyttöoikeutta. Ilman tätä käyttöoikeutta LibreTorrentilla on pääsy vain rajoitettuihin kansioihin. Haluatko varmasti kieltää tämän käyttöoikeuden?</string>
     <string name="download_first_last_pieces">Lataa ensin ensimmänen ja viimeinen osa</string>

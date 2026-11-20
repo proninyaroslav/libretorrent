@@ -182,8 +182,7 @@
     <string name="more_details">अधिक जानकारी</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nउपलब्धता: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nउपलब्धता: %5$s</string>
     <string name="file_priority_normal">सामान्य</string>
     <string name="file_priority_low">नजरअंदाज करें</string>
     <string name="file_priority_high">उच्च</string>
@@ -534,9 +533,7 @@
     <string name="pref_foreground_notify_sorting_entries_9">ETA (सर्वोत्तम प्रथम)</string>
     <string name="pref_foreground_notify_sorting_entries_8">ETA (सबसे छोटा पहले)</string>
     <string name="pref_foreground_notify_combined_pause_button_title">संयुक्त विराम बटन</string>
-    <string name="pref_default_trackers_list_summary">ट्रैकर्स सूची, जो निम्नलिखित मामलों में उपयोग की जाती है:
-\n1. Torrent जोड़ते समय, डिफ़ॉल्ट सूची स्वचालित रूप से Torrent सूची में जुड़ जाती है।
-\n2. Magnet लिंक लाने के लिए उपयोग किया जाता है।</string>
+    <string name="pref_default_trackers_list_summary">ट्रैकर्स सूची, जो निम्नलिखित मामलों में उपयोग की जाती है: \n1. Torrent जोड़ते समय, डिफ़ॉल्ट सूची स्वचालित रूप से Torrent सूची में जुड़ जाती है। \n2. Magnet लिंक लाने के लिए उपयोग किया जाता है।</string>
     <string name="pref_validate_https_trackers_title">HTTPS ट्रैकर्स के प्रमाणपत्रों को मान्य करें</string>
     <string name="pref_journal_max_stored_entries">अधिकतम संग्रहीत जर्नल प्रविष्टियाँ</string>
     <string name="pref_journal_save_log_to">लॉग को यहां सहेजें…</string>
@@ -577,8 +574,7 @@
     <string name="journal_started_recording">रिकार्डिंग शुरू की</string>
     <string name="pref_validate_https_trackers_summary">HTTPS ट्रैकर्स और HTTPS वेब सीड्स का प्रमाणपत्र सिस्टम सर्टिफिकेट स्टोर में मान्य किया जाएगा।</string>
     <string name="drawer_date_added">दिनांक जोड़ा गया</string>
-    <string name="manage_all_files_warning_dialog_description">यदि आप torrents को \'डाउनलोड\' और इसी तरह के फोल्डरों के अलावा अन्य फोल्डरों में सहेजना चाहते हैं तो LibreTorrent के Google Play संस्करण का उपयोग न करें।
-\nपरियोजना पेज पर अन्य स्रोत भी हैं।</string>
+    <string name="manage_all_files_warning_dialog_description">यदि आप torrents को \'डाउनलोड\' और इसी तरह के फोल्डरों के अलावा अन्य फोल्डरों में सहेजना चाहते हैं तो LibreTorrent के Google Play संस्करण का उपयोग न करें। \nपरियोजना पेज पर अन्य स्रोत भी हैं।</string>
     <string name="pref_foreground_notify_status_filter_entries_3">मेटाडेटा डाउनलोड हो रहा है…</string>
     <string name="exact_alarm_permission_warning">शेड्यूलर को काम करने के लिए, आपको एक विशेष सिस्टम संवाद में अनुमति प्राप्त करनी होगी। आगे बढ़ें?</string>
     <string name="perm_denied_warning_android_r">Torrent डाउनलोड करने और मनमाने फोल्डरों में .torrent फाइलों तक पहुंचने के लिए सभी फाइलों तक पहुंच की अनुमति आवश्यक है। इस अनुमति के बिना, LibreTorrent के पास केवल सीमित संख्या में फोल्डरों तक पहुंच होगी। क्या आप वाकई इस अनुमति को अस्वीकार करना चाहते हैं?</string>

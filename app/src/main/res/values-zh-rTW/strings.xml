@@ -205,8 +205,7 @@
     <string name="more_details">詳細資訊</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\n可用性：%5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \n可用性：%5$s</string>
     <string name="file_priority_normal">普通</string>
     <string name="file_priority_low">忽略</string>
     <string name="file_priority_high">高優先</string>
@@ -533,9 +532,7 @@
     <string name="about_title">關於</string>
     <string name="about_description">更多資訊與協助此專案：&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent 是一個無版權的自由 (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) Torrent 用戶端，專為 (版本 4 及以上的) Android 服務。此應用程式使用 libtorrent 程式庫 (Java 版本透過 &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt; 封裝以供)。&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">更新日誌</string>
-    <string name="pref_default_trackers_list_summary">追蹤器列表。使用時機如下：
-\n1. 當新增任務時，預設列表將被自動加入至任務列表。
-\n2. 用於取得磁力連結。</string>
+    <string name="pref_default_trackers_list_summary">追蹤器列表。使用時機如下： \n1. 當新增任務時，預設列表將被自動加入至任務列表。 \n2. 用於取得磁力連結。</string>
     <string name="pref_default_trackers_list_title">預設追蹤器</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">組合按鈕：全部暫停及恢復，功能類似開關。警告：按鈕狀態不受手動暫停／恢復任務所影響。</string>
     <string name="pref_foreground_notify_combined_pause_button_title">組合暫停按鈕</string>
@@ -571,8 +568,7 @@
     <string name="error_open_torrent">無法開啟 Torrent</string>
     <string name="manage_all_files_warning_dialog_title">警告</string>
     <string name="torrent_speed_limit_dialog">設定速度單位為 KiB/s。注意，設定一個高於全域限制的 Torrent 速度上限將不會覆寫全域限制。</string>
-    <string name="manage_all_files_warning_dialog_description">若您想儲存 Torrent 至自訂資料夾而非「Downloads」之類的資料夾，請不要使用 Google Play 版本的 LibreTorrent。
-\n在專案頁面上有其他來源。</string>
+    <string name="manage_all_files_warning_dialog_description">若您想儲存 Torrent 至自訂資料夾而非「Downloads」之類的資料夾，請不要使用 Google Play 版本的 LibreTorrent。 \n在專案頁面上有其他來源。</string>
     <string name="pref_validate_https_trackers_title">驗證 HTTPS 追蹤器憑證</string>
     <string name="exact_alarm_permission_warning">要使排程器運作，您必須在一個特殊的系統對話方塊中取得權限。要繼續嗎？</string>
     <string name="pref_move_after_download_in_title">下載後移至</string>

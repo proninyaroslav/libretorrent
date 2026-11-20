@@ -523,8 +523,7 @@
     <string name="torrent_state">Status</string>
     <string name="dialog_change_priority_title">Ändra prioritet</string>
     <string name="change_priority">Prioritet</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nTillgängligt: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nTillgängligt: %5$s</string>
     <string name="more_details">Fler detaljer</string>
     <string name="parent_folder">Föräldra-mapp</string>
     <string name="replace_file">Ersätt fil</string>
@@ -543,9 +542,7 @@
     <string name="force_recheck_torrent">Tvinga återkontroll</string>
     <string name="pref_move_after_download_in_title">Flytta efter hämtning till</string>
     <string name="pref_watch_dir_delete_file_title">Ta bort .torrent-filen efter tilläggning</string>
-    <string name="pref_default_trackers_list_summary">Spårarlista, som används i följande fall:
-\n1. När du lägger till en torrent läggs standardlistan automatiskt till i torrentlistan.
-\n2. Används för att hämta magnetlänkar.</string>
+    <string name="pref_default_trackers_list_summary">Spårarlista, som används i följande fall: \n1. När du lägger till en torrent läggs standardlistan automatiskt till i torrentlistan. \n2. Används för att hämta magnetlänkar.</string>
     <string name="pref_default_trackers_list_title">Standard spårare</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Kombinerar två knappar: pausa alla och återuppta alla. Knappen fungerar som en omkopplare. Varning: knappstatusen påverkas inte av manuell pausning/återupptagning av torrenten.</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinerad pausknapp</string>
@@ -572,8 +569,7 @@
     <string name="pref_foreground_notification_category">Förgrundsaviseringsinställningar</string>
     <string name="error_open_torrent">Det går inte att öppna torrent</string>
     <string name="manage_all_files_warning_dialog_title">Varning</string>
-    <string name="manage_all_files_warning_dialog_description">Använd inte Google Play-versionen av LibreTorrent om du vill spara torrenter i andra mappar än \"Hämtningar\" och liknande.
-\nDet finns andra källor på projektsidan.</string>
+    <string name="manage_all_files_warning_dialog_description">Använd inte Google Play-versionen av LibreTorrent om du vill spara torrenter i andra mappar än \"Hämtningar\" och liknande. \nDet finns andra källor på projektsidan.</string>
     <string name="exact_alarm_permission_warning">För att schemaläggaren ska fungera måste du få behörighet i en speciell systemdialog. Fortsätt?</string>
     <string name="perm_denied_warning_android_r">Åtkomst till alla filer krävs för att hämta torrenter och komma åt .torrent-filer i godtyckliga mappar. Utan detta tillstånd kommer LibreTorrent endast att ha tillgång till ett begränsat antal mappar. Är du säker på att du vill avfärda denna behörighet?</string>
     <string name="pref_validate_https_trackers_title">Validera HTTPS-spårarcertifikat</string>

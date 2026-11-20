@@ -203,8 +203,7 @@
     <string name="more_details">جزئیات بیشتر</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nدسترس پذیری: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nدسترس پذیری: %5$s</string>
     <string name="file_priority_normal">متوسط</string>
     <string name="file_priority_low">نادیده گرفتن</string>
     <string name="file_priority_high">بالا</string>
@@ -538,8 +537,7 @@
     <string name="about_changelog">گزارش دگرگونی</string>
     <string name="error_open_torrent">ناتوان در بازکردن تورنت</string>
     <string name="manage_all_files_warning_dialog_title">هشدار</string>
-    <string name="manage_all_files_warning_dialog_description">در صورتیکه می‌خواهید تورنت‌ها را در پوشه‌هایی غیر از \'دانلودها\' و یا مشابه آن ذخیره کنید، از LibreTorrent نسخه گوگل پلی استفاده نکنید.
-\nمنابع دیگری در صفحه پروژه موجود است.</string>
+    <string name="manage_all_files_warning_dialog_description">در صورتیکه می‌خواهید تورنت‌ها را در پوشه‌هایی غیر از \'دانلودها\' و یا مشابه آن ذخیره کنید، از LibreTorrent نسخه گوگل پلی استفاده نکنید. \nمنابع دیگری در صفحه پروژه موجود است.</string>
     <string name="edit_tag">ویرایش برچسب</string>
     <string name="select_tag">انتخاب برچسب</string>
     <string name="new_tag">برچسب جدید</string>

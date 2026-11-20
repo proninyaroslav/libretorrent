@@ -1,19 +1,19 @@
-* Лицензиран под GPLv3+. Използвайте, разглеждайте, променяйте и споделяйте; с всички.
+* Licensed GPLv3+. Use, see, change and share; with all.
 * BitTorrent 2.0 and WebTorrent support
-* Изберете кои файлове да изтеглите.
-* Преместване на файлове по време на изтегляне.
-* Автоматично преместване на изтеглените файлове в друга папка или външно устройство.
-* Поточно предаване на файлове с последователно изтегляне.
+* Select which files to download.
+* Move files while downloading.
+* Auto-move downloaded files to another folder or external drive.
+* Stream files, with sequential downloads.
 * Android TV.
-* Материалистичен дизайн, тъмна и черна тема и потребителски интерфейс за таблети.
-* Персонализиране на настройките на мрежата, батерията, потребителския интерфейс и др.
-* Над 35 превода.
-* Планиране.
-* Автоматично изтегляне, с Atom/RSS мениджър.
-* Създаване на торенти с много и големи файлове.
-* HTTP\S и магнитни връзки.
-* DHT, PeX, криптиране, LSD, UPnP, NAT*PMP, µTP.
-* Филтриране на IP адреси (eMule dat и PeerGuardian).
-* Поддържа прокси за тракери и пиъри.
-* Базиран на libtorrent4j.
-* И още.
+* Material design, dark and black theme, and tablet UI.
+* Customisable network, battery, and UI settings, etc.
+* 35+ translations.
+* Scheduling.
+* Auto-downloading, with Atom/RSS manager.
+* Create torrents, with many and big files.
+* HTTP\S and magnet links.
+* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
+* IP filtering (eMule dat and PeerGuardian).
+* Supports proxy for trackers and peers.
+* Based on libtorrent4j.
+* And more.

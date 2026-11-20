@@ -174,8 +174,7 @@
     <string name="more_details">Daugiau detalių</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nPrieinamumas: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nPrieinamumas: %5$s</string>
     <string name="file_priority_normal">Normalus</string>
     <string name="file_priority_low">Žemas</string>
     <string name="file_priority_high">Aukštas</string>
@@ -489,9 +488,7 @@
     <string name="tracker_list_empty">Nėra seklių</string>
     <string name="select_tag">Pasirinkite žymą</string>
     <string name="pref_feed_remove_duplicates_title">Jokio dubliavimosi</string>
-    <string name="pref_default_trackers_list_summary">Seklių sąrašas, naudojamas šiais atvejais:
-\n1. Pridedant torentą, numatytasis sąrašas automatiškai įtraukiamas į torentų sąrašą.
-\n2. Naudojamas magnetinėms nuorodoms gauti.</string>
+    <string name="pref_default_trackers_list_summary">Seklių sąrašas, naudojamas šiais atvejais: \n1. Pridedant torentą, numatytasis sąrašas automatiškai įtraukiamas į torentų sąrašą. \n2. Naudojamas magnetinėms nuorodoms gauti.</string>
     <string name="pref_default_trackers_list_title">Numatytieji sekliai</string>
     <string name="pref_watch_dir_delete_file_title">Ištrinti .torrent failą po pridėjimo</string>
     <string name="pref_journal_max_stored_entries">Didžiausias saugomų žurnalo įrašų skaičius</string>
@@ -578,8 +575,7 @@
     <string name="pref_validate_https_trackers_title">Patikrinti HTTPS sekimo priemonių sertifikatą</string>
     <string name="download_first_last_pieces">Pirmiausia atsisiųsti pirmą ir paskutinę dalis</string>
     <string name="torrent_speed_limit_dialog">Nustatyti greitį KiB/s. Atkreipkite dėmesį, kad nustačius didesnę torento ribą nei globali riba, globali riba nebus pakeista.</string>
-    <string name="manage_all_files_warning_dialog_description">Nenaudokite „Google Play“ LibreTorrent versijos, jei norite išsaugoti torrentus kituose aplankuose nei „Atsisiuntimai“ ir panašiai.
-\nProjekto puslapyje yra ir kitų šaltinių.</string>
+    <string name="manage_all_files_warning_dialog_description">Nenaudokite „Google Play“ LibreTorrent versijos, jei norite išsaugoti torrentus kituose aplankuose nei „Atsisiuntimai“ ir panašiai. \nProjekto puslapyje yra ir kitų šaltinių.</string>
     <string name="apply_settings_after_reboot">Pakeitimai bus pritaikyti iš naujo paleidus programą.</string>
     <string name="pref_posix_disk_io_title">POSIX Disk I/O</string>
     <string name="pref_locale_title">Kalba</string>

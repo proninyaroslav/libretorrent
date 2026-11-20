@@ -161,8 +161,7 @@
     <string name="home_directory">Kodu</string>
     <string name="file_name_is_empty">Sisesta esmalt faili nimi</string>
     <string name="error_file_exists">See fail on juba olemas</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nSaadaval: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nSaadaval: %5$s</string>
     <string name="pref_feed_keep_items_time_title">Hoia artikleid</string>
     <string name="pref_feed_start_torrents_summary">Laeb alla lisatud torrentid.</string>
     <string name="pref_feed_remove_duplicates_summary">Jätab vahele failide allalaadimise, mis on juba olemasoleva faili nimetusega.</string>
@@ -303,8 +302,7 @@
     <string name="pref_speed_category">Kiirus</string>
     <string name="pref_max_download_speed_title">Maks. ⬇ kiirus</string>
     <string name="pref_enc_mode_entries_0">Eelistatuna</string>
-    <string name="manage_all_files_warning_dialog_description">Ärge kasutage Google Play versiooni LibreTorrent\'ist, kui soovite salvestada torrenteid tavakaustadesse \'Downloads\' ega sarnastesse.
-\nOn olemas teisi variante projekti veebilehel.</string>
+    <string name="manage_all_files_warning_dialog_description">Ärge kasutage Google Play versiooni LibreTorrent\'ist, kui soovite salvestada torrenteid tavakaustadesse \'Downloads\' ega sarnastesse. \nOn olemas teisi variante projekti veebilehel.</string>
     <string name="file_priority_high">Kõrge</string>
     <string name="pref_autostart_summary">Käivita äpp pärast seadme käivitamist.</string>
     <string name="pref_show_nat_errors">Kuva NAT\'i vead</string>
@@ -474,9 +472,7 @@
     <string name="pref_battery_control_summary">Pausitakse kõik torrentid, kui akutase läheb alla %1$d%%. (Piirang ei rakendu kui seadet laetakse.)</string>
     <string name="pref_custom_battery_control_value_title">Akukasutuse sätte protsent</string>
     <string name="pref_default_trackers_list_title">Vaikimisi jälgijad</string>
-    <string name="pref_default_trackers_list_summary">Jälitajate nimekiri, mida kasutatakse juhtudel:
-\n1. Torrenti lisamisel, tava nimekiri lisatakse automaatselt torrentite nimekirja.
-\n2. Magnet linkide kättesaamiseks.</string>
+    <string name="pref_default_trackers_list_summary">Jälitajate nimekiri, mida kasutatakse juhtudel: \n1. Torrenti lisamisel, tava nimekiri lisatakse automaatselt torrentite nimekirja. \n2. Magnet linkide kättesaamiseks.</string>
     <string name="pref_enable_utp_title">μTP</string>
     <string name="pref_port_range_end_title">Lõpp</string>
     <string name="pref_enc_mode_entries_1">Nõua</string>

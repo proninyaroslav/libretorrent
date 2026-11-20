@@ -313,8 +313,7 @@
     <string name="file_priority_high">Alta</string>
     <string name="file_priority_low">Ignori</string>
     <string name="file_priority_normal">Normala</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nHavebleco: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nHavebleco: %5$s</string>
     <string name="report">Raporti</string>
     <string name="replace_file">Anstataŭi dosiero</string>
     <string name="permission_denied">Permeso neita</string>
@@ -393,8 +392,7 @@
     <string name="pref_max_connections_per_torrent_summary">(Minimume 2 konektoj.)</string>
     <string name="pref_max_connections_summary">(Minimume 2 konektoj.)</string>
     <string name="peer_relevance">Graveco:%1$.1f</string>
-    <string name="manage_all_files_warning_dialog_description">Ne uzu la Google Play-version de LibreTorrent se vi volas konservi torentojn en dosierujoj krom \'Elŝutoj\' kaj similaj.
-\nEstas aliaj fontoj sur la projektpaĝo.</string>
+    <string name="manage_all_files_warning_dialog_description">Ne uzu la Google Play-version de LibreTorrent se vi volas konservi torentojn en dosierujoj krom \'Elŝutoj\' kaj similaj. \nEstas aliaj fontoj sur la projektpaĝo.</string>
     <string name="download_first_last_pieces">Elŝutu unue kaj lastajn pecojn</string>
     <string name="manage_all_files_warning_dialog_title">averto</string>
     <string name="error_open_torrent">ne povas malfermi torenton</string>

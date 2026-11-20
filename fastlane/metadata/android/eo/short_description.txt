@@ -1,1 +1,1 @@
-Kopilasigita libera torentkliento.
+Copylefted libre software torrent client.

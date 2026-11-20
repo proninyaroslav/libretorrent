@@ -204,8 +204,7 @@
     <string name="more_details">Meer details</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d %% •
-\nBeschikbaarheid: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d %% • \nBeschikbaarheid: %5$s</string>
     <string name="file_priority_normal">Normaal</string>
     <string name="file_priority_low">Negeren</string>
     <string name="file_priority_high">Hoog</string>
@@ -542,9 +541,7 @@
     <string name="drawer_sorting_peers">Populariteit</string>
     <string name="session_stats_dht_nodes">DHT-nodes: %1$d</string>
     <string name="pref_watch_dir_delete_file_title">Torrent-bestand verwijderen na toevoegen</string>
-    <string name="pref_default_trackers_list_summary">Lijst van trackers, gebruikt in de volgende gevallen:
-\n1. Wanneer een torrent wordt toegevoegd, wordt de standaardlijst automatisch toegevoegd aan de torrentlijst.
-\n2. Gebruikt voor het ophalen van magneetkoppelingen.</string>
+    <string name="pref_default_trackers_list_summary">Lijst van trackers, gebruikt in de volgende gevallen: \n1. Wanneer een torrent wordt toegevoegd, wordt de standaardlijst automatisch toegevoegd aan de torrentlijst. \n2. Gebruikt voor het ophalen van magneetkoppelingen.</string>
     <string name="pref_default_trackers_list_title">Standaard trackers</string>
     <string name="pref_foreground_notify_sorting_entries_12">Niet sorteren</string>
     <string name="pref_foreground_notify_sorting_entries_11">Populariteit (grootste eerst)</string>
@@ -572,8 +569,7 @@
     <string name="error_open_torrent">Kan torrent niet openen</string>
     <string name="exact_alarm_permission_warning">Om de planner te laten werken, moet u toestemming krijgen in een speciaal systeemdialoogvenster. Doorgaan?</string>
     <string name="perm_denied_warning_android_r">Machtiging voor toegang tot alle bestanden is vereist om torrents te downloaden en toegang te krijgen tot .torrent-bestanden in willekeurige mappen. Zonder deze toestemming heeft LibreTorrent slechts toegang tot een beperkt aantal mappen. Weet u zeker dat u deze toestemming wilt weigeren?</string>
-    <string name="manage_all_files_warning_dialog_description">Gebruik de Google Play-versie van LibreTorrent niet als u torrents wilt opslaan in andere mappen dan \'Downloads\' en dergelijke.
-\nEr zijn andere bronnen op de projectpagina.</string>
+    <string name="manage_all_files_warning_dialog_description">Gebruik de Google Play-versie van LibreTorrent niet als u torrents wilt opslaan in andere mappen dan \'Downloads\' en dergelijke. \nEr zijn andere bronnen op de projectpagina.</string>
     <string name="manage_all_files_warning_dialog_title">Waarschuwing</string>
     <string name="pref_validate_https_trackers_title">Certificaten van HTTPS-trackers valideren</string>
     <string name="pref_validate_https_trackers_summary">Het certificaat van HTTPS-trackers en HTTPS-webseeds wordt gevalideerd in de certificatenopslag van het systeem.</string>
