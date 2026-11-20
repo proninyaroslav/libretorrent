@@ -165,8 +165,7 @@
     <string name="torrent_status_seeding">Seeder…</string>
     <string name="torrent_status_checking">Tjekker…</string>
     <string name="perm_denied_warning">Lagringstilladelse er påkrævet for at kunne hente og tilgå .torrent filer. Er du sikker på at du vil nægte denne tilladelse?</string>
-    <string name="manage_all_files_warning_dialog_description">Brug ikke Google Play versionen af LibreTorrent hvis du ønsker at gemme torrents i andre mapper end \'Downloads\' o.l.
-\nDer er andre kilder på projektsiden.</string>
+    <string name="manage_all_files_warning_dialog_description">Brug ikke Google Play versionen af LibreTorrent hvis du ønsker at gemme torrents i andre mapper end \'Downloads\' o.l. \nDer er andre kilder på projektsiden.</string>
     <string name="error_io_torrent">Kunne ikke læse .torrent fil</string>
     <string name="error_add_torrent">Kunne ikke tilføje torrent</string>
     <string name="download_counter_template">%1$s/%2$s (%3$d%%)</string>

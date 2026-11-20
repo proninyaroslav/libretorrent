@@ -208,8 +208,7 @@
     <string name="more_details">Ytterligere detaljer</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nTilgjengelighet: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nTilgjengelighet: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorer</string>
     <string name="file_priority_high">Høy</string>
@@ -542,9 +541,7 @@
     <string name="about_changelog">Endringslogg</string>
     <string name="log_journal">Journal</string>
     <string name="start_torrent">Start torrent</string>
-    <string name="pref_default_trackers_list_summary">Sporerliste, brukt:
-\n1. Ved tillegg av torrent, der forvalgt liste automatisk legges til torrent-listen.
-\n2. Brukt til å hente magnetlenker.</string>
+    <string name="pref_default_trackers_list_summary">Sporerliste, brukt: \n1. Ved tillegg av torrent, der forvalgt liste automatisk legges til torrent-listen. \n2. Brukt til å hente magnetlenker.</string>
     <string name="pref_default_trackers_list_title">Forvalgte sporere</string>
     <string name="pref_watch_dir_delete_file_title">Slett .torrent-fil før den er lagt til</string>
     <string name="pref_foreground_notify_sorting">Sortering</string>

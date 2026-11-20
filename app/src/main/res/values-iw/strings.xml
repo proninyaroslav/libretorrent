@@ -243,9 +243,7 @@
     <string name="pref_cpu_do_not_sleep_summary">השתמש אם מהירות ההורדה יורדת כשהמסך נכבה. (מגדיל את השימוש בסוללה.)</string>
     <string name="pref_shutdown_downloads_complete_summary">מכבה את האפליקציה כשכל הטורנטים ירדו.</string>
     <string name="pref_download_and_upload_only_when_charging_summary">לא מועברים קבצים אלא אם המכשיר בטעינה. (משהה את כל הטורנטים כאשר אינו מחובר למטען.)</string>
-    <string name="pref_default_trackers_list_summary">רשימת טראקרים, המשמשת במקרים הבאים:
-\n1. בעת הוספת טורנט, רשימת ברירת המחדל מתווספת אוטומטית לרשימת הטורנט.
-\n2. משמש להבאת קישורי מגנט.</string>
+    <string name="pref_default_trackers_list_summary">רשימת טראקרים, המשמשת במקרים הבאים: \n1. בעת הוספת טורנט, רשימת ברירת המחדל מתווספת אוטומטית לרשימת הטורנט. \n2. משמש להבאת קישורי מגנט.</string>
     <string name="pref_enable_roaming_title">נדידה</string>
     <string name="web_seed_urls">כתובות שיתוף-Web</string>
     <string name="feed_name">שם (אופציונלי)</string>
@@ -478,8 +476,7 @@
     <string name="pref_proxy_peers_too_title">השתמש גם בשביל חיבורים</string>
     <string name="pref_scheduling_switch_wifi_summary">הפעל את ה-Wi-Fi להתחלה מתוזמנת, וכבה לעצירה מתוזמנת.</string>
     <string name="session_stats_download_upload">%1$s • %2$s/שנ׳</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nזמין: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nזמין: %5$s</string>
     <string name="other_torrent_notify_template">%1$s • %2$s</string>
     <string name="download_counter_ETA_template">%1$s/%2$s • %3$d%% %4$s</string>
     <string name="peers_template">%1$d/%2$d</string>
@@ -502,8 +499,7 @@
     <string name="pref_enable_scheduling_start_title">שעת הפעלה</string>
     <string name="session_stats_listen_port">פתחת האזנה: %1$s</string>
     <string name="downloading_torrent_notify_template">%1$d%% • %2$s • ↓ %3$s/שנ׳ • %4$s</string>
-    <string name="manage_all_files_warning_dialog_description">אין להשתמש בגרסת ה־Google Play של LibreTorrent כדי לשמור טורנטים בתיקיות אחרות שאינן „הורדות” וכדומה.
-\nישנם מקורות נוספים בדף המיזם.</string>
+    <string name="manage_all_files_warning_dialog_description">אין להשתמש בגרסת ה־Google Play של LibreTorrent כדי לשמור טורנטים בתיקיות אחרות שאינן „הורדות” וכדומה. \nישנם מקורות נוספים בדף המיזם.</string>
     <string name="pref_use_random_port_summarty">מגדיר את הפורט ההתחלתי באופן אקראי בטווח [%1$d, %2$d] ואת פורט הסיום בפורט הראשוני + 10.</string>
     <string name="pref_show_nat_errors">הצג שגיאות NAT</string>
     <string name="pref_enable_ip_filtering_summary">בהתאם לגודל הקובץ, החלת המסנן בעת ההפעלה עשויה להימשך זמן מה. (מגדיל את השימוש בזיכרון.)</string>

@@ -133,8 +133,7 @@
     <string name="save_file">Запазване на файла</string>
     <string name="report">Докладване</string>
     <string name="more_details">Повече подробности</string>
-    <string name="file_downloading_status_template">%1$s - %2$s/%3$s - %4$d%% -
-\nНаличност: %5$s</string>
+    <string name="file_downloading_status_template">%1$s - %2$s/%3$s - %4$d%% - \nНаличност: %5$s</string>
     <string name="file_priority_normal">Нормален</string>
     <string name="file_priority_low">Игнориране</string>
     <string name="file_priority_high">Висок</string>
@@ -361,8 +360,7 @@
     <string name="torrent_leechers">Лийчъри</string>
     <string name="torrent_pieces_template">%1$d/%2$d (%3$s)</string>
     <string name="manage_all_files_warning_dialog_title">Внимание</string>
-    <string name="manage_all_files_warning_dialog_description">Не използвайте версията на Google Play на LibreTorrent, ако искате да запазвате торенти в папки, различни от „Изтегляния“ и подобни.
-\nИма и други източници на страницата на проекта.</string>
+    <string name="manage_all_files_warning_dialog_description">Не използвайте версията на Google Play на LibreTorrent, ако искате да запазвате торенти в папки, различни от „Изтегляния“ и подобни. \nИма и други източници на страницата на проекта.</string>
     <string name="torrent_hash_sum">Контролна сума</string>
     <string name="torrent_created_in_program">Създаден в програма</string>
     <string name="sequential_download">Последователно изтегляне</string>
@@ -422,9 +420,7 @@
     <string name="pref_foreground_notify_sorting_entries_8">Оставащо време (първо с най-малко)</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Съчетава два бутона: \"Пауза\" и \"Възобновяване\". Бутонът ще работи като превключвател. Предупреждение: състоянието на бутона не се влияе от ръчното спиране/възобновяване на торента.</string>
     <string name="pref_custom_battery_control_dialog_summary">Наистина ли сте определили %% на батерията, за който да внимавате? (Увеличава използването на батерията по време на изтегляне.)</string>
-    <string name="pref_default_trackers_list_summary">Списък с тракери, който се използва в следните случаи:
-\n1. Когато добавяте торент, списъкът по подразбиране се добавя автоматично към списъка с торенти.
-\n2. Използва се за извличане на магнитни връзки.</string>
+    <string name="pref_default_trackers_list_summary">Списък с тракери, който се използва в следните случаи: \n1. Когато добавяте торент, списъкът по подразбиране се добавя автоматично към списъка с торенти. \n2. Използва се за извличане на магнитни връзки.</string>
     <string name="pref_enable_natpmp_title">NAT-PMP</string>
     <string name="pref_port_settings_category">Настройки на порта</string>
     <string name="pref_encryption_category">Шифроване</string>

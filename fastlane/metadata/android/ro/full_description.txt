@@ -1,19 +1,19 @@
-* Licențiat GPLv3+. Utilizați, vedeți, schimbați și distribuiți; Cu toti.
-* Suport pentru BitTorrent 2.0 și WebTorrent
-* Selectați ce fișiere să descărcați.
-* Mutați fișierele în timp ce descarcati.
-* Mută automat fișierele descărcate într-un alt folder sau unitate externă.
-* Transmite fișiere, cu descărcări secvențiale.
+* Licensed GPLv3+. Use, see, change and share; with all.
+* BitTorrent 2.0 and WebTorrent support
+* Select which files to download.
+* Move files while downloading.
+* Auto-move downloaded files to another folder or external drive.
+* Stream files, with sequential downloads.
 * Android TV.
-* Design material, temă întunecată și neagră și interfață de utilizare pentru tabletă.
-* Setări personalizabile pentru rețea, baterie și interfață de utilizare etc.
-* 35+ traduceri.
-* Programare.
-* Descărcare automată, cu manager Atom/RSS.
-* Creați torrente, cu fișiere multe și mari.
-* HTTP\S și link-uri magnet.
-* DHT, PeX, criptare, LSD, UPnP, NAT*PMP, µTP.
-* Filtrare IP (eMule dat și PeerGuardian).
-* Acceptă proxy pentru urmăritori și colegi.
-* Bazat pe libtorrent4j.
-* Și altele.
+* Material design, dark and black theme, and tablet UI.
+* Customisable network, battery, and UI settings, etc.
+* 35+ translations.
+* Scheduling.
+* Auto-downloading, with Atom/RSS manager.
+* Create torrents, with many and big files.
+* HTTP\S and magnet links.
+* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
+* IP filtering (eMule dat and PeerGuardian).
+* Supports proxy for trackers and peers.
+* Based on libtorrent4j.
+* And more.

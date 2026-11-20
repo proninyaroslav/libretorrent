@@ -203,8 +203,7 @@
     <string name="more_details">Детаљније</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nДоступност: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nДоступност: %5$s</string>
     <string name="file_priority_normal">Нормалан</string>
     <string name="file_priority_low">Игнорисан</string>
     <string name="file_priority_high">Висок</string>
@@ -543,8 +542,7 @@
     <string name="select_tag">Изаберите ознаку</string>
     <string name="edit_tag">Измени ознаку</string>
     <string name="download_first_last_pieces">Прво преузмите први и последњи комад</string>
-    <string name="manage_all_files_warning_dialog_description">Не користите Гугл Плеј верзију ЛибреТоррент-а ако желите да сачувате торенте у фасциклама које нису „Преузимања“ и слично.
-\nНа страници пројекта постоје и други извори.</string>
+    <string name="manage_all_files_warning_dialog_description">Не користите Гугл Плеј верзију ЛибреТоррент-а ако желите да сачувате торенте у фасциклама које нису „Преузимања“ и слично. \nНа страници пројекта постоје и други извори.</string>
     <string name="torrent_speed_limit_dialog">Подесите брзину у КиБ/с. Имајте на уму да постављање веће границе на торенту од глобалног ограничења неће надјачати глобално ограничење.</string>
     <string name="error_open_torrent">Није могуће отворити торрент</string>
     <string name="manage_all_files_warning_dialog_title">Упозорење</string>
@@ -583,9 +581,7 @@
     <string name="pref_foreground_notify_sorting_entries_9">Процењено време завршетка (највеће прво)</string>
     <string name="pref_foreground_notify_sorting_entries_11">Популарност (највећа прва)</string>
     <string name="pref_foreground_notify_combined_pause_button_summary">Комбинује два дугмета: паузирај све и настави све. Дугме ће радити као прекидач. Упозорење: стање дугмета није погођено ручним паузирањем/настављањем торента.</string>
-    <string name="pref_default_trackers_list_summary">Листа тракера, која се користи у следећим случајевима:
-\n1. Када се додаје торент, подразумевана листа се аутоматски додаје на листу торената.
-\n2. Користи се за преузимање магнетних линкова.</string>
+    <string name="pref_default_trackers_list_summary">Листа тракера, која се користи у следећим случајевима: \n1. Када се додаје торент, подразумевана листа се аутоматски додаје на листу торената. \n2. Користи се за преузимање магнетних линкова.</string>
     <string name="pref_validate_https_trackers_title">Валидација сертификата HTTPS тракера</string>
     <string name="perm_denied_warning_android_r">Дозвола за приступ свим фајловима је потребна за преузимање торената и приступ .торрент фајловима у произвољним фасциклама. Без ове дозволе, LibreTorrent ће имати приступ само ограниченом броју фасцикли. Да ли сте сигурни да желите да ускратите ову дозволу?</string>
     <string name="pref_locale_title">Језик</string>

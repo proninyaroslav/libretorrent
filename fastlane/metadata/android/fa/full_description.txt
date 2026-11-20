@@ -1,23 +1,19 @@
-# ویژگی‌ها
-
+* Licensed GPLv3+. Use, see, change and share; with all.
 * BitTorrent 2.0 and WebTorrent support
-* DHT, PeX, رمزنگاری, LSD, UPnP, NAT*PMP, µTP
-* فیلتر IP (eMule dat and PeerGuardian)
-* توانایی تنظیم موبه‌مو (تنظیمات شبکه، مدیریت نیرو، مهار باتری، تنظیمات رابط‌کاربری، وغیره.)
-* پشتیبانی از تورنت‌هایی با شمار زیاد پرونده و پرونده‌های بزرگ
-* پشتیبانی از HTTP\S و پیوندهای مگنت
-* پشتیبانی از پروکسی برای ردیاب‌ها و همتا‌ها
-* توانایی انتقال پرونده‌ها هنگام بارگیری
-* توانایی انتقال پرونده‌ها از یک مکان به مکانی دیگر یا درایو خارجی در پایان بارگیری
-* توانایی مشخص‌کردن اولویت‌های پرونده و پوشه
-* توانایی انتخاب اینکه کدام پرونده‌ها بارگیری شوند
-* توانایی بارگیری دنباله‌دار
-* طراحی متریال
-* پوسته تاریک و سیاه
-* رابط کاربری بهینه برای تبلت
-* زمان‌بندی
-* مدیر RSS
-* پشتیبانی از تلویزیون اندروید
-* توانایی ایجاد تورنت‌ها
-* پخش آنلاین هر پرونده انتخابی
-* و بیشتر
+* Select which files to download.
+* Move files while downloading.
+* Auto-move downloaded files to another folder or external drive.
+* Stream files, with sequential downloads.
+* Android TV.
+* Material design, dark and black theme, and tablet UI.
+* Customisable network, battery, and UI settings, etc.
+* 35+ translations.
+* Scheduling.
+* Auto-downloading, with Atom/RSS manager.
+* Create torrents, with many and big files.
+* HTTP\S and magnet links.
+* DHT, PeX, encryption, LSD, UPnP, NAT*PMP, µTP.
+* IP filtering (eMule dat and PeerGuardian).
+* Supports proxy for trackers and peers.
+* Based on libtorrent4j.
+* And more.

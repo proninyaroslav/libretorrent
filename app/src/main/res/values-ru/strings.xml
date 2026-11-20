@@ -209,8 +209,7 @@
     <string name="more_details">Подробнее</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nДоступность: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nДоступность: %5$s</string>
     <string name="file_priority_normal">Нормальный</string>
     <string name="file_priority_low">Игнорируется</string>
     <string name="file_priority_high">Высокий</string>
@@ -544,9 +543,7 @@
     <string name="about_description">Получить больше информации, а также помочь проекту: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent — свободный торрент-клиент для Android 4+, основанный на библиотеке libtorrent (Java обёртка &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;) lib.&lt;br&gt;&lt;br&gt; LibreTorrent является свободным программным обеспечением, выпущенным в соответствии с условиями лицензии &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;</string>
     <string name="about_changelog">Изменения</string>
     <string name="pref_watch_dir_delete_file_title">Удалить .torrent файл после добавления</string>
-    <string name="pref_default_trackers_list_summary">Список трекеров, которые используются в следующих случаях:
-\n1. При добавлении торрента, список по умолчанию автоматически добавляется в список торрента.
-\n2. Используется для скачивания magnet-ссылок.</string>
+    <string name="pref_default_trackers_list_summary">Список трекеров, которые используются в следующих случаях: \n1. При добавлении торрента, список по умолчанию автоматически добавляется в список торрента. \n2. Используется для скачивания magnet-ссылок.</string>
     <string name="pref_default_trackers_list_title">Трекеры по умолчанию</string>
     <string name="pref_foreground_notify_sorting_entries_12">Без сортировки</string>
     <string name="pref_foreground_notify_sorting_entries_11">Популярность (сначала наибольшая)</string>
@@ -573,8 +570,7 @@
     <string name="pref_foreground_notify_combined_pause_button_title">Совмещённая кнопка паузы</string>
     <string name="error_open_torrent">Невозможно открыть торрент</string>
     <string name="perm_denied_warning_android_r">Разрешение на доступ ко всем файлам необходимо для скачивания торрентов и доступа к .torrent файлам. Без этого разрешения LibreTorrent будет иметь доступ только к ограниченному числу папок. Вы действительно хотите отклонить это разрешение?</string>
-    <string name="manage_all_files_warning_dialog_description">Не используйте Google Play версию LibreTorrent, если вы хотите сохранять торренты в папках, отличных от \'Загрузок\' и подобных.
-\nНа странице проекта есть другие источники.</string>
+    <string name="manage_all_files_warning_dialog_description">Не используйте Google Play версию LibreTorrent, если вы хотите сохранять торренты в папках, отличных от \'Загрузок\' и подобных. \nНа странице проекта есть другие источники.</string>
     <string name="manage_all_files_warning_dialog_title">Предупреждение</string>
     <string name="pref_validate_https_trackers_title">Проверять сертификат HTTPS трекеров</string>
     <string name="pref_validate_https_trackers_summary">Сертификат HTTPS трекеров и HTTPS веб-сидов будет проверятся в системном хранилище сертификатов.</string>

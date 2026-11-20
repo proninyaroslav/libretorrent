@@ -74,9 +74,9 @@
     <string name="session_stats_listen_port">Listening-Port: %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Status</string>
-    <string name="drawer_status_downloading">Wird heruntergeladen …</string>
+    <string name="drawer_status_downloading">Wird heruntergeladen …</string>
     <string name="drawer_status_downloaded">Heruntergeladen</string>
-    <string name="drawer_status_downloading_metadata">Metadaten werden heruntergeladen …</string>
+    <string name="drawer_status_downloading_metadata">Metadaten werden heruntergeladen …</string>
     <string name="drawer_status_error">Fehler</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Sortierung</string>
@@ -201,8 +201,7 @@
     <string name="more_details">Weitere Details</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nVerfügbarkeit: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nVerfügbarkeit: %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorieren</string>
     <string name="file_priority_high">Hoch</string>
@@ -542,9 +541,7 @@
     <string name="pref_foreground_notify_sorting_entries_4">Größe (kleinste zuerst)</string>
     <string name="pref_foreground_notify_sorting_entries_1">Name (Z-A)</string>
     <string name="pref_foreground_notify_sorting_entries_12">Keine Sortierung</string>
-    <string name="pref_default_trackers_list_summary">Liste von Trackern, die in folgenden Fällen verwendet werden:
-\n1. Beim Hinzufügen eines Torrents wird die Standart-Liste automatisch zu der Torrent-Liste hinzugefügt.
-\n2. Verwendet zum Holen von Magnet-Links.</string>
+    <string name="pref_default_trackers_list_summary">Liste von Trackern, die in folgenden Fällen verwendet werden: \n1. Beim Hinzufügen eines Torrents wird die Standart-Liste automatisch zu der Torrent-Liste hinzugefügt. \n2. Verwendet zum Holen von Magnet-Links.</string>
     <string name="download_first_last_pieces">Lade erste und letzte Teile zuerst herunter</string>
     <string name="pref_foreground_notify_status_filter">Statusfilter</string>
     <string name="pref_foreground_notify_sorting_entries_6">Fortschritt (kleinster zuerst)</string>
@@ -560,8 +557,7 @@
     <string name="journal_filter_dht_log">DHT-Protokoll</string>
     <string name="perm_denied_warning_android_r">Die Berechtigung zum Zugriff auf alle Dateien ist erforderlich, um Torrents herunterzuladen und um auf .torrent-Dateien in beliebigen Ordnern zuzugreifen. Ohne diese Berechtigung kann LibreTorrent nur auf eine begrenzte Anzahl von Ordnern zugreifen. Sind Sie sich sicher, dass Sie diese Berechtigung verweigern möchten?</string>
     <string name="manage_all_files_warning_dialog_title">Warnung</string>
-    <string name="manage_all_files_warning_dialog_description">Verwende nicht die Google Play-Version von LibreTorrent, wenn du die Torrents in anderen Ordnern als \'Downloads\' und ähnlichen speichern willst.
-\nAndere Quellen gibt es auf der Projektseite.</string>
+    <string name="manage_all_files_warning_dialog_description">Verwende nicht die Google Play-Version von LibreTorrent, wenn du die Torrents in anderen Ordnern als \'Downloads\' und ähnlichen speichern willst. \nAndere Quellen gibt es auf der Projektseite.</string>
     <string name="journal_filter_torrent_log">Torrent-Protokoll</string>
     <string name="pref_foreground_notify_sorting_entries_11">Beliebtheit (höchste zuerst)</string>
     <string name="pref_foreground_notify_combined_pause_button_title">Kombinierte Pause-Schaltfläche</string>
@@ -575,7 +571,7 @@
     <string name="pref_foreground_notify_sorting_entries_9">Zeit verbleibend (größte zuerst)</string>
     <string name="apply_settings_after_reboot">Änderungen werden nach einem Neustart der App angewendet.</string>
     <string name="pref_posix_disk_io_title">POSIX-Festplatten-E/A</string>
-    <string name="pref_posix_disk_io_summary">Hinweis: Diese Option ist nur in bestimmten Situationen zu verwenden, z. B. für die Unterstützung einiger SD-Karten-Dateisysteme. Aktiviert ein einfaches POSIX-Festplatten-E/A, das für Systeme verwendet wird, die keinen virtuellen 64-Bit-Adressraum haben oder keine speicherabbildenden Dateien unterstützen.</string>
+    <string name="pref_posix_disk_io_summary">Hinweis: Diese Option ist nur in bestimmten Situationen zu verwenden, z. B. für die Unterstützung einiger SD-Karten-Dateisysteme. Aktiviert ein einfaches POSIX-Festplatten-E/A, das für Systeme verwendet wird, die keinen virtuellen 64-Bit-Adressraum haben oder keine speicherabbildenden Dateien unterstützen.</string>
     <string name="go_to_folder">Zum Ordner gehen</string>
     <string name="torrent_version">Torrent-Version</string>
     <string name="torrent_version_entries_hybrid">Hybrid</string>

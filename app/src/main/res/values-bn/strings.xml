@@ -418,8 +418,7 @@
     <string name="torrent_active_time">সক্রিয় সময়</string>
     <string name="torrent_share_ratio">শেয়ার অনুপাত</string>
     <string name="dialog_change_priority_title">অগ্রাধিকার পরিবর্তন</string>
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nউপলভ্যতা: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nউপলভ্যতা: %5$s</string>
     <string name="more_details">আরো বিস্তারিত</string>
     <string name="parent_folder">উপরের ফোল্ডার</string>
     <string name="replace_file">ফাইল প্রতিস্থাপন করো</string>
@@ -578,9 +577,7 @@
     <string name="pref_validate_https_trackers_summary">HTTPS ট্র্যাকার ও ওয়েব বপক এর অনুমতিপত্র সিস্টেম অনুমতিপত্র দোকানে যাচাই করো।</string>
     <string name="perm_denied_warning_android_r">টরেন্ট নামাতে ও .torrent নথি পড়তে, সব ফাইল পরিবর্তনের অনুমতি প্রয়োজন। এই অনুমতি ছাড়া লিবরেটরেন্ট শুধু নির্দিষ্ট কয়েকটি ফোল্ডার পড়তে পারবে। তুমি কি এই অনুমতি অস্বীকার ব্যাপারে নিশ্চিত?</string>
     <string name="exact_alarm_permission_warning">এই সময়সূচি কাজ করাতে হলে, তোমার একটি বিশেষ সিস্টেম বক্তব্যে অনুমতি দিতে হবে। আগাবে?</string>
-    <string name="pref_default_trackers_list_summary">ট্র্যাকার তালিকা, এইসব ক্ষেত্রে ব্যবহৃত হয়:
-\n১. যখন টরেন্ট যোগ করা হয়, সহজাত তালিকা টরেন্টের তালিকায় স্বয়ংক্রিয়ভাবে যুক্ত হয়ে যায়।
-\n২. ম্যাগনেট সংযোগ আনার জন্য ব্যবহৃত হয়।</string>
+    <string name="pref_default_trackers_list_summary">ট্র্যাকার তালিকা, এইসব ক্ষেত্রে ব্যবহৃত হয়: \n১. যখন টরেন্ট যোগ করা হয়, সহজাত তালিকা টরেন্টের তালিকায় স্বয়ংক্রিয়ভাবে যুক্ত হয়ে যায়। \n২. ম্যাগনেট সংযোগ আনার জন্য ব্যবহৃত হয়।</string>
     <string name="pref_posix_disk_io_summary">মনে রেখো: এই পছন্দটি নির্দিষ্ট কিছু অবস্থাতেই শুধু কাজ করে, যেমন এসডি কার্ড নথিব্যবস্থায়। একটি সহজ পোজিক্স ডিস্ক ইন/আউ, ব্যবহৃত হয় সেই ব্যবস্থাগুলোর জন্য যেগুলো ৬৪-বিট কৃত্রিম ঠিকানা ব্যবহার করতে অপারগ বা মেমরি ম্যাপকৃত নথি সমর্থন করে না।</string>
     <string name="pref_locale_title">ভাষা</string>
     <string name="error_select_folder">বাছাই করা ফোল্ডারটি খোলা যাচ্ছেনা</string>

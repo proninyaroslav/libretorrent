@@ -17,13 +17,13 @@
     <string name="search">Chercher</string>
     <string name="not_available">s.o.</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d j %2$d h %3$d min</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d j %2$d h %3$d min</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
     <!-- 1 s -->
-    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="def">Défaut</string>
     <string name="foreground_notification">Notification de premier plan</string>
     <string name="link">Lien</string>
@@ -47,8 +47,8 @@
     <string name="switch_on">Activé</string>
     <!-- Main window -->
     <string name="delete_torrent_with_downloaded_files">Supprimer aussi le contenu téléchargé</string>
-    <string name="delete_selected_torrent">Supprimer le torrent sélectionné ? (Impossible d’annuler.)</string>
-    <string name="delete_selected_torrents">Supprimer les torrents sélectionnés ? (Impossible d\'annuler.)</string>
+    <string name="delete_selected_torrent">Supprimer le torrent sélectionné ? (Impossible d’annuler.)</string>
+    <string name="delete_selected_torrents">Supprimer les torrents sélectionnés ? (Impossible d\'annuler.)</string>
     <string name="force_recheck_torrent">Forcer la revérification</string>
     <string name="force_announce_torrent">Forcer-l\'annonce</string>
     <string name="add_link">Ajouter un lien</string>
@@ -60,17 +60,17 @@
     <string name="error_open_torrent_file">Impossible d\'ouvrir le fichier .torrent</string>
     <string name="open_file">Ouvrir un fichier</string>
     <string name="settings">Paramètres</string>
-    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Le fichier est peut-être endommagé ou à un format incorrect ?</string>
+    <string name="ip_filter_add_error">Impossible d\'ajouter le filtre IP (%1$d a échoué). Le fichier est peut-être endommagé ou à un format incorrect ?</string>
     <string name="ip_filter_add_success">Le filtre IP a été ajouté</string>
     <string name="proxy_settings_applied">Utilisation des nouveaux paramètres du serveur proxy.</string>
     <string name="proxy_settings_apply_after_reboot">Redémarrez l\'application pour utiliser les nouveaux paramètres du proxy.</string>
     <string name="theme_settings_apply_after_reboot">Redémarrez l\'application pour utiliser le nouveau thème.</string>
     <string name="about">À propos</string>
     <!-- Navigation drawer -->
-    <string name="session_stats_dht_nodes">Nœuds DHT : %1$d</string>
+    <string name="session_stats_dht_nodes">Nœuds DHT : %1$d</string>
     <!-- total download/upload • download/upload speed -->
     <string name="session_stats_download_upload">%1$s • %2$s/s</string>
-    <string name="session_stats_listen_port">Écoute du port : %1$s</string>
+    <string name="session_stats_listen_port">Écoute du port : %1$s</string>
     <!-- Status -->
     <string name="drawer_status">Statut</string>
     <string name="drawer_status_downloading">Téléchargement en cours…</string>
@@ -119,7 +119,7 @@
     <string name="notify_shutting_down">Arrêt en cours…</string>
     <!-- Error notification -->
     <string name="torrent_error_notify_title">Erreur de torrent</string>
-    <string name="error_template">Erreur : %1$s</string>
+    <string name="error_template">Erreur : %1$s</string>
     <string name="restore_torrent_error">Impossible de restaurer le torrent de la session précédente.</string>
     <string name="session_error_title">Erreur de session</string>
     <!-- ip_address:port, type (error: error_msg)-->
@@ -207,8 +207,7 @@
     <string name="more_details">Plus de détails</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nDisponibilité : %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nDisponibilité : %5$s</string>
     <string name="file_priority_normal">Normal</string>
     <string name="file_priority_low">Ignorer</string>
     <string name="file_priority_high">Haute</string>
@@ -541,17 +540,14 @@
     <string name="log_journal">Journal</string>
     <string name="switch_off">Désactivé</string>
     <string name="torrent_seeds">Sources</string>
-    <string name="pref_default_trackers_list_summary">Liste des traqueurs qui sont utilisés dans les cas suivants :
-\n1. Lors de l\'ajout d\'un torrent, la liste par défaut est automatiquement ajoutée à la liste de torrents.
-\n2. Utilisés pour récupérer les liens magnétiques.</string>
+    <string name="pref_default_trackers_list_summary">Liste des traqueurs qui sont utilisés dans les cas suivants : \n1. Lors de l\'ajout d\'un torrent, la liste par défaut est automatiquement ajoutée à la liste de torrents. \n2. Utilisés pour récupérer les liens magnétiques.</string>
     <string name="pref_default_trackers_list_title">Traqueurs par défaut</string>
     <string name="pref_watch_dir_delete_file_title">Supprimer le fichier .torrent après l\'avoir ajouté</string>
     <string name="pref_foreground_notify_status_filter_entries_3">Téléchargement des métadonnées…</string>
     <string name="error_open_torrent">Impossible d\'ouvrir le torrent</string>
     <string name="pref_foreground_notify_status_filter_entries_0">Tous</string>
     <string name="pref_foreground_notify_status_filter_entries_2">Téléchargé</string>
-    <string name="manage_all_files_warning_dialog_description">N\'utilisez pas la version Google Play de LibreTorrent si vous souhaitez enregistrer des torrents dans des dossiers autres que \" Téléchargements \" et similaires.
-\nIl existe d\'autres sources sur la page du projet.</string>
+    <string name="manage_all_files_warning_dialog_description">N\'utilisez pas la version Google Play de LibreTorrent si vous souhaitez enregistrer des torrents dans des dossiers autres que \" Téléchargements \" et similaires. \nIl existe d\'autres sources sur la page du projet.</string>
     <string name="perm_denied_warning_android_r">L\'autorisation d\'accès à tous les fichiers est nécessaire pour télécharger des torrents et accéder aux fichiers .torrent dans des dossiers arbitraires. Sans cette autorisation, LibreTorrent n\'aura accès qu\'à un nombre limité de dossiers. Êtes-vous sûr de vouloir refuser cette autorisation ?</string>
     <string name="pref_foreground_notify_status_filter_entries_1">En cours de téléchargement…</string>
     <string name="pref_foreground_notify_status_filter_entries_4">Erreur</string>

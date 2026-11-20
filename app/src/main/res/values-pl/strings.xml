@@ -207,8 +207,7 @@
     <string name="more_details">Więcej szczegółów</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nDostępność: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nDostępność: %5$s</string>
     <string name="file_priority_normal">Normalny</string>
     <string name="file_priority_low">Pomiń</string>
     <string name="file_priority_high">Wysoki</string>
@@ -541,9 +540,7 @@
     <string name="about_description">Więcej informacji i jak pomóc przy projekcie: &lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent jest wolnym na licencji copyleft (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;) klientem Torrent dla Androida 4+, bazującym na bibliotece libtorrent (Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;).&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">Dziennik zmian</string>
     <string name="folder">Folder</string>
-    <string name="pref_default_trackers_list_summary">Lista trackerów, która jest używana w następujących przypadkach:
-\n1. Podczas dodawania torrenta domyślna lista jest automatycznie dodawana do listy torrentów.
-\n2. Używana do pobierania linków magnet.</string>
+    <string name="pref_default_trackers_list_summary">Lista trackerów, która jest używana w następujących przypadkach: \n1. Podczas dodawania torrenta domyślna lista jest automatycznie dodawana do listy torrentów. \n2. Używana do pobierania linków magnet.</string>
     <string name="pref_default_trackers_list_title">Domyślne trackery</string>
     <string name="pref_watch_dir_delete_file_title">Usuwaj plik .torrent po dodaniu</string>
     <string name="pref_foreground_notify_status_filter">Filtr statusów</string>

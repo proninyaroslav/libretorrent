@@ -17,13 +17,13 @@
     <string name="search">Cerca</string>
     <string name="not_available">N/D</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d d %2$d h %3$d min</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d d %2$d h %3$d min</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
     <!-- 1 s -->
-    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="def">Predefinito</string>
     <string name="foreground_notification">Notifica in primo piano</string>
     <string name="link">Collegamento</string>
@@ -203,8 +203,7 @@
     <string name="more_details">Mostra dettagli</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\nDisponibilità: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \nDisponibilità: %5$s</string>
     <string name="file_priority_normal">Normale</string>
     <string name="file_priority_low">Ignora</string>
     <string name="file_priority_high">Alta</string>
@@ -542,9 +541,7 @@
     <string name="select_tag">Seleziona l\'etichetta</string>
     <string name="edit_tag">Modifica l\'etichetta</string>
     <string name="drawer_sorting_peers">Popolarità</string>
-    <string name="pref_default_trackers_list_summary">L\'elenco dei tracker è utilizzato nei seguenti casi:
-\n1. Usato quando si aggiunge un torrent. L\'elenco predefinito viene aggiunto automaticamente all\'elenco dei torrent.
-\n2. Usato per recuperare i magnet link.</string>
+    <string name="pref_default_trackers_list_summary">L\'elenco dei tracker è utilizzato nei seguenti casi: \n1. Usato quando si aggiunge un torrent. L\'elenco predefinito viene aggiunto automaticamente all\'elenco dei torrent. \n2. Usato per recuperare i magnet link.</string>
     <string name="perm_denied_warning_android_r">L\'autorizzazione di accesso a tutti i file è necessaria per scaricare i torrent e accedere ai file .torrent in cartelle arbitrarie. Senza questa autorizzazione, LibreTorrent avrà accesso solo a un numero limitato di cartelle. Sei sicuro di voler negare questa autorizzazione?</string>
     <string name="pref_foreground_notify_status_filter">Filtro di stato</string>
     <string name="pref_foreground_notify_status_filter_entries_4">Errore</string>
@@ -569,8 +566,7 @@
     <string name="pref_foreground_notify_sorting">Ordinamento</string>
     <string name="pref_foreground_notify_sorting_entries_9">ETA (più grande)</string>
     <string name="exact_alarm_permission_warning">Affinché il pianificatore funzioni, è necessario ottenere l\'autorizzazione in una speciale finestra di dialogo di sistema. Procedere?</string>
-    <string name="manage_all_files_warning_dialog_description">Non utilizzare la versione su Google Play di LibreTorrent se si desidera salvare i torrent in cartelle diverse da \"Download\" e simili.
-\nCi sono altre fonti nella pagina del progetto.</string>
+    <string name="manage_all_files_warning_dialog_description">Non utilizzare la versione su Google Play di LibreTorrent se si desidera salvare i torrent in cartelle diverse da \"Download\" e simili. \nCi sono altre fonti nella pagina del progetto.</string>
     <string name="manage_all_files_warning_dialog_title">Attenzione</string>
     <string name="download_first_last_pieces">Scarica la prima e l\'ultima parte per prime</string>
     <string name="torrent_speed_limit_dialog">Imposta la velocità in KiB/s. Se imposti un limite più alto su un torrent rispetto a quello globale, esso non avrà effetto.</string>

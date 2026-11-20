@@ -208,8 +208,7 @@
     <string name="more_details">詳細</string>
     <!-- Detail torrent dialog -->
     <!-- priority • downloaded/total • percent • availability -->
-    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% •
-\n利用可能: %5$s</string>
+    <string name="file_downloading_status_template">%1$s • %2$s/%3$s • %4$d%% • \n利用可能: %5$s</string>
     <string name="file_priority_normal">標準</string>
     <string name="file_priority_low">無視</string>
     <string name="file_priority_high">高</string>
@@ -541,9 +540,7 @@
     <string name="about_title">バージョン情報</string>
     <string name="about_description">追加情報とプロジェクトの支援方法:&lt;a href=https://gitlab.com/proninyaroslav/libretorrent&gt;https://gitlab.com/proninyaroslav/libretorrent&lt;/a&gt;&lt;br&gt;&lt;br&gt; LibreTorrent は libtorrent ライブラリに基づく Android 4+ 用のコピーレフト化した自由 (&lt;a href=https://www.gnu.org/copyleft/gpl.html&gt;GPLv3+&lt;/a&gt;)なトレントクライアントです(Java wrapper &lt;a href=https://github.com/aldenml/libtorrent4j&gt;libtorrent4j&lt;/a&gt;)。&lt;br&gt;&lt;br&gt;</string>
     <string name="about_changelog">更新履歴</string>
-    <string name="pref_default_trackers_list_summary">以下のような場合に使用されるトラッカー一覧です。
-\n1. トレントを追加したとき、その規定の一覧がトレント一覧に自動的に追加される。
-\n2. マグネットリンクの取得に使用される。</string>
+    <string name="pref_default_trackers_list_summary">以下のような場合に使用されるトラッカー一覧です。 \n1. トレントを追加したとき、その規定の一覧がトレント一覧に自動的に追加される。 \n2. マグネットリンクの取得に使用される。</string>
     <string name="pref_default_trackers_list_title">規定のトラッカー</string>
     <string name="pref_watch_dir_delete_file_title">.torrent ファイルを追加後に削除</string>
     <string name="pref_foreground_notify_sorting_entries_11">人気(最高を最初に)</string>
@@ -573,8 +570,7 @@
     <string name="exact_alarm_permission_warning">スケジューラーを動作させるには、特別なシステムダイアログで許可を得る必要があります。実行しますか？</string>
     <string name="perm_denied_warning_android_r">トレントをダウンロードし、任意のフォルダにある .torrent ファイルにアクセスするには、全ファイルにアクセスする許可が必要です。この許可がない場合、 LibreTorrent は限られた数のフォルダにしかアクセスできません。本当にこの許可を拒否しますか?</string>
     <string name="manage_all_files_warning_dialog_title">警告</string>
-    <string name="manage_all_files_warning_dialog_description">\'Downloads\' と類似のとは別のフォルダにtorrentを保存したいならば、LibreTorrent の Google Play 版を使用しないでください。
-\n他の配布元は、プロジェクトのページにあります。</string>
+    <string name="manage_all_files_warning_dialog_description">\'Downloads\' と類似のとは別のフォルダにtorrentを保存したいならば、LibreTorrent の Google Play 版を使用しないでください。 \n他の配布元は、プロジェクトのページにあります。</string>
     <string name="pref_validate_https_trackers_title">HTTPS トラッカーの証明書を検証する</string>
     <string name="download_first_last_pieces">最初と最後のピースを最初にダウンロード</string>
     <string name="pref_validate_https_trackers_summary">HTTPS トラッカーと HTTPS ウェブシードの証明書は、システムの証明書ストアで検証されます。</string>
